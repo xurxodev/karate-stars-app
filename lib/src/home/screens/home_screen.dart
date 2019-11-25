@@ -1,38 +1,80 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/widgets/app_bar_title.dart';
+import 'package:karate_stars_app/src/competitors/screens/competitors_screen.dart';
+import 'package:karate_stars_app/src/news/screens/news_screen.dart';
+import 'package:karate_stars_app/src/settings/screens/settings_screen.dart';
+import 'package:karate_stars_app/src/videos/screens/videos_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-/*  int _counter = 0;
+  int _currentTab = 0;
+  PageController _pageController;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }*/
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-            child: Text(
-          'Home Screen',
-          style: Theme.of(context).textTheme.display1,
-        )));
+      appBar: AppBar(title: AppBarTitle()),
+      body: PageView(
+        controller: _pageController,
+        children: <Widget>[
+          NewsScreen(),
+          CompetitorsScreen(),
+          VideosScreen(),
+          SettingsScreen(),
+        ],
+        onPageChanged: (int index) {
+          setState(() {
+            _currentTab = index;
+          });
+        },
+      ),
+      bottomNavigationBar: CupertinoTabBar(
+        currentIndex: _currentTab,
+        onTap: (int index) {
+          setState(() {
+            _currentTab = index;
+          });
+          _pageController.animateToPage(
+            index,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.easeIn,
+          );
+        },
+        activeColor: Colors.red,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.view_quilt,
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person_outline,
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.video_library,
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
