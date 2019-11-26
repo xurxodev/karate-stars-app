@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
-  static final String id = 'feed_screen';
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -13,7 +12,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Center(
-        child: Text('Settings'),
+        child: const Text('Settings'),
         ),
     );
   }

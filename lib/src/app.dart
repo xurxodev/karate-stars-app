@@ -5,7 +5,7 @@ import 'package:karate_stars_app/src/common/custom_colors.dart';
 import 'package:karate_stars_app/src/home/screens/home_screen.dart';
 
 class App extends StatelessWidget {
-  static const String title = "Karate Stars";
+  static const String title = 'Karate Stars';
 
   @override
   Widget build(BuildContext context) {

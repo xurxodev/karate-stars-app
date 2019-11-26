@@ -6,10 +6,10 @@ class AppBarTitle extends StatelessWidget {
     return Row(
       children: <Widget>[
         Image.asset(
-          "assets/images/logo.png",
+          'assets/images/logo.png',
           width: 40,
         ),
-        new SizedBox(
+        const SizedBox(
           width: 8.0,
         ),
         Text(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class VideosScreen extends StatefulWidget {
-  static final String id = 'feed_screen';
 
   @override
   _VideosScreenState createState() => _VideosScreenState();
@@ -13,7 +12,7 @@ class _VideosScreenState extends State<VideosScreen> {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Center(
-        child: Text('Videos'),
+        child: const Text('Videos'),
         ),
     );
   }
