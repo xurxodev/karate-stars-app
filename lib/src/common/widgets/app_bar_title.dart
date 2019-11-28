@@ -12,7 +12,7 @@ class AppBarTitle extends StatelessWidget {
         const SizedBox(
           width: 8.0,
         ),
-        Text(
+        const Text(
           'Karate Stars',
           style: TextStyle(
             fontFamily: 'Billabong',

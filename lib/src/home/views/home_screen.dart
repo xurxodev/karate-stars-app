@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/widgets/app_bar_title.dart';
-import 'package:karate_stars_app/src/competitors/screens/competitors_screen.dart';
-import 'package:karate_stars_app/src/news/screens/news_screen.dart';
-import 'package:karate_stars_app/src/settings/screens/settings_screen.dart';
-import 'package:karate_stars_app/src/videos/screens/videos_screen.dart';
-
+import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
+import 'package:karate_stars_app/src/news/views/news_page_view.dart';
+import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
+import 'package:karate_stars_app/src/videos/views/videos_page_view.dart';
 class HomeScreen extends StatefulWidget {
+  const HomeScreen() : super(key: const Key('home_screen'));
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -27,11 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(title: AppBarTitle()),
       body: PageView(
         controller: _pageController,
-        children: <Widget>[
-          NewsScreen(),
-          CompetitorsScreen(),
-          VideosScreen(),
-          SettingsScreen(),
+        children: const <Widget> [
+          NewsPageView(),
+          CompetitorsPageView(),
+          VideosPageView(),
+          SettingsPageView(),
         ],
         onPageChanged: (int index) {
           setState(() {
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
           });
           _pageController.animateToPage(
             index,
-            duration: Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 200),
             curve: Curves.easeIn,
           );
         },
