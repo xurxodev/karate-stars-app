@@ -5,14 +5,21 @@ import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
 import 'package:karate_stars_app/src/news/views/news_page_view.dart';
 import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
 import 'package:karate_stars_app/src/videos/views/videos_page_view.dart';
-class HomeScreen extends StatefulWidget {
-  const HomeScreen() : super(key: const Key('home_screen'));
+class HomePage extends StatefulWidget {
+  const HomePage() : super(key: const Key(id));
+
+  static const id = 'home_page';
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
+  static const newsTabId = 'news_tab';
+  static const competitorTabId = 'competitor_tab';
+  static const videosTabId = 'videos_tab';
+  static const settingsTabId = 'settings_tab';
+
   int _currentTab = 0;
   PageController _pageController;
 
@@ -57,21 +64,25 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.view_quilt,
+              key:const Key(newsTabId),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person_outline,
+              key:const Key(competitorTabId),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.video_library,
+              key:const Key(videosTabId),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.settings,
+              key:const Key(settingsTabId),
             ),
           ),
         ],

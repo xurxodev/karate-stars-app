@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SettingsPageView extends StatefulWidget {
-  const SettingsPageView() : super(key: const Key('settings_page_view'));
+  const SettingsPageView() : super(key: const Key(id));
+
+  static const id = 'settings_page_view';
 
   @override
   _SettingsPageViewState createState() => _SettingsPageViewState();

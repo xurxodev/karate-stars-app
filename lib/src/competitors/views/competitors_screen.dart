@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CompetitorsPageView extends StatefulWidget {
-  const CompetitorsPageView() : super(key: const Key('competitors_page_view'));
+  const CompetitorsPageView() : super(key: const Key(id));
+
+  static const id = 'competitors_page_view';
 
   @override
   _CompetitorsPageViewState createState() => _CompetitorsPageViewState();

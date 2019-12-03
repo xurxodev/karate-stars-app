@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class NewsPageView extends StatefulWidget {
-  const NewsPageView() : super(key: const Key('news_page_view'));
+
+  const NewsPageView() : super(key: const Key(id));
+
+  static const id = 'news_page_view';
 
   @override
   _NewsPageViewState createState() => _NewsPageViewState();
