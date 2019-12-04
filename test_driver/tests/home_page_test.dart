@@ -4,16 +4,6 @@ import 'package:test/test.dart';
 import '../page_objects/home/home_page_object.dart';
 
 void homePageTests() {
-  const newsPageViewId = 'news_page_view';
-  const competitorsPageViewId = 'competitors_page_view';
-  const videosPageViewId = 'videos_page_view';
-  const settingsPageViewId = 'settings_page_view';
-
-  const newsTabId = 'news_tab';
-  const competitorTabId = 'competitor_tab';
-  const videosTabId = 'videos_tab';
-  const settingsTabId = 'settings_tab';
-
   group('home page', () {
     FlutterDriver driver;
     HomePageObject homePage;
