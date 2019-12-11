@@ -27,6 +27,11 @@ class HomePageObject {
   final _videosTabFinder = find.byValueKey('videos_tab');
   final _settingsTabFinder = find.byValueKey('settings_tab');
 
+  final _appBarTitleFinder = find.byValueKey('app_bar_title');
+
+  Future<String> appBarTitle({Duration timeout}) =>
+      _driver.getText(_appBarTitleFinder, timeout: timeout);
+
   Future<void> isReady({Duration timeout}) =>
       _driver.waitFor(_homePageFinder, timeout: timeout);
 

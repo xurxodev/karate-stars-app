@@ -10,6 +10,8 @@ class AppBarTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> children = [];
 
+    const Key titleKey = Key('app_bar_title');
+
     if (showIcon) {
       children.addAll([
         Image.asset(
@@ -20,12 +22,14 @@ class AppBarTitle extends StatelessWidget {
           width: 8.0,
         ),
         Text(title,
+            key: titleKey,
             style: TextStyle(
                 fontFamily: 'Billabong',
                 fontSize: 30))
       ]);
     } else {
       children.add(Text(title,
+          key: titleKey,
           style: TextStyle(
               fontSize: Theme.of(context).textTheme.title.fontSize)));
     }
