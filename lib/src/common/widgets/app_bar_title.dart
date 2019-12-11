@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 class AppBarTitle extends StatelessWidget {
+  final String title;
+  final bool showIcon;
+
+  const AppBarTitle(this.title, this.showIcon);
+
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
+    final List<Widget> children = [];
+
+    if (showIcon) {
+      children.addAll([
         Image.asset(
           'assets/images/logo.png',
           width: 40,
@@ -12,14 +19,18 @@ class AppBarTitle extends StatelessWidget {
         const SizedBox(
           width: 8.0,
         ),
-        const Text(
-          'Karate Stars',
+        Text(title,
+            style: TextStyle(
+                fontFamily: 'Billabong',
+                fontSize: 30))
+      ]);
+    } else {
+      children.add(Text(title,
           style: TextStyle(
-            fontFamily: 'Billabong',
-            fontSize: 35.0,
-          ),
-        )
-      ],
-    );
+              fontSize: Theme.of(context).textTheme.title.fontSize)));
+    }
+
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.center, children: children);
   }
 }

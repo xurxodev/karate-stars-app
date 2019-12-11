@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class NewsPageView extends StatefulWidget {
-
   const NewsPageView() : super(key: const Key(id));
 
   static const id = 'news_page_view';
@@ -14,10 +13,10 @@ class _NewsPageViewState extends State<NewsPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
-      body: const Center(
+        body: SafeArea(
+      child: const Center(
         child: Text('News'),
-        ),
-    );
+      ),
+    ));
   }
 }

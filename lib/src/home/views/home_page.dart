@@ -5,6 +5,7 @@ import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
 import 'package:karate_stars_app/src/news/views/news_page_view.dart';
 import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
 import 'package:karate_stars_app/src/videos/views/videos_page_view.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage() : super(key: const Key(id));
 
@@ -31,21 +32,25 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final title = getTitle();
+
     return Scaffold(
-      appBar: AppBar(title: AppBarTitle()),
-      body: PageView(
-        controller: _pageController,
-        children: const <Widget> [
-          NewsPageView(),
-          CompetitorsPageView(),
-          VideosPageView(),
-          SettingsPageView(),
-        ],
-        onPageChanged: (int index) {
-          setState(() {
-            _currentTab = index;
-          });
-        },
+      appBar: AppBar(title: AppBarTitle(title, _currentTab == 0)),
+      body: SafeArea(
+        child: PageView(
+          controller: _pageController,
+          children: const <Widget>[
+            NewsPageView(),
+            CompetitorsPageView(),
+            VideosPageView(),
+            SettingsPageView(),
+          ],
+          onPageChanged: (int index) {
+            setState(() {
+              _currentTab = index;
+            });
+          },
+        ),
       ),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _currentTab,
@@ -64,29 +69,41 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.view_quilt,
-              key:const Key(newsTabId),
+              key: const Key(newsTabId),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person_outline,
-              key:const Key(competitorTabId),
+              key: const Key(competitorTabId),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.video_library,
-              key:const Key(videosTabId),
+              key: const Key(videosTabId),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.settings,
-              key:const Key(settingsTabId),
+              key: const Key(settingsTabId),
             ),
           ),
         ],
       ),
     );
+  }
+
+  String getTitle() {
+    if (_currentTab == 0) {
+      return 'Karate Stars';
+    } else if (_currentTab == 1) {
+      return 'Competitors';
+    } else if (_currentTab == 2) {
+      return 'Videos';
+    } else {
+      return 'Settings';
+    }
   }
 }
