@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/common/widgets/app_bar_title.dart';
 import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
 import 'package:karate_stars_app/src/news/views/news_page_view.dart';
@@ -97,13 +98,13 @@ class _HomePageState extends State<HomePage> {
 
   String getTitle() {
     if (_currentTab == 0) {
-      return 'Karate Stars';
+      return Strings.home_appbar_title_default;
     } else if (_currentTab == 1) {
-      return 'Competitors';
+      return Strings.home_appbar_title_competitors;
     } else if (_currentTab == 2) {
-      return 'Videos';
+      return Strings.home_appbar_title_videos;
     } else {
-      return 'Settings';
+      return Strings.home_appbar_title_settings;
     }
   }
 }
