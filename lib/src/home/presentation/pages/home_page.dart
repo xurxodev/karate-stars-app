@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/app_bar_title.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/common/widgets/app_bar_title.dart';
 import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
-import 'package:karate_stars_app/src/news/views/news_page_view.dart';
+import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
 import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
 import 'package:karate_stars_app/src/videos/views/videos_page_view.dart';
 
@@ -40,11 +40,11 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: PageView(
           controller: _pageController,
-          children: const <Widget>[
-            NewsPageView(),
-            CompetitorsPageView(),
-            VideosPageView(),
-            SettingsPageView(),
+          children: <Widget>[
+            NewsPageView.create(),
+            const CompetitorsPageView(),
+            const VideosPageView(),
+            const SettingsPageView(),
           ],
           onPageChanged: (int index) {
             setState(() {

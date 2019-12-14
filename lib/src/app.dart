@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:karate_stars_app/src/common/custom_colors.dart';
-import 'package:karate_stars_app/src/home/views/home_page.dart';
+import 'package:karate_stars_app/src/home/presentation/pages/home_page.dart';
 
 class App extends StatelessWidget {
   static const String title = 'Karate Stars';
@@ -15,10 +15,12 @@ class App extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: whiteMaterial,
+        accentColor: Colors.red,
         scaffoldBackgroundColor: Colors.grey[300]
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        accentColor: Colors.red,
       ),
       home: const HomePage(),
     );
