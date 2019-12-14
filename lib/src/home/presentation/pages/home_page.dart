@@ -40,11 +40,11 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: PageView(
           controller: _pageController,
-          children: <Widget>[
-            NewsPageView.create(),
-            const CompetitorsPageView(),
-            const VideosPageView(),
-            const SettingsPageView(),
+          children: const <Widget>[
+            NewsPageView(),
+            CompetitorsPageView(),
+            VideosPageView(),
+            SettingsPageView(),
           ],
           onPageChanged: (int index) {
             setState(() {

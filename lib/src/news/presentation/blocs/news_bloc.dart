@@ -12,18 +12,19 @@ class NewsBloc implements BlocBase {
   //final _newsFilterController = StreamController<NewsFilter>.broadcast();
   final _newsController = StreamController<List<News>>.broadcast();
 
-  NewsBloc(this._getNewsUseCase) {
-    loadData(ReadPolicy.cache_first, NewsFilter.all);
+  NewsBloc(this._getNewsUseCase){
+    _loadData(ReadPolicy.cache_first, NewsFilter.all);
   }
 
+  List<News> _news = [];
   Stream<List<News>> get news => _newsController.stream;
+  List<News> get initialState => _news;
 
-  void loadData(ReadPolicy readPolicy, NewsFilter newsFilter) {
+  void _loadData(ReadPolicy readPolicy, NewsFilter newsFilter) {
     _getNewsUseCase.execute(readPolicy, newsFilter).then((news) {
-      print(news);
-      _newsController.sink.add(news);
+      _news = news;
+      _newsController.sink.add(_news);
     }).catchError((error) {
-      print(error);
       _newsController.sink.addError(error);
     });
   }
