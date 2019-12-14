@@ -23,7 +23,7 @@ class AppBarTitle extends StatelessWidget {
         ),
         Text(title,
             key: titleKey,
-            style: TextStyle(
+            style: const TextStyle(
                 fontFamily: 'Billabong',
                 fontSize: 30))
       ]);
