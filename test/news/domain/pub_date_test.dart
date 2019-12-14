@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:karate_stars_app/src/news/pub_date.dart';
+import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
 
 void main() {
   group('PubDate should', () {
@@ -9,7 +9,7 @@ void main() {
 
     test('return antiquity 1d if pub date ago is 24 hours', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(hours: 24).inMilliseconds;
+          const Duration(hours: 24).inMilliseconds;
 
       final pubDate =
           PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -19,7 +19,7 @@ void main() {
 
     test('return antiquity 1d if pub date ago is between 1 and 2 days', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(hours: 34).inMilliseconds;
+          const Duration(hours: 34).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -29,7 +29,7 @@ void main() {
 
     test('return antiquity in days if pub date ago is greater than 1 day', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(days: 4).inMilliseconds;
+          const Duration(days: 4).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -39,7 +39,7 @@ void main() {
 
     test('return antiquity 1h if pub date ago is 60 minutes', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(minutes: 60).inMilliseconds;
+          const Duration(minutes: 60).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -49,7 +49,7 @@ void main() {
 
     test('return antiquity 1h if pub date ago is between 1 and 2 hours', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(minutes: 83).inMilliseconds;
+          const Duration(minutes: 83).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -59,7 +59,7 @@ void main() {
 
     test('return antiquity in hours if pub date ago is greater than 1 hour', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(hours: 23).inMilliseconds;
+          const Duration(hours: 23).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -69,7 +69,7 @@ void main() {
 
     test('return antiquity 1m if pub date ago is 60 minutes', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(seconds: 60).inMilliseconds;
+          const Duration(seconds: 60).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -79,7 +79,7 @@ void main() {
 
     test('return antiquity 1m if pub date ago is between 1 and 2 minutes', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(seconds: 83).inMilliseconds;
+          const Duration(seconds: 83).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -89,7 +89,7 @@ void main() {
 
     test('return antiquity in minutes if pub date ago is greater than 1 minute', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(minutes: 23).inMilliseconds;
+          const Duration(minutes: 23).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -99,7 +99,7 @@ void main() {
 
     test('return antiquity 1s if pub date ago is 1000 miliseconds', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(milliseconds: 1000).inMilliseconds;
+          const Duration(milliseconds: 1000).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -109,7 +109,7 @@ void main() {
 
     test('return antiquity 1s if pub date ago is between 1 and 2 seconds', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(milliseconds: 1200).inMilliseconds;
+          const Duration(milliseconds: 1200).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -119,7 +119,7 @@ void main() {
 
     test('return antiquity in seconds if pub date ago is greater than 1 second', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(seconds: 23).inMilliseconds;
+          const Duration(seconds: 23).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
@@ -129,7 +129,7 @@ void main() {
 
     test('return zero seconds if pub date ago is less than 0 seconds', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
-          Duration(seconds: -5).inMilliseconds;
+          const Duration(seconds: -5).inMilliseconds;
 
       final pubDate =
       PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
