@@ -44,12 +44,14 @@ class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
             child: VideoPlayer(_controller))
         : Container();
 
+    final playOrPauseVideo = () {
+      _controller.value.isPlaying
+          ? _controller.pause()
+          : _controller.play();
+    };
+
     return GestureDetector(
-        onTap: () {
-          _controller.value.isPlaying
-              ? _controller.pause()
-              : _controller.play();
-        },
+        onTap: playOrPauseVideo,
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: <Widget>[
@@ -60,6 +62,7 @@ class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
                 backgroundColor: Colors.redAccent,
                 elevation: 0,
                 child: Icon(Icons.play_arrow),
+                onPressed: playOrPauseVideo,
               ),
             )
           ],

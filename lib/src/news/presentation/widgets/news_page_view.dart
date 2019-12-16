@@ -3,6 +3,7 @@ import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dar
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
+import 'package:karate_stars_app/src/news/presentation/states/news_state.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_current_news.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_social_news.dart';
 
@@ -21,42 +22,49 @@ class _NewsPageViewState extends State<NewsPageView> {
   Widget build(BuildContext context) {
     final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
 
-    return StreamBuilder<List<News>>(
+    return StreamBuilder<NewsState>(
       initialData: bloc.initialState,
       stream: bloc.news,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return buildNewsList(context, snapshot.data);
-        } else if (snapshot.hasError) {
+          return renderState(context, snapshot.data);
+        } else  {
           return Center(child: Text(snapshot.error.toString()));
         }
-
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
       },
     );
   }
 
   ScrollController _scrollController;
 
-  Widget buildNewsList(BuildContext context, List<News> data) {
+  // ignore: missing_return
+  Widget renderState(BuildContext context, NewsState state) {
 
-    return Container(
-      child: ListView.builder(
-        key: const PageStorageKey('news_list_view'), //important to maintain scroll
-        controller: _scrollController,
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          final News news = data[index];
+    if (state is Loading){
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    else if (state is Loaded){
 
-          if (news is SocialNews){
-            return ItemSocialNews(news);
-          } else {
-            return ItemCurrentNews(news);
-          }
-        },
-      ),
-    );
+      return Container(
+        child: ListView.builder(
+          key: const PageStorageKey('news_list_view'), //important to maintain scroll
+          controller: _scrollController,
+          itemCount: state.news.length,
+          itemBuilder: (context, index) {
+            final News news = state.news[index];
+
+            if (news is SocialNews){
+              return ItemSocialNews(news);
+            } else {
+              return ItemCurrentNews(news);
+            }
+          },
+        ),
+      );
+
+    }
+
   }
 }
