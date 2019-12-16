@@ -5,7 +5,7 @@ import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
 import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
-import 'package:karate_stars_app/src/videos/views/videos_page_view.dart';
+import 'package:karate_stars_app/src/videos/widgets/videos_page_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage() : super(key: const Key(id));

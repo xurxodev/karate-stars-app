@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/twitter_icon.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
+import 'package:karate_stars_app/src/videos/widgets/item_video_player.dart';
 
 class ItemSocialNews extends StatelessWidget {
   final SocialNews socialNews;
@@ -25,7 +26,7 @@ class ItemSocialNews extends StatelessWidget {
               style: Theme.of(context).textTheme.caption,
             ),
           ),
-          Image.network(socialNews.summary.image),
+          mediaWidget(),
           const SizedBox(height: 16),
           ListTile(title: Text(socialNews.summary.title)),
           ListTile(
@@ -36,5 +37,15 @@ class ItemSocialNews extends StatelessWidget {
             ),
           )
         ]));
+  }
+
+  Widget mediaWidget() {
+    if (socialNews.summary.video != null && socialNews.summary.video.isNotEmpty){
+      return ItemVideoPlayer(videoUrl: socialNews.summary.video);
+    } else if (socialNews.summary.image != null && socialNews.summary.image.isNotEmpty){
+      return Image.network(socialNews.summary.image);
+    } else {
+      return Container();
+    }
   }
 }

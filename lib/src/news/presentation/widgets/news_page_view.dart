@@ -38,9 +38,14 @@ class _NewsPageViewState extends State<NewsPageView> {
     );
   }
 
+  ScrollController _scrollController;
+
   Widget buildNewsList(BuildContext context, List<News> data) {
+
     return Container(
       child: ListView.builder(
+        key: const PageStorageKey('news_list_view'), //important to maintain scroll
+        controller: _scrollController,
         itemCount: data.length,
         itemBuilder: (context, index) {
           final News news = data[index];

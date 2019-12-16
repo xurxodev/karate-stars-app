@@ -1,4 +1,5 @@
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
+import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
 import 'package:karate_stars_app/src/news/domain/entities/summary.dart';
 
 enum Network { twitter }

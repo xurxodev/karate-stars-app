@@ -39,7 +39,7 @@ class SocialNewsInMemoryRepository implements SocialNewsRepository {
 
   NewsSummary parseNewsSummary(Map<String, dynamic> json) {
     final NewsSummary newsSummary = NewsSummary(json['title'], json['link'],
-        json['image'], PubDate(DateTime.parse(json['date'])));
+        json['image'], json['video']??'', PubDate(DateTime.parse(json['date'])));
     return newsSummary;
   }
 
