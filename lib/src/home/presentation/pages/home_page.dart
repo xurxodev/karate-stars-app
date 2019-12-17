@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
             curve: Curves.easeIn,
           );
         },
-        activeColor: Colors.red,
+        activeColor: Theme.of(context).accentColor,
         items: [
           BottomNavigationBarItem(
             icon: Icon(

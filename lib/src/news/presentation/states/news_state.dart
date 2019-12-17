@@ -5,19 +5,10 @@ abstract class NewsState {
 
   NewsState();
 
-  //factory NewsState.empty() => Empty();
-
   factory NewsState.loading() => Loading();
 
   factory NewsState.loaded(List<News> result) =>  Loaded(news: result);
 }
-
-/*class Empty extends NewsState {
-  final List<News> result = [];
-
-  Empty();
-}*/
-
 
 class Loading extends NewsState {}
 
@@ -26,10 +17,3 @@ class Loaded extends NewsState {
 
   Loaded({@required this.news});
 }
-
-/*
-class Error extends NewsState {
-  final String message;
-
-  Error({@required this.message}):super();
-}*/
