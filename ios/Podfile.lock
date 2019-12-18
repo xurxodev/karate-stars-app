@@ -1,27 +1,39 @@
 PODS:
   - Flutter (1.0.0)
+  - share (0.5.2):
+    - Flutter
   - video_player (0.0.1):
     - Flutter
   - video_player_web (0.0.1):
     - Flutter
+  - webview_flutter (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - share (from `.symlinks/plugins/share/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
   - video_player_web (from `.symlinks/plugins/video_player_web/ios`)
+  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  share:
+    :path: ".symlinks/plugins/share/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
   video_player_web:
     :path: ".symlinks/plugins/video_player_web/ios"
+  webview_flutter:
+    :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  share: bae0a282aab4483288913fc4dc0b935d4b491f2e
   video_player: 69c5f029fac4ffe4fc8a85ea7f7b793709661549
   video_player_web: da8cadb8274ed4f8dbee8d7171b420dedd437ce7
+  webview_flutter: db3aba222b23e4dc432e0c5882834123dc50ff9f
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 

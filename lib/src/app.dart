@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:karate_stars_app/dependencies_provider.dart';
+import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
 import 'package:karate_stars_app/src/common/custom_colors.dart';
-import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/home/presentation/pages/home_page.dart';
-import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 
 class App extends StatelessWidget {
   static const String title = 'Karate Stars';
@@ -24,14 +22,11 @@ class App extends StatelessWidget {
         brightness: Brightness.dark,
         accentColor: Colors.red,
       ),
-      home: homePage(),
-    );
-  }
-
-  Widget homePage() {
-    return BlocProvider<NewsBloc>(
-      bloc: getIt<NewsBloc>(),
-      child: const HomePage(),
+      initialRoute: HomePage.routeName,
+      routes: {
+        HomePage.routeName: (context) => HomePage.create(),
+        BrowserPage.routeName: (context) => BrowserPage.create(),
+      },
     );
   }
 }

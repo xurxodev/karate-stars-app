@@ -1,16 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/dependencies_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/app_bar_title.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
+import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
 import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
 import 'package:karate_stars_app/src/videos/widgets/videos_page_view.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = '/';
+  static const id = 'home_page';
+
   const HomePage() : super(key: const Key(id));
 
-  static const id = 'home_page';
+  static Widget create() {
+    return BlocProvider<NewsBloc>(
+      bloc: getIt<NewsBloc>(),
+      child: const HomePage(),
+    );
+  }
 
   @override
   _HomePageState createState() => _HomePageState();

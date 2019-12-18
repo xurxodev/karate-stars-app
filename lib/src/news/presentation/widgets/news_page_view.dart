@@ -19,6 +19,15 @@ class NewsPageView extends StatefulWidget {
 }
 
 class _NewsPageViewState extends State<NewsPageView> {
+  ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController = ScrollController();
+  }
+
   @override
   Widget build(BuildContext context) {
     final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
@@ -58,8 +67,10 @@ class _NewsPageViewState extends State<NewsPageView> {
       thumbColor: Theme.of(context).accentColor,
       children:
           state.filterOptions.map((key, value) => MapEntry(key, Text(value))),
-      onValueChanged: (index) =>
-          bloc.filterSink.add(NewsFilterState(selectedIndex: index)),
+      onValueChanged: (index) {
+          bloc.filterSink.add(NewsFilterState(selectedIndex: index));
+          _scrollController.jumpTo(0);
+      },
       groupValue: state.selectedIndex,
     );
   }
@@ -74,6 +85,7 @@ class _NewsPageViewState extends State<NewsPageView> {
       return Container(
         child: ListView.builder(
           key: const PageStorageKey('news_list_view'),
+          controller: _scrollController,
           //important to maintain scroll
           itemCount: state.news.length,
           itemBuilder: (context, index) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
+import 'package:karate_stars_app/src/browser/presentation/factories/twitter_url_factory.dart';
+import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/twitter_icon.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
@@ -12,7 +14,9 @@ class ItemSocialNews extends ItemNews {
 
   @override
   Widget buildContent(BuildContext context) {
-    final linkStyle =  TextStyle(color: Theme.of(context).accentColor,);
+    final linkStyle = TextStyle(
+      color: Theme.of(context).accentColor,
+    );
 
     return Column(children: <Widget>[
       ListTile(
@@ -29,26 +33,30 @@ class ItemSocialNews extends ItemNews {
       ListTile(
           title: ParsedText(
         text: socialNews.summary.title,
+        style: Theme.of(context).textTheme.subhead,
         parse: <MatchText>[
           MatchText(
             type: ParsedType.URL,
             style: linkStyle,
             onTap: (url) {
-              print(url);
+              Navigator.pushNamed(context, BrowserPage.routeName,
+                  arguments: url);
             },
           ),
           MatchText(
             pattern: r'(^|\s)#(\w*[a-zA-Z_]+\S*)',
             style: linkStyle,
             onTap: (hashtag) {
-              print(hashtag);
+              Navigator.pushNamed(context, BrowserPage.routeName,
+                  arguments: TwitterUrlFactory().create(hashtag));
             },
           ),
           MatchText(
             pattern: '@[A-Za-z0-9]*',
             style: linkStyle,
             onTap: (user) {
-              print(user);
+              Navigator.pushNamed(context, BrowserPage.routeName,
+                  arguments: TwitterUrlFactory().create(user));
             },
           ),
         ],
