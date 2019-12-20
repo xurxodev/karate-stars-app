@@ -14,6 +14,7 @@ class ShareButton extends StatelessWidget {
       icon: const ShareButtonIcon(),
       color: color,
       onPressed: onPressed,
+      iconSize: Theme.of(context).platform == TargetPlatform.iOS ? 28.0: 24.0,
     );
   }
 }
