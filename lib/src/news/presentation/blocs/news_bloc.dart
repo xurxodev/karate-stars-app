@@ -10,7 +10,7 @@ import 'package:karate_stars_app/src/news/presentation/states/news_state.dart';
 class NewsBloc implements BlocBase {
   final GetNewsUseCase _getNewsUseCase;
 
-  final NewsFilterState _lastFilter = NewsFilterState();
+  NewsFilterState _lastFilter = NewsFilterState();
   NewsState _lastNews = NewsState.loading();
 
   final _newsFilterController = StreamController<NewsFilterState>.broadcast();
@@ -48,6 +48,7 @@ class NewsBloc implements BlocBase {
 
   void _listenFilters() {
     _newsFilterController.stream.listen((filterState) {
+      _lastFilter = filterState;
       final NewsFilter selectedFilter =
           NewsFilter.values[filterState.selectedIndex];
 

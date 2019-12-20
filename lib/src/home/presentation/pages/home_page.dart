@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/dependencies_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/app_bar_title.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
+import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
 import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
 import 'package:karate_stars_app/src/videos/widgets/videos_page_view.dart';
@@ -25,6 +27,10 @@ class HomePage extends StatefulWidget {
 
   @override
   _HomePageState createState() => _HomePageState();
+
+  static _HomePageState of(BuildContext context) {
+    return context.findAncestorStateOfType();
+  }
 }
 
 class _HomePageState extends State<HomePage> {
@@ -45,9 +51,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final title = getTitle();
+    final actions = getActions();
 
     return Scaffold(
-      appBar: AppBar(title: AppBarTitle(title, _currentTab == 0)),
+      appBar: AppBar(
+        title: AppBarTitle(title, _currentTab == 0),
+        actions: actions,
+      ),
       body: SafeArea(
         child: PageView(
           controller: _pageController,
@@ -64,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ),
-      bottomNavigationBar: CupertinoTabBar(
+      bottomNavigationBar: cupertino.CupertinoTabBar(
         currentIndex: _currentTab,
         onTap: (int index) {
           setState(() {
@@ -116,6 +126,31 @@ class _HomePageState extends State<HomePage> {
       return Strings.home_appbar_title_videos;
     } else {
       return Strings.home_appbar_title_settings;
+    }
+  }
+
+  List<cupertino.Widget> getActions() {
+    if (_currentTab == 0) {
+      return [
+        IconButton(
+          icon: Icon(Icons.filter_list),
+          onPressed: () {
+            final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
+
+            showDialog(
+                context: context,
+                builder: (_) => PlatformAlertDialog(
+                    title:  Strings.news_filters_title,
+                    content: NewsFilter(bloc: bloc)));
+          },
+        ),
+      ];
+    } else if (_currentTab == 1) {
+      return [];
+    } else if (_currentTab == 2) {
+      return [];
+    } else {
+      return [];
     }
   }
 }
