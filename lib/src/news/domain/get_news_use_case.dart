@@ -21,7 +21,7 @@ class GetNewsUseCase {
     }
 
     if (newsFilter == NewsFilter.all || newsFilter == NewsFilter.social) {
-      final socialNews = await _socialNewsRepository.execute(readPolicy);
+      final socialNews = await _socialNewsRepository.getSocialNews(readPolicy);
 
       news.addAll(socialNews);
     }
