@@ -19,13 +19,17 @@ class ItemSocialNews extends ItemNews {
     );
 
     return Column(children: <Widget>[
-      ListTile(
-        leading:
-            CircleAvatar(backgroundImage: NetworkImage(socialNews.user.image)),
-        title: Text(socialNews.user.name),
-        trailing: Text(
-          '@${socialNews.user.userName}',
-          style: Theme.of(context).textTheme.caption,
+      GestureDetector(
+        onTap: () => Navigator.pushNamed(context, BrowserPage.routeName,
+            arguments: TwitterUrlFactory().create('@${socialNews.user.userName}')),
+        child: ListTile(
+          leading: CircleAvatar(
+              backgroundImage: NetworkImage(socialNews.user.image)),
+          title: Text(socialNews.user.name),
+          trailing: Text(
+            '@${socialNews.user.userName}',
+            style: Theme.of(context).textTheme.caption,
+          ),
         ),
       ),
       _mediaWidget(),

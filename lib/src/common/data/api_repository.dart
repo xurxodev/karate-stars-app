@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
 
 abstract class ApiRepository {
+  static const String baseAddress = 'https://karate-stars-api.herokuapp.com/v1';
 
-  //static const String baseAddress = 'https://karate-stars-api.herokuapp.com/v1';
-  static const String baseAddress = 'http://10.0.2.2:8000/v1';
+  //static const String baseAddress = 'http://10.0.2.2:8000/v1';
 
   static const String tokenKey = 'tokenKey';
 
@@ -39,8 +39,8 @@ abstract class ApiRepository {
 
   Future<http.Response> _executeRequest(String endpoint, String token) async {
     try {
-      var response = await http.get(
-        "$baseAddress$endpoint",
+      final response = await http.get(
+        '$baseAddress$endpoint',
         headers: {HttpHeaders.authorizationHeader: token},
       );
       return response;
@@ -53,7 +53,7 @@ abstract class ApiRepository {
   Future<String> _renewToken() async {
     try {
       final credentials =
-      await ApiCredentialsLoader('assets/credentials.json').load();
+          await ApiCredentialsLoader('assets/credentials.json').load();
 
       final response = await http.post('$baseAddress/login', body: {
         'username': credentials.username,
@@ -67,8 +67,7 @@ abstract class ApiRepository {
             Exception('Failed to renew token:${response.reasonPhrase}'));
       }
     } on Exception catch (e) {
-      return Future.error(
-          Exception('Failed to renew token: ${e.toString()}'));
+      return Future.error(Exception('Failed to renew token: ${e.toString()}'));
     }
   }
 
