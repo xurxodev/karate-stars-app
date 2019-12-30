@@ -3,7 +3,7 @@ abstract class ReadableDataSource<T> {
 }
 
 abstract class CacheDataSource<T> implements ReadableDataSource<T> {
-  void save(List<T> items);
+  Future<void> save(List<T> items);
 
   bool areValidValues();
 

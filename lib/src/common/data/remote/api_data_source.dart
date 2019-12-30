@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
 
-abstract class ApiRepository {
+abstract class ApiDataSource {
   static const String baseAddress = 'https://karate-stars-api.herokuapp.com/v1';
 
   //static const String baseAddress = 'http://10.0.2.2:8000/v1';

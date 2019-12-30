@@ -74,3 +74,4 @@
 /ios/Flutter/Flutter.podspec
 /.flutter-plugins-dependencies
 /assets/credentials.json
+/lib/src/common/data/database.g.dart
