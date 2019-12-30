@@ -9,7 +9,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 class CurrentNewsInMemoryRepository implements CurrentNewsRepository {
   @override
-  Future<List<CurrentNews>> execute(ReadPolicy readPolicy) async {
+  Future<List<CurrentNews>> getCurrentNews(ReadPolicy readPolicy) async {
     List<CurrentNews> currentNews = [];
 
     await rootBundle.loadString('assets/stubs/current_news.json')

@@ -15,7 +15,7 @@ class GetNewsUseCase {
     final List<News> news = [];
 
     if (newsFilter == NewsFilter.all || newsFilter == NewsFilter.current) {
-      final currentNews = await _currentNewsRepository.execute(readPolicy);
+      final currentNews = await _currentNewsRepository.getCurrentNews(readPolicy);
 
       news.addAll(currentNews);
     }
