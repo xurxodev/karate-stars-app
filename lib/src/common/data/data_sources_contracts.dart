@@ -2,10 +2,10 @@ abstract class ReadableDataSource<T> {
   Future<List<T>> getAll();
 }
 
-abstract class CacheDataSource<T> implements ReadableDataSource<T> {
+abstract class CacheableDataSource<T> implements ReadableDataSource<T> {
   Future<void> save(List<T> items);
 
-  bool areValidValues();
+  Future<bool> areValidValues();
 
-  void invalidate();
+  Future<void> invalidate();
 }

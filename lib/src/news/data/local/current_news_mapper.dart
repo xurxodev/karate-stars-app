@@ -22,18 +22,18 @@ class CurrentNewsMapper {
 
   CurrentNewsDB mapNewsToDB(CurrentNews currentNews, int sourceId) {
     return CurrentNewsDB(
-        null,
-        currentNews.summary.link,
-        currentNews.summary.title,
-        currentNews.summary.image,
-        currentNews.summary.pubDate.date.toIso8601String(),
-        DateTime.now().toIso8601String(),
-        sourceId);
+      null,
+      currentNews.summary.link,
+      currentNews.summary.title,
+      currentNews.summary.image,
+      currentNews.summary.pubDate.date.toIso8601String(),
+      sourceId,
+      DateTime.now().toIso8601String(),
+    );
   }
 
   CurrentNewsSourceDB mapSourceToDB(NewsSource source) {
     return CurrentNewsSourceDB(null, source.url, source.name, source.image,
         DateTime.now().toIso8601String());
   }
-
 }

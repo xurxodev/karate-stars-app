@@ -1,21 +1,22 @@
 import 'package:floor/floor.dart';
+import 'package:karate_stars_app/src/common/data/local/cache_data_source.dart';
 
 @Entity(
   tableName: 'CurrentNewsSources',
 )
-class CurrentNewsSourceDB {
+class CurrentNewsSourceDB implements ModelDB {
   @PrimaryKey(autoGenerate: true)
   final int id;
 
   final String url;
-
   final String name;
-
   final String image;
 
-  final String lastUpdateMillis;
+  @override
+  final String lastUpdate;
 
-  CurrentNewsSourceDB(this.id, this.url, this.name, this.image, this.lastUpdateMillis);
+  CurrentNewsSourceDB(
+      this.id, this.url, this.name, this.image, this.lastUpdate);
 }
 
 @Entity(tableName: 'CurrentNews', foreignKeys: [
@@ -25,19 +26,19 @@ class CurrentNewsSourceDB {
     entity: CurrentNewsSourceDB,
   )
 ])
-class CurrentNewsDB {
+class CurrentNewsDB implements ModelDB {
   @PrimaryKey(autoGenerate: true)
   final int id;
 
   final String link;
-
   final String title;
   final String image;
   final String pubDate;
-  final String lastUpdateMillis;
-
   final int sourceId;
 
+  @override
+  final String lastUpdate;
+
   CurrentNewsDB(this.id, this.link, this.title, this.image, this.pubDate,
-      this.lastUpdateMillis, this.sourceId);
+      this.sourceId, this.lastUpdate);
 }

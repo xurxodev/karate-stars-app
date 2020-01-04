@@ -5,6 +5,10 @@ import 'package:karate_stars_app/src/news/news_di.dart' as news_di;
 
 final getIt = GetIt.instance;
 
+int largeCacheTimeMillis = const Duration(days: 7).inMilliseconds;
+int mediumCacheTimeMillis = const Duration(hours: 4).inMilliseconds;
+int smallCacheTimeMillis = const Duration(hours: 1).inMilliseconds;
+
 Future<void> init(AppDatabase appDatabase) async {
   news_di.init(appDatabase);
   browser_di.init();

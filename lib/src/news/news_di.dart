@@ -23,8 +23,8 @@ void init(AppDatabase appDatabase) {
   getIt.registerLazySingleton(
           () => appDatabase.currentNewsSourcesDao);
 
-  getIt.registerLazySingleton<CacheDataSource<CurrentNews>>(
-          () => CurrentNewsFloorDataSource(getIt(),getIt()));
+  getIt.registerLazySingleton<CacheableDataSource<CurrentNews>>(
+          () => CurrentNewsFloorDataSource(getIt(),getIt(), mediumCacheTimeMillis));
 
   getIt.registerLazySingleton<ReadableDataSource<SocialNews>>(
       () => SocialNewsApiDataSource());

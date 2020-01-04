@@ -1,16 +1,19 @@
-
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
+import 'package:karate_stars_app/src/common/data/local/cache_data_source.dart';
 import 'package:karate_stars_app/src/news/data/local/current_news_daos.dart';
 import 'package:karate_stars_app/src/news/data/local/current_news_mapper.dart';
 import 'package:karate_stars_app/src/news/data/local/current_news_models.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 
-class CurrentNewsFloorDataSource implements CacheDataSource<CurrentNews> {
+class CurrentNewsFloorDataSource extends CacheDataSource
+    implements CacheableDataSource<CurrentNews> {
   final CurrentNewsDao _currentNewsDao;
   final CurrentNewsSourcesDao _currentNewsSourcesDao;
   final _mapper = CurrentNewsMapper();
 
-  CurrentNewsFloorDataSource(this._currentNewsDao, this._currentNewsSourcesDao);
+  CurrentNewsFloorDataSource(
+      this._currentNewsDao, this._currentNewsSourcesDao, int maxCacheTime)
+      : super(maxCacheTime);
 
   @override
   Future<List<CurrentNews>> getAll() async {
@@ -29,7 +32,7 @@ class CurrentNewsFloorDataSource implements CacheDataSource<CurrentNews> {
     final sourcesDBToSave =
         items.map((item) => _mapper.mapSourceToDB(item.source)).toList();
 
-    _currentNewsSourcesDao.insert(sourcesDBToSave);
+    _currentNewsSourcesDao.insertAll(sourcesDBToSave);
 
     final sourcesDB = await _currentNewsSourcesDao.findAll();
 
@@ -39,16 +42,18 @@ class CurrentNewsFloorDataSource implements CacheDataSource<CurrentNews> {
       return _mapper.mapNewsToDB(item, sourceDB.id);
     }).toList();
 
-    _currentNewsDao.insert(newsDB);
+    _currentNewsDao.insertAll(newsDB);
   }
 
   @override
-  bool areValidValues() {
-    return false;
+  Future<bool> areValidValues() async {
+    final data = await _currentNewsSourcesDao.findAll();
+    return !super.areDirty(data);
   }
 
   @override
-  void invalidate() {
-
+  Future<void> invalidate() async {
+    _currentNewsDao.deleteAll();
+    _currentNewsSourcesDao.deleteAll();
   }
 }

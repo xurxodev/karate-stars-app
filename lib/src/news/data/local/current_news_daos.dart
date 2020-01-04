@@ -8,7 +8,10 @@ abstract class CurrentNewsSourcesDao {
   Future<List<CurrentNewsSourceDB>> findAll();
 
   @Insert()
-  Future<void> insert(List<CurrentNewsSourceDB> currentNewsSourcesDB);
+  Future<void> insertAll(List<CurrentNewsSourceDB> currentNewsSourcesDB);
+
+  @Query('DELETE FROM CurrentNewsSources')
+  Future<void> deleteAll();
 }
 
 @dao
@@ -16,8 +19,11 @@ abstract class CurrentNewsDao {
   @Query('SELECT * FROM CurrentNews')
   Future<List<CurrentNewsDB>> findAll();
 
-  @Insert()
-  Future<void> insert(List<CurrentNewsDB> currentNewsDB);
+  @insert
+  Future<void> insertAll(List<CurrentNewsDB> currentNewsDB);
+
+  @Query('DELETE FROM CurrentNews')
+  Future<void> deleteAll();
 }
 
 
