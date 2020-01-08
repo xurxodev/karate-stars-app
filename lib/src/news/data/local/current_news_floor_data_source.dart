@@ -32,7 +32,7 @@ class CurrentNewsFloorDataSource extends CacheDataSource
     final sourcesDBToSave =
         items.map((item) => _mapper.mapSourceToDB(item.source)).toList();
 
-    _currentNewsSourcesDao.insertAll(sourcesDBToSave);
+    _currentNewsSourcesDao.insertAll(sourcesDBToSave.toSet().toList());
 
     final sourcesDB = await _currentNewsSourcesDao.findAll();
 
@@ -47,7 +47,7 @@ class CurrentNewsFloorDataSource extends CacheDataSource
 
   @override
   Future<bool> areValidValues() async {
-    final data = await _currentNewsSourcesDao.findAll();
+    final data = await _currentNewsDao.findAll();
     return !super.areDirty(data);
   }
 

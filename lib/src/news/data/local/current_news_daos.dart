@@ -7,7 +7,7 @@ abstract class CurrentNewsSourcesDao {
   @Query('SELECT * FROM CurrentNewsSources')
   Future<List<CurrentNewsSourceDB>> findAll();
 
-  @Insert()
+  @insert
   Future<void> insertAll(List<CurrentNewsSourceDB> currentNewsSourcesDB);
 
   @Query('DELETE FROM CurrentNewsSources')
