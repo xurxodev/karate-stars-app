@@ -17,7 +17,7 @@ class NewsBloc implements BlocBase {
   final _newsController = StreamController<NewsState>.broadcast();
 
   NewsBloc(this._getNewsUseCase) {
-    _loadData(ReadPolicy.cache_first, NewsFilter.all);
+    _loadDataCacheFirst(NewsFilter.all);
     _listenFilters();
   }
 
@@ -37,8 +37,22 @@ class NewsBloc implements BlocBase {
     _newsFilterController.close();
   }
 
-  void _loadData(ReadPolicy readPolicy, NewsFilter newsFilter) {
-    _getNewsUseCase.execute(readPolicy, newsFilter).then((news) {
+  Future<void> refresh() {
+    final NewsFilter selectedFilter =
+        NewsFilter.values[_lastFilter.selectedIndex];
+
+    return _getNewsUseCase
+        .execute(ReadPolicy.network_first, selectedFilter)
+        .then((news) {
+      _lastNews = NewsState.loaded(news);
+      _newsController.sink.add(_lastNews);
+    }).catchError((error) {
+      _newsController.sink.addError(error);
+    });
+  }
+
+  void _loadDataCacheFirst(NewsFilter newsFilter) {
+    _getNewsUseCase.execute(ReadPolicy.cache_first, newsFilter).then((news) {
       _lastNews = NewsState.loaded(news);
       _newsController.sink.add(_lastNews);
     }).catchError((error) {
@@ -52,7 +66,7 @@ class NewsBloc implements BlocBase {
       final NewsFilter selectedFilter =
           NewsFilter.values[filterState.selectedIndex];
 
-      _loadData(ReadPolicy.cache_first, selectedFilter);
+      _loadDataCacheFirst(selectedFilter);
     });
   }
 }

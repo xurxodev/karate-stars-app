@@ -7,6 +7,7 @@ import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/states/news_state.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_current_news.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_social_news.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class NewsPageView extends StatefulWidget {
   static const id = 'news_page_view';
@@ -38,7 +39,7 @@ class _NewsPageViewState extends State<NewsPageView> {
       stream: bloc.news,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return _renderNews(context, snapshot.data);
+          return _renderNews(context, snapshot.data, bloc);
         } else {
           return Center(child: Text(snapshot.error.toString()));
         }
@@ -47,30 +48,35 @@ class _NewsPageViewState extends State<NewsPageView> {
   }
 
   // ignore: missing_return
-  Widget _renderNews(BuildContext context, NewsState state) {
+  Widget _renderNews(BuildContext context, NewsState state, NewsBloc bloc) {
     if (state is Loading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     } else if (state is Loaded) {
       return Container(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: ListView.builder(
-          key: const PageStorageKey('news_list_view'),
-          controller: _scrollController,
-          //important to maintain scroll
-          itemCount: state.news.length,
-          itemBuilder: (context, index) {
-            final News news = state.news[index];
+          padding: const EdgeInsets.only(top: 8.0),
+          child: LiquidPullToRefresh(
+              borderWidth: 2,
+              color: Theme.of(context).cardColor,
+              backgroundColor: Theme.of(context).accentColor,
+              showChildOpacityTransition: false,
+              child: ListView.builder(
+                key: const PageStorageKey('news_list_view'),
+                controller: _scrollController,
+                //important to maintain scroll
+                itemCount: state.news.length,
+                itemBuilder: (context, index) {
+                  final News news = state.news[index];
 
-            if (news is SocialNews) {
-              return ItemSocialNews(news);
-            } else {
-              return ItemCurrentNews(news);
-            }
-          },
-        ),
-      );
+                  if (news is SocialNews) {
+                    return ItemSocialNews(news);
+                  } else {
+                    return ItemCurrentNews(news);
+                  }
+                },
+              ),
+              onRefresh: () => bloc.refresh()));
     }
   }
 }
