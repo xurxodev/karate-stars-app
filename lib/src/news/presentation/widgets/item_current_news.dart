@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
@@ -7,6 +8,7 @@ class ItemCurrentNews extends ItemNews {
   final CurrentNews currentNews;
 
   const ItemCurrentNews(this.currentNews);
+  
 
   @override
   Widget buildContent(BuildContext context) {
@@ -19,7 +21,7 @@ class ItemCurrentNews extends ItemNews {
                 backgroundImage: NetworkImage(currentNews.source.image)),
             title: Text(currentNews.source.name),
           ),
-          Image.network(currentNews.summary.image),
+          CachedNetworkImage(imageUrl: currentNews.summary.image),
           const SizedBox(height: 16),
           ListTile(title: Text(currentNews.summary.title)),
           ListTile(

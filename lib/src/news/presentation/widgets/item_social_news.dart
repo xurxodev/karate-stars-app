@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:karate_stars_app/src/browser/presentation/factories/twitter_url_factory.dart';
@@ -21,10 +22,12 @@ class ItemSocialNews extends ItemNews {
     return Column(children: <Widget>[
       GestureDetector(
         onTap: () => Navigator.pushNamed(context, BrowserPage.routeName,
-            arguments: TwitterUrlFactory().create('@${socialNews.user.userName}')),
+            arguments:
+                TwitterUrlFactory().create('@${socialNews.user.userName}')),
         child: ListTile(
           leading: CircleAvatar(
-              backgroundImage: NetworkImage(socialNews.user.image)),
+              backgroundImage:
+                  CachedNetworkImageProvider(socialNews.user.image)),
           title: Text(socialNews.user.name),
           trailing: Text(
             '@${socialNews.user.userName}',
@@ -81,7 +84,7 @@ class ItemSocialNews extends ItemNews {
       return ItemVideoPlayer(videoUrl: socialNews.summary.video);
     } else if (socialNews.summary.image != null &&
         socialNews.summary.image.isNotEmpty) {
-      return Image.network(socialNews.summary.image);
+      return CachedNetworkImage(imageUrl: socialNews.summary.image);
     } else {
       return Container();
     }
