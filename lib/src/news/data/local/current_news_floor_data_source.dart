@@ -32,7 +32,7 @@ class CurrentNewsFloorDataSource extends CacheDataSource
     final sourcesDBToSave =
         items.map((item) => _mapper.mapSourceToDB(item.source)).toList();
 
-    _currentNewsSourcesDao.insertAll(sourcesDBToSave.toSet().toList());
+    await _currentNewsSourcesDao.insertAll(sourcesDBToSave.toSet().toList());
 
     final sourcesDB = await _currentNewsSourcesDao.findAll();
 
@@ -42,7 +42,7 @@ class CurrentNewsFloorDataSource extends CacheDataSource
       return _mapper.mapNewsToDB(item, sourceDB.id);
     }).toList();
 
-    _currentNewsDao.insertAll(newsDB);
+    await _currentNewsDao.insertAll(newsDB);
   }
 
   @override

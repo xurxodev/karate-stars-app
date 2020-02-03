@@ -24,6 +24,21 @@ class PubDate {
       return '0s';
     }
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is PubDate &&
+              runtimeType == other.runtimeType &&
+              date == other.date;
+
+  @override
+  int get hashCode => date.hashCode;
+
+  @override
+  String toString() {
+    return 'PubDate{date: $date}';
+  }
 }
 
 

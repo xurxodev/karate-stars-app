@@ -8,6 +8,22 @@ class CurrentNews extends News {
       : assert(summary != null),
         assert(source != null),
         super(summary);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CurrentNews &&
+          runtimeType == other.runtimeType &&
+          source == other.source &&
+          summary == other.summary;
+
+  @override
+  int get hashCode => source.hashCode ^ summary.hashCode;
+
+  @override
+  String toString() {
+    return 'CurrentNews{summary: $summary, source: $source}';
+  }
 }
 
 class NewsSource {
@@ -19,4 +35,23 @@ class NewsSource {
       : assert(name != null),
         assert(image != null),
         assert(url != null);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NewsSource &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          image == other.image &&
+          url == other.url;
+
+  @override
+  int get hashCode => name.hashCode ^ image.hashCode ^ url.hashCode;
+
+  @override
+  String toString() {
+    return 'NewsSource{name: $name, image: $image, url: $url}';
+  }
+
+
 }

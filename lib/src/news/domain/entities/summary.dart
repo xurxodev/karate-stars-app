@@ -11,4 +11,28 @@ class NewsSummary {
       : assert(title != null),
         assert(link != null),
         assert(pubDate != null);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is NewsSummary &&
+          runtimeType == other.runtimeType &&
+          title == other.title &&
+          link == other.link &&
+          image == other.image &&
+          video == other.video &&
+          pubDate == other.pubDate;
+
+  @override
+  int get hashCode =>
+      title.hashCode ^
+      link.hashCode ^
+      image.hashCode ^
+      video.hashCode ^
+      pubDate.hashCode;
+
+  @override
+  String toString() {
+    return 'NewsSummary{title: $title, link: $link, image: $image, video: $video, pubDate: $pubDate}';
+  }
 }
