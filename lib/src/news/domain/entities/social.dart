@@ -11,6 +11,24 @@ class SocialNews extends News {
       : assert(network != null),
         assert(user != null),
         super(summary);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is SocialNews &&
+              runtimeType == other.runtimeType &&
+              network == other.network &&
+              summary == other.summary &&
+              user == other.user;
+
+  @override
+  int get hashCode =>
+      network.hashCode ^
+      summary.hashCode ^
+      user.hashCode;
+
+
+
 }
 
 class SocialUser {
@@ -24,5 +42,25 @@ class SocialUser {
         assert(userName != null),
         assert(image != null),
         assert(url != null);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is SocialUser &&
+              runtimeType == other.runtimeType &&
+              name == other.name &&
+              userName == other.userName &&
+              image == other.image &&
+              url == other.url;
+
+  @override
+  int get hashCode =>
+      name.hashCode ^
+      userName.hashCode ^
+      image.hashCode ^
+      url.hashCode;
+
+
+
 }
 
