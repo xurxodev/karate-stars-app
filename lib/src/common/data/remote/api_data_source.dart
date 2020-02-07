@@ -1,21 +1,21 @@
 import 'dart:io';
 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
+import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
+import 'package:karate_stars_app/src/common/data/remote/token_storage.dart';
 
 abstract class ApiDataSource {
   static const String baseAddress = 'https://karate-stars-api.herokuapp.com/v1';
-
   //static const String baseAddress = 'http://10.0.2.2:8000/v1';
 
-  static const String tokenKey = 'tokenKey';
+  final ApiTokenStorage _apiTokenStorage;
 
-  final storage = const FlutterSecureStorage();
+  ApiDataSource(this._apiTokenStorage);
 
   Future<http.Response> get(String endpoint) async {
     http.Response response;
-    final token = await _getToken();
+    final token = await _apiTokenStorage.getToken();
 
     if (token == null || token.isEmpty) {
       response = await _renewTokenAndExecuteRequest(endpoint);
@@ -24,6 +24,8 @@ abstract class ApiDataSource {
 
       if (response.statusCode == 401) {
         response = await _renewTokenAndExecuteRequest(endpoint);
+      } else if (response.statusCode > 400){
+        throw UnKnowApiException(response.statusCode);
       }
     }
 
@@ -32,7 +34,7 @@ abstract class ApiDataSource {
 
   Future<http.Response> _renewTokenAndExecuteRequest(String endpoint) async {
     final token = await _renewToken();
-    _saveToken(token);
+    _apiTokenStorage.saveToken(token);
 
     return _executeRequest(endpoint, token);
   }
@@ -44,9 +46,8 @@ abstract class ApiDataSource {
         headers: {HttpHeaders.authorizationHeader: token},
       );
       return response;
-    } on Exception catch (e) {
-      return Future.error(
-          Exception('Failed to execute request: ${e.toString()}'));
+    } on IOException {
+      throw NetworkException();
     }
   }
 
@@ -63,19 +64,10 @@ abstract class ApiDataSource {
       if (response.statusCode == 200) {
         return response.headers[HttpHeaders.authorizationHeader];
       } else {
-        return Future.error(
-            Exception('Failed to renew token:${response.reasonPhrase}'));
+        throw RenewTokenException();
       }
     } on Exception catch (e) {
-      return Future.error(Exception('Failed to renew token: ${e.toString()}'));
+      throw RenewTokenException();
     }
-  }
-
-  Future<String> _getToken() async {
-    return await storage.read(key: tokenKey);
-  }
-
-  Future<void> _saveToken(String token) async {
-    return await storage.write(key: tokenKey, value: token);
   }
 }

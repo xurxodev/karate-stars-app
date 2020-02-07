@@ -26,7 +26,7 @@ void init(AppDatabase appDatabase) {
 
 void _initCurrentNews(AppDatabase appDatabase) {
   getIt.registerLazySingleton<ReadableDataSource<CurrentNews>>(
-      () => CurrentNewsApiDataSource());
+      () => CurrentNewsApiDataSource(getIt()));
 
   getIt.registerLazySingleton(() => appDatabase.currentNewsDao);
 
@@ -41,7 +41,7 @@ void _initCurrentNews(AppDatabase appDatabase) {
 
 void _initSocialNews(AppDatabase appDatabase) {
   getIt.registerLazySingleton<ReadableDataSource<SocialNews>>(
-      () => SocialNewsApiDataSource());
+      () => SocialNewsApiDataSource(getIt()));
 
   getIt.registerLazySingleton(() => appDatabase.socialNewsDao);
 
