@@ -35,4 +35,12 @@ class SocialNewsMother {
             'https://pbs.twimg.com/profile_images/958718495415468032/tMWunfE3_bigger.jpg',
             'https://twitter.com/wkf_tweet'));
   }
+
+  static List<SocialNews> local() {
+    return [countDownMadrid2018()];
+  }
+
+  static List<SocialNews> remote() {
+    return [countDownMadrid2018(), newVideoInKarateStars()];
+  }
 }
