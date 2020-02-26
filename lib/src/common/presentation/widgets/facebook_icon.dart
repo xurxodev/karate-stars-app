@@ -5,6 +5,6 @@ class FacebookIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(CustomIcons.facebook, size: 16, color: const Color(0xFF4267B2));
+    return const Icon(CustomIcons.facebook, size: 16, color: Color(0xFF4267B2));
   }
 }

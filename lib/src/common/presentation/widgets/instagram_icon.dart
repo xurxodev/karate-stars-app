@@ -5,6 +5,6 @@ class InstagramIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(CustomIcons.instagram, size: 16, color: Colors.grey);
+    return const Icon(CustomIcons.instagram, size: 16, color: Colors.grey);
   }
 }

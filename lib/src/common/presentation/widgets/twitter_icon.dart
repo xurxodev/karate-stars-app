@@ -5,6 +5,6 @@ class TwitterIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(CustomIcons.twitter, size: 16, color: const Color(0xFF1DA1F2));
+    return const Icon(CustomIcons.twitter, size: 16, color: Color(0xFF1DA1F2));
   }
 }
