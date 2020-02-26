@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/news/data/local/social_news_floor_data_source.dart';
 
-import 'fake/fake_database.dart';
 import '../common/social_news_mother.dart';
+import 'fake/fake_database.dart';
 
 void main() {
   group('SocialNewsFloorDataSource should', () {
