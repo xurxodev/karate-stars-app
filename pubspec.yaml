@@ -31,6 +31,7 @@ dev_dependencies:
   floor_generator: ^0.9.0
   build_runner: ^1.7.1
   mock_web_server: ^4.1.1
+  mockito: ^4.1.1
 
 flutter:
   uses-material-design: true

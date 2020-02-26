@@ -15,8 +15,7 @@ class CurrentNewsMother {
         NewsSource(
             'WKF CurrentNews Center',
             'http://www.karatestarsapp.com/app/logos/wkf.png',
-            'http://fetchrss.com/rss/59baa0d28a93f8a1048b4567777611407.xml')
-    );
+            'http://fetchrss.com/rss/59baa0d28a93f8a1048b4567777611407.xml'));
   }
 
   static CurrentNews quinteroNumber1() {
@@ -30,8 +29,7 @@ class CurrentNewsMother {
         NewsSource(
             'Damian Quintero',
             'http://www.karatestarsapp.com/app/logos/damian_quintero.png',
-            'http://www.damianquintero.com/feed/')
-    );
+            'http://www.damianquintero.com/feed/'));
   }
 
   static CurrentNews stevenDaCostaVideo() {
@@ -45,7 +43,14 @@ class CurrentNewsMother {
         NewsSource(
             'karate-k',
             'http://www.karatestarsapp.com/app/logos/karate_k.png',
-            'http://karate-k.com/en/?format=feed&type=rss')
-    );
+            'http://karate-k.com/en/?format=feed&type=rss'));
+  }
+
+  static List<CurrentNews> local() {
+    return [madridHost2018()];
+  }
+
+  static List<CurrentNews> remote() {
+    return [madridHost2018(), quinteroNumber1(), stevenDaCostaVideo()];
   }
 }
