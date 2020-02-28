@@ -5,6 +5,6 @@ class YoutubeIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(CustomIcons.youtube_play, size: 16, color: const Color(0xFFFF0000));
+    return const Icon(CustomIcons.youtube_play, size: 16, color: Color(0xFFFF0000));
   }
 }
