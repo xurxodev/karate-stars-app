@@ -14,7 +14,7 @@ void homePageTests() {
       driver = await FlutterDriver.connect();
 
       homePage = HomePageObject(driver);
-      
+
       //Seems this sleep is necessary by driver bug with async main
       sleep(const Duration(milliseconds: 1000));
     });
@@ -30,15 +30,17 @@ void homePageTests() {
       print(health.status);
     });*/
 
-    test('should have correct title to open app', () async {
-      expect (await homePage.title(),'Karate Stars');
+    test('should have correct title to open app 2', () async {
+      await driver.runUnsynchronized(() async {
+        expect(await homePage.title(), 'Karate Stars');
+      });
     });
 
 /*    test('should be visible', () async {
       //homePage.isReady();
     });*/
 
-   /* test('should has news page view visible by default', () async {
+    /* test('should has news page view visible by default', () async {
       await homePage.isReady();
       await homePage.newsContent.isVisible();
     });
