@@ -1,38 +1,34 @@
 import 'package:flutter_driver/flutter_driver.dart';
 
-import 'competitors_content.dart';
-import 'news_content.dart';
-import 'settings_content.dart';
-import 'videos_content.dart';
-
 class HomePageObject {
+  final FlutterDriver _driver;
+
   HomePageObject(this._driver) {
-    newsContent = NewsContent(_driver);
+/*    newsContent = NewsContent(_driver);
     competitorsContent = CompetitorsContent(_driver);
     videosContent = VideosContent(_driver);
-    settingsContent = SettingsContent(_driver);
+    settingsContent = SettingsContent(_driver);*/
   }
 
+/*
   NewsContent newsContent;
   CompetitorsContent competitorsContent;
   VideosContent videosContent;
   SettingsContent settingsContent;
+*/
 
-  final FlutterDriver _driver;
-
-  final _homePageFinder = find.byValueKey('home_page');
+/*  final _homePageFinder = find.byValueKey('home_page');
 
   final _newsTabFinder = find.byValueKey('news_tab');
   final _competitorsTabFinder = find.byValueKey('competitor_tab');
   final _videosTabFinder = find.byValueKey('videos_tab');
-  final _settingsTabFinder = find.byValueKey('settings_tab');
+  final _settingsTabFinder = find.byValueKey('settings_tab');*/
 
-  final _appBarTitleFinder = find.byValueKey('app_bar_title');
+  final _titleFinder = find.byValueKey('app_bar_title');
 
-  Future<String> appBarTitle({Duration timeout}) =>
-      _driver.getText(_appBarTitleFinder, timeout: timeout);
+  Future<String> title() => _driver.getText(_titleFinder);
 
-  Future<void> isReady({Duration timeout}) =>
+/*  Future<void> isReady({Duration timeout}) =>
       _driver.waitFor(_homePageFinder, timeout: timeout);
 
   Future<void> gotoNews({Duration timeout}) =>
@@ -45,5 +41,5 @@ class HomePageObject {
       _driver.tap(_videosTabFinder, timeout: timeout);
 
   Future<void> gotoSettings({Duration timeout}) =>
-      _driver.tap(_settingsTabFinder, timeout: timeout);
+      _driver.tap(_settingsTabFinder, timeout: timeout);*/
 }

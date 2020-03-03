@@ -1,14 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+
+import '../page_objects/home/home_page_object.dart';
 
 void homePageTests() {
   group('home page', () {
     FlutterDriver driver;
-    //HomePageObject homePage;
+    HomePageObject homePage;
 
     setUpAll(() async {
       driver = await FlutterDriver.connect();
-      //homePage = HomePageObject(driver);
+
+      homePage = HomePageObject(driver);
+
+      sleep(const Duration(milliseconds: 500));
     });
 
     tearDownAll(() async {
@@ -17,9 +24,18 @@ void homePageTests() {
       }
     });
 
-    test('should be visible', () async {
-      //homePage.isReady();
+/*    test('check flutter driver health', () async {
+      final Health health = await driver.checkHealth();
+      print(health.status);
+    });*/
+
+    test('should have correct title to open app', () async {
+      expect (await homePage.title(),'Karate Stars');
     });
+
+/*    test('should be visible', () async {
+      //homePage.isReady();
+    });*/
 
    /* test('should has news page view visible by default', () async {
       await homePage.isReady();
