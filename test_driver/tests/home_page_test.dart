@@ -14,7 +14,8 @@ void homePageTests() {
       driver = await FlutterDriver.connect();
 
       homePage = HomePageObject(driver);
-
+      
+      //Seems this sleep is necessary by driver bug with async main
       sleep(const Duration(milliseconds: 1000));
     });
 
