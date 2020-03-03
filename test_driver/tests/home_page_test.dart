@@ -15,7 +15,7 @@ void homePageTests() {
 
       homePage = HomePageObject(driver);
 
-      sleep(const Duration(milliseconds: 500));
+      sleep(const Duration(milliseconds: 1000));
     });
 
     tearDownAll(() async {
