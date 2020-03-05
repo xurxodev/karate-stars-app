@@ -7,6 +7,6 @@ class SettingsContent {
 
   final videosPageViewFinder = find.byValueKey('settings_page_view');
 
-  Future<void> isVisible({Duration timeout}) =>
+  Future<void> assertIsVisible({Duration timeout}) =>
       driver.waitFor(videosPageViewFinder);
 }

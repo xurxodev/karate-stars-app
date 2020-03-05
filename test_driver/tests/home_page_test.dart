@@ -25,58 +25,33 @@ void homePageTests() {
       }
     });
 
-/*    test('check flutter driver health', () async {
-      final Health health = await driver.checkHealth();
-      print(health.status);
-    });*/
-
-    test('should have correct title to open app 2', () async {
-      await driver.runUnsynchronized(() async {
-        expect(await homePage.title(), 'Karate Stars');
-      });
+    test('should have correct title to open app', () async {
+      await homePage.assertTitle('Karate Stars');
+      await homePage.newsContent.assertIsVisible();
     });
 
-/*    test('should be visible', () async {
-      //homePage.isReady();
-    });*/
-
-    /* test('should has news page view visible by default', () async {
-      await homePage.isReady();
-      await homePage.newsContent.isVisible();
-    });
-
-    test('should show news page view to click on the bottom tab', () async {
-      await homePage.isReady();
-
-      await homePage.gotoCompetitors();
-      await homePage.gotoNews();
-      await homePage.newsContent.isVisible();
-      expect(await homePage.appBarTitle(), 'Karate Stars');
+    test('should has news page view visible by default', () async {
+      await homePage.newsContent.assertIsVisible();
+      await homePage.assertTitle('Karate Stars');
     });
 
     test('should show competitors page view to click on the bottom tab',
         () async {
-          await homePage.isReady();
-
           await homePage.gotoCompetitors();
-          await homePage.competitorsContent.isVisible();
-          expect(await homePage.appBarTitle(), 'Competitors');
+          await homePage.competitorsContent.assertIsVisible();
+          await homePage.assertTitle('Competitors');
     });
 
     test('should show videos page view to click on the bottom tab', () async {
-      await homePage.isReady();
-
       await homePage.gotoVideos();
-      await homePage.videosContent.isVisible();
-      expect(await homePage.appBarTitle(), 'Videos');
+      await homePage.videosContent.assertIsVisible();
+      await homePage.assertTitle('Videos');
     });
 
     test('should show settings page view to click on the bottom tab', () async {
-      await homePage.isReady();
-
       await homePage.gotoSettings();
-      await homePage.settingsContent.isVisible();
-      expect(await homePage.appBarTitle(), 'Settings');
-    });*/
+      await homePage.settingsContent.assertIsVisible();
+      await homePage.assertTitle('Settings');
+    });
   });
 }

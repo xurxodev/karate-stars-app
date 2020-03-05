@@ -7,6 +7,6 @@ class CompetitorsContent {
 
   final competitorsPageViewFinder = find.byValueKey('competitors_page_view');
 
-  Future<void> isVisible({Duration timeout}) =>
+  Future<void> assertIsVisible({Duration timeout}) =>
       driver.waitFor(competitorsPageViewFinder);
 }

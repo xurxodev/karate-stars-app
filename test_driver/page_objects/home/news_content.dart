@@ -7,6 +7,6 @@ class NewsContent {
 
   final newsPageViewFinder = find.byValueKey('news_page_view');
 
-  Future<void> isVisible({Duration timeout}) => driver.waitFor(newsPageViewFinder);
+  Future<void> assertIsVisible({Duration timeout}) => driver.waitFor(newsPageViewFinder);
 
 }
