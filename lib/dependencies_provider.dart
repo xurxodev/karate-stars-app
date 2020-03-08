@@ -14,8 +14,11 @@ int smallCacheTimeMillis = const Duration(hours: 1).inMilliseconds;
 const String apiBaseAddress = 'https://karate-stars-api.herokuapp.com/v1';
 //const String baseAddress = 'http://10.0.2.2:8000/v1';
 
-Future<void> init(AppDatabase appDatabase) async {
+Future<void> init() async {
   _initAppDependencies();
+
+  final AppDatabase appDatabase =
+  await $FloorAppDatabase.databaseBuilder('karate_stars.db').build();
 
   final Credentials apiCredentials =
       await ApiCredentialsLoader('assets/credentials.json').load();
@@ -26,4 +29,6 @@ Future<void> init(AppDatabase appDatabase) async {
 
 void _initAppDependencies() {
   getIt.registerLazySingleton<ApiTokenStorage>(() => ApiTokenSecureStorage());
+
+
 }
