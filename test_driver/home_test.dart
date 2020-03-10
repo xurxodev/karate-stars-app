@@ -1,11 +1,13 @@
+// Imports the Flutter Driver API
+
 import 'dart:io';
 
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
-import '../page_objects/home/home_page_object.dart';
+import 'page_objects/home/home_page_object.dart';
 
-void homePageTests() {
+void main() {
   group('home page', () {
     FlutterDriver driver;
     HomePageObject homePage;
@@ -36,11 +38,11 @@ void homePageTests() {
     });
 
     test('should show competitors page view to click on the bottom tab',
-        () async {
+            () async {
           await homePage.gotoCompetitors();
           await homePage.competitorsContent.assertIsVisible();
           await homePage.assertTitle('Competitors');
-    });
+        });
 
     test('should show videos page view to click on the bottom tab', () async {
       await homePage.gotoVideos();
