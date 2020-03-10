@@ -1,4 +1,4 @@
-import 'package:karate_stars_app/dependencies_provider.dart';
+import 'package:karate_stars_app/app_di.dart';
 import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/database.dart';
@@ -16,41 +16,47 @@ import 'package:karate_stars_app/src/news/domain/social_news_repository.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 
 void init(AppDatabase appDatabase, Credentials apiCredentials) {
-  _initCurrentNews(appDatabase, apiCredentials);
+  _initCurrentNewsDataDI(appDatabase, apiCredentials);
 
-  _initSocialNews(appDatabase, apiCredentials);
+  _initSocialNewsDataDI(appDatabase, apiCredentials);
 
   getIt.registerFactory(() => NewsBloc(getIt()));
 
   getIt.registerLazySingleton(() => GetNewsUseCase(getIt(), getIt()));
 }
 
-void _initCurrentNews(AppDatabase appDatabase, Credentials apiCredentials) {
-  getIt.registerLazySingleton<ReadableDataSource<CurrentNews>>(
-      () => CurrentNewsApiDataSource(apiBaseAddress, apiCredentials, getIt()));
+void _initCurrentNewsDataDI(
+    AppDatabase appDatabase, Credentials apiCredentials) {
+  if (!getIt.isRegistered<CurrentNewsRepository>()) {
+    getIt.registerLazySingleton<ReadableDataSource<CurrentNews>>(() =>
+        CurrentNewsApiDataSource(apiBaseAddress, apiCredentials, getIt()));
 
-  getIt.registerLazySingleton(() => appDatabase.currentNewsDao);
+    getIt.registerLazySingleton(() => appDatabase.currentNewsDao);
 
-  getIt.registerLazySingleton(() => appDatabase.currentNewsSourcesDao);
+    getIt.registerLazySingleton(() => appDatabase.currentNewsSourcesDao);
 
-  getIt.registerLazySingleton<CacheableDataSource<CurrentNews>>(() =>
-      CurrentNewsFloorDataSource(getIt(), getIt(), mediumCacheTimeMillis));
+    getIt.registerLazySingleton<CacheableDataSource<CurrentNews>>(() =>
+        CurrentNewsFloorDataSource(getIt(), getIt(), mediumCacheTimeMillis));
 
-  getIt.registerLazySingleton<CurrentNewsRepository>(
-      () => CurrentNewsCachedRepository(getIt(), getIt()));
+    getIt.registerLazySingleton<CurrentNewsRepository>(
+        () => CurrentNewsCachedRepository(getIt(), getIt()));
+  }
 }
 
-void _initSocialNews(AppDatabase appDatabase, Credentials apiCredentials) {
-  getIt.registerLazySingleton<ReadableDataSource<SocialNews>>(
-      () => SocialNewsApiDataSource(apiBaseAddress, apiCredentials, getIt()));
+void _initSocialNewsDataDI(
+    AppDatabase appDatabase, Credentials apiCredentials) {
+  if (!getIt.isRegistered<SocialNewsRepository>()) {
+    getIt.registerLazySingleton<ReadableDataSource<SocialNews>>(
+        () => SocialNewsApiDataSource(apiBaseAddress, apiCredentials, getIt()));
 
-  getIt.registerLazySingleton(() => appDatabase.socialNewsDao);
+    getIt.registerLazySingleton(() => appDatabase.socialNewsDao);
 
-  getIt.registerLazySingleton(() => appDatabase.socialUsersDao);
+    getIt.registerLazySingleton(() => appDatabase.socialUsersDao);
 
-  getIt.registerLazySingleton<CacheableDataSource<SocialNews>>(
-      () => SocialNewsFloorDataSource(getIt(), getIt(), mediumCacheTimeMillis));
+    getIt.registerLazySingleton<CacheableDataSource<SocialNews>>(() =>
+        SocialNewsFloorDataSource(getIt(), getIt(), mediumCacheTimeMillis));
 
-  getIt.registerLazySingleton<SocialNewsRepository>(
-      () => SocialNewsCachedRepository(getIt(), getIt()));
+    getIt.registerLazySingleton<SocialNewsRepository>(
+        () => SocialNewsCachedRepository(getIt(), getIt()));
+  }
 }

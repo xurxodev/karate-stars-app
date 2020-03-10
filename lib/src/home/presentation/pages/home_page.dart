@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/dependencies_provider.dart';
+import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/app_bar_title.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform_alert_dialog.dart';
@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 
   static Widget create() {
     return BlocProvider<NewsBloc>(
-      bloc: getIt<NewsBloc>(),
+      bloc: app_di.getIt<NewsBloc>(),
       child: const HomePage(),
     );
   }
