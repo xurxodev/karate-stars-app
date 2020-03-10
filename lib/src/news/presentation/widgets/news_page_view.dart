@@ -57,7 +57,7 @@ class _NewsPageViewState extends State<NewsPageView> {
       );
     } else if (state is Loaded) {
       if (state.news.isEmpty) {
-        return NotificationText(Strings.news_empty);
+        return const NotificationText(Strings.news_empty);
       } else {
         return Container(
             padding: const EdgeInsets.only(top: 8.0),
