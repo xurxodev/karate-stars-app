@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/notification_text.dart';
+import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
@@ -41,7 +43,7 @@ class _NewsPageViewState extends State<NewsPageView> {
         if (snapshot.hasData) {
           return _renderNews(context, snapshot.data, bloc);
         } else {
-          return Center(child: Text(snapshot.error.toString()));
+          return NotificationText(snapshot.error.toString());
         }
       },
     );
@@ -54,29 +56,33 @@ class _NewsPageViewState extends State<NewsPageView> {
         child: CircularProgressIndicator(),
       );
     } else if (state is Loaded) {
-      return Container(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: LiquidPullToRefresh(
-              borderWidth: 2,
-              color: Theme.of(context).cardColor,
-              backgroundColor: Theme.of(context).accentColor,
-              showChildOpacityTransition: false,
-              child: ListView.builder(
-                key: const PageStorageKey('news_list_view'),
-                controller: _scrollController,
-                //important to maintain scroll
-                itemCount: state.news.length,
-                itemBuilder: (context, index) {
-                  final News news = state.news[index];
+      if (state.news.isEmpty) {
+        return NotificationText(Strings.news_empty);
+      } else {
+        return Container(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: LiquidPullToRefresh(
+                borderWidth: 2,
+                color: Theme.of(context).cardColor,
+                backgroundColor: Theme.of(context).accentColor,
+                showChildOpacityTransition: false,
+                child: ListView.builder(
+                  key: const PageStorageKey('news_list_view'),
+                  controller: _scrollController,
+                  //important to maintain scroll
+                  itemCount: state.news.length,
+                  itemBuilder: (context, index) {
+                    final News news = state.news[index];
 
-                  if (news is SocialNews) {
-                    return ItemSocialNews(news);
-                  } else {
-                    return ItemCurrentNews(news);
-                  }
-                },
-              ),
-              onRefresh: () => bloc.refresh()));
+                    if (news is SocialNews) {
+                      return ItemSocialNews(news);
+                    } else {
+                      return ItemCurrentNews(news);
+                    }
+                  },
+                ),
+                onRefresh: () => bloc.refresh()));
+      }
     }
   }
 }

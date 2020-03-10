@@ -9,4 +9,5 @@ class Strings{
   static const String news_filters_all = 'All';
   static const String news_filters_current = 'news';
   static const String news_filters_social = 'Social';
+  static const String news_empty = 'There are no news';
 }
