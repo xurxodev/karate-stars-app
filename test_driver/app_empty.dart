@@ -1,10 +1,25 @@
+import 'package:flutter_driver/driver_extension.dart';
+
+import 'package:karate_stars_app/main.dart' as main_app;
+import 'package:karate_stars_app/app_di.dart' as app_di;
+
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/news/domain/current_news_repository.dart';
 import 'package:karate_stars_app/src/news/domain/social_news_repository.dart';
 import 'package:mockito/mockito.dart';
-import 'package:karate_stars_app/app_di.dart' as app_di;
 
-import '../mocks/mocks.dart';
+import 'mocks/mocks.dart';
+
+void main() {
+  // This line enables the extension
+  enableFlutterDriverExtension();
+
+  givenThereAreNoNews();
+
+  // Call the `main()` function of your app or call `runApp` with any widget you
+  // are interested in testing.
+  main_app.main();
+}
 
 void givenThereAreNoNews() {
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
