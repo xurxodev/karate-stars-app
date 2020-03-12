@@ -1,0 +1,29 @@
+workflows:
+  default-workflow:
+    name: Default Workflow
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch emulator
+      - flutter packages pub get
+      - flutter packages pub run build_runner build
+      - flutter pub run tool/credentials
+      - flutter analyze
+      - flutter test
+      - ./scripts/driver_test.sh
+
+    artifacts:
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - xurxosf@gmail.com
