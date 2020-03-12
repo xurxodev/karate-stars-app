@@ -5,15 +5,23 @@ abstract class NewsState {
 
   NewsState();
 
-  factory NewsState.loading() => Loading();
+  factory NewsState.loading() => NewsLoadingState();
 
-  factory NewsState.loaded(List<News> result) =>  Loaded(news: result);
+  factory NewsState.loaded(List<News> result) =>  NewsLoadedState(news: result);
+
+  factory NewsState.error(String message) => NewsErrorState(message: message);
 }
 
-class Loading extends NewsState {}
+class NewsLoadingState extends NewsState {}
 
-class Loaded extends NewsState {
+class NewsLoadedState extends NewsState {
   final List<News> news;
 
-  Loaded({@required this.news});
+  NewsLoadedState({@required this.news});
+}
+
+class NewsErrorState extends NewsState {
+  final String message;
+
+  NewsErrorState({@required this.message});
 }
