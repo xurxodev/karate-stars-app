@@ -1,4 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:test/test.dart';
 
 import 'competitors_content.dart';
@@ -21,19 +22,19 @@ class HomePageObject {
     settingsContent = SettingsContent(_driver);
   }
 
-  final _titleFinder = find.byValueKey('app_bar_title');
+  final _titleFinder = find.byValueKey(Keys.home_appbar_title);
 
   Future<void> assertTitle(String expectedTitle) async =>
       await _driver.runUnsynchronized(() async {
         expect(await _driver.getText(_titleFinder), expectedTitle);
       });
 
-  Future<void> gotoNews() => _driver.tap(find.byValueKey('news_tab'));
+  Future<void> gotoNews() => _driver.tap(find.byValueKey(Keys.home_news_tab));
 
   Future<void> gotoCompetitors() =>
-      _driver.tap(find.byValueKey('competitor_tab'));
+      _driver.tap(find.byValueKey(Keys.home_competitors_tab));
 
-  Future<void> gotoVideos() => _driver.tap(find.byValueKey('videos_tab'));
+  Future<void> gotoVideos() => _driver.tap(find.byValueKey(Keys.home_videos_tab));
 
-  Future<void> gotoSettings() => _driver.tap(find.byValueKey('settings_tab'));
+  Future<void> gotoSettings() => _driver.tap(find.byValueKey(Keys.home_settings_tab));
 }

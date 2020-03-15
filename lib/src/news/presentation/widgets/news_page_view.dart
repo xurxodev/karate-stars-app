@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
@@ -12,9 +13,7 @@ import 'package:karate_stars_app/src/news/presentation/widgets/item_social_news.
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class NewsPageView extends StatefulWidget {
-  static const id = 'news_page_view';
-
-  const NewsPageView() : super(key: const Key(id));
+  const NewsPageView() : super(key: const Key(Keys.news_page_view));
 
   @override
   _NewsPageViewState createState() => _NewsPageViewState();
@@ -66,6 +65,7 @@ class _NewsPageViewState extends State<NewsPageView> {
       return Container(
           padding: const EdgeInsets.only(top: 8.0),
           child: LiquidPullToRefresh(
+              key: const Key('liquid'),
               borderWidth: 2,
               color: Theme.of(context).cardColor,
               backgroundColor: Theme.of(context).accentColor,
@@ -79,9 +79,9 @@ class _NewsPageViewState extends State<NewsPageView> {
                   final News news = state.news[index];
 
                   if (news is SocialNews) {
-                    return ItemSocialNews(news);
+                    return ItemSocialNews(news, key: Key('NEWS_ITEM_$index'));
                   } else {
-                    return ItemCurrentNews(news);
+                    return ItemCurrentNews(news, key: Key('NEWS_ITEM_$index'));
                   }
                 },
               ),

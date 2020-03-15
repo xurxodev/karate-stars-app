@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/keys.dart';
 
 class NotificationMessage extends StatelessWidget {
-  static const id = 'notification_message';
-
   final String text;
 
   const NotificationMessage(this.text);
@@ -14,7 +13,7 @@ class NotificationMessage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
             child: Text(
       text,
-      key: const Key(id),
+      key: const Key(Keys.notification_message),
       style: Theme.of(context).textTheme.title,
     )));
   }

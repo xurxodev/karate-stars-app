@@ -11,7 +11,7 @@ import 'package:karate_stars_app/src/videos/widgets/item_video_player.dart';
 class ItemSocialNews extends ItemNews {
   final SocialNews socialNews;
 
-  const ItemSocialNews(this.socialNews);
+  const ItemSocialNews(this.socialNews,{ Key key }): super(key: key);
 
   @override
   Widget buildContent(BuildContext context) {

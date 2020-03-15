@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../keys.dart';
+
 class AppBarTitle extends StatelessWidget {
   final String title;
   final bool showIcon;
@@ -10,7 +12,7 @@ class AppBarTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> children = [];
 
-    const Key titleKey = Key('app_bar_title');
+    const Key titleKey = Key(Keys.home_appbar_title);
 
     if (showIcon) {
       children.addAll([

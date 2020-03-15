@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/app_bar_title.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/competitors/views/competitors_screen.dart';
+import 'package:karate_stars_app/src/competitors/views/competitors_page_view.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
@@ -34,10 +35,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  static const newsTabId = 'news_tab';
-  static const competitorTabId = 'competitor_tab';
-  static const videosTabId = 'videos_tab';
-  static const settingsTabId = 'settings_tab';
 
   int _currentTab = 0;
   PageController _pageController;
@@ -91,25 +88,25 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.view_quilt,
-              key: const Key(newsTabId),
+              key: const Key(Keys.home_news_tab),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person_outline,
-              key: const Key(competitorTabId),
+              key: const Key(Keys.home_competitors_tab),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.video_library,
-              key: const Key(videosTabId),
+              key: const Key(Keys.home_videos_tab),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.settings,
-              key: const Key(settingsTabId),
+              key: const Key(Keys.home_settings_tab),
             ),
           ),
         ],

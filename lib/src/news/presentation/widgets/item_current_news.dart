@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
 class ItemCurrentNews extends ItemNews {
   final CurrentNews currentNews;
 
-  const ItemCurrentNews(this.currentNews);
+  const ItemCurrentNews(this.currentNews,{ Key key }): super(key: key);
   
 
   @override

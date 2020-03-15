@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/keys.dart';
 
 class SettingsPageView extends StatefulWidget {
-  const SettingsPageView() : super(key: const Key(id));
-
-  static const id = 'settings_page_view';
+  const SettingsPageView() : super(key: const Key(Keys.settings_page_view));
 
   @override
   _SettingsPageViewState createState() => _SettingsPageViewState();
