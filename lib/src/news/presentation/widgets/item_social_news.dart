@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:karate_stars_app/src/browser/presentation/factories/twitter_url_factory.dart';
 import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
+import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/twitter_icon.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
@@ -10,8 +11,10 @@ import 'package:karate_stars_app/src/videos/widgets/item_video_player.dart';
 
 class ItemSocialNews extends ItemNews {
   final SocialNews socialNews;
+  final String itemTextKey;
 
-  const ItemSocialNews(this.socialNews,{ Key key }): super(key: key);
+  ItemSocialNews(this.socialNews, {this.itemTextKey})
+      : super(key: Key(itemTextKey));
 
   @override
   Widget buildContent(BuildContext context) {
@@ -28,9 +31,11 @@ class ItemSocialNews extends ItemNews {
           leading: CircleAvatar(
               backgroundImage:
                   CachedNetworkImageProvider(socialNews.user.image)),
-          title: Text(socialNews.user.name),
+          title: Text(socialNews.user.name,
+              key: Key('${itemTextKey}_${Keys.news_item_source}')),
           trailing: Text(
             '@${socialNews.user.userName}',
+            key: Key('${itemTextKey}_${Keys.news_item_social_username}'),
             style: Theme.of(context).textTheme.caption,
           ),
         ),
@@ -39,6 +44,7 @@ class ItemSocialNews extends ItemNews {
       const SizedBox(height: 16),
       ListTile(
           title: ParsedText(
+        key: Key('${itemTextKey}_${Keys.news_item_title}'),
         text: socialNews.summary.title,
         style: Theme.of(context).textTheme.subhead,
         parse: <MatchText>[
@@ -69,7 +75,8 @@ class ItemSocialNews extends ItemNews {
         ],
       )),
       ListTile(
-        leading: TwitterIcon(),
+        leading: TwitterIcon(
+            key: Key('${itemTextKey}_${Keys.news_item_social_badge}')),
         trailing: Text(
           socialNews.summary.pubDate.antiquity,
           style: Theme.of(context).textTheme.caption,

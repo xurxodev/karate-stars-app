@@ -65,7 +65,7 @@ class _NewsPageViewState extends State<NewsPageView> {
       return Container(
           padding: const EdgeInsets.only(top: 8.0),
           child: LiquidPullToRefresh(
-              key: const Key('liquid'),
+              key: const Key(Keys.news_items_parent),
               borderWidth: 2,
               color: Theme.of(context).cardColor,
               backgroundColor: Theme.of(context).accentColor,
@@ -78,10 +78,12 @@ class _NewsPageViewState extends State<NewsPageView> {
                 itemBuilder: (context, index) {
                   final News news = state.news[index];
 
+                  final textKey = '${Keys.news_item}_$index';
+
                   if (news is SocialNews) {
-                    return ItemSocialNews(news, key: Key('NEWS_ITEM_$index'));
+                    return ItemSocialNews(news, itemTextKey: textKey);
                   } else {
-                    return ItemCurrentNews(news, key: Key('NEWS_ITEM_$index'));
+                    return ItemCurrentNews(news, itemTextKey: textKey);
                   }
                 },
               ),

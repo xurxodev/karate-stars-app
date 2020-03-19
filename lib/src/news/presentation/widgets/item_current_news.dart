@@ -1,14 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
+import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
 
 class ItemCurrentNews extends ItemNews {
   final CurrentNews currentNews;
+  final String itemTextKey;
 
-  const ItemCurrentNews(this.currentNews,{ Key key }): super(key: key);
-  
+  ItemCurrentNews(this.currentNews, {this.itemTextKey}) : super(key: Key(itemTextKey));
 
   @override
   Widget buildContent(BuildContext context) {
@@ -19,11 +20,16 @@ class ItemCurrentNews extends ItemNews {
           ListTile(
             leading: CircleAvatar(
                 backgroundImage: NetworkImage(currentNews.source.image)),
-            title: Text(currentNews.source.name),
+            title: Text(currentNews.source.name,
+                key: Key('${itemTextKey}_${Keys.news_item_source}')),
           ),
           CachedNetworkImage(imageUrl: currentNews.summary.image),
           const SizedBox(height: 16),
-          ListTile(title: Text(currentNews.summary.title)),
+          ListTile(
+              title: Text(
+            currentNews.summary.title,
+            key: Key('${itemTextKey}_${Keys.news_item_title}'),
+          )),
           ListTile(
             trailing: Text(
               currentNews.summary.pubDate.antiquity,
