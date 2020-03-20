@@ -29,7 +29,7 @@ class PlatformAlertDialog extends StatelessWidget {
         FlatButton(
           child: Text(
             Strings.ok,
-            key: Key(Keys.alert_dialog_ok_button),
+            key: const Key(Keys.alert_dialog_ok_button),
             style:
                 Theme.of(context).textTheme.button.copyWith(color: Colors.red),
           ),
@@ -48,7 +48,7 @@ class PlatformAlertDialog extends StatelessWidget {
         content: content,
         actions: [
           CupertinoDialogAction(
-              key: Key(Keys.alert_dialog_ok_button),
+              key: const Key(Keys.alert_dialog_ok_button),
               isDefaultAction: true,
               child: Text(
                 Strings.ok,
