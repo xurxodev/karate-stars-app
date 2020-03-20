@@ -1,5 +1,6 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
+import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:test/test.dart';
 
 class NewsContent {
@@ -98,5 +99,44 @@ class NewsContent {
   Future<void> scrollToUp() async {
     await _driver.scroll(
         listFinder, 0, 3000, const Duration(milliseconds: 500));
+  }
+
+  Future<void> filterByCurrentNews() async {
+    await _openFilterDialog();
+
+    final currentFilterFinder = find.text(Strings.news_filters_current);
+    await _driver.tap(currentFilterFinder);
+
+    await _closeFilterDialog();
+  }
+
+  Future<void> filterBySocialNews() async {
+    await _openFilterDialog();
+
+    final currentFilterFinder = find.text(Strings.news_filters_social);
+    await _driver.tap(currentFilterFinder);
+
+    await _closeFilterDialog();
+  }
+
+  Future<void> filterByAllNews() async {
+    await _openFilterDialog();
+
+    final currentFilterFinder = find.text(Strings.news_filters_all);
+    await _driver.tap(currentFilterFinder);
+
+    await _closeFilterDialog();
+  }
+
+  Future<void> _openFilterDialog() async {
+    final filterButtonFinder = find.byValueKey(Keys.home_news_filter);
+
+    await _driver.tap(filterButtonFinder);
+  }
+
+  Future<void> _closeFilterDialog() async {
+    final okButtonFinder = find.byValueKey(Keys.alert_dialog_ok_button);
+
+    await _driver.tap(okButtonFinder);
   }
 }

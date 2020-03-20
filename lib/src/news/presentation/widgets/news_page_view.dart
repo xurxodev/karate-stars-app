@@ -33,7 +33,7 @@ class _NewsPageViewState extends State<NewsPageView> {
   Widget build(BuildContext context) {
     final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
 
-    bloc.filter.listen((_) => _scrollController.jumpTo(0));
+    //bloc.filter.listen((_) => _scrollController.jumpTo(0));
 
     return StreamBuilder<NewsState>(
       initialData: bloc.initialNews,

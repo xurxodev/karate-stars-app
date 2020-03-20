@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/keys.dart';
+import 'package:karate_stars_app/src/common/strings.dart';
 
 class PlatformAlertDialog extends StatelessWidget {
   final String title;
@@ -26,7 +28,8 @@ class PlatformAlertDialog extends StatelessWidget {
       actions: <Widget>[
         FlatButton(
           child: Text(
-            'OK',
+            Strings.ok,
+            key: Key(Keys.alert_dialog_ok_button),
             style:
                 Theme.of(context).textTheme.button.copyWith(color: Colors.red),
           ),
@@ -45,9 +48,10 @@ class PlatformAlertDialog extends StatelessWidget {
         content: content,
         actions: [
           CupertinoDialogAction(
+              key: Key(Keys.alert_dialog_ok_button),
               isDefaultAction: true,
               child: Text(
-                'OK',
+                Strings.ok,
                 style: Theme.of(context)
                     .textTheme
                     .button

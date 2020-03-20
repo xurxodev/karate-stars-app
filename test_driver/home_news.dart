@@ -127,6 +127,29 @@ void main() {
 
       await homePage.newsContent.scrollToUp();
     });
+
+    test('should filter by current news', () async {
+      final currentNewsList = CurrentNewsMother.all();
+      await homePage.newsContent.filterByCurrentNews();
+
+      for (var i = 0; i < currentNewsList.length; i++) {
+        await homePage.newsContent.assertSocialBadgeIsHidden(i);
+      }
+
+      await homePage.newsContent.filterByAllNews();
+    });
+
+    test('should filter by social news', () async {
+      final socialNewsList = SocialNewsMother.all();
+
+      await homePage.newsContent.filterBySocialNews();
+
+      for (var i = 0; i < socialNewsList.length; i++) {
+        await homePage.newsContent.assertSocialBadgeIsVisible(i);
+      }
+
+      await homePage.newsContent.filterByAllNews();
+    });
   });
 }
 
