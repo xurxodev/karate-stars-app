@@ -10,3 +10,9 @@ Future<void> main() async {
   runApp(App());
 }
 
+void mainWithoutDataDependencies() {
+  app_di.initWithoutDataDependencies();
+
+  runApp(App());
+}
+

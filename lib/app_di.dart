@@ -23,12 +23,15 @@ Future<void> init() async {
   final Credentials apiCredentials =
       await ApiCredentialsLoader('assets/credentials.json').load();
 
-  news_di.init(appDatabase, apiCredentials);
+  news_di.initAll(appDatabase, apiCredentials);
+  browser_di.init();
+}
+
+void initWithoutDataDependencies() {
+  news_di.initBlocAndUseCases();
   browser_di.init();
 }
 
 void _initAppDependencies() {
   getIt.registerLazySingleton<ApiTokenStorage>(() => ApiTokenSecureStorage());
-
-
 }
