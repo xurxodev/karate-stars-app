@@ -1,7 +1,4 @@
 // Imports the Flutter Driver API
-
-import 'dart:io';
-
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
@@ -21,9 +18,6 @@ void main() {
       driver = await FlutterDriver.connect();
 
       homePage = HomePageObject(driver);
-
-      //Seems this sleep is necessary by driver bug with async main
-      sleep(const Duration(milliseconds: 1000));
     });
 
     tearDownAll(() async {
