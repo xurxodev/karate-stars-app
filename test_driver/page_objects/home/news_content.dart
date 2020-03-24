@@ -29,7 +29,7 @@ class NewsContent {
     final itemFinder = find.byValueKey(itemTextKey);
     final itemTitleFinder = find.byValueKey(itemTitleKey);
 
-    sleep(const Duration(milliseconds: 1000));
+    sleep(const Duration(milliseconds: 2000));
     await _driver.scrollUntilVisible(listFinder, itemFinder);
 
     expect(await _driver.getText(itemTitleFinder), expectedTitle);
