@@ -1,4 +1,3 @@
-// Imports the Flutter Driver API
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';

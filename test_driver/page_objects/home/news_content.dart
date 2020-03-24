@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
@@ -27,8 +29,8 @@ class NewsContent {
     final itemFinder = find.byValueKey(itemTextKey);
     final itemTitleFinder = find.byValueKey(itemTitleKey);
 
+    sleep(const Duration(milliseconds: 1000));
     await _driver.scrollUntilVisible(listFinder, itemFinder);
-    //_driver.waitFor(find.descendant(of: itemTitleFinder,matching: find.text(expectedTitle)));
 
     expect(await _driver.getText(itemTitleFinder), expectedTitle);
   }
@@ -40,7 +42,6 @@ class NewsContent {
     final itemFinder = find.byValueKey(itemTextKey);
     final itemSourceFinder = find.byValueKey(itemSourceKey);
 
-    await _driver.waitFor(listFinder);
     await _driver.scrollUntilVisible(listFinder, itemFinder);
 
     expect(await _driver.getText(itemSourceFinder), expectedSource);
@@ -53,7 +54,6 @@ class NewsContent {
     final itemFinder = find.byValueKey(itemTextKey);
     final itemSocialBadgeFinder = find.byValueKey(itemSocialBadge);
 
-    await _driver.waitFor(listFinder);
     await _driver.scrollUntilVisible(listFinder, itemFinder);
 
     await _driver.waitFor(itemSocialBadgeFinder);
@@ -66,7 +66,6 @@ class NewsContent {
     final itemFinder = find.byValueKey(itemTextKey);
     final itemSocialBadgeFinder = find.byValueKey(itemSocialBadge);
 
-    await _driver.waitFor(listFinder);
     await _driver.scrollUntilVisible(listFinder, itemFinder);
 
     await _driver.waitForAbsent(itemSocialBadgeFinder);
@@ -81,7 +80,6 @@ class NewsContent {
     final itemFinder = find.byValueKey(itemTextKey);
     final itemSocialUsernameFinder = find.byValueKey(itemSocialUsernameKey);
 
-    await _driver.waitFor(listFinder);
     await _driver.scrollUntilVisible(listFinder, itemFinder);
 
     expect(await _driver.getText(itemSocialUsernameFinder), expectedUsername);
@@ -95,7 +93,6 @@ class NewsContent {
     final itemFinder = find.byValueKey(itemTextKey);
     final itemSocialUsernameFinder = find.byValueKey(itemSocialUsernameKey);
 
-    await _driver.waitFor(listFinder);
     await _driver.scrollUntilVisible(listFinder, itemFinder);
 
     await _driver.waitForAbsent(itemSocialUsernameFinder);
@@ -111,7 +108,6 @@ class NewsContent {
 
     final currentFilterFinder = find.text(Strings.news_filters_current);
 
-    await _driver.waitFor(currentFilterFinder);
     await _driver.tap(currentFilterFinder);
 
     await _closeFilterDialog();
@@ -122,7 +118,6 @@ class NewsContent {
 
     final socialFilterFinder = find.text(Strings.news_filters_social);
 
-    await _driver.waitFor(socialFilterFinder);
     await _driver.tap(socialFilterFinder);
 
     await _closeFilterDialog();
@@ -133,7 +128,6 @@ class NewsContent {
 
     final allFilterFinder = find.text(Strings.news_filters_all);
 
-    await _driver.waitFor(allFilterFinder);
     await _driver.tap(allFilterFinder);
 
     await _closeFilterDialog();
@@ -142,14 +136,12 @@ class NewsContent {
   Future<void> _openFilterDialog() async {
     final filterButtonFinder = find.byValueKey(Keys.home_news_filter);
 
-    await _driver.waitFor(filterButtonFinder);
     await _driver.tap(filterButtonFinder);
   }
 
   Future<void> _closeFilterDialog() async {
     final okButtonFinder = find.byValueKey(Keys.alert_dialog_ok_button);
 
-    await _driver.waitFor(okButtonFinder);
     await _driver.tap(okButtonFinder);
   }
 }
