@@ -27,6 +27,8 @@ class CurrentNewsApiDataSource extends ApiDataSource
       return parser.parse(json.decode(response.body));
     } on Exception{
       print(response.body);
+      rethrow;
+
     }
   }
 }
