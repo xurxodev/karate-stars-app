@@ -13,15 +13,14 @@ CurrentNewsApiDataSource _currentNewsApiDataSource;
 MockApi mockApi;
 
 void main() {
-  setUp(() async {
+  setUp(()  {
 
     mockApi = MockApi();
-    await mockApi.start();
-
-    final Credentials fakeCredentials = Credentials('', '');
-
-    _currentNewsApiDataSource = CurrentNewsApiDataSource(
-        mockApi.baseAddress, fakeCredentials, FakeApiTokenStorage());
+    mockApi.start().then((_) {
+      final Credentials fakeCredentials = Credentials('', '');
+      _currentNewsApiDataSource = CurrentNewsApiDataSource(
+          mockApi.baseAddress, fakeCredentials, FakeApiTokenStorage());
+    });
   });
 
   tearDown(() {

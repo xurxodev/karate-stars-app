@@ -23,12 +23,10 @@ class SocialNewsApiDataSource extends ApiDataSource
   Future<List<SocialNews>> _fetchSocialNews() async {
     final response = await super.get('/socialnews');
 
-    if (response.statusCode == 200) {
-      // If server returns an OK response, parse the JSON.
+    try {
       return parser.parse(json.decode(response.body));
-    } else {
-      // If that response was not OK, throw an error.
-      throw Exception('Failed to load post');
+    } on Exception{
+      print(response.body);
     }
   }
 }

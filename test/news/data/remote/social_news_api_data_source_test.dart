@@ -10,16 +10,18 @@ import 'fake/fake_api_token_storage.dart';
 
 SocialNewsApiDataSource _socialNewsApiDataSource;
 
-MockApi mockApi = MockApi();
+MockApi mockApi;
 
 void main() {
-  setUp(() async {
-    await mockApi.start();
+  setUp(()  {
 
-    final Credentials fakeCredentials = Credentials('', '');
+    mockApi = MockApi();
+    mockApi.start().then ((_){
+      final Credentials fakeCredentials = Credentials('', '');
 
-    _socialNewsApiDataSource = SocialNewsApiDataSource(
-        mockApi.baseAddress, fakeCredentials, FakeApiTokenStorage());
+      _socialNewsApiDataSource = SocialNewsApiDataSource(
+          mockApi.baseAddress, fakeCredentials, FakeApiTokenStorage());
+    });
   });
 
   tearDown(() {
