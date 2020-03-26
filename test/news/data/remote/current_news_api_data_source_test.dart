@@ -10,10 +10,12 @@ import 'fake/fake_api_token_storage.dart';
 
 CurrentNewsApiDataSource _currentNewsApiDataSource;
 
-MockApi mockApi = MockApi();
+MockApi mockApi;
 
 void main() {
   setUp(() async {
+
+    mockApi = MockApi();
     await mockApi.start();
 
     final Credentials fakeCredentials = Credentials('', '');

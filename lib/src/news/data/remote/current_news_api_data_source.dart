@@ -23,6 +23,7 @@ class CurrentNewsApiDataSource extends ApiDataSource
   Future<List<CurrentNews>> _fetchCurrentNews() async {
     final response = await super.get('/currentnews');
 
+    print (response.body);
     // If server returns an OK response, parse the JSON.
     return parser.parse(json.decode(response.body));
   }

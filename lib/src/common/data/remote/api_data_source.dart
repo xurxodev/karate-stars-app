@@ -33,13 +33,14 @@ abstract class ApiDataSource {
 
   Future<http.Response> _renewTokenAndExecuteRequest(String endpoint) async {
     final token = await _renewToken();
-    _apiTokenStorage.saveToken(token);
+    await _apiTokenStorage.saveToken(token);
 
     return _executeRequest(endpoint, token);
   }
 
   Future<http.Response> _executeRequest(String endpoint, String token) async {
     try {
+      print('_executeRequest');
       final response = await http.get(
         '$_baseAddress$endpoint',
         headers: {
@@ -55,7 +56,7 @@ abstract class ApiDataSource {
 
   Future<String> _renewToken() async {
     try {
-
+      print('_renewToken');
       final response = await http.post('$_baseAddress/login', body: {
         'username': _apiCredentials.username,
         'password': _apiCredentials.password
