@@ -105,6 +105,7 @@ class NewsContent {
 
     final currentFilterFinder = find.text(Strings.news_filters_current);
 
+    await _driver.waitFor(currentFilterFinder);
     await _driver.tap(currentFilterFinder);
 
     await _closeFilterDialog();
@@ -115,6 +116,7 @@ class NewsContent {
 
     final socialFilterFinder = find.text(Strings.news_filters_social);
 
+    await _driver.waitFor(socialFilterFinder);
     await _driver.tap(socialFilterFinder);
 
     await _closeFilterDialog();
@@ -125,6 +127,7 @@ class NewsContent {
 
     final allFilterFinder = find.text(Strings.news_filters_all);
 
+    await _driver.waitFor(allFilterFinder);
     await _driver.tap(allFilterFinder);
 
     await _closeFilterDialog();
