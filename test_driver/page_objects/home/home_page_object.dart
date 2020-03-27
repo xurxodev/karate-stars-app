@@ -20,6 +20,8 @@ class HomePageObject {
     competitorsContent = CompetitorsContent(_driver);
     videosContent = VideosContent(_driver);
     settingsContent = SettingsContent(_driver);
+
+    _driver.waitUntilNoTransientCallbacks();
   }
 
   final _titleFinder = find.byValueKey(Keys.home_appbar_title);
