@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:karate_stars_app/src/browser/presentation/factories/twitter_url_factory.dart';
@@ -29,8 +28,7 @@ class ItemSocialNews extends ItemNews {
                 TwitterUrlFactory().create('@${socialNews.user.userName}')),
         child: ListTile(
           leading: CircleAvatar(
-              backgroundImage:
-                  CachedNetworkImageProvider(socialNews.user.image)),
+              backgroundImage: NetworkImage(socialNews.user.image)),
           title: Text(socialNews.user.name,
               key: Key('${itemTextKey}_${Keys.news_item_source}')),
           trailing: Text(
@@ -91,7 +89,7 @@ class ItemSocialNews extends ItemNews {
       return ItemVideoPlayer(videoUrl: socialNews.summary.video);
     } else if (socialNews.summary.image != null &&
         socialNews.summary.image.isNotEmpty) {
-      return CachedNetworkImage(imageUrl: socialNews.summary.image);
+      return Image.network(socialNews.summary.image);
     } else {
       return Container();
     }

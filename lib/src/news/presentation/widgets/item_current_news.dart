@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
@@ -23,7 +22,7 @@ class ItemCurrentNews extends ItemNews {
             title: Text(currentNews.source.name,
                 key: Key('${itemTextKey}_${Keys.news_item_source}')),
           ),
-          CachedNetworkImage(imageUrl: currentNews.summary.image),
+          Image.network(currentNews.summary.image),
           const SizedBox(height: 16),
           ListTile(
               title: Text(
