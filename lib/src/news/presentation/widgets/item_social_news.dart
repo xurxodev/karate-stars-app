@@ -113,8 +113,7 @@ class ItemSocialNews extends ItemNews {
           backgroundImage:
           CachedNetworkImageProvider(socialNews.user.image));
     }else{
-      return CircleAvatar(
-          backgroundColor: Colors.grey,);
+      return const CircleAvatar(backgroundColor: Colors.grey);
     }
   }
 }
