@@ -24,5 +24,6 @@ class Keys{
 
   static const String notification_message = 'notification_message';
 
+  static const String alert_dialog = 'alert_dialog';
   static const String alert_dialog_ok_button = 'ok_button';
 }

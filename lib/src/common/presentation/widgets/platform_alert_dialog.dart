@@ -20,6 +20,7 @@ class PlatformAlertDialog extends StatelessWidget {
 
   Widget _materialAlertDialog(BuildContext context) {
     return AlertDialog(
+      key: const Key(Keys.alert_dialog),
       title: Padding(
           padding: const EdgeInsets.only(bottom: 16.0), child: Text(title)),
       content: content,
@@ -43,6 +44,7 @@ class PlatformAlertDialog extends StatelessWidget {
 
   Widget _cupertinoAlertDialog(BuildContext context) {
     return CupertinoAlertDialog(
+        key: const Key(Keys.alert_dialog),
         title: Padding(
             padding: const EdgeInsets.only(bottom: 16.0), child: Text(title)),
         content: content,

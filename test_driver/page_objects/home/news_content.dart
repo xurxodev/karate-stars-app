@@ -11,6 +11,7 @@ class NewsContent {
   final newsPageViewFinder = find.byValueKey(Keys.news_page_view);
   final notificationFinder = find.byValueKey(Keys.notification_message);
   final listFinder = find.byValueKey(Keys.news_items_parent);
+  final alertDialogFinder = find.byValueKey(Keys.alert_dialog);
 
   Future<void> assertIsVisible({Duration timeout}) =>
       _driver.waitFor(newsPageViewFinder);
@@ -137,6 +138,7 @@ class NewsContent {
     final filterButtonFinder = find.byValueKey(Keys.home_news_filter);
 
     await _driver.tap(filterButtonFinder);
+    await _driver.waitFor(alertDialogFinder);
   }
 
   Future<void> _closeFilterDialog() async {
