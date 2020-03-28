@@ -143,6 +143,7 @@ class NewsContent {
     final okButtonFinder = find.byValueKey(Keys.alert_dialog_ok_button);
 
     await _driver.tap(okButtonFinder);
+    await _driver.waitUntilNoTransientCallbacks();
   }
 
   Future<void> _scrollUntilItem(SerializableFinder itemFinder) async {
