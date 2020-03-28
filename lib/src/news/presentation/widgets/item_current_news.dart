@@ -53,7 +53,7 @@ class ItemCurrentNews extends ItemNews {
           backgroundImage:
           CachedNetworkImageProvider(currentNews.source.image));
     }else{
-      CircleAvatar(
+      return CircleAvatar(
         backgroundColor: Colors.grey,);
     }
   }
