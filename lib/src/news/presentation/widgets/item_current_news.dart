@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
@@ -8,7 +9,8 @@ class ItemCurrentNews extends ItemNews {
   final CurrentNews currentNews;
   final String itemTextKey;
 
-  ItemCurrentNews(this.currentNews, {this.itemTextKey}) : super(key: Key(itemTextKey));
+  ItemCurrentNews(this.currentNews, {this.itemTextKey})
+      : super(key: Key(itemTextKey));
 
   @override
   Widget buildContent(BuildContext context) {
@@ -17,12 +19,11 @@ class ItemCurrentNews extends ItemNews {
             arguments: currentNews.summary.link),
         child: Column(children: <Widget>[
           ListTile(
-            leading: CircleAvatar(
-                backgroundImage: NetworkImage(currentNews.source.image)),
+            leading: _avatar(),
             title: Text(currentNews.source.name,
                 key: Key('${itemTextKey}_${Keys.news_item_source}')),
           ),
-          Image.network(currentNews.summary.image),
+          _image(),
           const SizedBox(height: 16),
           ListTile(
               title: Text(
@@ -36,5 +37,24 @@ class ItemCurrentNews extends ItemNews {
             ),
           ),
         ]));
+  }
+
+  Widget _image() {
+    if (currentNews.summary.image.isNotEmpty){
+      return CachedNetworkImage(imageUrl: currentNews.summary.image);
+    }else{
+      return Container();
+    }
+  }
+
+  Widget _avatar(){
+    if (currentNews.source.image.isNotEmpty){
+      return CircleAvatar(
+          backgroundImage:
+          CachedNetworkImageProvider(currentNews.source.image));
+    }else{
+      CircleAvatar(
+        backgroundColor: Colors.grey,);
+    }
   }
 }
