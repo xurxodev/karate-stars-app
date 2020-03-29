@@ -19,11 +19,9 @@ workflows:
       - flutter pub run tool/credentials
       - flutter analyze
       - flutter test
-      - flutter drive --target=test_driver/app_empty.dart --driver=test_driver/app_empty_test.dart
-
     artifacts:
       - flutter_drive.log
     publishing:
       email:
         recipients:
-          - xurxosf@gmail.com
+          - xurxodev@gmail.com
