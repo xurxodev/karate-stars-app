@@ -27,9 +27,7 @@ class HomePageObject {
   final _titleFinder = find.byValueKey(Keys.home_appbar_title);
 
   Future<void> assertTitle(String expectedTitle) async =>
-      await _driver.runUnsynchronized(() async {
         expect(await _driver.getText(_titleFinder), expectedTitle);
-      });
 
   Future<void> gotoNews() => _driver.tap(find.byValueKey(Keys.home_news_tab));
 
