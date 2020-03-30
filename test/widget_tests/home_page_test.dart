@@ -19,9 +19,7 @@ void main() {
       testWidgets('should have correct title', (WidgetTester tester) async {
         await tester.pumpWidget(App());
 
-        final title = _getTitle(tester);
-
-        expect(title, Strings.home_appbar_title_default);
+        _expectTitle(tester, Strings.home_appbar_title_default);
       });
 
       testWidgets('should show filter button', (WidgetTester tester) async {
@@ -33,10 +31,7 @@ void main() {
           (WidgetTester tester) async {
         await tester.pumpWidget(App());
 
-        _expectIsVisible(Keys.news_page_view, true);
-        _expectIsVisible(Keys.competitors_page_view, false);
-        _expectIsVisible(Keys.videos_page_view, false);
-        _expectIsVisible(Keys.settings_page_view, false);
+        _expectVisibleTabContent(Keys.news_page_view);
       });
     });
 
@@ -46,7 +41,7 @@ void main() {
 
         await _tapOnTab(tester, Keys.home_competitors_tab);
 
-        expect(_getTitle(tester), Strings.home_appbar_title_competitors);
+        _expectTitle(tester, Strings.home_appbar_title_competitors);
       });
 
       testWidgets('should not show filter button', (WidgetTester tester) async {
@@ -62,10 +57,7 @@ void main() {
 
         await _tapOnTab(tester, Keys.home_competitors_tab);
 
-        _expectIsVisible(Keys.news_page_view, false);
-        _expectIsVisible(Keys.competitors_page_view, true);
-        _expectIsVisible(Keys.videos_page_view, false);
-        _expectIsVisible(Keys.settings_page_view, false);
+        _expectVisibleTabContent(Keys.competitors_page_view);
       });
     });
   });
@@ -76,7 +68,7 @@ void main() {
 
       await _tapOnTab(tester, Keys.home_videos_tab);
 
-      expect(_getTitle(tester), Strings.home_appbar_title_videos);
+      _expectTitle(tester, Strings.home_appbar_title_videos);
     });
 
     testWidgets('should not show filter button', (WidgetTester tester) async {
@@ -92,10 +84,7 @@ void main() {
 
       await _tapOnTab(tester, Keys.home_videos_tab);
 
-      _expectIsVisible(Keys.news_page_view, false);
-      _expectIsVisible(Keys.competitors_page_view, false);
-      _expectIsVisible(Keys.videos_page_view, true);
-      _expectIsVisible(Keys.settings_page_view, false);
+      _expectVisibleTabContent(Keys.videos_page_view);
     });
   });
 
@@ -105,7 +94,7 @@ void main() {
 
       await _tapOnTab(tester, Keys.home_settings_tab);
 
-      expect(_getTitle(tester), Strings.home_appbar_title_settings);
+      _expectTitle(tester, Strings.home_appbar_title_settings);
     });
 
     testWidgets('should not show filter button', (WidgetTester tester) async {
@@ -116,32 +105,40 @@ void main() {
       _expectIsVisible(Keys.home_filter, false);
     });
     testWidgets('should has settings page view visible',
-            (WidgetTester tester) async {
-          await tester.pumpWidget(App());
+        (WidgetTester tester) async {
+      await tester.pumpWidget(App());
 
-          await _tapOnTab(tester, Keys.home_settings_tab);
+      await _tapOnTab(tester, Keys.home_settings_tab);
 
-          _expectIsVisible(Keys.news_page_view, false);
-          _expectIsVisible(Keys.competitors_page_view, false);
-          _expectIsVisible(Keys.videos_page_view, false);
-          _expectIsVisible(Keys.settings_page_view, true);
-        });
+      _expectVisibleTabContent(Keys.settings_page_view);
+    });
   });
 }
+
+void _expectTitle(WidgetTester tester, String expectedTitle) {
+  final titleFinder = find.descendant(
+      of: find.byType(AppBarTitle), matching: find.byType(Text));
+
+  final title = tester.widget<Text>(titleFinder).data;
+
+  expect(title, expectedTitle);
+}
+
 
 Future<void> _tapOnTab(WidgetTester tester, String keyValue) async {
   await tester.tap(find.byKey(Key(keyValue)));
   await tester.pumpAndSettle();
 }
 
-String _getTitle(WidgetTester tester) {
-  final titleFinder = find.descendant(
-      of: find.byType(AppBarTitle), matching: find.byType(Text));
-
-  return tester.widget<Text>(titleFinder).data;
+void _expectVisibleTabContent(String tabKey) {
+  _expectIsVisible(Keys.news_page_view, tabKey == Keys.news_page_view);
+  _expectIsVisible(
+      Keys.competitors_page_view, tabKey == Keys.competitors_page_view);
+  _expectIsVisible(Keys.videos_page_view, tabKey == Keys.videos_page_view);
+  _expectIsVisible(Keys.settings_page_view, tabKey == Keys.settings_page_view);
 }
 
-String _expectIsVisible(String keyValue, bool visible) {
+void _expectIsVisible(String keyValue, bool visible) {
   final titleFinder = find.byKey(Key(keyValue));
 
   if (visible) {
