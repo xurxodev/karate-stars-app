@@ -4,7 +4,7 @@ class Keys{
   static const String home_competitors_tab= 'competitor_tab';
   static const String home_videos_tab = 'videos_tab';
   static const String home_settings_tab = 'settings_tab';
-  static const String home_news_filter = 'news_filter';
+  static const String home_filter = 'home_filter';
 
   static const String news_page_view = 'news_page_view';
   static const String news_items_parent = 'news_items_parent';

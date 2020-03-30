@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
     if (_currentTab == 0) {
       return [
         IconButton(
-          key: Key(Keys.home_news_filter),
+          key: Key(Keys.home_filter),
           icon: Icon(Icons.filter_list),
           onPressed: () {
             final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);

@@ -57,7 +57,7 @@ class MockApi {
   }
 
   Future<String> _getContentFromFile(
-      {String testResourcesDir = '/api/resources', String fileName}) async {
+      {String testResourcesDir = '/unit_tests/api/resources', String fileName}) async {
     if (fileName == null || fileName.isEmpty) {
       return '';
     }
