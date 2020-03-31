@@ -32,6 +32,10 @@ void initWithoutDataDependencies() {
   browser_di.init();
 }
 
+void reset() {
+  getIt.reset();
+}
+
 void _initAppDependencies() {
   getIt.registerLazySingleton<ApiTokenStorage>(() => ApiTokenSecureStorage());
 }

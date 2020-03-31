@@ -1,17 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/app.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/app_bar_title.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 
-import '../common/scenarios.dart';
+import 'common/scenarios.dart';
 
 void main() {
   group('home page', () {
     setUpAll(() {
-      app_di.initWithoutDataDependencies();
       givenThereAreNoNews();
     });
 
@@ -78,6 +76,7 @@ void main() {
 
       _expectIsVisible(Keys.home_filter, false);
     });
+
     testWidgets('should has videos page view visible',
         (WidgetTester tester) async {
       await tester.pumpWidget(App());
