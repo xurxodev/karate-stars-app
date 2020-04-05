@@ -20,10 +20,8 @@ class HomeNewsPageObject {
   Future<void> expectItemTitle(int index, String expectedTitle) async {
     await _scrollUntilVisible(index);
 
-    final itemTitleKey = '${_itemKeyValue(index)}_${Keys.news_item_title}';
-    final itemTitleFinder = find.byKey(Key(itemTitleKey));
-
-    final widget = _tester.widget(itemTitleFinder);
+    final widget =
+        _tester.widget(_findItemChildByKey(index, Keys.news_item_title));
 
     String text = '';
 
@@ -39,10 +37,9 @@ class HomeNewsPageObject {
   Future<void> expectItemSource(int index, String expectedSource) async {
     await _scrollUntilVisible(index);
 
-    final itemSourceKey = '${_itemKeyValue(index)}_${Keys.news_item_source}';
-    final itemSourceFinder = find.byKey(Key(itemSourceKey));
-
-    final sourceText = _tester.widget<Text>(itemSourceFinder).data;
+    final sourceText = _tester
+        .widget<Text>(_findItemChildByKey(index, Keys.news_item_source))
+        .data;
 
     expect(sourceText, expectedSource);
   }
@@ -50,9 +47,8 @@ class HomeNewsPageObject {
   Future<void> expectSocialBadgeIsVisible(int index, bool visible) async {
     await _scrollUntilVisible(index);
 
-    final itemSourceKey =
-        '${_itemKeyValue(index)}_${Keys.news_item_social_badge}';
-    final itemSourceFinder = find.byKey(Key(itemSourceKey));
+    final itemSourceFinder =
+        _findItemChildByKey(index, Keys.news_item_social_badge);
 
     if (visible) {
       expect(itemSourceFinder, findsOneWidget);
@@ -61,14 +57,14 @@ class HomeNewsPageObject {
     }
   }
 
-  Future<void> expectedNewsItemSocialUsername(int index, String expectedUsername) async {
+  Future<void> expectedNewsItemSocialUsername(
+      int index, String expectedUsername) async {
     await _scrollUntilVisible(index);
 
-    final itemUsernameKey =
-        '${_itemKeyValue(index)}_${Keys.news_item_social_username}';
-    final itemUsernameFinder = find.byKey(Key(itemUsernameKey));
-
-    final usernameText = _tester.widget<Text>(itemUsernameFinder).data;
+    final usernameText = _tester
+        .widget<Text>(
+            _findItemChildByKey(index, Keys.news_item_social_username))
+        .data;
 
     expect(usernameText, expectedUsername);
   }
@@ -76,14 +72,13 @@ class HomeNewsPageObject {
   Future<void> expectSocialUsernameIsVisible(int index, bool visible) async {
     await _scrollUntilVisible(index);
 
-    final itemSourceKey =
-        '${_itemKeyValue(index)}_${Keys.news_item_social_username}';
-    final itemSourceFinder = find.byKey(Key(itemSourceKey));
+    final itemUsernameFinder =
+        _findItemChildByKey(index, Keys.news_item_social_username);
 
     if (visible) {
-      expect(itemSourceFinder, findsOneWidget);
+      expect(itemUsernameFinder, findsOneWidget);
     } else {
-      expect(itemSourceFinder, findsNothing);
+      expect(itemUsernameFinder, findsNothing);
     }
   }
 
@@ -126,6 +121,11 @@ class HomeNewsPageObject {
 
     await _tester.ensureVisible(itemFinder);
     await _tester.pump();
+  }
+
+  Finder _findItemChildByKey(int index, String suffix) {
+    final itemUsernameKey = '${_itemKeyValue(index)}_$suffix';
+    return find.byKey(Key(itemUsernameKey));
   }
 
   String _itemKeyValue(int index) {
