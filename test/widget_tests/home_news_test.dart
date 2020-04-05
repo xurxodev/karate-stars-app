@@ -1,100 +1,128 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:karate_stars_app/src/app.dart';
-import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/news/domain/entities/news.dart';
-import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
+import 'package:karate_stars_app/src/news/domain/entities/current.dart';
+import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 
-import '../common/mothers/current_news_mother.dart';
-import '../common/mothers/social_news_mother.dart';
 import 'common/scenarios.dart';
+import 'page_objects/home_page_object.dart';
 
 void main() {
   group('home page news', () {
     group('should show notification message', () {
       testWidgets('of empty data if has no data', (WidgetTester tester) async {
         givenThereAreNoNews();
-        await tester.pumpWidget(App());
-        await tester.pumpAndSettle();
+        final home = HomePageObject(tester);
+        await home.open();
 
-        _expectNotificationMessage(tester, Strings.news_empty_message);
+        home.news.expectNotificationMessage(Strings.news_empty_message);
       });
 
       testWidgets('of network error if an network error occur',
           (WidgetTester tester) async {
         givenThatNewsDataThrowNetworkException();
-        await tester.pumpWidget(App());
-        await tester.pumpAndSettle();
+        final home = HomePageObject(tester);
+        await home.open();
 
-        _expectNotificationMessage(tester, Strings.network_error_message);
+        home.news.expectNotificationMessage(Strings.network_error_message);
       });
     });
     group('with news', () {
+      HomePageObject home;
+
+      final givenThereAreNewsAndInitHome = (tester) async {
+        final newsList = givenThereAreNews();
+        home = HomePageObject(tester);
+        await home.open();
+
+        return newsList;
+      };
+
       testWidgets('should show expected title in news items',
           (WidgetTester tester) async {
-        givenThereAreNews();
-        await tester.pumpWidget(App());
-        await tester.pumpAndSettle();
+        final newsList = await givenThereAreNewsAndInitHome(tester);
 
-        final newsList = _getNews();
+        await Future.forEach(newsList, (newsItem) async {
+          await home.news.expectItemTitle(
+              newsList.indexOf(newsItem), newsItem.summary.title);
+        });
+      });
 
-        for (var i = 0; i < newsList.length; i++) {
-          final newsItem = newsList[i];
+      testWidgets('should show expected news source name',
+          (WidgetTester tester) async {
+        final newsList = await givenThereAreNewsAndInitHome(tester);
 
-          await expectNewsItemTitle(tester, i, newsItem.summary.title);
-        }
+        await Future.forEach(newsList, (newsItem) async {
+          if (newsItem is CurrentNews) {
+            await home.news.expectItemSource(
+                newsList.indexOf(newsItem), newsItem.source.name);
+          } else if (newsItem is SocialNews) {
+            await home.news.expectItemSource(
+                newsList.indexOf(newsItem), newsItem.user.name);
+          }
+        });
+      });
+
+      testWidgets('should show social badge only for social news',
+          (WidgetTester tester) async {
+        final newsList = await givenThereAreNewsAndInitHome(tester);
+
+        await Future.forEach(newsList, (newsItem) async {
+          await home.news.expectSocialBadgeIsVisible(
+              newsList.indexOf(newsItem), newsItem is SocialNews);
+        });
+      });
+
+      testWidgets('should show expected social user name for social news',
+          (WidgetTester tester) async {
+        final newsList = await givenThereAreNewsAndInitHome(tester);
+
+        await Future.forEach(newsList, (newsItem) async {
+          if (newsItem is SocialNews) {
+            await home.news.expectedNewsItemSocialUsername(
+                newsList.indexOf(newsItem), '@${newsItem.user.userName}');
+          }
+        });
+      });
+
+      testWidgets('should not show expected social user name for current news',
+          (WidgetTester tester) async {
+        final newsList = await givenThereAreNewsAndInitHome(tester);
+
+        await Future.forEach(newsList, (newsItem) async {
+          if (newsItem is CurrentNews) {
+            await home.news.expectSocialUsernameIsVisible(
+                newsList.indexOf(newsItem), false);
+          }
+        });
+      });
+
+      testWidgets('should filter by current news', (WidgetTester tester) async {
+        final newsList = await givenThereAreNewsAndInitHome(tester);
+
+        await home.news.filterByCurrentNews();
+        final currentNewsList = newsList.whereType<CurrentNews>().toList();
+
+        await Future.forEach(currentNewsList, (newsItem) async {
+          if (newsItem is CurrentNews) {
+            await home.news.expectSocialBadgeIsVisible(
+                currentNewsList.indexOf(newsItem), false);
+          }
+        });
+      });
+
+      testWidgets('should filter by social news', (WidgetTester tester) async {
+        final newsList = await givenThereAreNewsAndInitHome(tester);
+
+        await home.news.filterBySocialNews();
+        final socialNewsList = newsList.whereType<SocialNews>().toList();
+
+        await Future.forEach(socialNewsList, (newsItem) async {
+          if (newsItem is SocialNews) {
+            await home.news.expectSocialBadgeIsVisible(
+                socialNewsList.indexOf(newsItem), true);
+          }
+        });
       });
     });
   });
-}
-
-void _expectNotificationMessage(WidgetTester tester, String message) {
-  final notificationMessageFinder = find.descendant(
-      of: find.byType(NewsPageView), matching: find.text(message));
-
-  expect(notificationMessageFinder, findsOneWidget);
-}
-
-Future<void> expectNewsItemTitle(
-    WidgetTester tester, int index, String expectedTitle) async {
-  await _scrollUntilVisible(tester, index);
-
-  final itemTitleKey = '${_itemKeyValue(index)}_${Keys.news_item_title}';
-  final itemTitleFinder = find.byKey(Key(itemTitleKey));
-
-  final widget = tester.widget(itemTitleFinder);
-
-  String text = '';
-
-  if (widget is Text) {
-    text = widget.data;
-  } else if (widget is ParsedText) {
-    text = widget.text;
-  }
-
-  expect(text, expectedTitle);
-}
-
-Future<void> _scrollUntilVisible(WidgetTester tester, int index) async {
-  final itemFinder = find.byKey(Key(_itemKeyValue(index)));
-
-  await tester.ensureVisible(itemFinder);
-  await tester.pump();
-}
-
-String _itemKeyValue(int index) {
-  return '${Keys.news_item}_$index';
-}
-
-List<News> _getNews() {
-  final List<News> news = [];
-
-  news.addAll(CurrentNewsMother.all());
-  news.addAll(SocialNewsMother.all());
-
-  news.sort((a, b) => b.summary.pubDate.date.compareTo(a.summary.pubDate.date));
-
-  return news;
 }

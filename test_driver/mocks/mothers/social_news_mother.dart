@@ -16,7 +16,7 @@ class SocialNewsMother {
         SocialUser(
             'World Karate Federation',
             'worldkarate_wkf',
-            '',//'https://pbs.twimg.com/profile_images/1229708688597880833/PiQoEC9T_reasonably_small.jpg',
+            'https://pbs.twimg.com/profile_images/1229708688597880833/PiQoEC9T_reasonably_small.jpg',
             'https://twitter.com/worldkarate_wkf'));
   }
 
@@ -25,14 +25,14 @@ class SocialNewsMother {
         NewsSummary(
             'The countdown to the big #KARATE event of the year has already started!',
             'https://twitter.com/wkf_tweet/status/961155264211836928',
-            '',//'https://pbs.twimg.com/media/DVa1YUhX4AAW4hN.jpg',
+            'https://pbs.twimg.com/media/DVa1YUhX4AAW4hN.jpg',
             null,
             PubDate(DateTime.now())),
         Network.twitter,
         SocialUser(
             'World Karate Federation',
             'worldkarate_wkf',
-            '',//'https://pbs.twimg.com/profile_images/1229708688597880833/PiQoEC9T_reasonably_small.jpg',
+            'https://pbs.twimg.com/profile_images/1229708688597880833/PiQoEC9T_reasonably_small.jpg',
             'https://twitter.com/worldkarate_wkf'));
   }
 

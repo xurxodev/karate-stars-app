@@ -123,28 +123,25 @@ void main() {
 
     test('should filter by current news', () async {
       final currentNewsList = CurrentNewsMother.all();
-      print('await homePage.newsContent.filterByCurrentNews();');
+
       await homePage.newsContent.filterByCurrentNews();
 
       for (var i = 0; i < currentNewsList.length; i++) {
-        print('await homePage.newsContent.assertSocialBadgeIsHidden($i)');
         await homePage.newsContent.assertSocialBadgeIsHidden(i);
       }
 
-      print(' await homePage.newsContent.filterByAllNews();');
+      await homePage.newsContent.filterByAllNews();
     });
 
     test('should filter by social news', () async {
       final socialNewsList = SocialNewsMother.all();
-      print('await homePage.newsContent.filterBySocialNews();');
 
       await homePage.newsContent.filterBySocialNews();
 
       for (var i = 0; i < socialNewsList.length; i++) {
-        print('await homePage.newsContent.assertSocialBadgeIsVisible($i)');
         await homePage.newsContent.assertSocialBadgeIsVisible(i);
       }
-      print('await homePage.newsContent.filterByAllNews();');
+
       await homePage.newsContent.filterByAllNews();
     });
   });
