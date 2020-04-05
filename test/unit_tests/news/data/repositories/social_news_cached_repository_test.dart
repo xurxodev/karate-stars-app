@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/domain/social_news_repository.dart';
 import 'package:mockito/mockito.dart';
 
-import '../common/social_news_mother.dart';
+import '../../../../common/mothers/social_news_mother.dart';
 
 class MockCacheDataSource extends Mock
     implements CacheableDataSource<SocialNews> {}
@@ -44,7 +44,7 @@ void main() {
         final expectedNews = givenThereAreSomeDataInRemote();
 
         final currentNews =
-        await _repository.getSocialNews(ReadPolicy.cache_first);
+            await _repository.getSocialNews(ReadPolicy.cache_first);
 
         expect(currentNews, expectedNews);
       });
@@ -53,7 +53,7 @@ void main() {
         final expectedNews = givenThereAreSomeDataInRemote();
 
         final currentNews =
-        await _repository.getSocialNews(ReadPolicy.cache_first);
+            await _repository.getSocialNews(ReadPolicy.cache_first);
 
         expect(currentNews, expectedNews);
       });
@@ -126,7 +126,7 @@ void main() {
 }
 
 List<SocialNews> givenThereAreValidDataInCache() {
-  final socialNews = SocialNewsMother.local();
+  final socialNews = _localNews();
 
   when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value(socialNews));
   when(_cacheDataSource.areValidValues()).thenAnswer((_) => Future.value(true));
@@ -135,7 +135,7 @@ List<SocialNews> givenThereAreValidDataInCache() {
 }
 
 List<SocialNews> givenThereAreInvalidDataInCache() {
-  final socialNews = SocialNewsMother.local();
+  final socialNews =  _localNews();
 
   when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value(socialNews));
   when(_cacheDataSource.areValidValues())
@@ -145,7 +145,7 @@ List<SocialNews> givenThereAreInvalidDataInCache() {
 }
 
 List<SocialNews> givenThereAreSomeDataInRemote() {
-  final socialNews = SocialNewsMother.remote();
+  final socialNews =  _remoteNews();
 
   when(_remoteDataSource.getAll()).thenAnswer((_) => Future.value(socialNews));
 
@@ -162,4 +162,15 @@ void givenThatRemoteThrowException() {
 
 void givenThatCacheThrowException() {
   when(_cacheDataSource.getAll()).thenThrow(NetworkException());
+}
+
+List<SocialNews> _localNews() {
+  return [SocialNewsMother.countDownMadrid2018()];
+}
+
+List<SocialNews> _remoteNews() {
+  return [
+    SocialNewsMother.countDownMadrid2018(),
+    SocialNewsMother.newVideoInKarateStars()
+  ];
 }

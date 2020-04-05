@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/news/domain/current_news_repository.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:mockito/mockito.dart';
 
-import '../common/current_news_mother.dart';
+import '../../../../common/mothers/current_news_mother.dart';
 
 class MockCacheDataSource extends Mock
     implements CacheableDataSource<CurrentNews> {}
@@ -44,7 +44,7 @@ void main() {
         final expectedNews = givenThereAreSomeDataInRemote();
 
         final currentNews =
-        await _repository.getCurrentNews(ReadPolicy.cache_first);
+            await _repository.getCurrentNews(ReadPolicy.cache_first);
 
         expect(currentNews, expectedNews);
       });
@@ -53,7 +53,7 @@ void main() {
         final expectedNews = givenThereAreSomeDataInRemote();
 
         final currentNews =
-        await _repository.getCurrentNews(ReadPolicy.cache_first);
+            await _repository.getCurrentNews(ReadPolicy.cache_first);
 
         expect(currentNews, expectedNews);
       });
@@ -126,7 +126,7 @@ void main() {
 }
 
 List<CurrentNews> givenThereAreValidDataInCache() {
-  final currentNews = CurrentNewsMother.local();
+  final currentNews = _localNews();
 
   when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value(currentNews));
   when(_cacheDataSource.areValidValues()).thenAnswer((_) => Future.value(true));
@@ -135,7 +135,7 @@ List<CurrentNews> givenThereAreValidDataInCache() {
 }
 
 List<CurrentNews> givenThereAreInvalidDataInCache() {
-  final currentNews = CurrentNewsMother.local();
+  final currentNews = _localNews();
 
   when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value(currentNews));
   when(_cacheDataSource.areValidValues())
@@ -145,7 +145,7 @@ List<CurrentNews> givenThereAreInvalidDataInCache() {
 }
 
 List<CurrentNews> givenThereAreSomeDataInRemote() {
-  final currentNews = CurrentNewsMother.remote();
+  final currentNews = _remoteNews();
 
   when(_remoteDataSource.getAll()).thenAnswer((_) => Future.value(currentNews));
 
@@ -162,4 +162,16 @@ void givenThatRemoteThrowException() {
 
 void givenThatCacheThrowException() {
   when(_cacheDataSource.getAll()).thenThrow(NetworkException());
+}
+
+List<CurrentNews> _localNews() {
+  return [CurrentNewsMother.madridHost2018()];
+}
+
+List<CurrentNews> _remoteNews() {
+  return [
+    CurrentNewsMother.madridHost2018(),
+    CurrentNewsMother.quinteroNumber1(),
+    CurrentNewsMother.stevenDaCostaVideo()
+  ];
 }
