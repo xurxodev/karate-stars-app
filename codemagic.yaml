@@ -1,6 +1,6 @@
 workflows:
   default-workflow:
-    name: Default Workflow
+    name: Karate Stars
     environment:
       flutter: stable
       xcode: latest
