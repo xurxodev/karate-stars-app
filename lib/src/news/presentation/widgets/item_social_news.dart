@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
-import 'package:karate_stars_app/src/browser/presentation/factories/twitter_url_factory.dart';
-import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
+import 'package:karate_stars_app/src/common/presentation/functions/url.dart'
+    as url_helper;
 import 'package:karate_stars_app/src/common/presentation/widgets/twitter_icon.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
@@ -19,17 +19,13 @@ class ItemSocialNews extends ItemNews {
   @override
   Widget buildContent(BuildContext context) {
     final linkStyle = TextStyle(
-      color: Theme
-          .of(context)
-          .accentColor,
+      color: Theme.of(context).accentColor,
     );
 
     return Column(children: <Widget>[
       GestureDetector(
-        onTap: () =>
-            Navigator.pushNamed(context, BrowserPage.routeName,
-                arguments:
-                TwitterUrlFactory().create('@${socialNews.user.userName}')),
+        onTap: () => url_helper.launchURL(context,
+            url_helper.createTwitterURL('@${socialNews.user.userName}')),
         child: ListTile(
           leading: _avatar(),
           title: Text(socialNews.user.name,
@@ -37,10 +33,7 @@ class ItemSocialNews extends ItemNews {
           trailing: Text(
             '@${socialNews.user.userName}',
             key: Key('${itemTextKey}_${Keys.news_item_social_username}'),
-            style: Theme
-                .of(context)
-                .textTheme
-                .caption,
+            style: Theme.of(context).textTheme.caption,
           ),
         ),
       ),
@@ -48,48 +41,35 @@ class ItemSocialNews extends ItemNews {
       const SizedBox(height: 16),
       ListTile(
           title: ParsedText(
-            key: Key('${itemTextKey}_${Keys.news_item_title}'),
-            text: socialNews.summary.title,
-            style: Theme
-                .of(context)
-                .textTheme
-                .subhead,
-            parse: <MatchText>[
-              MatchText(
-                type: ParsedType.URL,
-                style: linkStyle,
-                onTap: (url) {
-                  Navigator.pushNamed(context, BrowserPage.routeName,
-                      arguments: url);
-                },
-              ),
-              MatchText(
-                pattern: r'(^|\s)#(\w*[a-zA-Z_]+\S*)',
-                style: linkStyle,
-                onTap: (hashtag) {
-                  Navigator.pushNamed(context, BrowserPage.routeName,
-                      arguments: TwitterUrlFactory().create(hashtag));
-                },
-              ),
-              MatchText(
-                pattern: '@[A-Za-z0-9]*',
-                style: linkStyle,
-                onTap: (user) {
-                  Navigator.pushNamed(context, BrowserPage.routeName,
-                      arguments: TwitterUrlFactory().create(user));
-                },
-              ),
-            ],
-          )),
+        key: Key('${itemTextKey}_${Keys.news_item_title}'),
+        text: socialNews.summary.title,
+        style: Theme.of(context).textTheme.subhead,
+        parse: <MatchText>[
+          MatchText(
+            type: ParsedType.URL,
+            style: linkStyle,
+            onTap: (url) => url_helper.launchURL(context, url),
+          ),
+          MatchText(
+            pattern: r'(^|\s)#(\w*[a-zA-Z_]+\S*)',
+            style: linkStyle,
+            onTap: (hashtag) => url_helper.launchURL(
+                context, url_helper.createTwitterURL(hashtag)),
+          ),
+          MatchText(
+            pattern: '@[A-Za-z0-9]*',
+            style: linkStyle,
+            onTap: (user) =>
+                url_helper.launchURL(context, url_helper.createTwitterURL(user)),
+          ),
+        ],
+      )),
       ListTile(
         leading: TwitterIcon(
             key: Key('${itemTextKey}_${Keys.news_item_social_badge}')),
         trailing: Text(
           socialNews.summary.pubDate.antiquity,
-          style: Theme
-              .of(context)
-              .textTheme
-              .caption,
+          style: Theme.of(context).textTheme.caption,
         ),
       )
     ]);
@@ -107,12 +87,11 @@ class ItemSocialNews extends ItemNews {
     }
   }
 
-  Widget _avatar(){
-    if (socialNews.user.image.isNotEmpty){
+  Widget _avatar() {
+    if (socialNews.user.image.isNotEmpty) {
       return CircleAvatar(
-          backgroundImage:
-          CachedNetworkImageProvider(socialNews.user.image));
-    }else{
+          backgroundImage: CachedNetworkImageProvider(socialNews.user.image));
+    } else {
       return const CircleAvatar(backgroundColor: Colors.grey);
     }
   }

@@ -20,7 +20,7 @@ dependencies:
   floor: ^0.9.0
   liquid_pull_to_refresh: ^1.1.1
   cached_network_image: ^2.0.0
-
+  flutter_inappwebview: ^2.1.0+1
 
 dev_dependencies:
   flutter_test:

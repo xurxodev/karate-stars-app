@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:karate_stars_app/src/browser/presentation/pages/browser_page.dart';
 import 'package:karate_stars_app/src/common/custom_colors.dart';
 import 'package:karate_stars_app/src/home/presentation/pages/home_page.dart';
 
@@ -27,7 +26,6 @@ class App extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => HomePage.create(),
-        BrowserPage.routeName: (context) => BrowserPage.create(),
       },
     );
   }
