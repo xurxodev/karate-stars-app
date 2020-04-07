@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/app.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/app_bar_title.dart';
 import 'home_news_page_object.dart';
 
 class HomePageObject {
@@ -19,7 +19,7 @@ class HomePageObject {
 
   void expectTitle(String expectedTitle) {
     final titleFinder = find.descendant(
-        of: find.byType(AppBarTitle), matching: find.byType(Text));
+        of: find.byType(AppBar), matching: find.byType(Text));
 
     final title = _tester.widget<Text>(titleFinder).data;
 

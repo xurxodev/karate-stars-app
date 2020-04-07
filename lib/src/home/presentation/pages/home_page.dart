@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/app_bar_title.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/views/competitors_page_view.dart';
@@ -47,12 +46,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final leading = getLeading();
     final title = getTitle();
     final actions = getActions();
 
     return Scaffold(
       appBar: AppBar(
-        title: AppBarTitle(title, _currentTab == 0),
+        centerTitle: false,
+        leading:  leading,
+        title: title,
         actions: actions,
       ),
       body: SafeArea(
@@ -114,15 +116,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  String getTitle() {
+  Widget getTitle() {
+    String titleText = '';
+
     if (_currentTab == 0) {
-      return Strings.home_appbar_title_default;
+      titleText = Strings.home_appbar_title_default;
     } else if (_currentTab == 1) {
-      return Strings.home_appbar_title_competitors;
+      titleText = Strings.home_appbar_title_competitors;
     } else if (_currentTab == 2) {
-      return Strings.home_appbar_title_videos;
+      titleText = Strings.home_appbar_title_videos;
     } else {
-      return Strings.home_appbar_title_settings;
+      titleText = Strings.home_appbar_title_settings;
+    }
+    const Key titleKey = Key(Keys.home_appbar_title);
+
+    if (_currentTab == 0){
+      return Text(titleText,
+          key: titleKey,
+          style: const TextStyle(fontFamily: 'Billabong', fontSize: 30));
+    }else {
+      return Text(titleText,
+          key: titleKey,
+          style:
+          TextStyle(fontSize: Theme.of(context).textTheme.title.fontSize));
     }
   }
 
@@ -149,6 +165,16 @@ class _HomePageState extends State<HomePage> {
       return [];
     } else {
       return [];
+    }
+  }
+
+  Widget getLeading() {
+    if (_currentTab == 0) {
+      return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/images/logo.png'));
+    } else {
+      return null;
     }
   }
 }
