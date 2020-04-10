@@ -64,30 +64,36 @@ class _NewsPageViewState extends State<NewsPageView> {
     } else {
       return Container(
           padding: const EdgeInsets.only(top: 8.0),
-          child: LiquidPullToRefresh(
-              key: const Key(Keys.news_items_parent),
-              borderWidth: 2,
-              color: Theme.of(context).cardColor,
-              backgroundColor: Theme.of(context).accentColor,
-              showChildOpacityTransition: false,
-              child: ListView.builder(
-                key: const PageStorageKey('news_list_view'),
-                controller: _scrollController,
-                //important to maintain scroll
-                itemCount: state.news.length,
-                itemBuilder: (context, index) {
-                  final News news = state.news[index];
+          child: NotificationListener<ScrollUpdateNotification>(
+            child: LiquidPullToRefresh(
+                key: const Key(Keys.news_items_parent),
+                borderWidth: 2,
+                color: Theme.of(context).cardColor,
+                backgroundColor: Theme.of(context).accentColor,
+                showChildOpacityTransition: false,
+                child: ListView.builder(
+                  key: const PageStorageKey('news_list_view'),
+                  controller: _scrollController,
+                  //important to maintain scroll
+                  itemCount: state.news.length,
+                  itemBuilder: (context, index) {
+                    final News news = state.news[index];
 
-                  final textKey = '${Keys.news_item}_$index';
+                    final textKey = '${Keys.news_item}_$index';
 
-                  if (news is SocialNews) {
-                    return ItemSocialNews(news, itemTextKey: textKey);
-                  } else {
-                    return ItemCurrentNews(news, itemTextKey: textKey);
-                  }
-                },
-              ),
-              onRefresh: () => bloc.refresh()));
+                    if (news is SocialNews) {
+                      return ItemSocialNews(news, itemTextKey: textKey);
+                    } else {
+                      return ItemCurrentNews(news, itemTextKey: textKey);
+                    }
+                  },
+                ),
+                onRefresh: () => bloc.refresh()),
+            onNotification: (notification) {
+              bloc.registerInteraction();
+              return true;
+            },
+          ));
     }
   }
 }

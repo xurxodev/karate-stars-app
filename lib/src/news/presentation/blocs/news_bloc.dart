@@ -1,14 +1,17 @@
 import 'dart:async';
 
+import 'package:karate_stars_app/src/common/analytics/events.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
-import 'package:karate_stars_app/src/common/presentation/blocs/bloc_base.dart';
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc_home_list_content.dart';
+import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/news/domain/get_news_use_case.dart';
 import 'package:karate_stars_app/src/news/domain/news_filter.dart';
 import 'package:karate_stars_app/src/news/presentation/states/news_filter_state.dart';
 import 'package:karate_stars_app/src/news/presentation/states/news_state.dart';
 
-class NewsBloc implements BlocBase {
+class NewsBloc extends BlocHomeListContent {
+  static const screen_name = 'home_news';
   final GetNewsUseCase _getNewsUseCase;
 
   NewsFilterState _lastFilter = NewsFilterState();
@@ -17,7 +20,8 @@ class NewsBloc implements BlocBase {
   final _newsFilterController = StreamController<NewsFilterState>.broadcast();
   final _newsController = StreamController<NewsState>.broadcast();
 
-  NewsBloc(this._getNewsUseCase) {
+  NewsBloc(this._getNewsUseCase, AnalyticsService _analyticsService)
+      : super(_analyticsService, screen_name) {
     _loadDataCacheFirst(NewsFilter.all);
     _listenFilters();
   }
@@ -71,6 +75,10 @@ class NewsBloc implements BlocBase {
       _lastFilter = filterState;
       final NewsFilter selectedFilter =
           NewsFilter.values[filterState.selectedIndex];
+
+
+      final filter = selectedFilter.toString().split('.')[1];
+      super.analyticsService.sendEvent(NewsFilterEvent(filter));
 
       _loadDataCacheFirst(selectedFilter);
     });
