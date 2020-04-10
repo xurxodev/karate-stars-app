@@ -21,6 +21,7 @@ dependencies:
   liquid_pull_to_refresh: ^1.1.1
   cached_network_image: ^2.0.0
   flutter_inappwebview: ^2.1.0+1
+  firebase_analytics: ^5.0.11
 
 dev_dependencies:
   flutter_test:

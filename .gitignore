@@ -75,3 +75,9 @@
 /.flutter-plugins-dependencies
 /assets/credentials.json
 /lib/src/common/data/database.g.dart
+
+#Firebase
+# to use in codemagic CI realize this steps
+# https://blog.codemagic.io/how-to-load-firebase-config-in-codemagic-with-environment-variables/
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
