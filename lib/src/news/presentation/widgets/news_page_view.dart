@@ -69,6 +69,7 @@ class _NewsPageViewState extends State<NewsPageView>
                 backgroundColor: Theme.of(context).accentColor,
                 showChildOpacityTransition: false,
                 child: ListView.builder(
+                  itemCount: state.news.length,
                   itemBuilder: (context, index) {
                     final News news = state.news[index];
 
