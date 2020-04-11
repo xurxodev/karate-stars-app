@@ -19,21 +19,18 @@ class NewsPageView extends StatefulWidget {
   _NewsPageViewState createState() => _NewsPageViewState();
 }
 
-class _NewsPageViewState extends State<NewsPageView> {
-  ScrollController _scrollController;
+class _NewsPageViewState extends State<NewsPageView>
+    with AutomaticKeepAliveClientMixin<NewsPageView> {
 
   @override
   void initState() {
     super.initState();
-
-    _scrollController = ScrollController();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
-
-    //bloc.filter.listen((_) => _scrollController.jumpTo(0));
 
     return StreamBuilder<NewsState>(
       initialData: bloc.initialNews,
@@ -72,10 +69,6 @@ class _NewsPageViewState extends State<NewsPageView> {
                 backgroundColor: Theme.of(context).accentColor,
                 showChildOpacityTransition: false,
                 child: ListView.builder(
-                  key: const PageStorageKey('news_list_view'),
-                  controller: _scrollController,
-                  //important to maintain scroll
-                  itemCount: state.news.length,
                   itemBuilder: (context, index) {
                     final News news = state.news[index];
 
@@ -96,4 +89,7 @@ class _NewsPageViewState extends State<NewsPageView> {
           ));
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
