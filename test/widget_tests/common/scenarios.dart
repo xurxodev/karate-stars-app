@@ -1,9 +1,9 @@
 import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
-import 'package:karate_stars_app/src/news/domain/current_news_repository.dart';
+import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
-import 'package:karate_stars_app/src/news/domain/social_news_repository.dart';
+import 'package:karate_stars_app/src/news/domain/boundaries/social_news_repository.dart';
 import 'package:mockito/mockito.dart';
 import '../../common/mothers/current_news_mother.dart';
 import '../../common/mothers/social_news_mother.dart';

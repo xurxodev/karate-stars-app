@@ -3,7 +3,7 @@ import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/news/data/repositories/current_news_cached_repository.dart';
-import 'package:karate_stars_app/src/news/domain/current_news_repository.dart';
+import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:mockito/mockito.dart';
 
