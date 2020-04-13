@@ -7,7 +7,7 @@ class CachedRepository<T> {
 
   CachedRepository(this.cache, this.remoteDataSource);
 
-  Future<List<T>> getAll(ReadPolicy readPolicy) {
+  Stream<List<T>> getAll(ReadPolicy readPolicy) {
     if (readPolicy == ReadPolicy.cache_first) {
       return getAllCacheFirst();
     } else if (readPolicy == ReadPolicy.network_first) {
@@ -17,7 +17,7 @@ class CachedRepository<T> {
     }
   }
 
-  Future<List<T>> getAllCacheFirst() async {
+  Stream<List<T>> getAllCacheFirst() async* {
     List<T> items = await cache.getAll();
 
     if (items.isEmpty ||  !await cache.areValidValues()) {
@@ -35,10 +35,10 @@ class CachedRepository<T> {
       }
     }
 
-    return items;
+    yield items;
   }
 
-  Future<List<T>> getAllNetworkFirst() async {
+  Stream<List<T>> getAllNetworkFirst()  async* {
     List<T> items;
 
     try {
@@ -56,10 +56,12 @@ class CachedRepository<T> {
       }
     }
 
-    return items;
+    yield items;
   }
 
-  Future<List<T>> getAllOnlyCache() {
-    return cache.getAll();
+  Stream<List<T>> getAllOnlyCache() async* {
+    final List<T> items = await cache.getAll();
+
+    yield items;
   }
 }

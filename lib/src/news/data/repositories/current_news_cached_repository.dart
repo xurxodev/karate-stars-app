@@ -14,7 +14,7 @@ class CurrentNewsCachedRepository extends CachedRepository<CurrentNews>
       : super(cacheDataSource, remoteDataSource);
 
   @override
-  Future<List<CurrentNews>> getCurrentNews(ReadPolicy readPolicy)  {
+  Stream<List<CurrentNews>> getCurrentNews(ReadPolicy readPolicy)  {
     return super.getAll(readPolicy);
   }
 }

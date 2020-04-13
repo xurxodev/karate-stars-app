@@ -14,7 +14,7 @@ class SocialNewsCachedRepository extends CachedRepository<SocialNews>
       : super(cacheDataSource, remoteDataSource);
 
   @override
-  Future<List<SocialNews>> getSocialNews(ReadPolicy readPolicy) async {
+  Stream<List<SocialNews>> getSocialNews(ReadPolicy readPolicy) {
     return super.getAll(readPolicy);
   }
 }

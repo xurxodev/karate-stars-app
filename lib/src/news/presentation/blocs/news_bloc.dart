@@ -5,6 +5,7 @@ import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_home_list_content.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/get_news_use_case.dart';
 import 'package:karate_stars_app/src/news/domain/news_filter.dart';
 import 'package:karate_stars_app/src/news/presentation/states/news_filter_state.dart';
@@ -18,7 +19,6 @@ class NewsBloc extends BlocHomeListContent {
   NewsState _lastNewsState;
 
   final _newsFilterController = StreamController<NewsFilterState>.broadcast();
-  final _newsController = StreamController<NewsState>.broadcast();
 
   NewsBloc(this._getNewsUseCase, AnalyticsService _analyticsService)
       : super(_analyticsService, screen_name) {
@@ -38,36 +38,42 @@ class NewsBloc extends BlocHomeListContent {
 
   @override
   void dispose() {
-    _newsController.close();
+    //_newsController.close();
     _newsFilterController.close();
   }
 
   Future<void> refresh() {
-    final NewsFilter selectedFilter =
+    /*final NewsFilter selectedFilter =
         NewsFilter.values[_lastFilter.selectedIndex];
 
     return _getNewsUseCase
-        .execute(ReadPolicy.network_first, selectedFilter)
+        .execute(ReadPolicy.network_first, selectedFilter).m
+
         .then((news) {
       _lastNewsState = NewsState.loaded(news);
       _newsController.sink.add(_lastNewsState);
     }).catchError((error) {
       _lastNewsState = NewsState.error(Strings.network_error_message);
       _newsController.sink.add(_lastNewsState);
-    });
+    });*/
   }
 
   void _loadDataCacheFirst(NewsFilter newsFilter) {
     _lastNewsState = NewsState.loading();
     _newsController.sink.add(_lastNewsState);
 
-    _getNewsUseCase.execute(ReadPolicy.cache_first, newsFilter).then((news) {
+    final transformer = StreamTransformer<List<News>, NewsState>.fromHandlers(
+        handleData: (news, sink) {
       _lastNewsState = NewsState.loaded(news);
-      _newsController.sink.add(_lastNewsState);
-    }).catchError((error) {
+      sink.add(_lastNewsState);
+    }, handleError: (error, stackTrace, sink) {
       _lastNewsState = NewsState.error(Strings.network_error_message);
-      _newsController.sink.add(_lastNewsState);
+      sink.add(_lastNewsState);
     });
+
+    _getNewsUseCase
+        .execute(ReadPolicy.cache_first, newsFilter)
+        .transform(transformer);
   }
 
   void _listenFilters() {
@@ -75,7 +81,6 @@ class NewsBloc extends BlocHomeListContent {
       _lastFilter = filterState;
       final NewsFilter selectedFilter =
           NewsFilter.values[filterState.selectedIndex];
-
 
       final filter = selectedFilter.toString().split('.')[1];
       super.analyticsService.sendEvent(NewsFilterEvent(filter));
