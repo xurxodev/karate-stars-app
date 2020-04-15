@@ -5,7 +5,7 @@ import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/competitors/widgets/competitors_page_view.dart';
+import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_page_view.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
