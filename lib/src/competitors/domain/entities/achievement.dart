@@ -21,7 +21,7 @@ class Achievement {
 class AchievementDetail {
   final String category;
   final String name;
-  final String position;
+  final int position;
 
   AchievementDetail(this.category, this.name, this.position);
 

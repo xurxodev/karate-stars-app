@@ -5,6 +5,7 @@ import 'package:mock_web_server/mock_web_server.dart';
 
 const getCurrentNewsResponse = '/get_current_news_response.json';
 const getSocialNewsResponse = '/get_social_news_response.json';
+const getCompetitorsResponse = '/get_competitors_response.json';
 const loginResponse = '/login_response.json';
 const anyTokenHeader =
     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiMTdlMDlmYy1kMmRhLTRiMGEtYjM0YS05MGVjYjdlMDgyZWMiLCJpYXQiOjE1ODE2MTAwNzYsImV4cCI6MTU4MTY5NjQ3Nn0.CY-fpMO0A7b95e4m-cWdbfxTR_yI0aaVolucPZ1D3wo';
@@ -57,7 +58,7 @@ class MockApi {
   }
 
   Future<String> _getContentFromFile(
-      {String testResourcesDir = '/unit_tests/api/resources', String fileName}) async {
+      {String testResourcesDir = '/unit_tests/common/api/resources', String fileName}) async {
     if (fileName == null || fileName.isEmpty) {
       return '';
     }

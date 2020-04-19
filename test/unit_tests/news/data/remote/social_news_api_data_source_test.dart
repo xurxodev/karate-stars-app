@@ -5,8 +5,8 @@ import 'package:karate_stars_app/src/news/data/remote/social_news_api_data_sourc
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
 
-import '../../../api/mock_api.dart';
-import 'fake/fake_api_token_storage.dart';
+import '../../../common/api/mock_api.dart';
+import '../../../common/fake/fake_api_token_storage.dart';
 
 SocialNewsApiDataSource _socialNewsApiDataSource;
 

@@ -5,8 +5,8 @@ import 'package:karate_stars_app/src/news/data/remote/current_news_api_data_sour
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
 
-import '../../../api/mock_api.dart';
-import 'fake/fake_api_token_storage.dart';
+import '../../../common/api/mock_api.dart';
+import '../../../common/fake/fake_api_token_storage.dart';
 
 CurrentNewsApiDataSource _currentNewsApiDataSource;
 
