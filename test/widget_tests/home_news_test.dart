@@ -10,7 +10,7 @@ void main() {
   group('home page news', () {
     group('should show notification message', () {
       testWidgets('of empty data if has no data', (WidgetTester tester) async {
-        givenThereAreNoNews();
+        givenThereAreNoData();
         final home = HomePageObject(tester);
         await home.open();
 
@@ -19,7 +19,7 @@ void main() {
 
       testWidgets('of network error if an network error occur',
           (WidgetTester tester) async {
-        givenThatNewsDataThrowNetworkException();
+        givenThereAreOnlyNewsAndThrowNetworkException();
         final home = HomePageObject(tester);
         await home.open();
 
@@ -30,7 +30,7 @@ void main() {
       HomePageObject home;
 
       final givenThereAreNewsAndInitHome = (tester) async {
-        final newsList = givenThereAreNews();
+        final newsList = givenThereAreOnlyNews();
         home = HomePageObject(tester);
         await home.open();
 

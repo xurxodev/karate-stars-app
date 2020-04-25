@@ -126,7 +126,7 @@ class NewsContent {
   Future<void> filterByAllNews() async {
     await _openFilterDialog();
 
-    final allFilterFinder = find.text(Strings.news_filters_all);
+    final allFilterFinder = find.text(Strings.default_filters_all);
 
     await _driver.waitFor(allFilterFinder);
     await _driver.tap(allFilterFinder);

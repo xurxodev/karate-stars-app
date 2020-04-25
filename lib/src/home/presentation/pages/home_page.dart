@@ -5,6 +5,7 @@ import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_page_view.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
@@ -19,10 +20,10 @@ class HomePage extends StatefulWidget {
   const HomePage() : super(key: const Key(id));
 
   static Widget create() {
-    return BlocProvider<NewsBloc>(
-      bloc: app_di.getIt<NewsBloc>(),
-      child: const HomePage(),
-    );
+    return BlocProvider(
+        bloc: app_di.getIt<NewsBloc>(),
+        child: BlocProvider(
+            bloc: app_di.getIt<CompetitorsBloc>(), child: const HomePage()));
   }
 
   @override
@@ -34,7 +35,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   int _currentTab = 0;
   PageController _pageController;
 
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        leading:  leading,
+        leading: leading,
         title: title,
         actions: actions,
       ),
@@ -130,15 +130,15 @@ class _HomePageState extends State<HomePage> {
     }
     const Key titleKey = Key(Keys.home_appbar_title);
 
-    if (_currentTab == 0){
+    if (_currentTab == 0) {
       return Text(titleText,
           key: titleKey,
           style: const TextStyle(fontFamily: 'Billabong', fontSize: 30));
-    }else {
+    } else {
       return Text(titleText,
           key: titleKey,
           style:
-          TextStyle(fontSize: Theme.of(context).textTheme.title.fontSize));
+              TextStyle(fontSize: Theme.of(context).textTheme.title.fontSize));
     }
   }
 
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
             showDialog(
                 context: context,
                 builder: (_) => PlatformAlertDialog(
-                    title:  Strings.news_filters_title,
+                    title: Strings.news_filters_title,
                     content: NewsFilter(bloc: bloc)));
           },
         ),

@@ -101,7 +101,7 @@ class HomeNewsPageObject {
   Future<void> filterByAllNews() async {
     await _openFilterDialog();
 
-    await _tester.tap(find.text(Strings.news_filters_all));
+    await _tester.tap(find.text(Strings.default_filters_all));
 
     await _closeFilterDialog();
   }

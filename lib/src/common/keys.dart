@@ -16,6 +16,7 @@ class Keys{
 
 
   static const String competitors_page_view = 'competitors_page_view';
+  static const String competitors_item = 'competitor_item';
 
   static const String videos_page_view = 'videos_page_view';
 

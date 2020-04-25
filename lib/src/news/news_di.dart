@@ -1,9 +1,7 @@
 import 'package:karate_stars_app/app_di.dart';
-import 'package:karate_stars_app/src/common/analytics/firebase_analytics_service.dart';
 import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/database.dart';
-import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/news/data/local/current_news_floor_data_source.dart';
 import 'package:karate_stars_app/src/news/data/local/social_news_floor_data_source.dart';
 import 'package:karate_stars_app/src/news/data/remote/current_news_api_data_source.dart';
@@ -26,9 +24,6 @@ void initAll(AppDatabase appDatabase, Credentials apiCredentials) {
 }
 
 void initBlocAndUseCases() {
-  getIt.registerLazySingleton<AnalyticsService>(
-      () => FirebaseAnalyticsService());
-
   getIt.registerFactory(() => NewsBloc(getIt(), getIt()));
 
   getIt.registerLazySingleton(() => GetNewsUseCase(getIt(), getIt()));

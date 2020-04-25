@@ -15,7 +15,6 @@ abstract class ItemNews extends StatelessWidget {
         child: buildContent(context));
   }
 
-
   @protected
   EdgeInsets calculateMargin(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);

@@ -7,8 +7,8 @@ class SearchEvent extends AnalyticsEvent {
   }
 }
 
-class CompetitorFilterEvent extends AnalyticsEvent {
-  CompetitorFilterEvent(String searchTerm) : super('competitor_filter') {
+class CompetitorsFilterEvent extends AnalyticsEvent {
+  CompetitorsFilterEvent(String searchTerm) : super('competitors_filter') {
     params['filters'] = searchTerm;
   }
 }
