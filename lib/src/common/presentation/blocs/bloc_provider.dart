@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/common/presentation/blocs/bloc_base.dart';
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc.dart';
 
-class BlocProvider<T extends BlocBase> extends StatefulWidget {
+class BlocProvider<T extends Bloc> extends StatefulWidget {
   const BlocProvider({
     Key key,
     @required this.child,
@@ -15,13 +15,13 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
   @override
   _BlocProviderState<T> createState() => _BlocProviderState<T>();
 
-  static T of<T extends BlocBase>(BuildContext context){
+  static T of<T extends Bloc>(BuildContext context){
     final BlocProvider<T> provider = context.findAncestorWidgetOfExactType();
     return provider.bloc;
   }
 }
 
-class _BlocProviderState<T> extends State<BlocProvider<BlocBase>>{
+class _BlocProviderState<T> extends State<BlocProvider<Bloc>>{
   @override
   void dispose(){
     widget.bloc.dispose();

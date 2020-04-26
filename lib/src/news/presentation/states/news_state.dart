@@ -1,27 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
+import 'package:karate_stars_app/src/news/presentation/states/news_filter_state.dart';
 
-abstract class NewsState {
+class NewsState {
+  final DefaultState<List<News>> listState;
+  final NewsFilterState filtersState;
 
-  NewsState();
+  NewsState({this.listState, this.filtersState});
 
-  factory NewsState.loading() => NewsLoadingState();
-
-  factory NewsState.loaded(List<News> result) =>  NewsLoadedState(news: result);
-
-  factory NewsState.error(String message) => NewsErrorState(message: message);
-}
-
-class NewsLoadingState extends NewsState {}
-
-class NewsLoadedState extends NewsState {
-  final List<News> news;
-
-  NewsLoadedState({@required this.news});
-}
-
-class NewsErrorState extends NewsState {
-  final String message;
-
-  NewsErrorState({@required this.message});
+  NewsState copyWith({DefaultState<List<News>> listState,
+    NewsFilterState filtersState}) {
+    return NewsState(
+        listState: listState ?? this.listState,
+        filtersState: filtersState ?? this.filtersState);
+  }
 }

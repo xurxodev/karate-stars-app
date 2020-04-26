@@ -2,13 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
-abstract class BlocBase {
-
-  void dispose();
-}
-
 // TODO(xurxodev): Remove BlocBase and rename this to BlocBase
-abstract class Bloc <T> extends BlocBase {
+abstract class Bloc <T> {
 
   final _stateController = StreamController<T>.broadcast();
   T _state;
@@ -22,7 +17,6 @@ abstract class Bloc <T> extends BlocBase {
     _stateController.sink.add(state);
   }
 
-  @override
   void dispose(){
     _stateController.close();
   }

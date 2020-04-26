@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
-import 'package:karate_stars_app/src/common/presentation/blocs/bloc_base.dart';
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/domain/get_competitors_use_case.dart';

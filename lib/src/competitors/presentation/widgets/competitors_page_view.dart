@@ -68,7 +68,9 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
                     return ItemCompetitor(competitor, itemTextKey: textKey);
                   },
                 ),
-                onRefresh: () => bloc.refresh()),
+                onRefresh: () async {
+                  bloc.refresh();
+                }),
             onNotification: (notification) {
               //bloc.registerInteraction();
               return true;

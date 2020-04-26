@@ -7,11 +7,7 @@ class CompetitorsState {
   final CompetitorsFilterState filtersState;
 
   CompetitorsState({this.listState, this.filtersState});
-
-  factory CompetitorsState.initial() =>
-      CompetitorsState(listState: DefaultState.loading(),
-          filtersState: CompetitorsFilterState());
-
+  
   CompetitorsState copyWith({DefaultState<List<Competitor>> listState,
     CompetitorsFilterState filtersState}) {
     return CompetitorsState(

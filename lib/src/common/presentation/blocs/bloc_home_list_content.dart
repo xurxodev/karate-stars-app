@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:karate_stars_app/src/common/presentation/blocs/bloc_base.dart';
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 
-abstract class BlocHomeListContent implements BlocBase {
+abstract class BlocHomeListContent<T> extends Bloc<T> {
   @protected
   String screenName;
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
@@ -21,7 +22,6 @@ class NewsPageView extends StatefulWidget {
 
 class _NewsPageViewState extends State<NewsPageView>
     with AutomaticKeepAliveClientMixin<NewsPageView> {
-
   @override
   void initState() {
     super.initState();
@@ -33,21 +33,22 @@ class _NewsPageViewState extends State<NewsPageView>
     final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
 
     return StreamBuilder<NewsState>(
-      initialData: bloc.initialNews,
-      stream: bloc.news,
+      initialData: bloc.state,
+      stream: bloc.observableState,
       builder: (context, snapshot) {
         final state = snapshot.data;
 
-        if (state is NewsLoadingState) {
+        if (state.listState is LoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is NewsErrorState) {
+        } else if (state.listState is ErrorState) {
+          final listState = state.listState as ErrorState;
           return Center(
-            child: NotificationMessage(state.message),
+            child: NotificationMessage(listState.message),
           );
         } else {
-          return _renderNews(context, snapshot.data, bloc);
+          return _renderNews(context, state.listState, bloc);
         }
       },
     );
@@ -55,8 +56,8 @@ class _NewsPageViewState extends State<NewsPageView>
 
   // ignore: missing_return
   Widget _renderNews(
-      BuildContext context, NewsLoadedState state, NewsBloc bloc) {
-    if (state.news.isEmpty) {
+      BuildContext context, LoadedState<List<News>> state, NewsBloc bloc) {
+    if (state.data.isEmpty) {
       return const NotificationMessage(Strings.news_empty_message);
     } else {
       return Container(
@@ -69,9 +70,9 @@ class _NewsPageViewState extends State<NewsPageView>
                 backgroundColor: Theme.of(context).accentColor,
                 showChildOpacityTransition: false,
                 child: ListView.builder(
-                  itemCount: state.news.length,
+                  itemCount: state.data.length,
                   itemBuilder: (context, index) {
-                    final News news = state.news[index];
+                    final News news = state.data[index];
 
                     final textKey = '${Keys.news_item}_$index';
 
@@ -82,7 +83,9 @@ class _NewsPageViewState extends State<NewsPageView>
                     }
                   },
                 ),
-                onRefresh: () => bloc.refresh()),
+                onRefresh: () async {
+                   bloc.refresh();
+                }),
             onNotification: (notification) {
               bloc.registerInteraction();
               return true;
