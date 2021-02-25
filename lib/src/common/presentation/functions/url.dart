@@ -11,9 +11,9 @@ Future<void> launchURL(BuildContext context, String url) async {
   await browser.open(
       url: url,
       options: ChromeSafariBrowserClassOptions(
-          androidChromeCustomTabsOptions:
+          android:
               AndroidChromeCustomTabsOptions(enableUrlBarHiding: true),
-          iosSafariOptions: IosSafariOptions(
+          ios: IOSSafariOptions(
               barCollapsingEnabled: true, preferredControlTintColor: color)));
 }
 

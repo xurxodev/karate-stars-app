@@ -43,7 +43,7 @@ class ItemSocialNews extends ItemNews {
           title: ParsedText(
         key: Key('${itemTextKey}_${Keys.news_item_title}'),
         text: socialNews.summary.title,
-        style: Theme.of(context).textTheme.subhead,
+        style: Theme.of(context).textTheme.subtitle1,
         parse: <MatchText>[
           MatchText(
             type: ParsedType.URL,

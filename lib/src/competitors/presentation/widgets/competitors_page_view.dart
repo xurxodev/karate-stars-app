@@ -46,11 +46,13 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
   // ignore: missing_return
   Widget _renderList(BuildContext context, LoadedState<List<Competitor>> state,
       CompetitorsBloc bloc) {
+    final orientation = MediaQuery.of(context).orientation;
+
     if (state.data.isEmpty) {
       return const NotificationMessage(Strings.news_empty_message);
     } else {
       return Container(
-          padding: const EdgeInsets.only(top: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
           child: NotificationListener<ScrollUpdateNotification>(
             child: LiquidPullToRefresh(
                 key: const Key(Keys.news_items_parent),
@@ -58,7 +60,13 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
                 color: Theme.of(context).cardColor,
                 backgroundColor: Theme.of(context).accentColor,
                 showChildOpacityTransition: false,
-                child: ListView.builder(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 8.0,
+                      crossAxisCount:
+                          orientation == Orientation.portrait ? 1 : 2,
+                  childAspectRatio: 1.1),
                   itemCount: state.data.length,
                   itemBuilder: (context, index) {
                     final competitor = state.data[index];
@@ -68,9 +76,7 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
                     return ItemCompetitor(competitor, itemTextKey: textKey);
                   },
                 ),
-                onRefresh: () async {
-                  bloc.refresh();
-                }),
+                onRefresh: () => bloc.refresh()),
             onNotification: (notification) {
               //bloc.registerInteraction();
               return true;

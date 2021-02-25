@@ -1,5 +1,7 @@
 abstract class ModelDB {
-  final String lastUpdate = null;
+  final String lastUpdate;
+
+  ModelDB(this.lastUpdate);
 }
 
 abstract class CacheDataSource<T> {

@@ -29,9 +29,11 @@ class ShareButtonIcon extends StatelessWidget {
         return Icons.share;
       case TargetPlatform.iOS:
         return CupertinoIcons.share;
+      default: {
+        return Icons.share;
+      }
+
     }
-    assert(false);
-    return null;
   }
 
   @override

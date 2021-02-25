@@ -4,24 +4,24 @@ description: Official Karate Stars App written in Flutter for Android and iOS.
 version: 2.5.0+34
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
-  get_it: ^4.0.0
-  video_player: ^0.10.5
-  flutter_parsed_text: ^1.2.3
-  webview_flutter: ^0.3.14+1
-  share: ^0.6.2+1
-  flutter_secure_storage: ^3.3.1+1
-  http: ^0.12.0+2
-  floor: ^0.9.0
-  liquid_pull_to_refresh: ^1.1.1
-  cached_network_image: ^2.0.0
-  flutter_inappwebview: ^2.1.0+1
-  firebase_analytics: ^5.0.11
+  cupertino_icons: ^1.0.0
+  get_it: ^4.0.4
+  video_player: ^1.0.1
+  flutter_parsed_text: ^1.2.5
+  webview_flutter: ^1.0.7
+  share: ^0.6.5+4
+  flutter_secure_storage: ^3.3.5
+  http: ^0.12.2
+  floor: ^0.18.0
+  liquid_pull_to_refresh: ^2.0.0
+  cached_network_image: ^2.5.0
+  flutter_inappwebview: ^4.0.0+4
+  firebase_analytics: ^7.0.1
 
 dev_dependencies:
   flutter_test:
@@ -29,10 +29,10 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   test: any
-  floor_generator: ^0.9.0
-  build_runner: ^1.7.1
+  floor_generator: ^0.18.0
+  build_runner: ^1.11.1
   mock_web_server: ^4.1.1
-  mockito: ^4.1.1
+  mockito: ^4.1.4
 
 flutter:
   uses-material-design: true

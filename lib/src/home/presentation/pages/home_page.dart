@@ -86,29 +86,29 @@ class _HomePageState extends State<HomePage> {
           );
         },
         activeColor: Theme.of(context).accentColor,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.view_quilt,
-              key: const Key(Keys.home_news_tab),
+              key: Key(Keys.home_news_tab),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person_outline,
-              key: const Key(Keys.home_competitors_tab),
+              key: Key(Keys.home_competitors_tab),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.video_library,
-              key: const Key(Keys.home_videos_tab),
+              key: Key(Keys.home_videos_tab),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.settings,
-              key: const Key(Keys.home_settings_tab),
+              key: Key(Keys.home_settings_tab),
             ),
           ),
         ],
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
       return Text(titleText,
           key: titleKey,
           style:
-              TextStyle(fontSize: Theme.of(context).textTheme.title.fontSize));
+              TextStyle(fontSize: Theme.of(context).textTheme.headline6.fontSize));
     }
   }
 
@@ -146,8 +146,8 @@ class _HomePageState extends State<HomePage> {
     if (_currentTab == 0) {
       return [
         IconButton(
-          key: Key(Keys.home_filter),
-          icon: Icon(Icons.filter_list),
+          key: const Key(Keys.home_filter),
+          icon: const Icon(Icons.filter_list),
           onPressed: () {
             final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
 

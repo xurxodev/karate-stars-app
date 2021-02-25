@@ -4,7 +4,7 @@ import 'package:karate_stars_app/src/common/data/local/cache_data_source.dart';
 @Entity(tableName: 'CurrentNewsSources', indices: [
   Index(value: ['url'], unique: true)
 ])
-class CurrentNewsSourceDB implements ModelDB {
+class CurrentNewsSourceDB extends ModelDB {
   @PrimaryKey(autoGenerate: true)
   final int id;
 
@@ -12,11 +12,9 @@ class CurrentNewsSourceDB implements ModelDB {
   final String name;
   final String image;
 
-  @override
-  final String lastUpdate;
-
   CurrentNewsSourceDB(
-      this.id, this.url, this.name, this.image, this.lastUpdate);
+      this.id, this.url, this.name, this.image, String lastUpdate)
+      : super(lastUpdate);
 
   @override
   bool operator ==(Object other) =>
@@ -36,7 +34,7 @@ class CurrentNewsSourceDB implements ModelDB {
     entity: CurrentNewsSourceDB,
   )
 ])
-class CurrentNewsDB implements ModelDB {
+class CurrentNewsDB extends ModelDB {
   @PrimaryKey(autoGenerate: true)
   final int id;
 
@@ -46,9 +44,7 @@ class CurrentNewsDB implements ModelDB {
   final String pubDate;
   final int sourceId;
 
-  @override
-  final String lastUpdate;
-
   CurrentNewsDB(this.id, this.link, this.title, this.image, this.pubDate,
-      this.sourceId, this.lastUpdate);
+      this.sourceId, String lastUpdate)
+      : super(lastUpdate);
 }

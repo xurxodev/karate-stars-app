@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/CircleImage.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 
 class ItemCompetitor extends StatelessWidget {
@@ -11,34 +11,52 @@ class ItemCompetitor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        //onTap: () => url_helper.launchURL(context, currentNews.summary.link),
+    const radius = Radius.circular(20.0);
 
-        //Try card??????? but create custom card componet and use it in all list
-        child: Container(
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: const BorderRadius.all(Radius.circular(20.0))),
-      child: Column(
-        children: <Widget>[
-          ListTile(title: Text(competitor.name)),
-          CachedNetworkImage(imageUrl: competitor.mainImage),
-          ListTile(
-            leading: const Text('Spain'),
-            trailing: CachedNetworkImage(
-              height: 25,
-              imageUrl: 'http://www.karatestarsapp.com/app/flags/es.png',
+    return Column(
+      children: <Widget>[
+        Expanded(
+          flex: 10,
+          child: CircleImage(
+            borderRadius:
+                const BorderRadius.only(topLeft: radius, topRight: radius),
+            width: double.infinity,
+            imageUrl: competitor.mainImage
             ),
-          ),
-/*          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child:
-            CachedNetworkImage(imageUrl: competitor.mainImage),
-          ),*/
-          //key: Key('${itemTextKey}_${Keys.news_item_source}'))),
-        ],
-      ),
-    ));
+        ),
+        Expanded(
+            flex: 2,
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: radius, bottomRight: radius),
+                ),
+                child: ListTile(
+                  title: Text(competitor.name),
+                  trailing:
+
+                  CircleImage(
+                      borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                      height: 20,
+                      width: 30,
+                      imageUrl: 'http://www.karatestarsapp.com/app/flags/${competitor.countryId}.png'
+                  ),
+
+
+                )))
+      ],
+    )
+
+        /* Positioned(
+            bottom: 0,
+            child: ListTile(
+              title: Text(competitor.name),
+              trailing: CachedNetworkImage(
+                height: 20,
+                imageUrl: 'http://www.karatestarsapp.com/app/flags/es.png',
+              ),
+            )),*/
+        ;
   }
 }

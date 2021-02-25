@@ -61,7 +61,7 @@ class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
               child: FloatingActionButton(
                 backgroundColor: Colors.redAccent,
                 elevation: 0,
-                child: Icon(Icons.play_arrow),
+                child: const Icon(Icons.play_arrow),
                 onPressed: playOrPauseVideo,
               ),
             )

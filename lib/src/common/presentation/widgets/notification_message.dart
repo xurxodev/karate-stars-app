@@ -14,7 +14,7 @@ class NotificationMessage extends StatelessWidget {
             child: Text(
       text,
       key: const Key(Keys.notification_message),
-      style: Theme.of(context).textTheme.title,
+      style: Theme.of(context).textTheme.headline6,
     )));
   }
 }

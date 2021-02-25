@@ -16,12 +16,12 @@ class App extends StatelessWidget {
           brightness: Brightness.light,
           primarySwatch: whiteMaterial,
           accentColor: Colors.red,
-          primaryIconTheme: IconThemeData(color: Colors.red),
+          primaryIconTheme: const IconThemeData(color: Colors.red),
           scaffoldBackgroundColor: Colors.grey[300]),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         accentColor: Colors.red,
-        primaryIconTheme: IconThemeData(color: Colors.red),
+        primaryIconTheme: const IconThemeData(color: Colors.red),
       ),
       initialRoute: HomePage.routeName,
       routes: {

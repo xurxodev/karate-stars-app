@@ -13,7 +13,7 @@ int largeCacheTimeMillis = const Duration(days: 7).inMilliseconds;
 int mediumCacheTimeMillis = const Duration(hours: 4).inMilliseconds;
 int smallCacheTimeMillis = const Duration(hours: 1).inMilliseconds;
 
-const String apiBaseAddress = 'https://karate-stars-api.herokuapp.com/v1';
+const String apiBaseAddress = 'https://karate-stars-web.herokuapp.com/api/v1';
 //const String baseAddress = 'http://10.0.2.2:8000/v1';
 
 Future<void> init() async {

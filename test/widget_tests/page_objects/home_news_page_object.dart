@@ -107,12 +107,12 @@ class HomeNewsPageObject {
   }
 
   Future<void> _openFilterDialog() async {
-    await _tester.tap(find.byKey(Key(Keys.home_filter)));
+    await _tester.tap(find.byKey(const Key(Keys.home_filter)));
     await _tester.pumpAndSettle();
   }
 
   Future<void> _closeFilterDialog() async {
-    await _tester.tap(find.byKey(Key(Keys.alert_dialog_ok_button)));
+    await _tester.tap(find.byKey(const Key(Keys.alert_dialog_ok_button)));
     await _tester.pumpAndSettle();
   }
 

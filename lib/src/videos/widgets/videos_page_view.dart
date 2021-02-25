@@ -11,11 +11,11 @@ class VideosPageView extends StatefulWidget {
 class _VideosPageViewState extends State<VideosPageView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.blue,
-      body: const Center(
+      body: Center(
         child: Text('Videos'),
-        ),
+      ),
     );
   }
 }
