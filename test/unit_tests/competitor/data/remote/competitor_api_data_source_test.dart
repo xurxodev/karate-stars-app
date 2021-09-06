@@ -7,9 +7,9 @@ import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart
 import '../../../common/api/mock_api.dart';
 import '../../../common/fake/fake_api_token_storage.dart';
 
-CompetitorApiDataSource _competitorApiDataSource;
+late CompetitorApiDataSource _competitorApiDataSource;
 
-MockApi mockApi;
+late MockApi mockApi;
 
 void main() {
   setUp(()  {

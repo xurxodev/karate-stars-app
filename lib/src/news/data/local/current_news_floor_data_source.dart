@@ -39,7 +39,7 @@ class CurrentNewsFloorDataSource extends CacheDataSource
     final newsDB = items.map((item) {
       final CurrentNewsSourceDB sourceDB =
           sourcesDB.firstWhere((src) => src.url == item.source.url);
-      return _mapper.mapNewsToDB(item, sourceDB.id);
+      return _mapper.mapNewsToDB(item, sourceDB.id!);
     }).toList();
 
     await _currentNewsDao.insertAll(newsDB);

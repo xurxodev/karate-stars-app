@@ -3,10 +3,6 @@ import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
 
 void main() {
   group('PubDate should', () {
-    test('throw assertion error if date is null', () {
-      expect(() => PubDate(null), throwsA(isA<AssertionError>()));
-    });
-
     test('return antiquity 1d if pub date ago is 24 hours', () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
           const Duration(hours: 24).inMilliseconds;

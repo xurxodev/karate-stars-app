@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CircleImage extends StatelessWidget {
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
   final String imageUrl;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   const CircleImage(
-      {this.borderRadius, this.imageUrl, this.width, this.height});
+      {this.borderRadius, required this.imageUrl, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {

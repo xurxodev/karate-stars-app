@@ -6,10 +6,10 @@ class NewsState {
   final DefaultState<List<News>> listState;
   final NewsFilterState filtersState;
 
-  NewsState({this.listState, this.filtersState});
+  NewsState({required this.listState, required this.filtersState});
 
-  NewsState copyWith({DefaultState<List<News>> listState,
-    NewsFilterState filtersState}) {
+  NewsState copyWith({DefaultState<List<News>>? listState ,
+    NewsFilterState? filtersState}) {
     return NewsState(
         listState: listState ?? this.listState,
         filtersState: filtersState ?? this.filtersState);

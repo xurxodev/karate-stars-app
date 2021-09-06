@@ -47,10 +47,10 @@ class Competitor {
 }
 
 class CompetitorLinks {
-  final String web;
-  final String twitter;
-  final String facebook;
-  final String instagram;
+  final String? web;
+  final String? twitter;
+  final String? facebook;
+  final String? instagram;
 
   CompetitorLinks(this.web, this.twitter, this.facebook, this.instagram);
 

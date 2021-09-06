@@ -7,8 +7,8 @@ import 'page_objects/home/home_page_object.dart';
 
 void main() {
   group('app empty', () {
-    FlutterDriver driver;
-    HomePageObject homePage;
+    late FlutterDriver driver;
+    late HomePageObject homePage;
 
     setUpAll(() async {
       driver = await FlutterDriver.connect();
@@ -17,9 +17,7 @@ void main() {
     });
 
     tearDownAll(() async {
-      if (driver != null) {
         driver.close();
-      }
     });
 
     group('news', () {

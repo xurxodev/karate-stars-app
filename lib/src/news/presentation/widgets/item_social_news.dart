@@ -13,7 +13,7 @@ class ItemSocialNews extends ItemNews {
   final SocialNews socialNews;
   final String itemTextKey;
 
-  ItemSocialNews(this.socialNews, {this.itemTextKey})
+  ItemSocialNews(this.socialNews, {required this.itemTextKey})
       : super(key: Key(itemTextKey));
 
   @override
@@ -77,11 +77,11 @@ class ItemSocialNews extends ItemNews {
 
   Widget _mediaWidget() {
     if (socialNews.summary.video != null &&
-        socialNews.summary.video.isNotEmpty) {
-      return ItemVideoPlayer(videoUrl: socialNews.summary.video);
+        socialNews.summary.video!.isNotEmpty) {
+      return ItemVideoPlayer(videoUrl: socialNews.summary.video!);
     } else if (socialNews.summary.image != null &&
-        socialNews.summary.image.isNotEmpty) {
-      return CachedNetworkImage(imageUrl: socialNews.summary.image);
+        socialNews.summary.image!.isNotEmpty) {
+      return CachedNetworkImage(imageUrl: socialNews.summary.image!);
     } else {
       return Container();
     }

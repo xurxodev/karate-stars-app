@@ -10,7 +10,7 @@ class ItemCurrentNews extends ItemNews {
   final CurrentNews currentNews;
   final String itemTextKey;
 
-  ItemCurrentNews(this.currentNews, {this.itemTextKey})
+  ItemCurrentNews(this.currentNews, {required this.itemTextKey})
       : super(key: Key(itemTextKey));
 
   @override
@@ -40,8 +40,8 @@ class ItemCurrentNews extends ItemNews {
   }
 
   Widget _image() {
-    if (currentNews.summary.image.isNotEmpty) {
-      return CachedNetworkImage(imageUrl: currentNews.summary.image);
+    if (currentNews.summary.image != null && currentNews.summary.image!.isNotEmpty) {
+      return CachedNetworkImage(imageUrl: currentNews.summary.image!);
     } else {
       return Container();
     }

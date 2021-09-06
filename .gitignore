@@ -74,7 +74,10 @@
 /ios/Flutter/Flutter.podspec
 /.flutter-plugins-dependencies
 /assets/credentials.json
-/lib/src/common/data/database.g.dart
+
+# Generated files
+*.g.dart
+*.mocks.dart
 
 #Firebase
 # to use in codemagic CI realize this steps

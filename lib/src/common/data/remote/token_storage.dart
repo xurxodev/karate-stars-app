@@ -12,7 +12,9 @@ class ApiTokenSecureStorage implements ApiTokenStorage{
 
   @override
   Future<String> getToken() async {
-    return await storage.read(key: tokenKey);
+    final value =  await storage.read(key: tokenKey);
+
+    return value ?? '';
   }
 
   @override

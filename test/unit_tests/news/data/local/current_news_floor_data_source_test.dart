@@ -57,7 +57,7 @@ void main() {
   });
 }
 
-Future<CurrentNewsFloorDataSource> givenACacheWithData([int millis]) async {
+Future<CurrentNewsFloorDataSource> givenACacheWithData([int millis = 100]) async {
   final currentNewsCache = givenACacheWithoutData(millis);
 
   await currentNewsCache.save([

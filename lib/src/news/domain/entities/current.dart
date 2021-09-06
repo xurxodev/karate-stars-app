@@ -5,9 +5,7 @@ class CurrentNews extends News {
   final NewsSource source;
 
   CurrentNews(NewsSummary summary, this.source)
-      : assert(summary != null),
-        assert(source != null),
-        super(summary);
+      :super(summary);
 
   @override
   bool operator ==(Object other) =>
@@ -31,10 +29,7 @@ class NewsSource {
   final String image;
   final String url;
 
-  NewsSource(this.name, this.image, this.url)
-      : assert(name != null),
-        assert(image != null),
-        assert(url != null);
+  NewsSource(this.name, this.image, this.url);
 
   @override
   bool operator ==(Object other) =>

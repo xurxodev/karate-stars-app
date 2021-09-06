@@ -9,6 +9,7 @@ import 'package:karate_stars_app/src/competitors/competitors_di.dart' as competi
 
 final getIt = GetIt.instance;
 
+
 int largeCacheTimeMillis = const Duration(days: 7).inMilliseconds;
 int mediumCacheTimeMillis = const Duration(hours: 4).inMilliseconds;
 int smallCacheTimeMillis = const Duration(hours: 1).inMilliseconds;
@@ -17,6 +18,7 @@ const String apiBaseAddress = 'https://karate-stars-web.herokuapp.com/api/v1';
 //const String baseAddress = 'http://10.0.2.2:8000/v1';
 
 Future<void> init() async {
+  getIt.allowReassignment = true;
   initNoDataAppDependencies();
 
   final AppDatabase appDatabase =
@@ -32,6 +34,7 @@ Future<void> init() async {
 }
 
 void initWithoutDataDependencies() {
+  getIt.allowReassignment = true;
   initNoDataAppDependencies();
 
   news_di.initBlocAndUseCases();
@@ -43,7 +46,7 @@ void initNoDataAppDependencies() {
           () => FirebaseAnalyticsService());
 }
 
-void reset() {
-  getIt.reset();
+Future<void> reset() {
+  return getIt.reset();
 }
 

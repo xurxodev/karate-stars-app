@@ -1,26 +1,24 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
+import 'package:karate_stars_app/src/news/data/local/social_news_floor_data_source.dart';
+import 'package:karate_stars_app/src/news/data/remote/social_news_api_data_source.dart';
 import 'package:karate_stars_app/src/news/data/repositories/social_news_cached_repository.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/social_news_repository.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../common/mothers/social_news_mother.dart';
+import 'social_news_cached_repository_test.mocks.dart';
 
-class MockCacheDataSource extends Mock
-    implements CacheableDataSource<SocialNews> {}
+final _cacheDataSource = MockSocialNewsFloorDataSource();
 
-class MockRemoteDataSource extends Mock
-    implements ReadableDataSource<SocialNews> {}
+final _remoteDataSource = MockSocialNewsApiDataSource();
 
-final _cacheDataSource = MockCacheDataSource();
+late SocialNewsRepository _repository;
 
-final _remoteDataSource = MockRemoteDataSource();
-
-SocialNewsRepository _repository;
-
+@GenerateMocks([SocialNewsApiDataSource,SocialNewsFloorDataSource])
 void main() {
   setUp(() async {
     _repository =

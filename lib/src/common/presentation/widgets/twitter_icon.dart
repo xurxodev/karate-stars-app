@@ -4,7 +4,7 @@ import 'package:karate_stars_app/src/common/presentation/icons/custom_icons.dart
 class TwitterIcon extends StatelessWidget {
 
   const TwitterIcon({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

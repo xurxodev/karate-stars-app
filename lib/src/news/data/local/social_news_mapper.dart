@@ -17,7 +17,7 @@ class SocialNewsMapper {
     final SocialUser socialUser = SocialUser(socialUserDB.name,
         socialUserDB.userName, socialUserDB.image, socialUserDB.url);
 
-    return News.socialNews(summary, Network.twitter, socialUser);
+    return News.socialNews(summary, Network.twitter, socialUser) as SocialNews;
   }
 
   SocialNewsDB mapNewsToDB(SocialNews socialNews, int socialUserId) {

@@ -1,7 +1,7 @@
 class PubDate {
   final DateTime date;
 
-  PubDate(this.date) : assert(date != null);
+  PubDate(this.date);
 
   String get antiquity {
     final int antiquityMillis =

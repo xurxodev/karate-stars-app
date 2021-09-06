@@ -4,14 +4,14 @@ import 'package:video_player/video_player.dart';
 class ItemVideoPlayer extends StatefulWidget {
   final String videoUrl;
 
-  const ItemVideoPlayer({this.videoUrl});
+  const ItemVideoPlayer({required this.videoUrl});
 
   @override
   _ItemVideoPlayerState createState() => _ItemVideoPlayerState();
 }
 
 class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
-  VideoPlayerController _controller;
+  VideoPlayerController? _controller;
 
   bool _isPlaying = false;
 
@@ -20,7 +20,7 @@ class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
     super.initState();
     _controller = VideoPlayerController.network(widget.videoUrl)
       ..addListener(() {
-        final bool isPlaying = _controller?.value?.isPlaying ?? false;
+        final bool isPlaying = _controller?.value.isPlaying ?? false;
 
         if (isPlaying != _isPlaying) {
           setState(() {
@@ -38,16 +38,16 @@ class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    final video = _controller.value.initialized
+    final video = _controller?.value.isInitialized ?? false
         ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller))
+            aspectRatio: _controller!.value.aspectRatio,
+            child: VideoPlayer(_controller!))
         : Container();
 
     final playOrPauseVideo = () {
-      _controller.value.isPlaying
-          ? _controller.pause()
-          : _controller.play();
+      _controller!.value.isPlaying
+          ? _controller!.pause()
+          : _controller!.play();
     };
 
     return GestureDetector(
@@ -72,6 +72,8 @@ class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    if (_controller != null){
+      _controller!.dispose();
+    }
   }
 }

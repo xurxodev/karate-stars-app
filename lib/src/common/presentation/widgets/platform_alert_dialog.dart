@@ -7,7 +7,7 @@ class PlatformAlertDialog extends StatelessWidget {
   final String title;
   final Widget content;
 
-  const PlatformAlertDialog({this.title, this.content});
+  const PlatformAlertDialog({required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +27,12 @@ class PlatformAlertDialog extends StatelessWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             Strings.ok,
             key: const Key(Keys.alert_dialog_ok_button),
             style:
-                Theme.of(context).textTheme.button.copyWith(color: Colors.red),
+                Theme.of(context).textTheme.button!.copyWith(color: Colors.red),
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -56,7 +56,7 @@ class PlatformAlertDialog extends StatelessWidget {
                 Strings.ok,
                 style: Theme.of(context)
                     .textTheme
-                    .button
+                    .button!
                     .copyWith(color: Colors.red),
               ),
               onPressed: () {

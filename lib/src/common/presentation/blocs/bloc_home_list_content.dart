@@ -9,13 +9,13 @@ abstract class BlocHomeListContent<T> extends Bloc<T> {
   @protected
   AnalyticsService analyticsService;
 
-  DateTime _screenNameLastSentDate;
+  DateTime? _screenNameLastSentDate;
 
   BlocHomeListContent(this.analyticsService, this.screenName);
 
   void registerInteraction() {
     if (_screenNameLastSentDate == null ||
-        _screenNameLastSentDate.difference(DateTime.now()) >=
+        _screenNameLastSentDate!.difference(DateTime.now()) >=
             const Duration(minutes: 2)) {
       analyticsService.sendScreenName(screenName);
       _screenNameLastSentDate = DateTime.now();

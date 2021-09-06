@@ -6,7 +6,7 @@ import 'package:karate_stars_app/src/common/data/local/cache_data_source.dart';
 ])
 class SocialUserDB extends ModelDB {
   @PrimaryKey(autoGenerate: true)
-  final int id;
+  final int? id;
 
   final String name;
   final String userName;
@@ -37,12 +37,12 @@ class SocialUserDB extends ModelDB {
 ])
 class SocialNewsDB extends ModelDB {
   @PrimaryKey(autoGenerate: true)
-  final int id;
+  final int? id;
 
   final String link;
   final String title;
-  final String image;
-  final String video;
+  final String? image;
+  final String? video;
   final String pubDate;
   final int socialUserId;
 

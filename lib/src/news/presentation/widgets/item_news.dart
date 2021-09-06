@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 abstract class ItemNews extends StatelessWidget {
-  const ItemNews({ Key key }) : super(key: key);
+  const ItemNews({ Key? key }) : super(key: key);
 
   @override
   @protected

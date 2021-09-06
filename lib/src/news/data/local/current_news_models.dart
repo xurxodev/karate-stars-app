@@ -6,7 +6,7 @@ import 'package:karate_stars_app/src/common/data/local/cache_data_source.dart';
 ])
 class CurrentNewsSourceDB extends ModelDB {
   @PrimaryKey(autoGenerate: true)
-  final int id;
+  final int? id;
 
   final String url;
   final String name;
@@ -36,11 +36,11 @@ class CurrentNewsSourceDB extends ModelDB {
 ])
 class CurrentNewsDB extends ModelDB {
   @PrimaryKey(autoGenerate: true)
-  final int id;
+  final int? id;
 
   final String link;
   final String title;
-  final String image;
+  final String? image;
   final String pubDate;
   final int sourceId;
 

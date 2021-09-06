@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 abstract class DefaultState<T> {
   DefaultState();
 
@@ -15,11 +13,11 @@ class LoadingState<T> extends DefaultState<T> {}
 class LoadedState<T> extends DefaultState<T> {
   final T data;
 
-  LoadedState({@required this.data});
+  LoadedState({required this.data});
 }
 
 class ErrorState<T> extends DefaultState<T> {
   final String message;
 
-  ErrorState({@required this.message});
+  ErrorState({required this.message});
 }

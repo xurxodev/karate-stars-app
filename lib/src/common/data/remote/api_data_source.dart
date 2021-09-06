@@ -16,7 +16,7 @@ abstract class ApiDataSource {
     http.Response response;
     final token = await _apiTokenStorage.getToken();
 
-    if (token == null || token.isEmpty) {
+    if (token.isEmpty) {
       response = await _renewTokenAndExecuteRequest(endpoint);
     } else {
       response = await _executeRequest(endpoint, token);
@@ -42,7 +42,7 @@ abstract class ApiDataSource {
     try {
       print('_executeRequest');
       final response = await http.get(
-        '$_baseAddress$endpoint',
+        Uri.parse('$_baseAddress$endpoint'),
         headers: {
           HttpHeaders.acceptHeader: 'application/json',
           HttpHeaders.authorizationHeader: token
@@ -57,13 +57,15 @@ abstract class ApiDataSource {
   Future<String> _renewToken() async {
     try {
       print('_renewToken');
-      final response = await http.post('$_baseAddress/login', body: {
+      final response = await http.post(Uri.parse('$_baseAddress/login'), body: {
         'username': _apiCredentials.username,
         'password': _apiCredentials.password
       });
 
-      if (response.statusCode == 200) {
-        return response.headers[HttpHeaders.authorizationHeader];
+      final authorizationHeader = response.headers[HttpHeaders.authorizationHeader];
+
+      if (response.statusCode == 200 && authorizationHeader != null) {
+        return authorizationHeader;
       } else {
         throw RenewTokenException();
       }

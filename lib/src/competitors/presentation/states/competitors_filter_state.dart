@@ -22,11 +22,11 @@ class CompetitorsFilterState {
       this.selectedCategory = 0});
 
   CompetitorsFilterState copyWith(
-      {List<String> categoryOptions,
-      List<String> countryOptions,
-      int selectedCompetitorType,
-      int selectedCountry,
-      int selectedCategory}) {
+      {List<String>? categoryOptions,
+      List<String>? countryOptions,
+      int? selectedCompetitorType,
+      int? selectedCountry,
+      int? selectedCategory}) {
     return CompetitorsFilterState(
         categoryOptions: categoryOptions ?? this.categoryOptions,
         countryOptions: countryOptions ?? this.countryOptions,

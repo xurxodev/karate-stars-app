@@ -10,10 +10,10 @@ import 'videos_content.dart';
 class HomePageObject {
   final FlutterDriver _driver;
 
-  NewsContent newsContent;
-  CompetitorsContent competitorsContent;
-  VideosContent videosContent;
-  SettingsContent settingsContent;
+  late NewsContent newsContent;
+  late CompetitorsContent competitorsContent;
+  late VideosContent videosContent;
+  late SettingsContent settingsContent;
 
   HomePageObject(this._driver) {
     newsContent = NewsContent(_driver);

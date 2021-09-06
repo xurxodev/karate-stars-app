@@ -23,7 +23,7 @@ class HomeNewsPageObject {
     final widget =
         _tester.widget(_findItemChildByKey(index, Keys.news_item_title));
 
-    String text = '';
+    String? text = '';
 
     if (widget is Text) {
       text = widget.data;

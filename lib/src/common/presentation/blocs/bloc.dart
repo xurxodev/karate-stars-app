@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 abstract class Bloc <T> {
 
   final _stateController = StreamController<T>.broadcast();
-  T _state;
+  late T _state;
 
   T get state => _state;
   Stream<T> get observableState => _stateController.stream;

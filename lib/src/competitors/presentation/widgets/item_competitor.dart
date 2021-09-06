@@ -6,7 +6,7 @@ class ItemCompetitor extends StatelessWidget {
   final Competitor competitor;
   final String itemTextKey;
 
-  ItemCompetitor(this.competitor, {this.itemTextKey})
+  ItemCompetitor(this.competitor, {required this.itemTextKey})
       : super(key: Key(itemTextKey));
 
   @override

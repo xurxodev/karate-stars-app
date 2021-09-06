@@ -5,6 +5,7 @@ import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dar
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
@@ -38,17 +39,22 @@ class _NewsPageViewState extends State<NewsPageView>
       builder: (context, snapshot) {
         final state = snapshot.data;
 
-        if (state.listState is LoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state.listState is ErrorState) {
-          final listState = state.listState as ErrorState;
-          return Center(
-            child: NotificationMessage(listState.message),
-          );
+        if (state != null) {
+          if (state.listState is LoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state.listState is ErrorState) {
+            final listState = state.listState as ErrorState;
+            return Center(
+              child: NotificationMessage(listState.message),
+            );
+          } else {
+            return _renderNews(
+                context, state.listState as LoadedState<List<News>>, bloc);
+          }
         } else {
-          return _renderNews(context, state.listState, bloc);
+          return const Text('No data');
         }
       },
     );
@@ -79,12 +85,13 @@ class _NewsPageViewState extends State<NewsPageView>
                     if (news is SocialNews) {
                       return ItemSocialNews(news, itemTextKey: textKey);
                     } else {
-                      return ItemCurrentNews(news, itemTextKey: textKey);
+                      return ItemCurrentNews(news as CurrentNews,
+                          itemTextKey: textKey);
                     }
                   },
                 ),
                 onRefresh: () async {
-                   bloc.refresh();
+                  bloc.refresh();
                 }),
             onNotification: (notification) {
               bloc.registerInteraction();

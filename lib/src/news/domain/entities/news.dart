@@ -5,7 +5,7 @@ import 'package:karate_stars_app/src/news/domain/entities/summary.dart';
 abstract class News {
   final NewsSummary summary;
 
-  News(this.summary) : assert(summary != null);
+  News(this.summary);
 
   factory News.currentNews(NewsSummary summary, NewsSource source) {
     return CurrentNews(summary, source);

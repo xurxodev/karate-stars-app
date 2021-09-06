@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/news/presentation/states/news_state.dart';
 class NewsFilter extends StatelessWidget {
   final NewsBloc bloc;
 
-  const NewsFilter({this.bloc});
+  const NewsFilter({required this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,11 @@ class NewsFilter extends StatelessWidget {
       initialData: bloc.state,
       stream: bloc.observableState,
       builder: (context, snapshot) {
-        return _buildFilter(context, snapshot.data.filtersState, bloc);
+        if (snapshot.data != null) {
+          return _buildFilter(context, snapshot.data!.filtersState, bloc);
+        } else {
+          return const Text('No data');
+        }
       },
     );
   }
@@ -26,8 +30,10 @@ class NewsFilter extends StatelessWidget {
       thumbColor: Theme.of(context).accentColor,
       children:
           state.filterOptions.map((key, value) => MapEntry(key, Text(value))),
-      onValueChanged: (index) {
-        bloc.filter(index);
+      onValueChanged: (int? index) {
+        if (index != null) {
+          bloc.filter(index);
+        }
       },
       groupValue: state.selectedIndex,
     );

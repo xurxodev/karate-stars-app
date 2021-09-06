@@ -1,26 +1,24 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
+import 'package:karate_stars_app/src/news/data/local/current_news_floor_data_source.dart';
+import 'package:karate_stars_app/src/news/data/remote/current_news_api_data_source.dart';
 import 'package:karate_stars_app/src/news/data/repositories/current_news_cached_repository.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../common/mothers/current_news_mother.dart';
+import 'current_news_cached_repository_test.mocks.dart';
 
-class MockCacheDataSource extends Mock
-    implements CacheableDataSource<CurrentNews> {}
+final _cacheDataSource = MockCurrentNewsFloorDataSource();
 
-class MockRemoteDataSource extends Mock
-    implements ReadableDataSource<CurrentNews> {}
+final _remoteDataSource = MockCurrentNewsApiDataSource();
 
-final _cacheDataSource = MockCacheDataSource();
+late CurrentNewsRepository _repository;
 
-final _remoteDataSource = MockRemoteDataSource();
-
-CurrentNewsRepository _repository;
-
+@GenerateMocks([CurrentNewsApiDataSource,CurrentNewsFloorDataSource])
 void main() {
   setUp(() async {
     _repository =

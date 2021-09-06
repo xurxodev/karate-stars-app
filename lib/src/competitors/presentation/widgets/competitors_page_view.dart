@@ -31,13 +31,18 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
       builder: (context, snapshot) {
         final state = snapshot.data;
 
-        if (state.listState is LoadingState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state.listState is ErrorState) {
-          final listState = state.listState as ErrorState;
-          return Center(child: NotificationMessage(listState.message));
+        if (state != null) {
+          if (state.listState is LoadingState) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state.listState is ErrorState) {
+            final listState = state.listState as ErrorState;
+            return Center(child: NotificationMessage(listState.message));
+          } else {
+            return _renderList(context,
+                state.listState as LoadedState<List<Competitor>>, bloc);
+          }
         } else {
-          return _renderList(context, state.listState, bloc);
+          return const Text('No Data');
         }
       },
     );
@@ -66,7 +71,7 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
                       mainAxisSpacing: 8.0,
                       crossAxisCount:
                           orientation == Orientation.portrait ? 1 : 2,
-                  childAspectRatio: 1.1),
+                      childAspectRatio: 1.1),
                   itemCount: state.data.length,
                   itemBuilder: (context, index) {
                     final competitor = state.data[index];

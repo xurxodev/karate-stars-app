@@ -29,14 +29,14 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 
-  static _HomePageState of(BuildContext context) {
+  static _HomePageState? of(BuildContext context) {
     return context.findAncestorStateOfType();
   }
 }
 
 class _HomePageState extends State<HomePage> {
   int _currentTab = 0;
-  PageController _pageController;
+  late PageController _pageController;
 
   @override
   void initState() {
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
       return Text(titleText,
           key: titleKey,
           style:
-              TextStyle(fontSize: Theme.of(context).textTheme.headline6.fontSize));
+              TextStyle(fontSize: Theme.of(context).textTheme.headline6!.fontSize));
     }
   }
 
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget getLeading() {
+  Widget? getLeading() {
     if (_currentTab == 0) {
       return Padding(
           padding: const EdgeInsets.all(8.0),

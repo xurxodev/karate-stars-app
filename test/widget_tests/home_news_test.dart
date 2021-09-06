@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
+import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 
 import 'common/scenarios.dart';
@@ -10,7 +11,8 @@ void main() {
   group('home page news', () {
     group('should show notification message', () {
       testWidgets('of empty data if has no data', (WidgetTester tester) async {
-        givenThereAreNoData();
+        await givenThereAreNoData();
+
         final home = HomePageObject(tester);
         await home.open();
 
@@ -19,7 +21,7 @@ void main() {
 
       testWidgets('of network error if an network error occur',
           (WidgetTester tester) async {
-        givenThereAreOnlyNewsAndThrowNetworkException();
+        await givenThereAreOnlyNewsAndThrowNetworkException();
         final home = HomePageObject(tester);
         await home.open();
 
@@ -27,10 +29,10 @@ void main() {
       });
     });
     group('with news', () {
-      HomePageObject home;
+      late HomePageObject home;
 
       final givenThereAreNewsAndInitHome = (tester) async {
-        final newsList = givenThereAreOnlyNews();
+        final newsList = await givenThereAreOnlyNews();
         home = HomePageObject(tester);
         await home.open();
 
@@ -41,10 +43,10 @@ void main() {
           (WidgetTester tester) async {
         final newsList = await givenThereAreNewsAndInitHome(tester);
 
-        await Future.forEach(newsList, (newsItem) async {
-          await home.news.expectItemTitle(
-              newsList.indexOf(newsItem), newsItem.summary.title);
-        });
+        for (News newsItem in newsList){
+            await home.news.expectItemTitle(
+                newsList.indexOf(newsItem), newsItem.summary.title);
+        }
       });
 
       testWidgets('should show expected news source name',
@@ -67,8 +69,10 @@ void main() {
         final newsList = await givenThereAreNewsAndInitHome(tester);
 
         await Future.forEach(newsList, (newsItem) async {
-          await home.news.expectSocialBadgeIsVisible(
-              newsList.indexOf(newsItem), newsItem is SocialNews);
+          if (newsItem is SocialNews) {
+            await home.news.expectSocialBadgeIsVisible(
+                newsList.indexOf(newsItem), newsItem is SocialNews);
+          }
         });
       });
 

@@ -17,7 +17,7 @@ class SocialNewsMother {
             'World Karate Federation',
             'worldkarate_wkf',
             '',//'https://pbs.twimg.com/profile_images/1229708688597880833/PiQoEC9T_reasonably_small.jpg',
-            'https://twitter.com/worldkarate_wkf'));
+            'https://twitter.com/worldkarate_wkf')) as SocialNews;
   }
 
   static SocialNews countDownMadrid2018() {
@@ -33,7 +33,7 @@ class SocialNewsMother {
             'World Karate Federation',
             'worldkarate_wkf',
             '',//'https://pbs.twimg.com/profile_images/1229708688597880833/PiQoEC9T_reasonably_small.jpg',
-            'https://twitter.com/worldkarate_wkf'));
+            'https://twitter.com/worldkarate_wkf')) as SocialNews;
   }
 
   static List<SocialNews> all() {

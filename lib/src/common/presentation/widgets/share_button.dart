@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShareButton extends StatelessWidget {
-  const ShareButton({Key key, this.onPressed, this.color}) : super(key: key);
+  final Color? color;
+  final VoidCallback? onPressed;
 
-  final Color color;
-  final VoidCallback onPressed;
+  const ShareButton({Key? key, this.onPressed, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,13 @@ class ShareButton extends StatelessWidget {
       icon: const ShareButtonIcon(),
       color: color,
       onPressed: onPressed,
-      iconSize: Theme.of(context).platform == TargetPlatform.iOS ? 28.0: 24.0,
+      iconSize: Theme.of(context).platform == TargetPlatform.iOS ? 28.0 : 24.0,
     );
   }
 }
 
 class ShareButtonIcon extends StatelessWidget {
-  const ShareButtonIcon({Key key}) : super(key: key);
+  const ShareButtonIcon({Key? key}) : super(key: key);
 
   static IconData _getIconData(TargetPlatform platform) {
     switch (platform) {
@@ -29,10 +29,10 @@ class ShareButtonIcon extends StatelessWidget {
         return Icons.share;
       case TargetPlatform.iOS:
         return CupertinoIcons.share;
-      default: {
-        return Icons.share;
-      }
-
+      default:
+        {
+          return Icons.share;
+        }
     }
   }
 

@@ -17,7 +17,7 @@ class CurrentNewsMapper {
     final NewsSource source = NewsSource(currentNewsSourcesDB.name,
         currentNewsSourcesDB.image, currentNewsSourcesDB.url);
 
-    return News.currentNews(summary, source);
+    return News.currentNews(summary, source) as CurrentNews;
   }
 
   CurrentNewsDB mapNewsToDB(CurrentNews currentNews, int sourceId) {

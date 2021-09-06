@@ -8,9 +8,9 @@ import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
 import '../../../common/api/mock_api.dart';
 import '../../../common/fake/fake_api_token_storage.dart';
 
-CurrentNewsApiDataSource _currentNewsApiDataSource;
+late CurrentNewsApiDataSource _currentNewsApiDataSource;
 
-MockApi mockApi;
+late MockApi mockApi;
 
 void main() {
   setUp(()  {

@@ -11,10 +11,9 @@ const anyTokenHeader =
     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiMTdlMDlmYy1kMmRhLTRiMGEtYjM0YS05MGVjYjdlMDgyZWMiLCJpYXQiOjE1ODE2MTAwNzYsImV4cCI6MTU4MTY5NjQ3Nn0.CY-fpMO0A7b95e4m-cWdbfxTR_yI0aaVolucPZ1D3wo';
 
 class MockApi {
-  MockWebServer _server;
+  final MockWebServer _server = MockWebServer();
 
   Future<void> start() async {
-    _server = MockWebServer();
     await _server.start();
   }
 
@@ -27,7 +26,7 @@ class MockApi {
   Future<void> enqueueMockResponse(
       {String fileName = '',
       int httpCode = 200,
-      Map<String, String> headers}) async {
+      Map<String, String>? headers}) async {
     final content = await _getContentFromFile(fileName: fileName);
 
     _server.enqueue(body: content, httpCode: httpCode, headers: headers);
@@ -50,16 +49,19 @@ class MockApi {
     expect(storedRequest.uri.path, endpoint);
   }
 
-  void expectRequestContainsHeader([String key, String expectedValue, int requestIndex = 0]) {
-    final StoredRequest storedRequest = _getRecordedRequestAtIndex(requestIndex);
+  void expectRequestContainsHeader(String key, String expectedValue,
+      [int requestIndex = 0]) {
+    final StoredRequest storedRequest =
+        _getRecordedRequestAtIndex(requestIndex);
     final value = storedRequest.headers[key];
 
     expect(value, expectedValue);
   }
 
   Future<String> _getContentFromFile(
-      {String testResourcesDir = '/unit_tests/common/api/resources', String fileName}) async {
-    if (fileName == null || fileName.isEmpty) {
+      {String testResourcesDir = '/unit_tests/common/api/resources',
+      required String fileName}) async {
+    if (fileName.isEmpty) {
       return '';
     }
 
@@ -79,5 +81,6 @@ class MockApi {
   }
 
   StoredRequest _getRecordedRequestAtIndex(int requestIndex) =>
-    List<StoredRequest>.generate(requestIndex+1, (i) => _server.takeRequest()).last;
+      List<StoredRequest>.generate(
+          requestIndex + 1, (i) => _server.takeRequest()).last;
 }

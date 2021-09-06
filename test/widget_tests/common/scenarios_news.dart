@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/news/domain/boundaries/social_news_reposito
 import 'package:mockito/mockito.dart';
 import '../../common/mothers/current_news_mother.dart';
 import '../../common/mothers/social_news_mother.dart';
-import 'mocks.dart';
+import '../home_page_test.mocks.dart';
 
 void givenThereAreNoNews() {
   final mockCurrentNewsRepository = MockCurrentNewsRepository();

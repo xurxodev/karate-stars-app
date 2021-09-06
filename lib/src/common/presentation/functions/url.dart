@@ -5,16 +5,13 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 Future<void> launchURL(BuildContext context, String url) async {
   final browser = ChromeSafariBrowser();
 
-  final color = _intToHex(Theme.of(context).accentColor.value);
-  print(color);
-
   await browser.open(
-      url: url,
+      url: Uri.parse(url),
       options: ChromeSafariBrowserClassOptions(
-          android:
-              AndroidChromeCustomTabsOptions(enableUrlBarHiding: true),
+          android: AndroidChromeCustomTabsOptions(enableUrlBarHiding: true),
           ios: IOSSafariOptions(
-              barCollapsingEnabled: true, preferredControlTintColor: color)));
+              barCollapsingEnabled: true,
+              preferredControlTintColor: Theme.of(context).accentColor)));
 }
 
 String createTwitterURL(String text) {
@@ -31,11 +28,11 @@ String createTwitterURL(String text) {
   }
 }
 
-String _intToHex(int i) {
+/*String _intToHex(int i) {
   final s = i.toRadixString(16);
   if (s.length == 8) {
     return '#' + s.substring(2).toUpperCase();
   } else {
     return '#' + s.toUpperCase();
   }
-}
+}*/

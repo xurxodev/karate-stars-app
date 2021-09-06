@@ -40,7 +40,7 @@ class SocialNewsFloorDataSource extends CacheDataSource
     final newsDB = items.map((item) {
       final SocialUserDB socialUserDB = socialUsersDB
           .firstWhere((user) => user.userName == item.user.userName);
-      return _mapper.mapNewsToDB(item, socialUserDB.id);
+      return _mapper.mapNewsToDB(item, socialUserDB.id!);
     }).toList();
 
     _socialNewsDao.insertAll(newsDB);

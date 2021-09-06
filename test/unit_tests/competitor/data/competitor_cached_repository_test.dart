@@ -1,27 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/competitors/data/competitor_cached_repository.dart';
+import 'package:karate_stars_app/src/competitors/data/local/competitors_in_memory_data_source.dart';
+import 'package:karate_stars_app/src/competitors/data/remote/competitor_api_data_source.dart';
 import 'package:karate_stars_app/src/competitors/domain/boundaries/competitor_repository.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../common/mothers/competitor_mother.dart';
+import 'competitor_cached_repository_test.mocks.dart';
 
-class MockCacheDataSource extends Mock
-    implements CacheableDataSource<Competitor> {}
+late CompetitorRepository _repository;
 
-class MockRemoteDataSource extends Mock
-    implements ReadableDataSource<Competitor> {}
+final _remoteDataSource = MockCompetitorApiDataSource();
+final _cacheDataSource = MockCompetitorInMemoryDataSource();
 
-final _cacheDataSource = MockCacheDataSource();
-
-final _remoteDataSource = MockRemoteDataSource();
-
-CompetitorRepository _repository;
-
+@GenerateMocks([CompetitorApiDataSource,CompetitorInMemoryDataSource])
 void main() {
+
   setUp(() async {
     _repository =
         CompetitorCachedRepository(_cacheDataSource, _remoteDataSource);
