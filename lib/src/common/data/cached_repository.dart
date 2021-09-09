@@ -25,8 +25,8 @@ class CachedRepository<T> {
         items = await remoteDataSource.getAll();
 
         if (items.isNotEmpty) {
-          cache.invalidate();
-          cache.save(items);
+          await cache.invalidate();
+          await cache.save(items);
         }
       } on Exception {
         if (items.isEmpty) {
@@ -45,8 +45,8 @@ class CachedRepository<T> {
       items = await remoteDataSource.getAll();
 
       if (items.isNotEmpty) {
-        cache.invalidate();
-        cache.save(items);
+        await cache.invalidate();
+        await cache.save(items);
       }
     } on Exception {
       items = await cache.getAll();

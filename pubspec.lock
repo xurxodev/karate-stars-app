@@ -474,13 +474,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0-nullsafety.1"
-  mockito:
+  mocktail:
     dependency: "direct dev"
     description:
-      name: mockito
+      name: mocktail
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.15"
+    version: "0.1.4"
   node_preamble:
     dependency: transitive
     description:

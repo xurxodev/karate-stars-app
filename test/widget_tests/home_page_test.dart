@@ -1,15 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/competitors/domain/boundaries/competitor_repository.dart';
-import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
-import 'package:karate_stars_app/src/news/domain/boundaries/social_news_repository.dart';
-import 'package:mockito/annotations.dart';
 
 import 'common/scenarios.dart';
 import 'page_objects/home_page_object.dart';
 
-@GenerateMocks([CompetitorRepository,CurrentNewsRepository,SocialNewsRepository])
 void main() {
   group('home page', () {
     setUpAll(() async {

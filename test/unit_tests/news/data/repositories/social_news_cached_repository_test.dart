@@ -1,24 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
-import 'package:karate_stars_app/src/news/data/local/social_news_floor_data_source.dart';
-import 'package:karate_stars_app/src/news/data/remote/social_news_api_data_source.dart';
 import 'package:karate_stars_app/src/news/data/repositories/social_news_cached_repository.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/social_news_repository.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../common/mothers/social_news_mother.dart';
-import 'social_news_cached_repository_test.mocks.dart';
+class MockCacheDataSource extends Mock
+    implements CacheableDataSource<SocialNews> {}
 
-final _cacheDataSource = MockSocialNewsFloorDataSource();
+class MockRemoteDataSource extends Mock
+    implements ReadableDataSource<SocialNews> {}
 
-final _remoteDataSource = MockSocialNewsApiDataSource();
+final _cacheDataSource = MockCacheDataSource();
+
+final _remoteDataSource = MockRemoteDataSource();
 
 late SocialNewsRepository _repository;
 
-@GenerateMocks([SocialNewsApiDataSource,SocialNewsFloorDataSource])
 void main() {
   setUp(() async {
     _repository =
@@ -126,8 +127,8 @@ void main() {
 List<SocialNews> givenThereAreValidDataInCache() {
   final socialNews = _localNews();
 
-  when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value(socialNews));
-  when(_cacheDataSource.areValidValues()).thenAnswer((_) => Future.value(true));
+  when(()=> _cacheDataSource.getAll()).thenAnswer((_) => Future.value(socialNews));
+  when(()=> _cacheDataSource.areValidValues()).thenAnswer((_) => Future.value(true));
 
   return socialNews;
 }
@@ -135,9 +136,11 @@ List<SocialNews> givenThereAreValidDataInCache() {
 List<SocialNews> givenThereAreInvalidDataInCache() {
   final socialNews =  _localNews();
 
-  when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value(socialNews));
-  when(_cacheDataSource.areValidValues())
+  when(() => _cacheDataSource.getAll()).thenAnswer((_)=> Future.value(socialNews));
+  when(() => _cacheDataSource.areValidValues())
       .thenAnswer((_) => Future.value(false));
+  when(() => _cacheDataSource.invalidate()).thenAnswer((_) => Future.value());
+  when(() => _cacheDataSource.save(any())).thenAnswer((_) => Future.value());
 
   return socialNews;
 }
@@ -145,21 +148,21 @@ List<SocialNews> givenThereAreInvalidDataInCache() {
 List<SocialNews> givenThereAreSomeDataInRemote() {
   final socialNews =  _remoteNews();
 
-  when(_remoteDataSource.getAll()).thenAnswer((_) => Future.value(socialNews));
+  when(() => _remoteDataSource.getAll()).thenAnswer((_) => Future.value(socialNews));
 
   return socialNews;
 }
 
 void givenThereAreNotDataInCache() {
-  when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value([]));
+  when(() => _cacheDataSource.getAll()).thenAnswer((_) => Future.value([]));
 }
 
 void givenThatRemoteThrowException() {
-  when(_remoteDataSource.getAll()).thenThrow(NetworkException());
+  when(() => _remoteDataSource.getAll()).thenThrow(NetworkException());
 }
 
 void givenThatCacheThrowException() {
-  when(_cacheDataSource.getAll()).thenThrow(NetworkException());
+  when(() => _cacheDataSource.getAll()).thenThrow(NetworkException());
 }
 
 List<SocialNews> _localNews() {

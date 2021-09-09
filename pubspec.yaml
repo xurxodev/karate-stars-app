@@ -29,7 +29,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mock_web_server: ^5.0.0-nullsafety.1
-  mockito: ^5.0.15
+  mocktail: ^0.1.4
   test: any
 flutter:
   uses-material-design: true

@@ -1,25 +1,27 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/competitors/data/competitor_cached_repository.dart';
-import 'package:karate_stars_app/src/competitors/data/local/competitors_in_memory_data_source.dart';
-import 'package:karate_stars_app/src/competitors/data/remote/competitor_api_data_source.dart';
 import 'package:karate_stars_app/src/competitors/domain/boundaries/competitor_repository.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../common/mothers/competitor_mother.dart';
-import 'competitor_cached_repository_test.mocks.dart';
+
+class MockCacheDataSource extends Mock
+    implements CacheableDataSource<Competitor> {}
+
+class MockRemoteDataSource extends Mock
+    implements ReadableDataSource<Competitor> {}
+
+final _cacheDataSource = MockCacheDataSource();
+
+final _remoteDataSource = MockRemoteDataSource();
 
 late CompetitorRepository _repository;
 
-final _remoteDataSource = MockCompetitorApiDataSource();
-final _cacheDataSource = MockCompetitorInMemoryDataSource();
-
-@GenerateMocks([CompetitorApiDataSource,CompetitorInMemoryDataSource])
 void main() {
-
   setUp(() async {
     _repository =
         CompetitorCachedRepository(_cacheDataSource, _remoteDataSource);
@@ -120,8 +122,9 @@ void main() {
 List<Competitor> givenThereAreValidDataInCache() {
   final data = _localData();
 
-  when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value(data));
-  when(_cacheDataSource.areValidValues()).thenAnswer((_) => Future.value(true));
+  when(() => _cacheDataSource.getAll()).thenAnswer((_) => Future.value(data));
+  when(() => _cacheDataSource.areValidValues())
+      .thenAnswer((_) => Future.value(true));
 
   return data;
 }
@@ -129,9 +132,11 @@ List<Competitor> givenThereAreValidDataInCache() {
 List<Competitor> givenThereAreInvalidDataInCache() {
   final data = _localData();
 
-  when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value(data));
-  when(_cacheDataSource.areValidValues())
+  when(() => _cacheDataSource.getAll()).thenAnswer((_) => Future.value(data));
+  when(() => _cacheDataSource.areValidValues())
       .thenAnswer((_) => Future.value(false));
+  when(() => _cacheDataSource.invalidate()).thenAnswer((_) => Future.value());
+  when(() => _cacheDataSource.save(any())).thenAnswer((_) => Future.value());
 
   return data;
 }
@@ -139,21 +144,21 @@ List<Competitor> givenThereAreInvalidDataInCache() {
 List<Competitor> givenThereAreSomeDataInRemote() {
   final data = _remoteData();
 
-  when(_remoteDataSource.getAll()).thenAnswer((_) => Future.value(data));
+  when(() => _remoteDataSource.getAll()).thenAnswer((_) => Future.value(data));
 
   return data;
 }
 
 void givenThereAreNotDataInCache() {
-  when(_cacheDataSource.getAll()).thenAnswer((_) => Future.value([]));
+  when(() => _cacheDataSource.getAll()).thenAnswer((_) => Future.value([]));
 }
 
 void givenThatRemoteThrowException() {
-  when(_remoteDataSource.getAll()).thenThrow(NetworkException());
+  when(() => _remoteDataSource.getAll()).thenThrow(NetworkException());
 }
 
 void givenThatCacheThrowException() {
-  when(_cacheDataSource.getAll()).thenThrow(NetworkException());
+  when(() => _cacheDataSource.getAll()).thenThrow(NetworkException());
 }
 
 List<Competitor> _localData() {

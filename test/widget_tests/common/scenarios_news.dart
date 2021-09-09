@@ -4,20 +4,20 @@ import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/social_news_repository.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import '../../common/mothers/current_news_mother.dart';
 import '../../common/mothers/social_news_mother.dart';
-import '../home_page_test.mocks.dart';
+import 'mocks.dart';
 
 void givenThereAreNoNews() {
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
-  when(mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
+  when(()=> mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
           () => mockCurrentNewsRepository);
 
   final mockSocialNewsRepository = MockSocialNewsRepository();
-  when(mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
+  when(()=> mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
   app_di.getIt.registerLazySingleton<SocialNewsRepository>(
           () => mockSocialNewsRepository);
@@ -25,14 +25,14 @@ void givenThereAreNoNews() {
 
 void givenThatNewsDataThrowNetworkException() {
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
-  when(mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
+  when(()=> mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
       .thenAnswer((_) async => throw NetworkException());
 
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
           () => mockCurrentNewsRepository);
 
   final mockSocialNewsRepository = MockSocialNewsRepository();
-  when(mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
+  when(()=> mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
       .thenAnswer((_) async => throw NetworkException());
 
   app_di.getIt.registerLazySingleton<SocialNewsRepository>(
@@ -49,7 +49,7 @@ List<News> givenThereAreNews() {
 
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
 
-  when(mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
+  when(()=> mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value(CurrentNewsMother.all()));
 
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
@@ -57,7 +57,7 @@ List<News> givenThereAreNews() {
 
   final mockSocialNewsRepository = MockSocialNewsRepository();
 
-  when(mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
+  when(()=> mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value(SocialNewsMother.all()));
 
   app_di.getIt.registerLazySingleton<SocialNewsRepository>(
