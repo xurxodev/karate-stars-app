@@ -3,13 +3,13 @@ import 'package:karate_stars_app/src/news/data/repositories/current_news_cached_
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 
 import '../../../../common/mothers/current_news_mother.dart';
-import '../../../common/repositories/common_cached_repository_test.dart';
+import '../../../common/data/local/repositories/common_cached_repository_test.dart';
 
-List<CurrentNews> _localNews() {
+List<CurrentNews> _localData() {
   return [CurrentNewsMother.madridHost2018()];
 }
 
-List<CurrentNews> _remoteNews() {
+List<CurrentNews> _remoteData() {
   return [
     CurrentNewsMother.madridHost2018(),
     CurrentNewsMother.quinteroNumber1(),
@@ -22,5 +22,5 @@ CurrentNewsCachedRepository repositoryFactory(CacheableDataSource<CurrentNews> c
 }
 
 void main() {
-  executeRepositoryTests(repositoryFactory, _localNews(), _remoteNews());
+  executeRepositoryTests(repositoryFactory, _localData(), _remoteData());
 }
