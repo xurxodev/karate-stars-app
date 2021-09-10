@@ -3,7 +3,7 @@ import 'package:karate_stars_app/src/competitors/data/competitor_cached_reposito
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 
 import '../../../common/mothers/competitor_mother.dart';
-import '../../common/data/local/repositories/common_cached_repository_test.dart';
+import '../../common/data/repositories/common_cached_repository_test.dart';
 
 
 List<Competitor> _localData() {

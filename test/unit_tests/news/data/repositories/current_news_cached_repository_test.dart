@@ -3,7 +3,7 @@ import 'package:karate_stars_app/src/news/data/repositories/current_news_cached_
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 
 import '../../../../common/mothers/current_news_mother.dart';
-import '../../../common/data/local/repositories/common_cached_repository_test.dart';
+import '../../../common/data/repositories/common_cached_repository_test.dart';
 
 List<CurrentNews> _localData() {
   return [CurrentNewsMother.madridHost2018()];
