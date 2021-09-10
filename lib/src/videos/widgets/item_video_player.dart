@@ -1,4 +1,6 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 class ItemVideoPlayer extends StatefulWidget {
@@ -11,69 +13,44 @@ class ItemVideoPlayer extends StatefulWidget {
 }
 
 class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
-  VideoPlayerController? _controller;
-
-  bool _isPlaying = false;
+  late VideoPlayerController _controller;
+  late ChewieController _chewieController;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.videoUrl)
-      ..addListener(() {
-        final bool isPlaying = _controller?.value.isPlaying ?? false;
+    initializePlayer();
+  }
 
-        if (isPlaying != _isPlaying) {
-          setState(() {
-            _isPlaying = isPlaying;
-          });
-        }
-      })
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized,
-        // even before the play button has been pressed.
-        setState(() {});
-      })
+  Future<void> initializePlayer() async {
+    _controller = VideoPlayerController.network(widget.videoUrl)
       ..setLooping(true);
+
+    await _controller.initialize().then((_) {
+      // Ensure the first frame is shown after the video is initialized,
+      // even before the play button has been pressed.
+      setState(() {});
+    });
+
+    _chewieController = ChewieController(
+        videoPlayerController: _controller,
+        deviceOrientationsAfterFullScreen: [
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.portraitDown
+        ]);
   }
 
   @override
   Widget build(BuildContext context) {
-    final video = _controller?.value.isInitialized ?? false
-        ? AspectRatio(
-            aspectRatio: _controller!.value.aspectRatio,
-            child: VideoPlayer(_controller!))
-        : Container();
-
-    final playOrPauseVideo = () {
-      _controller!.value.isPlaying
-          ? _controller!.pause()
-          : _controller!.play();
-    };
-
-    return GestureDetector(
-        onTap: playOrPauseVideo,
-        child: Stack(
-          alignment: AlignmentDirectional.center,
-          children: <Widget>[
-            video,
-            Opacity(
-              opacity: _isPlaying ? 0.0 : 1.0,
-              child: FloatingActionButton(
-                backgroundColor: Colors.redAccent,
-                elevation: 0,
-                child: const Icon(Icons.play_arrow),
-                onPressed: playOrPauseVideo,
-              ),
-            )
-          ],
-        ));
+    return AspectRatio(
+        aspectRatio: _controller.value.aspectRatio,
+        child: Chewie(controller: _chewieController));
   }
 
   @override
   void dispose() {
     super.dispose();
-    if (_controller != null){
-      _controller!.dispose();
-    }
+    _controller.dispose();
+    _chewieController.dispose();
   }
 }
