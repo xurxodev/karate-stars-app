@@ -1,86 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
-import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
+import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/news/data/remote/social_news_api_data_source.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
 
 import '../../../common/api/mock_api.dart';
+import '../../../common/data/remote/common_remote_data_source_test.dart';
 import '../../../common/fake/fake_api_token_storage.dart';
 
-late SocialNewsApiDataSource _socialNewsApiDataSource;
+ReadableDataSource<SocialNews> remoteDataSourceFactory(String baseAddress){
+  final Credentials fakeCredentials = Credentials('', '');
 
-late MockApi mockApi;
-
-void main() {
-  setUp(()  {
-
-    mockApi = MockApi();
-    mockApi.start().then ((_){
-      final Credentials fakeCredentials = Credentials('', '');
-
-      _socialNewsApiDataSource = SocialNewsApiDataSource(
-          mockApi.baseAddress, fakeCredentials, FakeApiTokenStorage());
-    });
-  });
-
-  tearDown(() {
-    mockApi.shutdown();
-  });
-
-  group('SocialNewsApiDataSource should', () {
-    test('sends get request to the correct endpoint', () async {
-      await mockApi.enqueueMockResponse(fileName: getSocialNewsResponse);
-
-      await _socialNewsApiDataSource.getAll();
-
-      mockApi.expectRequestSentTo('/socialnews');
-    });
-    test('sends accept header', () async {
-      await mockApi.enqueueMockResponse(fileName: getSocialNewsResponse);
-
-      await _socialNewsApiDataSource.getAll();
-
-      mockApi.expectRequestContainsHeader('accept', 'application/json');
-    });
-    test('parse social news properly getting all social news', () async {
-      await mockApi.enqueueMockResponse(fileName: getSocialNewsResponse);
-
-      final socialNews = await _socialNewsApiDataSource.getAll();
-
-      expectSocialNewsContainsExpectedValues(socialNews[0]);
-    });
-/*    test('sends request with token after renew token using the new Token',
-            () async {
-          await mockApi.enqueueUnauthorizedResponse();
-          await mockApi.enqueueLoginResponse();
-          await mockApi.enqueueMockResponse(fileName: getSocialNewsResponse);
-
-          await _socialNewsApiDataSource.getAll();
-
-          mockApi.expectRequestContainsHeader('authorization', anyTokenHeader, 2);
-        });*/
-    test(
-        'throws UnknownErrorException if there is not handled error getting news',
-            () async {
-          await mockApi.enqueueMockResponse(httpCode: 454);
-
-          expect(() => _socialNewsApiDataSource.getAll(),
-              throwsA(isInstanceOf<UnKnowApiException>()));
-        });
-    test(
-        'throws RenewTokenException if the server returns unauthorized response twice',
-            () async {
-          await mockApi.enqueueUnauthorizedResponse();
-          await mockApi.enqueueUnauthorizedResponse();
-
-          expect(() => _socialNewsApiDataSource.getAll(),
-              throwsA(isInstanceOf<RenewTokenException>()));
-        });
-  });
+  return SocialNewsApiDataSource(
+      baseAddress, fakeCredentials, FakeApiTokenStorage());
 }
 
-void expectSocialNewsContainsExpectedValues(SocialNews socialNews) {
+void expectFirstItem(SocialNews socialNews) {
   expect(socialNews, isNotNull);
   expect(socialNews.network, Network.twitter);
   expect(socialNews.summary.title,
@@ -97,5 +33,10 @@ void expectSocialNewsContainsExpectedValues(SocialNews socialNews) {
       'http://pbs.twimg.com/profile_images/1229708688597880833/PiQoEC9T_normal.jpg');
   expect(socialNews.user.url,
       'https://t.co/gi0CtXBjdr');
+}
+
+void main() {
+  executeRemoteDataSourceTests(
+      'socialnews', remoteDataSourceFactory, getSocialNewsResponse,expectFirstItem);
 }
 
