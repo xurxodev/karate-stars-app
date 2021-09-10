@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
-class ItemVideoPlayer extends StatefulWidget {
+class VideoPlayer extends StatefulWidget {
   final String videoUrl;
 
-  const ItemVideoPlayer({required this.videoUrl});
+  const VideoPlayer({required this.videoUrl});
 
   @override
-  _ItemVideoPlayerState createState() => _ItemVideoPlayerState();
+  _VideoPlayerState createState() => _VideoPlayerState();
 }
 
-class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
+class _VideoPlayerState extends State<VideoPlayer> {
   late VideoPlayerController _controller;
   late ChewieController _chewieController;
 
@@ -37,7 +37,10 @@ class _ItemVideoPlayerState extends State<ItemVideoPlayer> {
         deviceOrientationsAfterFullScreen: [
           DeviceOrientation.portraitUp,
           DeviceOrientation.portraitDown
-        ]);
+        ],
+        placeholder: const Center(
+          child: CircularProgressIndicator(),
+        ));
   }
 
   @override

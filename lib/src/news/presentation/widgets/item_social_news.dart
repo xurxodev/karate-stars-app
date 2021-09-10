@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/common/presentation/functions/url.dart'
 import 'package:karate_stars_app/src/common/presentation/widgets/twitter_icon.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
-import 'package:karate_stars_app/src/videos/widgets/item_video_player.dart';
+import 'package:karate_stars_app/src/videos/widgets/video_player.dart';
 
 class ItemSocialNews extends ItemNews {
   final SocialNews socialNews;
@@ -78,7 +78,7 @@ class ItemSocialNews extends ItemNews {
   Widget _mediaWidget() {
     if (socialNews.summary.video != null &&
         socialNews.summary.video!.isNotEmpty) {
-      return ItemVideoPlayer(videoUrl: socialNews.summary.video!);
+      return VideoPlayer(videoUrl: socialNews.summary.video!);
     } else if (socialNews.summary.image != null &&
         socialNews.summary.image!.isNotEmpty) {
       return CachedNetworkImage(imageUrl: socialNews.summary.image!);
