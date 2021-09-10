@@ -59,8 +59,8 @@ class ItemSocialNews extends ItemNews {
           MatchText(
             pattern: '@[A-Za-z0-9]*',
             style: linkStyle,
-            onTap: (user) =>
-                url_helper.launchURL(context, url_helper.createTwitterURL(user)),
+            onTap: (user) => url_helper.launchURL(
+                context, url_helper.createTwitterURL(user)),
           ),
         ],
       )),

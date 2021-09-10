@@ -40,7 +40,8 @@ class ItemCurrentNews extends ItemNews {
   }
 
   Widget _image() {
-    if (currentNews.summary.image != null && currentNews.summary.image!.isNotEmpty) {
+    if (currentNews.summary.image != null &&
+        currentNews.summary.image!.isNotEmpty) {
       return CachedNetworkImage(imageUrl: currentNews.summary.image!);
     } else {
       return Container();

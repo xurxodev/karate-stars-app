@@ -5,10 +5,10 @@ import 'package:karate_stars_app/src/common/data/database.dart';
 import 'package:karate_stars_app/src/common/data/remote/token_storage.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/news/news_di.dart' as news_di;
-import 'package:karate_stars_app/src/competitors/competitors_di.dart' as competitors_di;
+import 'package:karate_stars_app/src/competitors/competitors_di.dart'
+    as competitors_di;
 
 final getIt = GetIt.instance;
-
 
 int largeCacheTimeMillis = const Duration(days: 7).inMilliseconds;
 int mediumCacheTimeMillis = const Duration(hours: 4).inMilliseconds;
@@ -43,10 +43,9 @@ void initWithoutDataDependencies() {
 
 void initNoDataAppDependencies() {
   getIt.registerLazySingleton<AnalyticsService>(
-          () => FirebaseAnalyticsService());
+      () => FirebaseAnalyticsService());
 }
 
 Future<void> reset() {
   return getIt.reset();
 }
-

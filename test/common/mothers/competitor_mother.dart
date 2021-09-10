@@ -34,7 +34,6 @@ class CompetitorMother {
   }
 
   static Competitor joseEgea() {
-
     final achievements = [
       Achievement('World Championships', [
         AchievementDetail('Mexico City 1990', 'Kumite -80', 1),
@@ -47,10 +46,7 @@ class CompetitorMother {
     ];
 
     final links = CompetitorLinks(
-        null,
-        null,
-        'https://www.facebook.com/josemanuel.egeacaceres',
-        null);
+        null, null, 'https://www.facebook.com/josemanuel.egeacaceres', null);
 
     return Competitor(
         'w5ePRMfj',
@@ -83,7 +79,7 @@ class CompetitorMother {
         'https://www.facebook.com/DamianQuintero',
         'https://www.instagram.com/damianquintero');
 
-        return Competitor(
+    return Competitor(
         'j3W6HKw5',
         'Damian Quintero',
         'Damian Quintero was born on July 4 ...',
@@ -104,11 +100,8 @@ class CompetitorMother {
       ])
     ];
 
-    final links = CompetitorLinks(
-        null,
-        'https://twitter.com/_burakuygur',
-        null,
-        null);
+    final links =
+        CompetitorLinks(null, 'https://twitter.com/_burakuygur', null, null);
 
     return Competitor(
         'eyEK9QbQ',

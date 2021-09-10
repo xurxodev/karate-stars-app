@@ -22,15 +22,13 @@ void initBlocAndUseCases() {
   getIt.registerLazySingleton(() => GetCompetitorsUseCase(getIt()));
 }
 
-void _initDataDI(
-    AppDatabase appDatabase, Credentials apiCredentials) {
+void _initDataDI(AppDatabase appDatabase, Credentials apiCredentials) {
   getIt.registerLazySingleton<ReadableDataSource<Competitor>>(
       () => CompetitorApiDataSource(apiBaseAddress, apiCredentials, getIt()));
 
-  getIt.registerLazySingleton<CacheableDataSource<Competitor>>(() =>
-      CompetitorInMemoryDataSource(largeCacheTimeMillis));
+  getIt.registerLazySingleton<CacheableDataSource<Competitor>>(
+      () => CompetitorInMemoryDataSource(largeCacheTimeMillis));
 
   getIt.registerLazySingleton<CompetitorRepository>(
       () => CompetitorCachedRepository(getIt(), getIt()));
 }
-

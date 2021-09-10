@@ -13,7 +13,8 @@ class CurrentNewsInMemoryRepository implements CurrentNewsRepository {
   Future<List<CurrentNews>> getAll(ReadPolicy readPolicy) async {
     List<CurrentNews> currentNews = [];
 
-    await rootBundle.loadString('assets/stubs/current_news.json')
+    await rootBundle
+        .loadString('assets/stubs/current_news.json')
         .then((fileContents) => json.decode(fileContents))
         .then((jsonData) {
       currentNews = _parser.parse(jsonData);

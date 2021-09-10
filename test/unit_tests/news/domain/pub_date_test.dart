@@ -18,7 +18,7 @@ void main() {
           const Duration(hours: 34).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '1d');
     });
@@ -28,7 +28,7 @@ void main() {
           const Duration(days: 4).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '4d');
     });
@@ -38,7 +38,7 @@ void main() {
           const Duration(minutes: 60).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '1h');
     });
@@ -48,17 +48,18 @@ void main() {
           const Duration(minutes: 83).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '1h');
     });
 
-    test('return antiquity in hours if pub date ago is greater than 1 hour', () {
+    test('return antiquity in hours if pub date ago is greater than 1 hour',
+        () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
           const Duration(hours: 23).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '23h');
     });
@@ -68,7 +69,7 @@ void main() {
           const Duration(seconds: 60).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '1m');
     });
@@ -78,17 +79,18 @@ void main() {
           const Duration(seconds: 83).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '1m');
     });
 
-    test('return antiquity in minutes if pub date ago is greater than 1 minute', () {
+    test('return antiquity in minutes if pub date ago is greater than 1 minute',
+        () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
           const Duration(minutes: 23).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '23m');
     });
@@ -98,7 +100,7 @@ void main() {
           const Duration(milliseconds: 1000).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '1s');
     });
@@ -108,17 +110,18 @@ void main() {
           const Duration(milliseconds: 1200).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '1s');
     });
 
-    test('return antiquity in seconds if pub date ago is greater than 1 second', () {
+    test('return antiquity in seconds if pub date ago is greater than 1 second',
+        () {
       final int oneDayMillis = DateTime.now().millisecondsSinceEpoch -
           const Duration(seconds: 23).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '23s');
     });
@@ -128,7 +131,7 @@ void main() {
           const Duration(seconds: -5).inMilliseconds;
 
       final pubDate =
-      PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
+          PubDate(DateTime.fromMillisecondsSinceEpoch(oneDayMillis));
 
       expect(pubDate.antiquity, '0s');
     });

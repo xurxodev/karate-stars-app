@@ -9,8 +9,7 @@ class HomePageObject {
   final WidgetTester _tester;
   final HomeNewsPageObject news;
 
-  HomePageObject(this._tester):
-        news = HomeNewsPageObject(_tester);
+  HomePageObject(this._tester) : news = HomeNewsPageObject(_tester);
 
   Future open() async {
     await _tester.pumpWidget(App());
@@ -18,8 +17,8 @@ class HomePageObject {
   }
 
   void expectTitle(String expectedTitle) {
-    final titleFinder = find.descendant(
-        of: find.byType(AppBar), matching: find.byType(Text));
+    final titleFinder =
+        find.descendant(of: find.byType(AppBar), matching: find.byType(Text));
 
     final title = _tester.widget<Text>(titleFinder).data;
 

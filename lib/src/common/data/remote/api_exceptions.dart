@@ -1,10 +1,9 @@
-class UnKnowApiException implements Exception{
+class UnKnowApiException implements Exception {
   int httpCode;
 
   UnKnowApiException(this.httpCode);
 }
 
-class RenewTokenException implements Exception{}
-class NetworkException implements Exception{}
+class RenewTokenException implements Exception {}
 
-
+class NetworkException implements Exception {}

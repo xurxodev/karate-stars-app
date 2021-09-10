@@ -25,7 +25,7 @@ class CompetitorApiDataSource extends ApiDataSource
 
     try {
       return parser.parse(json.decode(response.body));
-    } on Exception{
+    } on Exception {
       print(response.body);
       rethrow;
     }

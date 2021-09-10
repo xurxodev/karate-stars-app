@@ -137,8 +137,8 @@ class _HomePageState extends State<HomePage> {
     } else {
       return Text(titleText,
           key: titleKey,
-          style:
-              TextStyle(fontSize: Theme.of(context).textTheme.headline6!.fontSize));
+          style: TextStyle(
+              fontSize: Theme.of(context).textTheme.headline6!.fontSize));
     }
   }
 

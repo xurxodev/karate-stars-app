@@ -4,11 +4,9 @@ import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart
 
 class CompetitorInMemoryDataSource extends CacheDataSource
     implements CacheableDataSource<Competitor> {
-
   final List<Competitor> _competitors = [];
 
-  CompetitorInMemoryDataSource(int maxCacheTime)
-      : super(maxCacheTime);
+  CompetitorInMemoryDataSource(int maxCacheTime) : super(maxCacheTime);
 
   @override
   Future<List<Competitor>> getAll() async {

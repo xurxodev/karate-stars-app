@@ -6,7 +6,7 @@ import '../../../../common/mothers/social_news_mother.dart';
 import '../../../common/data/local/common_local_data_source_test.dart';
 import 'fake/fake_database.dart';
 
-CacheableDataSource<SocialNews> cacheFactory(int millis){
+CacheableDataSource<SocialNews> cacheFactory(int millis) {
   final appDatabase = FakeDatabase();
 
   final socialNewsDao = appDatabase.socialNewsDao;
@@ -17,7 +17,7 @@ CacheableDataSource<SocialNews> cacheFactory(int millis){
 }
 
 void main() {
-  executeCacheTests(cacheFactory,  [
+  executeCacheTests(cacheFactory, [
     SocialNewsMother.newVideoInKarateStars(),
     SocialNewsMother.countDownMadrid2018()
   ]);

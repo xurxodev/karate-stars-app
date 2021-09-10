@@ -8,6 +8,5 @@ class VideosContent {
 
   final videosPageViewFinder = find.byValueKey(Keys.videos_page_view);
 
-  Future<void> assertIsVisible() =>
-      driver.waitFor(videosPageViewFinder);
+  Future<void> assertIsVisible() => driver.waitFor(videosPageViewFinder);
 }

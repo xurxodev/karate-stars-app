@@ -6,16 +6,17 @@ import 'package:karate_stars_app/src/news/domain/entities/summary.dart';
 class CurrentNewsMother {
   static CurrentNews madridHost2018() {
     return News.currentNews(
-        NewsSummary(
-            'Madrid (Spain) to host 2018 Karate World Championships',
-            'https://wkf.net/news-center-new/madrid-spain-to-host-2018-karate-world-championships/627/',
-            'https://wkf.net/imagenes/noticias/madrid-spain-to-host-2018-karate-world-championships-772.jpg',
-            null,
-            PubDate(DateTime.now())),
-        NewsSource(
-            'WKF CurrentNews Center',
-            'http://www.karatestarsapp.com/app/logos/wkf.png',
-            'http://fetchrss.com/rss/59baa0d28a93f8a1048b4567777611407.xml')) as CurrentNews;
+            NewsSummary(
+                'Madrid (Spain) to host 2018 Karate World Championships',
+                'https://wkf.net/news-center-new/madrid-spain-to-host-2018-karate-world-championships/627/',
+                'https://wkf.net/imagenes/noticias/madrid-spain-to-host-2018-karate-world-championships-772.jpg',
+                null,
+                PubDate(DateTime.now())),
+            NewsSource(
+                'WKF CurrentNews Center',
+                'http://www.karatestarsapp.com/app/logos/wkf.png',
+                'http://fetchrss.com/rss/59baa0d28a93f8a1048b4567777611407.xml'))
+        as CurrentNews;
   }
 
   static CurrentNews quinteroNumber1() {

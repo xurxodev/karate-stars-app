@@ -11,7 +11,7 @@ class CompetitorCachedRepository extends CachedRepository<Competitor>
       : super(cacheDataSource, remoteDataSource);
 
   @override
-  Future<List<Competitor>> getAll(ReadPolicy readPolicy)  {
+  Future<List<Competitor>> getAll(ReadPolicy readPolicy) {
     return super.getAll(readPolicy);
   }
 }

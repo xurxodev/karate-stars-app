@@ -9,7 +9,8 @@ class CompetitorParser {
   Competitor _parseCompetitor(Map<String, dynamic> json) {
     final links = parseLinks(json['links']);
 
-    final achievements = (json['achievements'] as List<dynamic>).map((achievement) {
+    final achievements =
+        (json['achievements'] as List<dynamic>).map((achievement) {
       return parseAchievement(achievement);
     }).toList();
 
@@ -32,8 +33,7 @@ class CompetitorParser {
   }
 
   Achievement parseAchievement(Map<String, dynamic> json) {
-    final achievementDetails =
-    (json['details'] as List<dynamic>).map((detail) {
+    final achievementDetails = (json['details'] as List<dynamic>).map((detail) {
       return parseAchievementDetail(detail);
     }).toList();
 

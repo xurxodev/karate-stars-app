@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/Custom.ttf
 ///
-/// 
+///
 /// * Font Awesome, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
 ///         License:   SIL ()

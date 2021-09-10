@@ -15,7 +15,9 @@ List<SocialNews> _remoteData() {
   ];
 }
 
-SocialNewsCachedRepository repositoryFactory(CacheableDataSource<SocialNews> cache, ReadableDataSource<SocialNews> remote){
+SocialNewsCachedRepository repositoryFactory(
+    CacheableDataSource<SocialNews> cache,
+    ReadableDataSource<SocialNews> remote) {
   return SocialNewsCachedRepository(cache, remote);
 }
 

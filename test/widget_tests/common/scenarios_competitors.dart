@@ -8,9 +8,9 @@ import 'mocks.dart';
 void givenThereAreNoCompetitors() {
   final mockCompetitorRepository = MockCompetitorRepository();
 
-  when(()=> mockCompetitorRepository.getAll(ReadPolicy.cache_first))
+  when(() => mockCompetitorRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
 
   app_di.getIt.registerLazySingleton<CompetitorRepository>(
-          () => mockCompetitorRepository);
+      () => mockCompetitorRepository);
 }

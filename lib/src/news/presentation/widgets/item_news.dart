@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 
 abstract class ItemNews extends StatelessWidget {
-  const ItemNews({ Key? key }) : super(key: key);
+  const ItemNews({Key? key}) : super(key: key);
 
   @override
   @protected
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
         margin: calculateMargin(context),
         decoration: BoxDecoration(
@@ -19,11 +18,11 @@ abstract class ItemNews extends StatelessWidget {
   EdgeInsets calculateMargin(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
 
-    const fixed= 4.0;
+    const fixed = 4.0;
     final bigMargin = mediaQueryData.size.width * 0.20;
     final smallMargin = mediaQueryData.size.width * 0.10;
 
-    if (mediaQueryData.orientation == Orientation.portrait){
+    if (mediaQueryData.orientation == Orientation.portrait) {
       if (mediaQueryData.size.width > 600) {
         return EdgeInsets.symmetric(vertical: fixed, horizontal: smallMargin);
       } else {

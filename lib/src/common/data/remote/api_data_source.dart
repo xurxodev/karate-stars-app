@@ -62,7 +62,8 @@ abstract class ApiDataSource {
         'password': _apiCredentials.password
       });
 
-      final authorizationHeader = response.headers[HttpHeaders.authorizationHeader];
+      final authorizationHeader =
+          response.headers[HttpHeaders.authorizationHeader];
 
       if (response.statusCode == 200 && authorizationHeader != null) {
         return authorizationHeader;

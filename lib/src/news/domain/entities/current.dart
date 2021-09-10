@@ -4,8 +4,7 @@ import 'package:karate_stars_app/src/news/domain/entities/summary.dart';
 class CurrentNews extends News {
   final NewsSource source;
 
-  CurrentNews(NewsSummary summary, this.source)
-      :super(summary);
+  CurrentNews(NewsSummary summary, this.source) : super(summary);
 
   @override
   bool operator ==(Object other) =>
@@ -47,6 +46,4 @@ class NewsSource {
   String toString() {
     return 'NewsSource{name: $name, image: $image, url: $url}';
   }
-
-
 }

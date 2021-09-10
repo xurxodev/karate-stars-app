@@ -43,9 +43,9 @@ void main() {
           (WidgetTester tester) async {
         final newsList = await givenThereAreNewsAndInitHome(tester);
 
-        for (News newsItem in newsList){
-            await home.news.expectItemTitle(
-                newsList.indexOf(newsItem), newsItem.summary.title);
+        for (News newsItem in newsList) {
+          await home.news.expectItemTitle(
+              newsList.indexOf(newsItem), newsItem.summary.title);
         }
       });
 

@@ -8,10 +8,8 @@ Future<void> main() async {
 
   await app_di.init();
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
-  ]);
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   runApp(App());
 }
@@ -21,4 +19,3 @@ void mainWithoutDataDependencies() {
 
   runApp(App());
 }
-

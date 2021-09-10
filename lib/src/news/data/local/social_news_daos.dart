@@ -24,6 +24,3 @@ abstract class SocialNewsDao {
   @Query('DELETE FROM SocialNews')
   Future<void> deleteAll();
 }
-
-
-

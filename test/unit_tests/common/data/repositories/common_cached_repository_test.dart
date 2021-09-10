@@ -5,15 +5,14 @@ import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockCacheDataSource<T> extends Mock
-    implements CacheableDataSource<T> {}
+class MockCacheDataSource<T> extends Mock implements CacheableDataSource<T> {}
 
-class MockRemoteDataSource<T> extends Mock
-    implements ReadableDataSource<T> {}
+class MockRemoteDataSource<T> extends Mock implements ReadableDataSource<T> {}
 
-void executeRepositoryTests<T>(Function(CacheableDataSource<T>, ReadableDataSource<T>) repositoryFactory,
-    List<T> localData, List<T> remoteData) {
-
+void executeRepositoryTests<T>(
+    Function(CacheableDataSource<T>, ReadableDataSource<T>) repositoryFactory,
+    List<T> localData,
+    List<T> remoteData) {
   late CachedRepository<T> _repository;
   final _cacheDataSource = MockCacheDataSource<T>();
 
@@ -59,8 +58,7 @@ void executeRepositoryTests<T>(Function(CacheableDataSource<T>, ReadableDataSour
   }
 
   setUp(() async {
-    _repository =
-        repositoryFactory(_cacheDataSource, _remoteDataSource);
+    _repository = repositoryFactory(_cacheDataSource, _remoteDataSource);
   });
 
   group('Repository', () {
@@ -156,6 +154,4 @@ void executeRepositoryTests<T>(Function(CacheableDataSource<T>, ReadableDataSour
 }
 
 // To avoid method main not found
-void main() {
-}
-
+void main() {}

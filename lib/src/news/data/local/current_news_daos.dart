@@ -1,4 +1,3 @@
-
 import 'package:floor/floor.dart';
 import 'package:karate_stars_app/src/news/data/local/current_news_models.dart';
 
@@ -25,6 +24,3 @@ abstract class CurrentNewsDao {
   @Query('DELETE FROM CurrentNews')
   Future<void> deleteAll();
 }
-
-
-

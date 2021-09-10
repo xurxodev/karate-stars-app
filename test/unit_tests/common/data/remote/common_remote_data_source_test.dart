@@ -10,7 +10,6 @@ void executeRemoteDataSourceTests<T>(
     Function(String baseAddress) remoteDataSourceFactory,
     stubResponseFile,
     Function(T item) expectFirstItem) {
-
   late ReadableDataSource<T> _remoteApiDataSource;
 
   setUp(() {

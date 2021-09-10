@@ -9,7 +9,7 @@ import '../../../common/api/mock_api.dart';
 import '../../../common/data/remote/common_remote_data_source_test.dart';
 import '../../../common/fake/fake_api_token_storage.dart';
 
-ReadableDataSource<CurrentNews> remoteDataSourceFactory(String baseAddress){
+ReadableDataSource<CurrentNews> remoteDataSourceFactory(String baseAddress) {
   final Credentials fakeCredentials = Credentials('', '');
 
   return CurrentNewsApiDataSource(
@@ -34,6 +34,6 @@ void expectFirstItem(CurrentNews currentNews) {
 }
 
 void main() {
-  executeRemoteDataSourceTests(
-      'currentnews', remoteDataSourceFactory, getSocialNewsResponse,expectFirstItem);
+  executeRemoteDataSourceTests('currentnews', remoteDataSourceFactory,
+      getSocialNewsResponse, expectFirstItem);
 }

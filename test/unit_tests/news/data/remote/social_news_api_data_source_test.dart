@@ -9,7 +9,7 @@ import '../../../common/api/mock_api.dart';
 import '../../../common/data/remote/common_remote_data_source_test.dart';
 import '../../../common/fake/fake_api_token_storage.dart';
 
-ReadableDataSource<SocialNews> remoteDataSourceFactory(String baseAddress){
+ReadableDataSource<SocialNews> remoteDataSourceFactory(String baseAddress) {
   final Credentials fakeCredentials = Credentials('', '');
 
   return SocialNewsApiDataSource(
@@ -31,12 +31,10 @@ void expectFirstItem(SocialNews socialNews) {
   expect(socialNews.user.userName, 'worldkarate_wkf');
   expect(socialNews.user.image,
       'http://pbs.twimg.com/profile_images/1229708688597880833/PiQoEC9T_normal.jpg');
-  expect(socialNews.user.url,
-      'https://t.co/gi0CtXBjdr');
+  expect(socialNews.user.url, 'https://t.co/gi0CtXBjdr');
 }
 
 void main() {
-  executeRemoteDataSourceTests(
-      'socialnews', remoteDataSourceFactory, getSocialNewsResponse,expectFirstItem);
+  executeRemoteDataSourceTests('socialnews', remoteDataSourceFactory,
+      getSocialNewsResponse, expectFirstItem);
 }
-

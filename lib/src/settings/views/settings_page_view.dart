@@ -13,9 +13,9 @@ class _SettingsPageViewState extends State<SettingsPageView> {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Colors.blue,
-      body:  Center(
+      body: Center(
         child: Text('Settings'),
-        ),
+      ),
     );
   }
 }

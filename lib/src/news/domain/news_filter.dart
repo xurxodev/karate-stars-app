@@ -1,5 +1,1 @@
-enum NewsFilter {
-  all,
-  current,
-  social
-}
+enum NewsFilter { all, current, social }

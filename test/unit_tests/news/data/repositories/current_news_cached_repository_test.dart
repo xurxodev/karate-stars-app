@@ -17,7 +17,9 @@ List<CurrentNews> _remoteData() {
   ];
 }
 
-CurrentNewsCachedRepository repositoryFactory(CacheableDataSource<CurrentNews> cache, ReadableDataSource<CurrentNews> remote){
+CurrentNewsCachedRepository repositoryFactory(
+    CacheableDataSource<CurrentNews> cache,
+    ReadableDataSource<CurrentNews> remote) {
   return CurrentNewsCachedRepository(cache, remote);
 }
 

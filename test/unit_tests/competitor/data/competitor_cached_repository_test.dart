@@ -5,7 +5,6 @@ import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart
 import '../../../common/mothers/competitor_mother.dart';
 import '../../common/data/repositories/common_cached_repository_test.dart';
 
-
 List<Competitor> _localData() {
   return [CompetitorMother.stevenDaCosta(), CompetitorMother.joseEgea()];
 }
@@ -19,7 +18,9 @@ List<Competitor> _remoteData() {
   ];
 }
 
-CompetitorCachedRepository repositoryFactory(CacheableDataSource<Competitor> cache, ReadableDataSource<Competitor> remote){
+CompetitorCachedRepository repositoryFactory(
+    CacheableDataSource<Competitor> cache,
+    ReadableDataSource<Competitor> remote) {
   return CompetitorCachedRepository(cache, remote);
 }
 

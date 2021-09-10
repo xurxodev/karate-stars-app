@@ -13,8 +13,7 @@ class NewsContent {
   final listFinder = find.byValueKey(Keys.news_items_parent);
   final alertDialogFinder = find.byValueKey(Keys.alert_dialog);
 
-  Future<void> assertIsVisible() =>
-      _driver.waitFor(newsPageViewFinder);
+  Future<void> assertIsVisible() => _driver.waitFor(newsPageViewFinder);
 
   Future<void> assertNotificationMessage(String expectedMessage) async =>
       await _driver.runUnsynchronized(() async {

@@ -8,7 +8,7 @@ import 'page_objects/home_page_object.dart';
 void main() {
   group('home page', () {
     setUpAll(() async {
-     await givenThereAreNoData();
+      await givenThereAreNoData();
     });
 
     group('to open app ', () {
