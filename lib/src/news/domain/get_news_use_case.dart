@@ -15,13 +15,13 @@ class GetNewsUseCase {
     final List<News> news = [];
 
     if (newsFilter == NewsFilter.all || newsFilter == NewsFilter.current) {
-      final currentNews = await _currentNewsRepository.getCurrentNews(readPolicy);
+      final currentNews = await _currentNewsRepository.getAll(readPolicy);
 
       news.addAll(currentNews);
     }
 
     if (newsFilter == NewsFilter.all || newsFilter == NewsFilter.social) {
-      final socialNews = await _socialNewsRepository.getSocialNews(readPolicy);
+      final socialNews = await _socialNewsRepository.getAll(readPolicy);
 
       news.addAll(socialNews);
     }

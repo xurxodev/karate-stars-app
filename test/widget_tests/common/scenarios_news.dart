@@ -11,13 +11,13 @@ import 'mocks.dart';
 
 void givenThereAreNoNews() {
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
-  when(()=> mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
+  when(()=> mockCurrentNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
           () => mockCurrentNewsRepository);
 
   final mockSocialNewsRepository = MockSocialNewsRepository();
-  when(()=> mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
+  when(()=> mockSocialNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
   app_di.getIt.registerLazySingleton<SocialNewsRepository>(
           () => mockSocialNewsRepository);
@@ -25,14 +25,14 @@ void givenThereAreNoNews() {
 
 void givenThatNewsDataThrowNetworkException() {
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
-  when(()=> mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
+  when(()=> mockCurrentNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) async => throw NetworkException());
 
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
           () => mockCurrentNewsRepository);
 
   final mockSocialNewsRepository = MockSocialNewsRepository();
-  when(()=> mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
+  when(()=> mockSocialNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) async => throw NetworkException());
 
   app_di.getIt.registerLazySingleton<SocialNewsRepository>(
@@ -49,7 +49,7 @@ List<News> givenThereAreNews() {
 
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
 
-  when(()=> mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
+  when(()=> mockCurrentNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value(CurrentNewsMother.all()));
 
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
@@ -57,7 +57,7 @@ List<News> givenThereAreNews() {
 
   final mockSocialNewsRepository = MockSocialNewsRepository();
 
-  when(()=> mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
+  when(()=> mockSocialNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value(SocialNewsMother.all()));
 
   app_di.getIt.registerLazySingleton<SocialNewsRepository>(

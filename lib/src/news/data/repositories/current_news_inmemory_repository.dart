@@ -10,7 +10,7 @@ class CurrentNewsInMemoryRepository implements CurrentNewsRepository {
   final CurrentNewsParser _parser = CurrentNewsParser();
 
   @override
-  Future<List<CurrentNews>> getCurrentNews(ReadPolicy readPolicy) async {
+  Future<List<CurrentNews>> getAll(ReadPolicy readPolicy) async {
     List<CurrentNews> currentNews = [];
 
     await rootBundle.loadString('assets/stubs/current_news.json')

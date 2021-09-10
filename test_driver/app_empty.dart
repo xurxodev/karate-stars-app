@@ -23,13 +23,13 @@ void main() {
 
 void givenThereAreNoNews() {
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
-  when(()=> mockCurrentNewsRepository.getCurrentNews(ReadPolicy.cache_first))
+  when(()=> mockCurrentNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
           () => mockCurrentNewsRepository);
 
   final mockSocialNewsRepository = MockSocialNewsRepository();
-  when(()=> mockSocialNewsRepository.getSocialNews(ReadPolicy.cache_first))
+  when(()=> mockSocialNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
   app_di.getIt.registerLazySingleton<SocialNewsRepository>(
           () => mockSocialNewsRepository);

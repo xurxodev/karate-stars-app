@@ -10,7 +10,7 @@ class SocialNewsInMemoryRepository implements SocialNewsRepository {
   final SocialNewsParser _parser = SocialNewsParser();
 
   @override
-  Future<List<SocialNews>> getSocialNews(ReadPolicy readPolicy) async {
+  Future<List<SocialNews>> getAll(ReadPolicy readPolicy) async {
     List<SocialNews> socialNews = [];
 
     await rootBundle
