@@ -1,5 +1,5 @@
 import 'package:karate_stars_app/app_di.dart';
-import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
+import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/database.dart';
 import 'package:karate_stars_app/src/news/data/local/current_news_floor_data_source.dart';
@@ -15,10 +15,11 @@ import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/domain/get_news_use_case.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 
-void initAll(AppDatabase appDatabase, Credentials apiCredentials) {
-  _initCurrentNewsDataDI(appDatabase, apiCredentials);
+void initAll(
+    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
+  _initCurrentNewsDataDI(appDatabase, apiUrl, apiCredentials);
 
-  _initSocialNewsDataDI(appDatabase, apiCredentials);
+  _initSocialNewsDataDI(appDatabase, apiUrl, apiCredentials);
 
   initBlocAndUseCases();
 }
@@ -30,9 +31,9 @@ void initBlocAndUseCases() {
 }
 
 void _initCurrentNewsDataDI(
-    AppDatabase appDatabase, Credentials apiCredentials) {
+    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
   getIt.registerLazySingleton<ReadableDataSource<CurrentNews>>(
-      () => CurrentNewsApiDataSource(apiBaseAddress, apiCredentials, getIt()));
+      () => CurrentNewsApiDataSource(apiUrl, apiCredentials, getIt()));
 
   getIt.registerLazySingleton(() => appDatabase.currentNewsDao);
 
@@ -46,9 +47,9 @@ void _initCurrentNewsDataDI(
 }
 
 void _initSocialNewsDataDI(
-    AppDatabase appDatabase, Credentials apiCredentials) {
+    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
   getIt.registerLazySingleton<ReadableDataSource<SocialNews>>(
-      () => SocialNewsApiDataSource(apiBaseAddress, apiCredentials, getIt()));
+      () => SocialNewsApiDataSource(apiUrl, apiCredentials, getIt()));
 
   getIt.registerLazySingleton(() => appDatabase.socialNewsDao);
 

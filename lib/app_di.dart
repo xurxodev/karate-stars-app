@@ -1,6 +1,7 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:karate_stars_app/src/common/analytics/firebase_analytics_service.dart';
-import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
+import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/database.dart';
 import 'package:karate_stars_app/src/common/data/remote/token_storage.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
@@ -14,9 +15,6 @@ int largeCacheTimeMillis = const Duration(days: 7).inMilliseconds;
 int mediumCacheTimeMillis = const Duration(hours: 4).inMilliseconds;
 int smallCacheTimeMillis = const Duration(hours: 1).inMilliseconds;
 
-const String apiBaseAddress = 'https://karate-stars-web.herokuapp.com/api/v1';
-//const String baseAddress = 'http://10.0.2.2:8000/v1';
-
 Future<void> init() async {
   getIt.allowReassignment = true;
   initNoDataAppDependencies();
@@ -24,13 +22,20 @@ Future<void> init() async {
   final AppDatabase appDatabase =
       await $FloorAppDatabase.databaseBuilder('karate_stars.db').build();
 
-  final Credentials apiCredentials =
-      await ApiCredentialsLoader('assets/credentials.json').load();
+  final apiBaseAddress = dotenv.env['API_URL'] ?? '';
+  final username = dotenv.env['API_USERNAME'] ?? '';
+  final password = dotenv.env['API_PASSWORD'] ?? '';
+
+  if (apiBaseAddress.isEmpty || username.isEmpty || password.isEmpty)
+    throw Exception(
+        'URL or environment variables for api credentials are not configured');
+
+  final Credentials apiCredentials = Credentials(username, password);
 
   getIt.registerLazySingleton<ApiTokenStorage>(() => ApiTokenSecureStorage());
 
-  news_di.initAll(appDatabase, apiCredentials);
-  competitors_di.initAll(appDatabase, apiCredentials);
+  news_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
+  competitors_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
 }
 
 void initWithoutDataDependencies() {

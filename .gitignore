@@ -73,7 +73,6 @@
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 /ios/Flutter/Flutter.podspec
 /.flutter-plugins-dependencies
-/assets/credentials.json
 
 # Generated files
 *.g.dart
@@ -84,3 +83,6 @@
 # https://blog.codemagic.io/how-to-load-firebase-config-in-codemagic-with-environment-variables/
 /android/app/google-services.json
 /ios/Runner/GoogleService-Info.plist
+
+# Environemnt variables file
+*.env
