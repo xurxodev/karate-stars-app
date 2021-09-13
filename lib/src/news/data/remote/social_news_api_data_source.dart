@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
+import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/remote/api_data_source.dart';
 import 'package:karate_stars_app/src/common/data/remote/token_storage.dart';
@@ -25,7 +25,7 @@ class SocialNewsApiDataSource extends ApiDataSource
 
     try {
       return parser.parse(json.decode(response.body));
-    } on Exception{
+    } on Exception {
       print(response.body);
       rethrow;
     }

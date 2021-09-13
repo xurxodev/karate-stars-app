@@ -12,25 +12,33 @@ class Competitor {
   final CompetitorLinks links;
   final List<Achievement> achievements;
 
-  Competitor(this.identifier, this.name, this.biography, this.countryId,
-      this.categoryId, this.mainImage, this.isStar, this.isLegend, this.links,
+  Competitor(
+      this.identifier,
+      this.name,
+      this.biography,
+      this.countryId,
+      this.categoryId,
+      this.mainImage,
+      this.isStar,
+      this.isLegend,
+      this.links,
       this.achievements);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Competitor &&
-              runtimeType == other.runtimeType &&
-              identifier == other.identifier &&
-              name == other.name &&
-              biography == other.biography &&
-              countryId == other.countryId &&
-              categoryId == other.categoryId &&
-              mainImage == other.mainImage &&
-              isStar == other.isStar &&
-              isLegend == other.isLegend &&
-              links == other.links &&
-              achievements == other.achievements;
+      other is Competitor &&
+          runtimeType == other.runtimeType &&
+          identifier == other.identifier &&
+          name == other.name &&
+          biography == other.biography &&
+          countryId == other.countryId &&
+          categoryId == other.categoryId &&
+          mainImage == other.mainImage &&
+          isStar == other.isStar &&
+          isLegend == other.isLegend &&
+          links == other.links &&
+          achievements == other.achievements;
 
   @override
   int get hashCode =>
@@ -57,18 +65,14 @@ class CompetitorLinks {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is CompetitorLinks &&
-              runtimeType == other.runtimeType &&
-              web == other.web &&
-              twitter == other.twitter &&
-              facebook == other.facebook &&
-              instagram == other.instagram;
+      other is CompetitorLinks &&
+          runtimeType == other.runtimeType &&
+          web == other.web &&
+          twitter == other.twitter &&
+          facebook == other.facebook &&
+          instagram == other.instagram;
 
   @override
   int get hashCode =>
-      web.hashCode ^
-      twitter.hashCode ^
-      facebook.hashCode ^
-      instagram.hashCode;
+      web.hashCode ^ twitter.hashCode ^ facebook.hashCode ^ instagram.hashCode;
 }
-

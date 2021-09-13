@@ -20,7 +20,7 @@ class CachedRepository<T> {
   Future<List<T>> getAllCacheFirst() async {
     List<T> items = await cache.getAll();
 
-    if (items.isEmpty ||  !await cache.areValidValues()) {
+    if (items.isEmpty || !await cache.areValidValues()) {
       try {
         items = await remoteDataSource.getAll();
 

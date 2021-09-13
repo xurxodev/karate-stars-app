@@ -14,14 +14,15 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           brightness: Brightness.light,
-          primarySwatch: whiteMaterial,
-          accentColor: Colors.red,
           primaryIconTheme: const IconThemeData(color: Colors.red),
-          scaffoldBackgroundColor: Colors.grey[300]),
+          scaffoldBackgroundColor: Colors.grey[300],
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: whiteMaterial)
+              .copyWith(secondary: Colors.red, brightness: Brightness.light)),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        accentColor: Colors.red,
         primaryIconTheme: const IconThemeData(color: Colors.red),
+        colorScheme: ColorScheme.fromSwatch()
+            .copyWith(secondary: Colors.red, brightness: Brightness.dark),
       ),
       initialRoute: HomePage.routeName,
       routes: {

@@ -22,14 +22,14 @@ void main() {
 
 void givenThatNewsDataThrowNetworkException() {
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
-  when(()=> mockCurrentNewsRepository.getAll(ReadPolicy.cache_first))
+  when(() => mockCurrentNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) async => throw NetworkException());
 
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
       () => mockCurrentNewsRepository);
 
   final mockSocialNewsRepository = MockSocialNewsRepository();
-  when(()=> mockSocialNewsRepository.getAll(ReadPolicy.cache_first))
+  when(() => mockSocialNewsRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) async => throw NetworkException());
 
   app_di.getIt.registerLazySingleton<SocialNewsRepository>(

@@ -28,9 +28,9 @@ class PubDate {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is PubDate &&
-              runtimeType == other.runtimeType &&
-              date == other.date;
+      other is PubDate &&
+          runtimeType == other.runtimeType &&
+          date == other.date;
 
   @override
   int get hashCode => date.hashCode;
@@ -40,5 +40,3 @@ class PubDate {
     return 'PubDate{date: $date}';
   }
 }
-
-

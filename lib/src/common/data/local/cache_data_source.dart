@@ -14,9 +14,8 @@ abstract class CacheDataSource<T> {
   }
 
   bool isDirty(ModelDB model) {
-    final int lastCacheUpdateMillis = DateTime
-        .parse(model.lastUpdate)
-        .millisecondsSinceEpoch;
+    final int lastCacheUpdateMillis =
+        DateTime.parse(model.lastUpdate).millisecondsSinceEpoch;
 
     final int currentMillis = DateTime.now().millisecondsSinceEpoch;
 

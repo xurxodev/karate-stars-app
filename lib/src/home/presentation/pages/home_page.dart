@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
             curve: Curves.easeIn,
           );
         },
-        activeColor: Theme.of(context).accentColor,
+        activeColor: Theme.of(context).colorScheme.secondary,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
@@ -137,8 +137,8 @@ class _HomePageState extends State<HomePage> {
     } else {
       return Text(titleText,
           key: titleKey,
-          style:
-              TextStyle(fontSize: Theme.of(context).textTheme.headline6!.fontSize));
+          style: TextStyle(
+              fontSize: Theme.of(context).textTheme.headline6!.fontSize));
     }
   }
 

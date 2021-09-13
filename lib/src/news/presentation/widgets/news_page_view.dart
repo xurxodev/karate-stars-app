@@ -73,7 +73,7 @@ class _NewsPageViewState extends State<NewsPageView>
                 key: const Key(Keys.news_items_parent),
                 borderWidth: 2,
                 color: Theme.of(context).cardColor,
-                backgroundColor: Theme.of(context).accentColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
                 child: ListView.builder(
                   itemCount: state.data.length,

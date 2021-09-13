@@ -6,18 +6,16 @@ import '../../../../common/mothers/current_news_mother.dart';
 import '../../../common/data/repositories/common_cached_repository_test.dart';
 
 List<CurrentNews> _localData() {
-  return [CurrentNewsMother.madridHost2018()];
+  return [madridHost2018()];
 }
 
 List<CurrentNews> _remoteData() {
-  return [
-    CurrentNewsMother.madridHost2018(),
-    CurrentNewsMother.quinteroNumber1(),
-    CurrentNewsMother.stevenDaCostaVideo()
-  ];
+  return [madridHost2018(), quinteroNumber1(), stevenDaCostaVideo()];
 }
 
-CurrentNewsCachedRepository repositoryFactory(CacheableDataSource<CurrentNews> cache, ReadableDataSource<CurrentNews> remote){
+CurrentNewsCachedRepository repositoryFactory(
+    CacheableDataSource<CurrentNews> cache,
+    ReadableDataSource<CurrentNews> remote) {
   return CurrentNewsCachedRepository(cache, remote);
 }
 

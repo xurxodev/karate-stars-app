@@ -11,7 +11,8 @@ Future<void> launchURL(BuildContext context, String url) async {
           android: AndroidChromeCustomTabsOptions(enableUrlBarHiding: true),
           ios: IOSSafariOptions(
               barCollapsingEnabled: true,
-              preferredControlTintColor: Theme.of(context).accentColor)));
+              preferredControlTintColor:
+                  Theme.of(context).colorScheme.secondary)));
 }
 
 String createTwitterURL(String text) {

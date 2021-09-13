@@ -62,5 +62,4 @@ void executeCacheTests<T>(Function(int millis) cacheFactory, List<T> data) {
 }
 
 // To avoid method main not found
-void main() {
-}
+void main() {}

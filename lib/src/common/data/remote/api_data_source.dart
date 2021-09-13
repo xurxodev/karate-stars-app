@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
+import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/remote/api_exceptions.dart';
 import 'package:karate_stars_app/src/common/data/remote/token_storage.dart';
 
@@ -62,7 +62,8 @@ abstract class ApiDataSource {
         'password': _apiCredentials.password
       });
 
-      final authorizationHeader = response.headers[HttpHeaders.authorizationHeader];
+      final authorizationHeader =
+          response.headers[HttpHeaders.authorizationHeader];
 
       if (response.statusCode == 200 && authorizationHeader != null) {
         return authorizationHeader;

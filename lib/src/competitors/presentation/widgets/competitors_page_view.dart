@@ -63,7 +63,7 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
                 key: const Key(Keys.news_items_parent),
                 borderWidth: 2,
                 color: Theme.of(context).cardColor,
-                backgroundColor: Theme.of(context).accentColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

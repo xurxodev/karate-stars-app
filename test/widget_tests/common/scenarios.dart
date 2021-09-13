@@ -20,7 +20,7 @@ Future<void> givenThereAreOnlyNewsAndThrowNetworkException() async {
   givenThereAreNoCompetitors();
 }
 
-Future<List<News>>  givenThereAreOnlyNews() async {
+Future<List<News>> givenThereAreOnlyNews() async {
   await app_di.reset();
   app_di.initWithoutDataDependencies();
 

@@ -19,7 +19,7 @@ class ItemSocialNews extends ItemNews {
   @override
   Widget buildContent(BuildContext context) {
     final linkStyle = TextStyle(
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
     );
 
     return Column(children: <Widget>[
@@ -59,8 +59,8 @@ class ItemSocialNews extends ItemNews {
           MatchText(
             pattern: '@[A-Za-z0-9]*',
             style: linkStyle,
-            onTap: (user) =>
-                url_helper.launchURL(context, url_helper.createTwitterURL(user)),
+            onTap: (user) => url_helper.launchURL(
+                context, url_helper.createTwitterURL(user)),
           ),
         ],
       )),

@@ -18,11 +18,10 @@ class ItemCompetitor extends StatelessWidget {
         Expanded(
           flex: 10,
           child: CircleImage(
-            borderRadius:
-                const BorderRadius.only(topLeft: radius, topRight: radius),
-            width: double.infinity,
-            imageUrl: competitor.mainImage
-            ),
+              borderRadius:
+                  const BorderRadius.only(topLeft: radius, topRight: radius),
+              width: double.infinity,
+              imageUrl: competitor.mainImage),
         ),
         Expanded(
             flex: 2,
@@ -34,16 +33,13 @@ class ItemCompetitor extends StatelessWidget {
                 ),
                 child: ListTile(
                   title: Text(competitor.name),
-                  trailing:
-
-                  CircleImage(
-                      borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  trailing: CircleImage(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(5.0)),
                       height: 20,
                       width: 30,
-                      imageUrl: 'http://www.karatestarsapp.com/app/flags/${competitor.countryId}.png'
-                  ),
-
-
+                      imageUrl:
+                          'http://www.karatestarsapp.com/app/flags/${competitor.countryId}.png'),
                 )))
       ],
     )

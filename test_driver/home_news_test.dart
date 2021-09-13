@@ -120,7 +120,7 @@ void main() {
     });
 
     test('should filter by current news', () async {
-      final currentNewsList = CurrentNewsMother.all();
+      final currentNewsList = allCurrentNews();
 
       await homePage.newsContent.filterByCurrentNews();
 
@@ -132,7 +132,7 @@ void main() {
     });
 
     test('should filter by social news', () async {
-      final socialNewsList = SocialNewsMother.all();
+      final socialNewsList = allSocialNews();
 
       await homePage.newsContent.filterBySocialNews();
 
@@ -148,8 +148,8 @@ void main() {
 List<News> getNews() {
   final List<News> news = [];
 
-  news.addAll(CurrentNewsMother.all());
-  news.addAll(SocialNewsMother.all());
+  news.addAll(allCurrentNews());
+  news.addAll(allSocialNews());
 
   news.sort((a, b) => b.summary.pubDate.date.compareTo(a.summary.pubDate.date));
 

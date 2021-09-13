@@ -10,11 +10,11 @@ class NotificationMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
-      text,
-      key: const Key(Keys.notification_message),
-      style: Theme.of(context).textTheme.headline6,
-    )));
+              text,
+              key: const Key(Keys.notification_message),
+              style: Theme.of(context).textTheme.headline6,
+            )));
   }
 }

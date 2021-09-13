@@ -3,7 +3,7 @@ abstract class DefaultState<T> {
 
   factory DefaultState.loading() => LoadingState();
 
-  factory DefaultState.loaded(T data) =>  LoadedState(data: data);
+  factory DefaultState.loaded(T data) => LoadedState(data: data);
 
   factory DefaultState.error(String message) => ErrorState(message: message);
 }

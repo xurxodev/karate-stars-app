@@ -6,10 +6,11 @@ class CompetitorsState {
   final DefaultState<List<Competitor>>? listState;
   final CompetitorsFilterState? filtersState;
 
-  CompetitorsState({ this.listState,  this.filtersState});
-  
-  CompetitorsState copyWith({DefaultState<List<Competitor>>? listState,
-    CompetitorsFilterState? filtersState}) {
+  CompetitorsState({this.listState, this.filtersState});
+
+  CompetitorsState copyWith(
+      {DefaultState<List<Competitor>>? listState,
+      CompetitorsFilterState? filtersState}) {
     return CompetitorsState(
         listState: listState ?? this.listState,
         filtersState: filtersState ?? this.filtersState);

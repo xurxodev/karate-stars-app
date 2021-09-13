@@ -8,6 +8,5 @@ class CompetitorsContent {
 
   final competitorsPageViewFinder = find.byValueKey(Keys.competitors_page_view);
 
-  Future<void> assertIsVisible() =>
-      driver.waitFor(competitorsPageViewFinder);
+  Future<void> assertIsVisible() => driver.waitFor(competitorsPageViewFinder);
 }

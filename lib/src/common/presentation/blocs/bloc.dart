@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 
 // TODO(xurxodev): Remove BlocBase and rename this to BlocBase
-abstract class Bloc <T> {
-
+abstract class Bloc<T> {
   final _stateController = StreamController<T>.broadcast();
   late T _state;
 
@@ -17,7 +16,7 @@ abstract class Bloc <T> {
     _stateController.sink.add(state);
   }
 
-  void dispose(){
+  void dispose() {
     _stateController.close();
   }
 }

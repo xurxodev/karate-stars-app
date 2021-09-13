@@ -6,7 +6,7 @@ import '../../../../common/mothers/current_news_mother.dart';
 import '../../../common/data/local/common_local_data_source_test.dart';
 import 'fake/fake_database.dart';
 
-CacheableDataSource<CurrentNews> cacheFactory(int millis){
+CacheableDataSource<CurrentNews> cacheFactory(int millis) {
   final appDatabase = FakeDatabase();
 
   final currentNewsDao = appDatabase.currentNewsDao;
@@ -17,8 +17,5 @@ CacheableDataSource<CurrentNews> cacheFactory(int millis){
 }
 
 void main() {
-  executeCacheTests(cacheFactory,  [
-    CurrentNewsMother.quinteroNumber1(),
-    CurrentNewsMother.madridHost2018()
-  ]);
+  executeCacheTests(cacheFactory, [quinteroNumber1(), madridHost2018()]);
 }

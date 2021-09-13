@@ -6,13 +6,13 @@ abstract class ApiTokenStorage {
   Future<void> saveToken(String token);
 }
 
-class ApiTokenSecureStorage implements ApiTokenStorage{
+class ApiTokenSecureStorage implements ApiTokenStorage {
   static const String tokenKey = 'tokenKey';
   final storage = const FlutterSecureStorage();
 
   @override
   Future<String> getToken() async {
-    final value =  await storage.read(key: tokenKey);
+    final value = await storage.read(key: tokenKey);
 
     return value ?? '';
   }

@@ -8,8 +8,8 @@ class NewsState {
 
   NewsState({required this.listState, required this.filtersState});
 
-  NewsState copyWith({DefaultState<List<News>>? listState ,
-    NewsFilterState? filtersState}) {
+  NewsState copyWith(
+      {DefaultState<List<News>>? listState, NewsFilterState? filtersState}) {
     return NewsState(
         listState: listState ?? this.listState,
         filtersState: filtersState ?? this.filtersState);
