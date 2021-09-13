@@ -6,16 +6,11 @@ import '../../../common/mothers/competitor_mother.dart';
 import '../../common/data/repositories/common_cached_repository_test.dart';
 
 List<Competitor> _localData() {
-  return [CompetitorMother.stevenDaCosta(), CompetitorMother.joseEgea()];
+  return [stevenDaCosta(), joseEgea()];
 }
 
 List<Competitor> _remoteData() {
-  return [
-    CompetitorMother.stevenDaCosta(),
-    CompetitorMother.joseEgea(),
-    CompetitorMother.damianQuintero(),
-    CompetitorMother.burakUygur()
-  ];
+  return [stevenDaCosta(), joseEgea(), damianQuintero(), burakUygur()];
 }
 
 CompetitorCachedRepository repositoryFactory(

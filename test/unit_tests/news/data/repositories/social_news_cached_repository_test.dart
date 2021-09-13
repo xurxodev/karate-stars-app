@@ -5,14 +5,11 @@ import '../../../../common/mothers/social_news_mother.dart';
 import '../../../common/data/repositories/common_cached_repository_test.dart';
 
 List<SocialNews> _localData() {
-  return [SocialNewsMother.countDownMadrid2018()];
+  return [countDownMadrid2018()];
 }
 
 List<SocialNews> _remoteData() {
-  return [
-    SocialNewsMother.countDownMadrid2018(),
-    SocialNewsMother.newVideoInKarateStars()
-  ];
+  return [countDownMadrid2018(), newVideoInKarateStars()];
 }
 
 SocialNewsCachedRepository repositoryFactory(

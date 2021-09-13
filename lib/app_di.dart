@@ -4,9 +4,9 @@ import 'package:karate_stars_app/src/common/auth/api_credentials_loader.dart';
 import 'package:karate_stars_app/src/common/data/database.dart';
 import 'package:karate_stars_app/src/common/data/remote/token_storage.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
-import 'package:karate_stars_app/src/news/news_di.dart' as news_di;
 import 'package:karate_stars_app/src/competitors/competitors_di.dart'
     as competitors_di;
+import 'package:karate_stars_app/src/news/news_di.dart' as news_di;
 
 final getIt = GetIt.instance;
 

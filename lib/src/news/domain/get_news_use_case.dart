@@ -1,7 +1,7 @@
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
-import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/social_news_repository.dart';
+import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/news_filter.dart';
 
 class GetNewsUseCase {

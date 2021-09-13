@@ -17,8 +17,5 @@ CacheableDataSource<CurrentNews> cacheFactory(int millis) {
 }
 
 void main() {
-  executeCacheTests(cacheFactory, [
-    CurrentNewsMother.quinteroNumber1(),
-    CurrentNewsMother.madridHost2018()
-  ]);
+  executeCacheTests(cacheFactory, [quinteroNumber1(), madridHost2018()]);
 }

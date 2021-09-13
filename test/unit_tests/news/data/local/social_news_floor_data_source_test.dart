@@ -17,8 +17,6 @@ CacheableDataSource<SocialNews> cacheFactory(int millis) {
 }
 
 void main() {
-  executeCacheTests(cacheFactory, [
-    SocialNewsMother.newVideoInKarateStars(),
-    SocialNewsMother.countDownMadrid2018()
-  ]);
+  executeCacheTests(
+      cacheFactory, [newVideoInKarateStars(), countDownMadrid2018()]);
 }

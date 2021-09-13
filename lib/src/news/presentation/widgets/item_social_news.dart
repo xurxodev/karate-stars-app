@@ -19,7 +19,7 @@ class ItemSocialNews extends ItemNews {
   @override
   Widget buildContent(BuildContext context) {
     final linkStyle = TextStyle(
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
     );
 
     return Column(children: <Widget>[

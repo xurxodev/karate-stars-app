@@ -27,7 +27,7 @@ class NewsFilter extends StatelessWidget {
   Widget _buildFilter(
       BuildContext context, NewsFilterState state, NewsBloc bloc) {
     return CupertinoSlidingSegmentedControl(
-      thumbColor: Theme.of(context).accentColor,
+      thumbColor: Theme.of(context).colorScheme.secondary,
       children:
           state.filterOptions.map((key, value) => MapEntry(key, Text(value))),
       onValueChanged: (int? index) {

@@ -1,8 +1,6 @@
 import 'package:flutter_driver/driver_extension.dart';
-
-import 'package:karate_stars_app/main.dart' as main_app;
 import 'package:karate_stars_app/app_di.dart' as app_di;
-
+import 'package:karate_stars_app/main.dart' as main_app;
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/social_news_repository.dart';

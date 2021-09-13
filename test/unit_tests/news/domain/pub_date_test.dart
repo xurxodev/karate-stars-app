@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('PubDate should', () {
