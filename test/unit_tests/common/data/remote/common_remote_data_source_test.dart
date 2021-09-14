@@ -5,8 +5,7 @@ import '../../../common/api/mock_api.dart';
 
 late MockApi mockApi;
 
-void executeRemoteDataSourceTests<T>(
-    String endpoint,
+void executeRemoteDataSourceTests<T>(String endpoint,
     Function(String baseAddress) remoteDataSourceFactory,
     stubResponseFile,
     Function(T item) expectFirstItem) {
@@ -17,33 +16,34 @@ void executeRemoteDataSourceTests<T>(
     mockApi.start().then((_) {
       _remoteApiDataSource = remoteDataSourceFactory(mockApi.baseAddress);
     });
+  });
 
-    tearDown(() {
-      mockApi.shutdown();
+  tearDown(() {
+    mockApi.shutdown();
+  });
+
+  group('SocialNewsApiDataSource should', () {
+    test('sends get request to the correct endpoint', () async {
+      await mockApi.enqueueMockResponse(fileName: stubResponseFile);
+
+      await _remoteApiDataSource.getAll();
+
+      mockApi.expectRequestSentTo('/$endpoint');
     });
+    test('sends accept header', () async {
+      await mockApi.enqueueMockResponse(fileName: stubResponseFile);
 
-    group('SocialNewsApiDataSource should', () {
-      test('sends get request to the correct endpoint', () async {
-        await mockApi.enqueueMockResponse(fileName: stubResponseFile);
+      await _remoteApiDataSource.getAll();
 
-        await _remoteApiDataSource.getAll();
+      mockApi.expectRequestContainsHeader('accept', 'application/json');
+    });
+    test('parse social news properly getting all social news', () async {
+      await mockApi.enqueueMockResponse(fileName: stubResponseFile);
 
-        mockApi.expectRequestSentTo('/$endpoint');
-      });
-      test('sends accept header', () async {
-        await mockApi.enqueueMockResponse(fileName: stubResponseFile);
+      final responseData = await _remoteApiDataSource.getAll();
 
-        await _remoteApiDataSource.getAll();
-
-        mockApi.expectRequestContainsHeader('accept', 'application/json');
-      });
-      test('parse social news properly getting all social news', () async {
-        await mockApi.enqueueMockResponse(fileName: stubResponseFile);
-
-        final responseData = await _remoteApiDataSource.getAll();
-
-        expectFirstItem(responseData[0]);
-      });
+      expectFirstItem(responseData[0]);
+    });
 /*    test('sends request with token after renew token using the new Token',
             () async {
           await mockApi.enqueueUnauthorizedResponse();
@@ -54,24 +54,23 @@ void executeRemoteDataSourceTests<T>(
 
           mockApi.expectRequestContainsHeader('authorization', anyTokenHeader, 2);
         });*/
-      test(
-          'throws UnknownErrorException if there is not handled error getting news',
-          () async {
-        await mockApi.enqueueMockResponse(httpCode: 454);
+    test(
+        'throws UnknownErrorException if there is not handled error getting news',
+            () async {
+          await mockApi.enqueueMockResponse(httpCode: 454);
 
-        expect(() => _remoteApiDataSource.getAll(),
-            throwsA(isInstanceOf<UnKnowApiException>()));
-      });
-      test(
-          'throws RenewTokenException if the server returns unauthorized response twice',
-          () async {
-        await mockApi.enqueueUnauthorizedResponse();
-        await mockApi.enqueueUnauthorizedResponse();
+          expect(() => _remoteApiDataSource.getAll(),
+              throwsA(isInstanceOf<UnKnowApiException>()));
+        });
+    test(
+        'throws RenewTokenException if the server returns unauthorized response twice',
+            () async {
+          await mockApi.enqueueUnauthorizedResponse();
+          await mockApi.enqueueUnauthorizedResponse();
 
-        expect(() => _remoteApiDataSource.getAll(),
-            throwsA(isInstanceOf<RenewTokenException>()));
-      });
-    });
+          expect(() => _remoteApiDataSource.getAll(),
+              throwsA(isInstanceOf<RenewTokenException>()));
+        });
   });
 }
 

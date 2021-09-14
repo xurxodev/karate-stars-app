@@ -42,5 +42,5 @@ void expectFirstItem(Competitor competitor) {
 
 void main() {
   executeRemoteDataSourceTests('competitors', remoteDataSourceFactory,
-      getSocialNewsResponse, expectFirstItem);
+      getCompetitorsResponse, expectFirstItem);
 }

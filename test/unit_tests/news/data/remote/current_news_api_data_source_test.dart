@@ -35,5 +35,5 @@ void expectFirstItem(CurrentNews currentNews) {
 
 void main() {
   executeRemoteDataSourceTests('currentnews', remoteDataSourceFactory,
-      getSocialNewsResponse, expectFirstItem);
+      getCurrentNewsResponse, expectFirstItem);
 }
