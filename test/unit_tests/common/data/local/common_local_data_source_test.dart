@@ -4,12 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 
 void executeCacheTests<T>(Function(int millis) cacheFactory, List<T> data) {
-  CacheableDataSource<T> givenACacheWithoutData([int millis = 100]) {
+  Future<CacheableDataSource<T>> givenACacheWithoutData([int millis = 100]) {
     return cacheFactory(millis);
   }
 
   Future<CacheableDataSource<T>> givenACacheWithData([int millis = 100]) async {
-    final currentNewsCache = givenACacheWithoutData(millis);
+    final currentNewsCache = await givenACacheWithoutData(millis);
 
     await currentNewsCache.save(data);
 
@@ -18,14 +18,14 @@ void executeCacheTests<T>(Function(int millis) cacheFactory, List<T> data) {
 
   group('local data source should', () {
     test('return empty news list first time', () async {
-      final cache = givenACacheWithoutData();
+      final cache = await givenACacheWithoutData();
 
       final currentData = await cache.getAll();
 
       expect(currentData.length, 0);
     });
     test('returns equal data after to refresh', () async {
-      final cache = givenACacheWithoutData();
+      final cache = await givenACacheWithoutData();
 
       await cache.save(data);
 
