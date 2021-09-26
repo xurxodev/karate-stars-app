@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:karate_stars_app/src/competitors/domain/entities/achievement.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 
