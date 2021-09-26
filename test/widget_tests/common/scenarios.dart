@@ -2,6 +2,7 @@ import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 
 import 'scenarios_competitors.dart';
+import 'scenarios_countries.dart';
 import 'scenarios_news.dart';
 
 Future<void> givenThereAreNoData() async {
@@ -10,6 +11,7 @@ Future<void> givenThereAreNoData() async {
 
   givenThereAreNoNews();
   givenThereAreNoCompetitors();
+  givenThereAreNoCountries();
 }
 
 Future<void> givenThereAreOnlyNewsAndThrowNetworkException() async {
@@ -18,6 +20,7 @@ Future<void> givenThereAreOnlyNewsAndThrowNetworkException() async {
 
   givenThatNewsDataThrowNetworkException();
   givenThereAreNoCompetitors();
+  givenThereAreNoCountries();
 }
 
 Future<List<News>> givenThereAreOnlyNews() async {
@@ -25,5 +28,6 @@ Future<List<News>> givenThereAreOnlyNews() async {
   app_di.initWithoutDataDependencies();
 
   givenThereAreNoCompetitors();
+  givenThereAreNoCountries();
   return givenThereAreNews();
 }
