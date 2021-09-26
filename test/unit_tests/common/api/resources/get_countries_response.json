@@ -1,0 +1,26 @@
+[
+  {
+    "id": "UCyMZcbtB4u",
+    "name": "Spain",
+    "iso2": "es",
+    "image": "http://www.karatestarsapp.com/app/flags/es.png"
+  },
+  {
+    "id": "PAuqgX3CfjI",
+    "name": "Croatia",
+    "iso2": "hr",
+    "image": "http://www.karatestarsapp.com/app/flags/hr.png"
+  },
+  {
+    "id": "uhsEK0d5iue",
+    "name": "Austria",
+    "iso2": "at",
+    "image": "http://www.karatestarsapp.com/app/flags/at.png"
+  },
+  {
+    "id": "uIaQv0JlN5n",
+    "name": "Azerbaijan",
+    "iso2": "az",
+    "image": "http://www.karatestarsapp.com/app/flags/az.png"
+  }
+]
