@@ -6,12 +6,14 @@ import 'package:karate_stars_app/src/common/presentation/states/default_state.da
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/domain/get_competitors_use_case.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitors_state.dart';
+import 'package:karate_stars_app/src/countries/domain/get_countries_use_case.dart';
 
 class CompetitorsBloc extends Bloc<CompetitorsState> {
   static const screen_name = 'home_competitors';
   final GetCompetitorsUseCase _getCompetitorsUseCase;
+  final GetCountriesUseCase _getCountriesUseCase;
 
-  CompetitorsBloc(this._getCompetitorsUseCase) {
+  CompetitorsBloc(this._getCompetitorsUseCase, this._getCountriesUseCase) {
     changeState(CompetitorsState(listState: DefaultState.loading()));
     _loadData(ReadPolicy.cache_first);
   }
@@ -37,8 +39,25 @@ class CompetitorsBloc extends Bloc<CompetitorsState> {
   }*/
 
   Future<void> _loadData(ReadPolicy readPolicy) async {
-    _getCompetitorsUseCase.execute(ReadPolicy.cache_first).then((data) {
-      changeState(state.copyWith(listState: DefaultState.loaded(data)));
+    _getCountriesUseCase.execute(readPolicy).then((countries) {
+      _getCompetitorsUseCase.execute(readPolicy).then((competitors) {
+        final competitorItems = competitors.map((competitor) {
+          final country = countries
+              .firstWhere((country) => country.id == competitor.countryId);
+
+          return CompetitorItemState(
+              competitor.identifier,
+              '${competitor.firstName} ${competitor.lastName}',
+              competitor.mainImage,
+              country.image);
+        }).toList();
+
+        changeState(
+            state.copyWith(listState: DefaultState.loaded(competitorItems)));
+      }).catchError((error) {
+        changeState(state.copyWith(
+            listState: DefaultState.error(Strings.network_error_message)));
+      });
     }).catchError((error) {
       changeState(state.copyWith(
           listState: DefaultState.error(Strings.network_error_message)));

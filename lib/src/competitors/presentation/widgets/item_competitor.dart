@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/CircleImage.dart';
-import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
+import 'package:karate_stars_app/src/competitors/presentation/states/competitors_state.dart';
 
 class ItemCompetitor extends StatelessWidget {
-  final Competitor competitor;
+  final CompetitorItemState competitor;
   final String itemTextKey;
 
   ItemCompetitor(this.competitor, {required this.itemTextKey})
@@ -21,7 +21,7 @@ class ItemCompetitor extends StatelessWidget {
               borderRadius:
                   const BorderRadius.only(topLeft: radius, topRight: radius),
               width: double.infinity,
-              imageUrl: competitor.mainImage),
+              imageUrl: competitor.image),
         ),
         Expanded(
             flex: 2,
@@ -32,14 +32,13 @@ class ItemCompetitor extends StatelessWidget {
                       bottomLeft: radius, bottomRight: radius),
                 ),
                 child: ListTile(
-                  title: Text('${competitor.firstName} ${competitor.lastName}'),
+                  title: Text(competitor.name),
                   trailing: CircleImage(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(5.0)),
                       height: 20,
                       width: 30,
-                      imageUrl:
-                          'http://www.karatestarsapp.com/app/flags/${competitor.countryId}.png'),
+                      imageUrl: competitor.flag),
                 )))
       ],
     )

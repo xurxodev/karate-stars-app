@@ -4,7 +4,6 @@ import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dar
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitors_state.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/item_competitor.dart';
@@ -39,7 +38,7 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
             return Center(child: NotificationMessage(listState.message));
           } else {
             return _renderList(context,
-                state.listState as LoadedState<List<Competitor>>, bloc);
+                state.listState as LoadedState<List<CompetitorItemState>>, bloc);
           }
         } else {
           return const Text('No Data');
@@ -49,7 +48,7 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
   }
 
   // ignore: missing_return
-  Widget _renderList(BuildContext context, LoadedState<List<Competitor>> state,
+  Widget _renderList(BuildContext context, LoadedState<List<CompetitorItemState>> state,
       CompetitorsBloc bloc) {
     final orientation = MediaQuery.of(context).orientation;
 
