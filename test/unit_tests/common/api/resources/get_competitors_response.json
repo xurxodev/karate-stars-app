@@ -1,452 +1,347 @@
 [
   {
-    "identifier": "gCvaLu3B",
-    "name": "Rika Usami",
+    "id": "Lx1ChvOLNoS",
+    "firstName": "Rika",
+    "lastName": "Usami",
+    "wkfId": "JPN183",
     "biography": "Rika Usami (宇佐美 里香, born February 20, 1986) is a Japanese practitioner in Shōrin-ryū Karate. She had said in an interview that she started karate when she was 10 years old by joining a Goju-ryu-style dojo located near her family’s house in Tokyo, after seeing a female fighter on television. Her older brother has been practicing karate to which he even let Usami wear his karate gi on occasions, so that helped her a lot when she decided to eventually start practicing Karate herself.\n\nHer first karate tournament was when she was a green belt at 12 years old in elementary school. She didn't participate in big tournaments until at age 15. She first won a big tournament at 17 years old at the national high school championship.",
-    "countryId": "jp",
-    "categoryId": "1xSqqSPN",
-    "mainImage": "http://www.karatestarsapp.com/app/images/rika-usami.jpg",
-    "isStar": false,
+    "countryId": "rNx55g3iAjx",
+    "categoryId": "uAwCwvaoUgg",
+    "mainImage": "https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/VetRoM6JdGY.jpeg",
+    "isActive": false,
     "isLegend": true,
-    "links": {
-      "web": "fakeWeb",
-      "twitter": "fakeTitter",
-      "facebook": "https://www.facebook.com/Rika-Usami-513277155360507/",
-      "instagram": "https://www.instagram.com/rikausami"
-    },
-    "achievements": [
+    "links": [
       {
-        "name": "Asian Championships",
-        "details": [
-          {
-            "category": "Individual Kata",
-            "name": "Foshan 2009",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Quanzhou 2011",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Tashkent 2012",
-            "position": 1
-          }
-        ]
+        "url": "https://www.facebook.com/Rika-Usami-513277155360507/",
+        "type": "facebook"
       },
       {
-        "name": "World Championships",
-        "details": [
-          {
-            "category": "Individual Kata",
-            "name": "Belgrade 2010",
-            "position": 3
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Paris 2012",
-            "position": 1
-          }
-        ]
-      },
-      {
-        "name": "Asian Games",
-        "details": [
-          {
-            "category": "Individual Kata",
-            "name": " Guangzhou 2010",
-            "position": 1
-          }
-        ]
+        "url": "https://www.instagram.com/rikausami",
+        "type": "instagram"
       }
     ],
-    "videos": [
-      "GytEaDSL",
-      "6Dw8qNev"
+    "achievements": [
+      {
+        "eventId": "hSEiLEWuxF1",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "VQkX1OV5H7i",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "yuRQzmo16Zp",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "jcdE2zhWhnj",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 3
+      },
+      {
+        "eventId": "tE9zuEjkfpC",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "kFXM5FJ45dV",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      }
     ]
   },
   {
-    "identifier": "Wy5t0J4d",
-    "name": "Douglas Brose",
-    "biography": "Douglas Santos Brose (Cruz Alta, December 11, 1985) is a Brazilian karateka, considered by many the greatest Brazilian karate fighter of all time. It is sponsored by Arawaza by the Federal Government and the state of Santa Catarina.Edgar Ferraz, former president of the CBK, Douglas Brose is 'the greatest athlete medalist and lead the Brazilian karate of all time'. He participated in the Pan American Games in Rio de Janeiro in 2007 and Guadalajara in 2011, being placed third and obtaining the bronze medal in both competitions. In 2015 he became champion of the Pan American Games in Toronto in Canada. In 2009, he won the gold medal at the World Games in Kumite category up to 60 kg. In the World Games, 2013 in Cali, ranked second with a silver medal. In October 2013, won the bronze medal at the World Combat Games in the same category. In 2008 she won her first bronze medal in the senior world championship in 2010, won the gold medal at the World Karate AchievementHeader in 2012 and won his 3rd medal in world championships in Paris. In 2014 it was again world champion in Bremen, Germany, by winning the Dutch Geoffrey Berens.",
-    "countryId": "br",
-    "categoryId": "EFWSI57G",
-    "mainImage": "http://www.karatestarsapp.com/app/images/douglas_brose.jpg",
-    "isStar": true,
+    "id": "LGpXjf86ojc",
+    "firstName": "Douglas",
+    "lastName": "Brose",
+    "wkfId": "BRA166",
+    "biography": "Douglas Santos Brose (Cruz Alta, December 11, 1985) is a Brazilian karateka, considered by many the greatest Brazilian karate fighter of all time. It is sponsored by Arawaza by the Federal Government and the state of Santa Catarina.Edgar Ferraz, former president of the CBK, Douglas Brose is 'the greatest athlete medalist and lead the Brazilian karate of all time'. He participated in the Pan American Games in Rio de Janeiro in 2007 and Guadalajara in 2011, being placed third and obtaining the bronze medal in both competitions. In 2015 he became champion of the Pan American Games in Toronto in Canada. In 2009, he won the gold medal at the World Games in Kumite category up to 60. In the World Games, 2013 in Cali, ranked second with a silver medal. In October 2013, won the bronze medal at the World Combat Games in the same category. In 2008 she won her first bronze medal in the senior world championship in 2010, won the gold medal at the World Karate AchievementHeader in 2012 and won his 3rd medal in world championships in Paris. In 2014 it was again world champion in Bremen, Germany, by winning the Dutch Geoffrey Berens.",
+    "countryId": "ANIgK3ttJDV",
+    "categoryId": "kMe2wqSvf2O",
+    "mainImage": "https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/KGzLtEC4QlU.jpeg",
+    "isActive": true,
     "isLegend": false,
-    "links": {
-      "web": "https://www.douglasbrose.com/",
-      "twitter": "https://twitter.com/douglasbrose",
-      "facebook": "https://www.facebook.com/douglasbroseoficial",
-      "instagram": "https://www.instagram.com/douglasbrose"
-    },
-    "achievements": [
+    "links": [
       {
-        "name": "World Championships",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Tokyo 2008",
-            "position": 3
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Belgrado 2010",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Paris 2012",
-            "position": 2
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Bremen 2014",
-            "position": 1
-          }
-        ]
+        "url": "https://www.douglasbrose.com/",
+        "type": "web"
       },
       {
-        "name": "World Games",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Kaohsiung 2009",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Cali 2013",
-            "position": 2
-          }
-        ]
+        "url": "https://twitter.com/douglasbrose",
+        "type": "twitter"
       },
       {
-        "name": "World Combat Games",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Saint Petersburg 2013",
-            "position": 3
-          }
-        ]
+        "url": "https://www.facebook.com/douglasbroseoficial",
+        "type": "facebook"
       },
       {
-        "name": "Pan American Games",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Rio de Janeiro 2007",
-            "position": 3
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Guadalajara 2011",
-            "position": 3
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Toronto 2015",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Lima 2019",
-            "position": 2
-          }
-        ]
-      },
-      {
-        "name": "Pan American Championships",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Guadalajara 2012",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Lima 2014",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Toronto 2015",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Rio de Janeiro 2016",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Curacao  2017",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Panama  2019",
-            "position": 1
-          }
-        ]
-      },
-      {
-        "name": "South American Games",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Buenos Aires 2006",
-            "position": 3
-          },
-          {
-            "category": "Team Kumite",
-            "name": "Buenos Aires 2006",
-            "position": 2
-          },
-          {
-            "category": "Team Kumite",
-            "name": "Medellin 2010",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Santiago 2014",
-            "position": 1
-          }
-        ]
+        "url": "https://www.instagram.com/douglasbrose",
+        "type": "instagram"
       }
     ],
-    "videos": [
-      "3UKhC6b0",
-      "NMAUqA6m",
-      "aJS75TDg",
-      "6Ae1TL6j",
-      "vlxTLums",
-      "wGrDcFNg",
-      "9vI7HkBd",
-      "u3pqvlRf",
-      "qN4VeO42",
-      "SpfttPor",
-      "dtwsKOSZ",
-      "HAqUAgGa",
-      "WlpTsXaU",
-      "FANVdk8N",
-      "gKU6c9hO",
-      "xvvOkA2k",
-      "X8EUon0e",
-      "krGUDtTX",
-      "ROtxhi1F",
-      "5HoKMofp",
-      "7jLFHdi7"
+    "achievements": [
+      {
+        "eventId": "bCmarQfHGMq",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 3
+      },
+      {
+        "eventId": "rldgnngZ7uB",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "tE9zuEjkfpC",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 2
+      },
+      {
+        "eventId": "gy5jc1IU2mN",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "g35UcBnpRJe",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "aFqkHM0qcuB",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 2
+      },
+      {
+        "eventId": "vjDYtFXHPzK",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 3
+      },
+      {
+        "eventId": "FRgkDx5Hwkj",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 3
+      },
+      {
+        "eventId": "cNt7jjRPeOt",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 3
+      },
+      {
+        "eventId": "TN1i4LnUY2C",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "IjdHEGZxbsS",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 2
+      },
+      {
+        "eventId": "dJpm04kHQgr",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "xzBjKgS9MGM",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "suWUVLesYrU",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "QyUZmRJQIOy",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "usfOOxbpq7H",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "qQYNshOU7Cu",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "GMP7RVPO1bC",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 3
+      },
+      {
+        "eventId": "GMP7RVPO1bC",
+        "categoryId": "QihGhQpPpiI",
+        "position": 2
+      },
+      {
+        "eventId": "qaeI6gdEMSO",
+        "categoryId": "QihGhQpPpiI",
+        "position": 1
+      },
+      {
+        "eventId": "c6nSOIaHCmZ",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      }
     ]
   },
   {
-    "identifier": "vAChTZpV",
-    "name": "Amir Mehdizadeh",
+    "id": "Aoxi39bATrw",
+    "firstName": "Amir",
+    "lastName": "Mehdizadeh",
+    "wkfId": "IRI244",
     "biography": "Amir Mehdizadeh is an iranian karateka who was proclaimed world champion in Paris in 2012 and won the bronze medal at the next world championship in Bremen in 2014. In 2015 was proclaimed asian champion in Yokohama.",
-    "countryId": "ir",
-    "categoryId": "EFWSI57G",
-    "mainImage": "http://www.karatestarsapp.com/app/images/amir_mehdizadeh.jpg",
-    "isStar": true,
+    "countryId": "XzPY9jnM251",
+    "categoryId": "kMe2wqSvf2O",
+    "mainImage": "https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/b4BljHOWQ61.jpeg",
+    "isActive": true,
     "isLegend": false,
-    "links": {
-      "web": null,
-      "twitter": null,
-      "facebook": null,
-      "instagram": "https://www.instagram.com/amirmehdizadee"
-    },
-    "achievements": [
+    "links": [
       {
-        "name": "World Championships",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Paris 2012",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Paris 2014",
-            "position": 3
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Linz 2016",
-            "position": 1
-          }
-        ]
-      },
-      {
-        "name": "Asian Championships",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Guangzhou 2011",
-            "position": 3
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Yokohama 2015",
-            "position": 1
-          },
-          {
-            "category": "Kumite -60",
-            "name": "Astana 2017",
-            "position": 1
-          }
-        ]
-      },
-      {
-        "name": "Asian Games",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Incheon 2014",
-            "position": 1
-          }
-        ]
-      },
-      {
-        "name": "World Games",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Wroclaw 2017",
-            "position": 2
-          }
-        ]
-      },
-      {
-        "name": "Islamic Solidarity Games",
-        "details": [
-          {
-            "category": "Kumite -60",
-            "name": "Baku 2017",
-            "position": 3
-          }
-        ]
+        "url": "https://www.instagram.com/amirmehdizadee",
+        "type": "instagram"
       }
     ],
-    "videos": [
-      "KqA8nusV",
-      "vlxTLums",
-      "YDqk1oH6",
-      "Z9GtZKRl",
-      "pVUWECbA",
-      "Q916X8yU",
-      "VTy6Um6G",
-      "UNqBxwn4",
-      "Cc2FZ5rm",
-      "L9MFaguV"
+    "achievements": [
+      {
+        "eventId": "tE9zuEjkfpC",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "S1XJ0sWp8j1",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 3
+      },
+      {
+        "eventId": "rXRkXJDXYV2",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "XiGm7HEbAfJ",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 3
+      },
+      {
+        "eventId": "fICFSzKddqy",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "UoCnAnFRWNM",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "HDzwl4yG1r6",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 1
+      },
+      {
+        "eventId": "f1yEaSR60o6",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 2
+      },
+      {
+        "eventId": "IXO1RU1Yaj7",
+        "categoryId": "kMe2wqSvf2O",
+        "position": 3
+      }
     ]
   },
   {
-    "identifier": "S21vOkaB",
-    "name": "Atsuko Wakai",
+    "id": "kGS703BMuQw",
+    "firstName": "Atsuko",
+    "lastName": "Wakai",
+    "wkfId": "JPN000",
     "biography": "Atsuko Wakai (born September 12, 1971) is a Japanese practitioner of karate who has won many international and Japanese national competitions in kata, including unprecedented numbers of consecutive titles in World Karate Federation (WKF) and All Japan Karatedo championships. She holds the rank of 5th dan black belt from the Japan Karatedo Federation (JKF), training in Seigokan Goju-ryu karate.",
-    "countryId": "jp",
-    "categoryId": "1xSqqSPN",
-    "mainImage": "http://www.karatestarsapp.com/app/images/atsuko_wakai.jpg",
-    "isStar": false,
+    "countryId": "rNx55g3iAjx",
+    "categoryId": "uAwCwvaoUgg",
+    "mainImage": "https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/juvfq1OZxpx.jpeg",
+    "isActive": false,
     "isLegend": true,
-    "links": {
-      "web": "http://www.atsuko-wakai.jp",
-      "twitter": null,
-      "facebook": "https://www.facebook.com/Atsuko-Wakai-165800753822",
-      "instagram": null
-    },
-    "achievements": [
+    "links": [
       {
-        "name": "Asian Championships",
-        "details": [
-          {
-            "category": "Individual Kata",
-            "name": "Macau 1997",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Singapore 1999",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Genting 2001",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Taoyuan City 2004",
-            "position": 1
-          }
-        ]
+        "url": "http://www.atsuko-wakai.jp",
+        "type": "web"
       },
       {
-        "name": "World Championships",
-        "details": [
-          {
-            "category": "Individual Kata",
-            "name": "Rio de Janeiro 1998",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Munich 2000",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Madrid 2002",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Monterrey 2004",
-            "position": 1
-          }
-        ]
-      },
-      {
-        "name": "Asian Games",
-        "details": [
-          {
-            "category": "Individual Kata",
-            "name": "Bangkok 1998",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Busan 2002",
-            "position": 1
-          }
-        ]
-      },
-      {
-        "name": "World Games",
-        "details": [
-          {
-            "category": "Individual Kata",
-            "name": "Lahti 1997",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Akita 2001",
-            "position": 1
-          },
-          {
-            "category": "Individual Kata",
-            "name": "Duisburg 2005",
-            "position": 1
-          }
-        ]
+        "url": "https://www.facebook.com/Atsuko-Wakai-165800753822",
+        "type": "facebook"
       }
     ],
-    "videos": [
-      "rwuhHnNk",
-      "q2UYZYxZ"
+    "achievements": [
+      {
+        "eventId": "oqSc3hKJCxS",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "l3RfdAX0n0r",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "CejK7rPEBW2",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "Xf00NjKFdUy",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "uzVjscYH5Jd",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "FUACyvW6mqW",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "kAH8CHvZmnN",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "f65rQIVNXbp",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "zM6Kv3DTLET",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "hi1qVxLbJJx",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "cLWrWCFzaHQ",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "NA2YLXLWRk3",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      },
+      {
+        "eventId": "sxjFqk0C8DC",
+        "categoryId": "uAwCwvaoUgg",
+        "position": 1
+      }
     ]
   }
 ]

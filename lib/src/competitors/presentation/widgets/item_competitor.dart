@@ -32,7 +32,7 @@ class ItemCompetitor extends StatelessWidget {
                       bottomLeft: radius, bottomRight: radius),
                 ),
                 child: ListTile(
-                  title: Text(competitor.name),
+                  title: Text('${competitor.firstName} ${competitor.lastName}'),
                   trailing: CircleImage(
                       borderRadius:
                           const BorderRadius.all(Radius.circular(5.0)),

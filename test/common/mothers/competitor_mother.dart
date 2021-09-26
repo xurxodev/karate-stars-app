@@ -3,29 +3,27 @@ import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart
 
 Competitor stevenDaCosta() {
   final achievements = [
-    Achievement('World Championships', [
-      AchievementDetail('Linz 2016', 'Kumite -67', 3),
-      AchievementDetail('Linz 2016', 'Team Kumite', 3)
-    ]),
-    Achievement('European Championships', [
-      AchievementDetail('Montpellier 2016', 'Kumite -67', 1),
-      AchievementDetail('Montpellier 2016', 'Team Kumite', 3)
-    ])
+    Achievement('lTWNoZjuBqd', 'wa8Xgi22vUo', 1),
+    Achievement('W9p4KDNo1Vi', 'wa8Xgi22vUo', 3)
   ];
 
-  final links = CompetitorLinks(
-      null,
-      'https://twitter.com/Steven_DaCosta',
-      'https://www.facebook.com/Steven-Da-Costa-714387352001605',
-      'https://www.instagram.com/dacosta_steven');
+  final links = [
+    CompetitorLink('https://twitter.com/Steven_DaCosta', SocialLink.twitter),
+    CompetitorLink('https://www.facebook.com/Steven-Da-Costa-714387352001605',
+        SocialLink.facebook),
+    CompetitorLink(
+        'https://www.instagram.com/dacosta_steven', SocialLink.instagram)
+  ];
 
   return Competitor(
-      'WXmXikMk',
-      'Steven Da Costa',
+      'WhVviRyQwlc',
+      'Steven',
+      'Da Costa',
+      'FRA412',
       'Steven Da Costa (born January 23, 1997) is...',
-      'fr',
-      'EFWSI57G',
-      'http://www.karatestarsapp.com/app/images/steven_da_costa.jpg',
+      'JZlQc0xbmlp',
+      'categoryId',
+      'https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/PMHlnTxTdXQ.jpeg',
       true,
       false,
       links,
@@ -34,26 +32,23 @@ Competitor stevenDaCosta() {
 
 Competitor joseEgea() {
   final achievements = [
-    Achievement('World Championships', [
-      AchievementDetail('Mexico City 1990', 'Kumite -80', 1),
-      AchievementDetail('Granada 1992', 'Kumite -80', 1)
-    ]),
-    Achievement('European Championships', [
-      AchievementDetail('Titograd 1989', 'Kumite -80', 1),
-      AchievementDetail('Vienna 1990', 'Kumite -80', 1)
-    ])
-  ];
+  Achievement('MYL8ZJseBkW', 'DDexNXai9Cn', 3),
+  Achievement('CEdI81ejHhq', 'X3WKhryS14n', 3)];
 
-  final links = CompetitorLinks(
-      null, null, 'https://www.facebook.com/josemanuel.egeacaceres', null);
+  final links = [
+    CompetitorLink('https://www.facebook.com/josemanuel.egeacaceres',
+        SocialLink.facebook),
+  ];
 
   return Competitor(
       'w5ePRMfj',
-      'Jose Manuel Egea',
+      'Jose Manuel',
+      'Egea Caceres',
+      'ESP000',
       'José Manuel Egea is a Spanish karateka, ...',
-      'es',
-      'EFWSI57G',
-      'http://www.karatestarsapp.com/app/images/jose_manuel_egea.jpg',
+      'UCyMZcbtB4u',
+      'DDexNXai9Cn',
+      'https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/gBPQPnFgqSc.jpeg',
       false,
       true,
       links,
@@ -62,53 +57,51 @@ Competitor joseEgea() {
 
 Competitor damianQuintero() {
   final achievements = [
-    Achievement('World Championships', [
-      AchievementDetail('"Linz 2016', 'Team kata', 3),
-      AchievementDetail('Linz 2016', 'Individual Kata', 2)
-    ]),
-    Achievement('European Championships', [
-      AchievementDetail('Montpellier 2016', 'Individual Kata', 1),
-      AchievementDetail('Kocaeli 2017', 'Individual Kata', 1)
-    ])
+    Achievement('W9p4KDNo1Vi', 'KqVrbhbJ72W', 2),
+    Achievement('lTWNoZjuBqd', 'KqVrbhbJ72W', 2)
   ];
 
-  final links = CompetitorLinks(
-      'http://www.damianquintero.com/',
-      'https://twitter.com/DamianHQuintero',
-      'https://www.facebook.com/DamianQuintero',
-      'https://www.instagram.com/damianquintero');
+  final links = [
+    CompetitorLink('http://www.damianquintero.com/', SocialLink.web),
+    CompetitorLink('https://twitter.com/DamianHQuintero',
+        SocialLink.twitter)
+  ];
 
   return Competitor(
-      'j3W6HKw5',
-      'Damian Quintero',
+      'vWlMQ4Wn5mD',
+      'Damian Hugo',
+      'Quintero Capdevila',
+      'ESP173',
       'Damian Quintero was born on July 4 ...',
-      'es',
-      '1xSqqSPN',
-      'http://www.karatestarsapp.com/app/images/damian_quintero.jpg',
-      true,
+      'UCyMZcbtB4u',
+      'KqVrbhbJ72W',
+      'https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/MVER5GY0SFn.jpeg',
       false,
+      true,
       links,
       achievements);
 }
 
 Competitor burakUygur() {
   final achievements = [
-    Achievement('European Championships', [
-      AchievementDetail('Istambul 2015', 'Kumite -67', 2),
-      AchievementDetail('Kocaeli 2017', 'Kumite -67', 1)
-    ])
+    Achievement('L8MRg5oXpbD', 'wa8Xgi22vUo', 2),
+    Achievement('fbuxCI847Hm', 'wa8Xgi22vUo', 1)
   ];
 
-  final links =
-      CompetitorLinks(null, 'https://twitter.com/_burakuygur', null, null);
+  final links = [
+    CompetitorLink('https://www.instagram.com/_burakuygur', SocialLink.instagram),
+    CompetitorLink('https://twitter.com/_burakuygur', SocialLink.twitter)
+  ];
 
   return Competitor(
-      'eyEK9QbQ',
-      'Burak Uygur',
+      'Xmdl9eUji1a',
+      'Burako',
+      'Uygur',
+      'TUR492',
       'Burak Uygur (born April 14, 1995) is a European Games...',
-      'tr',
-      'EFWSI57G',
-      'http://www.karatestarsapp.com/app/images/burak_uygur.jpg',
+      'TRxEGfqs7S7',
+      'wa8Xgi22vUo',
+       'https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/cyaNlRCq0Su.jpeg',
       true,
       false,
       links,

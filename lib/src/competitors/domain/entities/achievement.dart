@@ -1,37 +1,20 @@
 class Achievement {
-  final String name;
-  final List<AchievementDetail> details;
+  final String eventId;
+  final String categoryId;
+  final int position;
 
-  Achievement(this.name, this.details);
+  Achievement(this.eventId, this.categoryId, this.position);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is Achievement &&
           runtimeType == other.runtimeType &&
-          name == other.name &&
-          details == other.details;
-
-  @override
-  int get hashCode => name.hashCode ^ details.hashCode;
-}
-
-class AchievementDetail {
-  final String category;
-  final String name;
-  final int position;
-
-  AchievementDetail(this.category, this.name, this.position);
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AchievementDetail &&
-          runtimeType == other.runtimeType &&
-          category == other.category &&
-          name == other.name &&
+          eventId == other.eventId &&
+          categoryId == other.categoryId &&
           position == other.position;
 
   @override
-  int get hashCode => category.hashCode ^ name.hashCode ^ position.hashCode;
+  int get hashCode =>
+      eventId.hashCode ^ categoryId.hashCode ^ position.hashCode;
 }
