@@ -2,17 +2,17 @@ import 'package:karate_stars_app/src/common/presentation/states/default_state.da
 import 'package:karate_stars_app/src/competitors/presentation/states/competitors_filter_state.dart';
 
 class CompetitorsState {
-  final DefaultState<List<CompetitorItemState>>? listState;
-  final CompetitorsFilterState? filtersState;
+  final DefaultState<List<CompetitorItemState>> list;
+  final CompetitorsFilterState filters;
 
-  CompetitorsState({this.listState, this.filtersState});
+  CompetitorsState({required this.filters, required this.list});
 
   CompetitorsState copyWith(
-      {DefaultState<List<CompetitorItemState>>? listState,
-      CompetitorsFilterState? filtersState}) {
+      {DefaultState<List<CompetitorItemState>>? list,
+      CompetitorsFilterState? filters}) {
     return CompetitorsState(
-        listState: listState ?? this.listState,
-        filtersState: filtersState ?? this.filtersState);
+        list: list ?? this.list,
+        filters: filters ?? this.filters);
   }
 }
 

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/actions/FilterAction.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
+import 'package:karate_stars_app/src/competitors/presentation/widgets/competitor_filters.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_page_view.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
@@ -145,9 +147,7 @@ class _HomePageState extends State<HomePage> {
   List<cupertino.Widget> getActions() {
     if (_currentTab == 0) {
       return [
-        IconButton(
-          key: const Key(Keys.home_filter),
-          icon: const Icon(Icons.filter_list),
+        FilterAction(
           onPressed: () {
             final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
 
@@ -160,7 +160,19 @@ class _HomePageState extends State<HomePage> {
         ),
       ];
     } else if (_currentTab == 1) {
-      return [];
+      return [
+        FilterAction(
+          onPressed: () {
+            final CompetitorsBloc bloc = BlocProvider.of<CompetitorsBloc>(context);
+
+            showDialog(
+                context: context,
+                builder: (_) => PlatformAlertDialog(
+                    title: Strings.competitor_filters_title,
+                    content: CompetitorFilters(bloc: bloc)));
+          },
+        ),
+      ];
     } else if (_currentTab == 2) {
       return [];
     } else {

@@ -1,12 +1,6 @@
-enum CompetitorsTypeFilter { all, stars, legends }
-
 class CompetitorsFilter {
-  final CompetitorsTypeFilter competitorsTypeFilter;
-  final String countryId;
-  final String categoryId;
+  final bool? legendFilter;
+  final bool? activeFilter;
 
-  CompetitorsFilter(
-      [this.competitorsTypeFilter = CompetitorsTypeFilter.all,
-      this.countryId = '',
-      this.categoryId = '']);
+  CompetitorsFilter([this.legendFilter, this.activeFilter]);
 }

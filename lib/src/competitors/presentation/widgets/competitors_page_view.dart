@@ -31,14 +31,14 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
         final state = snapshot.data;
 
         if (state != null) {
-          if (state.listState is LoadingState) {
+          if (state.list is LoadingState) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state.listState is ErrorState) {
-            final listState = state.listState as ErrorState;
+          } else if (state.list is ErrorState) {
+            final listState = state.list as ErrorState;
             return Center(child: NotificationMessage(listState.message));
           } else {
             return _renderList(context,
-                state.listState as LoadedState<List<CompetitorItemState>>, bloc);
+                state.list as LoadedState<List<CompetitorItemState>>, bloc);
           }
         } else {
           return const Text('No Data');

@@ -1,4 +1,5 @@
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
+import 'package:karate_stars_app/src/competitors/domain/competitors_filter.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 
 abstract class CompetitorRepository {

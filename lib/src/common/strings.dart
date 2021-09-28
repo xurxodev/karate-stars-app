@@ -12,6 +12,8 @@ class Strings {
   static const competitor_filters_title = 'Competitors Filter';
   static const String competitor_filters_stars = 'Stars';
   static const String competitor_filters_legends = 'Legends';
+  static const String competitor_filters_active = 'Active';
+  static const String competitor_filters_inactive = 'Inactive';
   static const String competitor_empty_message = 'There are no competitors';
 
   static const String default_filters_all = 'All';

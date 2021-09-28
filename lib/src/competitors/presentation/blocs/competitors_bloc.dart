@@ -1,20 +1,27 @@
 import 'dart:async';
 
+import 'package:karate_stars_app/src/common/analytics/events.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
-import 'package:karate_stars_app/src/common/presentation/blocs/bloc.dart';
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc_home_list_content.dart';
+import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/competitors/domain/competitors_filter.dart';
 import 'package:karate_stars_app/src/competitors/domain/get_competitors_use_case.dart';
+import 'package:karate_stars_app/src/competitors/presentation/states/competitors_filter_state.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitors_state.dart';
 import 'package:karate_stars_app/src/countries/domain/get_countries_use_case.dart';
 
-class CompetitorsBloc extends Bloc<CompetitorsState> {
+class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
   static const screen_name = 'home_competitors';
   final GetCompetitorsUseCase _getCompetitorsUseCase;
   final GetCountriesUseCase _getCountriesUseCase;
 
-  CompetitorsBloc(this._getCompetitorsUseCase, this._getCountriesUseCase) {
-    changeState(CompetitorsState(listState: DefaultState.loading()));
+  CompetitorsBloc(this._getCompetitorsUseCase, this._getCountriesUseCase,
+      AnalyticsService _analyticsService)
+      : super(_analyticsService, screen_name) {
+    changeState(CompetitorsState(
+        list: DefaultState.loading(), filters: CompetitorsFilterState()));
     _loadData(ReadPolicy.cache_first);
   }
 
@@ -22,45 +29,57 @@ class CompetitorsBloc extends Bloc<CompetitorsState> {
     return _loadData(ReadPolicy.network_first);
   }
 
-/*Future<void> changeFilters(int selectedCompetitorTypeIndex,
-      int selectedCountryIndex, int selectedCategoryIndex) {
-    final competitorFilter =
-        _lastState.filters.competitorTypeOptions[selectedCompetitorTypeIndex];
-    final categoryFilter =
-        _lastState.filters.categoryOptions[selectedCategoryIndex];
-    final countryFilter =
-        _lastState.filters.countryOptions[selectedCountryIndex];
+  void filter({int? selectedLegendTypeIndex, int? selectedActiveIndex}) {
+    final legendFilterIndex =
+        selectedLegendTypeIndex ?? state.filters.selectedLegendType;
+    final legendFilter = state.filters.legendTypeOptions[legendFilterIndex];
 
-    final filter =
-        'competitorType: $competitorFilter country: $countryFilter category: $categoryFilter';
+    final activeFilterIndex =
+        selectedActiveIndex ?? state.filters.selectedActiveType;
+    final activeFilter = state.filters.activeTypeOptions[
+        selectedActiveIndex ?? state.filters.selectedActiveType];
+
+    final filter = 'legend: $legendFilter active: $activeFilter';
     super.analyticsService.sendEvent(CompetitorsFilterEvent(filter));
 
+    changeState(state.copyWith(
+        filters: CompetitorsFilterState(
+            selectedActiveType: activeFilterIndex,
+            selectedLegendType: legendFilterIndex)));
+
     _loadData(ReadPolicy.cache_first);
-  }*/
+  }
 
   Future<void> _loadData(ReadPolicy readPolicy) async {
-    _getCountriesUseCase.execute(readPolicy).then((countries) {
-      _getCompetitorsUseCase.execute(readPolicy).then((competitors) {
-        final competitorItems = competitors.map((competitor) {
-          final country = countries
-              .firstWhere((country) => country.id == competitor.countryId);
+    try {
+      final countries = await _getCountriesUseCase.execute(readPolicy);
 
-          return CompetitorItemState(
-              competitor.identifier,
-              '${competitor.firstName} ${competitor.lastName}',
-              competitor.mainImage,
-              country.image);
-        }).toList();
+      final competitorsFilter = CompetitorsFilter(
+          state.filters.selectedLegendType == 0
+              ? null
+              : state.filters.selectedLegendType == 1 || false,
+          state.filters.selectedActiveType == 0
+              ? null
+              : state.filters.selectedActiveType == 1 || false);
 
-        changeState(
-            state.copyWith(listState: DefaultState.loaded(competitorItems)));
-      }).catchError((error) {
-        changeState(state.copyWith(
-            listState: DefaultState.error(Strings.network_error_message)));
-      });
-    }).catchError((error) {
+      final competitors =
+          await _getCompetitorsUseCase.execute(readPolicy, competitorsFilter);
+
+      final competitorItems = competitors.map((competitor) {
+        final country = countries
+            .firstWhere((country) => country.id == competitor.countryId);
+
+        return CompetitorItemState(
+            competitor.identifier,
+            '${competitor.firstName} ${competitor.lastName}',
+            competitor.mainImage,
+            country.image);
+      }).toList();
+
+      changeState(state.copyWith(list: DefaultState.loaded(competitorItems)));
+    } on Exception {
       changeState(state.copyWith(
-          listState: DefaultState.error(Strings.network_error_message)));
-    });
+          list: DefaultState.error(Strings.network_error_message)));
+    }
   }
 }

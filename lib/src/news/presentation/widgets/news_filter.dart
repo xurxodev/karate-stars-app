@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/filters/SegmentedFilter.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/states/news_filter_state.dart';
 import 'package:karate_stars_app/src/news/presentation/states/news_state.dart';
@@ -26,16 +27,12 @@ class NewsFilter extends StatelessWidget {
 
   Widget _buildFilter(
       BuildContext context, NewsFilterState state, NewsBloc bloc) {
-    return CupertinoSlidingSegmentedControl(
-      thumbColor: Theme.of(context).colorScheme.secondary,
-      children:
-          state.filterOptions.map((key, value) => MapEntry(key, Text(value))),
-      onValueChanged: (int? index) {
-        if (index != null) {
-          bloc.filter(index);
-        }
+    return SegmentedFilter(
+      options: state.filterOptions,
+      onValueChanged: (int index) {
+        bloc.filter(index);
       },
-      groupValue: state.selectedIndex,
+      value: state.selectedIndex,
     );
   }
 }

@@ -1,38 +1,34 @@
 import 'package:karate_stars_app/src/common/strings.dart';
 
 class CompetitorsFilterState {
-  final List<String> competitorTypeOptions = [
-    Strings.default_filters_all,
-    Strings.competitor_filters_stars,
-    Strings.competitor_filters_legends
-  ];
+  final Map<int, String> legendTypeOptions = {
+    0: Strings.default_filters_all,
+    1: Strings.competitor_filters_legends,
+    2: Strings.competitor_filters_stars
+  };
 
-  final List<String> categoryOptions;
-  final List<String> countryOptions;
+  final Map<int, String> activeTypeOptions = {
+    0: Strings.default_filters_all,
+    1: Strings.competitor_filters_active,
+    2: Strings.competitor_filters_inactive
+  };
 
-  final int selectedCompetitorType;
-  final int selectedCountry;
-  final int selectedCategory;
+/*  final List<String> categoryOptions;
+  final List<String> countryOptions;*/
+
+  final int selectedLegendType;
+  final int selectedActiveType;
+
+/*  final int selectedCountry;
+  final int selectedCategory;*/
 
   CompetitorsFilterState(
-      {this.categoryOptions = const [],
-      this.countryOptions = const [],
-      this.selectedCompetitorType = 0,
-      this.selectedCountry = 0,
-      this.selectedCategory = 0});
+      {this.selectedLegendType = 0, this.selectedActiveType = 0});
 
   CompetitorsFilterState copyWith(
-      {List<String>? categoryOptions,
-      List<String>? countryOptions,
-      int? selectedCompetitorType,
-      int? selectedCountry,
-      int? selectedCategory}) {
+      {int? selectedLegendType, int? selectedActiveType}) {
     return CompetitorsFilterState(
-        categoryOptions: categoryOptions ?? this.categoryOptions,
-        countryOptions: countryOptions ?? this.countryOptions,
-        selectedCompetitorType:
-            selectedCompetitorType ?? this.selectedCompetitorType,
-        selectedCountry: selectedCountry ?? this.selectedCountry,
-        selectedCategory: selectedCategory ?? this.selectedCategory);
+        selectedLegendType: selectedLegendType ?? this.selectedLegendType,
+        selectedActiveType: selectedActiveType ?? this.selectedActiveType);
   }
 }
