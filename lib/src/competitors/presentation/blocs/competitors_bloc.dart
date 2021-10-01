@@ -18,8 +18,8 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
   final GetCompetitorsUseCase _getCompetitorsUseCase;
   final GetCountriesUseCase _getCountriesUseCase;
 
-  final defaultCountry = Country(
-      Strings.default_filters_all, Strings.default_filters_all, '', '');
+  final defaultCountry =
+      Country(Strings.default_filters_all, Strings.default_filters_all, '', '');
 
   CompetitorsBloc(this._getCompetitorsUseCase, this._getCountriesUseCase,
       AnalyticsService _analyticsService)
@@ -35,9 +35,10 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
     return _loadData(ReadPolicy.network_first);
   }
 
-  void filter({int? selectedLegendTypeIndex,
-    int? selectedActiveIndex,
-    Country? selectedCountry}) {
+  void filter(
+      {int? selectedLegendTypeIndex,
+      int? selectedActiveIndex,
+      Country? selectedCountry}) {
     final legendFilterIndex =
         selectedLegendTypeIndex ?? state.filters.selectedLegendType;
     final legendFilter = state.filters.legendTypeOptions[legendFilterIndex];
@@ -45,11 +46,10 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
     final activeFilterIndex =
         selectedActiveIndex ?? state.filters.selectedActiveType;
     final activeFilter = state.filters.activeTypeOptions[
-    selectedActiveIndex ?? state.filters.selectedActiveType];
+        selectedActiveIndex ?? state.filters.selectedActiveType];
 
     final filter =
-        'legend: $legendFilter active: $activeFilter country:${selectedCountry
-        ?.name ?? ''}';
+        'legend: $legendFilter active: $activeFilter country:${selectedCountry?.name ?? ''}';
     super.analyticsService.sendEvent(CompetitorsFilterEvent(filter));
 
     changeState(state.copyWith(
@@ -80,7 +80,7 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
               : null);
 
       final competitors =
-      await _getCompetitorsUseCase.execute(readPolicy, competitorsFilter);
+          await _getCompetitorsUseCase.execute(readPolicy, competitorsFilter);
 
       final competitorItems = competitors.map((competitor) {
         final country = countries
@@ -93,12 +93,12 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
             country.image);
       }).toList();
 
-    changeState(state.copyWith(
-    list: DefaultState.loaded(competitorItems),
-    filters: state.filters.copyWith(countryOptions: finalCountries)));
+      changeState(state.copyWith(
+          list: DefaultState.loaded(competitorItems),
+          filters: state.filters.copyWith(countryOptions: finalCountries)));
     } on Exception {
-    changeState(state.copyWith(
-    list: DefaultState.error(Strings.network_error_message)));
+      changeState(state.copyWith(
+          list: DefaultState.error(Strings.network_error_message)));
     }
   }
 }
