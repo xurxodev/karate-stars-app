@@ -1,3 +1,5 @@
+import 'package:karate_stars_app/src/categories/domain/entities/category.dart';
+import 'package:karate_stars_app/src/category_types/domain/entities/category_type.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/countries/domain/entities/country.dart';
 
@@ -15,25 +17,43 @@ class CompetitorsFilterState {
   };
 
   final List<Country> countryOptions;
-/*  final List<String> categoryOptions;
-  */
+  final List<CategoryType> categoryTypeOptions;
+  final List<Category> categoryOptions;
 
   final int selectedLegendType;
   final int selectedActiveType;
   final Country? selectedCountry;
+  final CategoryType? selectedCategoryType;
+  final Category? selectedCategory;
 
-/*
-  final int selectedCategory;*/
-
-  CompetitorsFilterState(
-      {required this.countryOptions, this.selectedLegendType = 0, this.selectedActiveType = 0, this.selectedCountry});
+  CompetitorsFilterState({
+    required this.countryOptions,
+    required this.categoryTypeOptions,
+    required this.categoryOptions,
+    this.selectedLegendType = 0,
+    this.selectedActiveType = 0,
+    this.selectedCountry,
+    this.selectedCategoryType,
+    this.selectedCategory,
+  });
 
   CompetitorsFilterState copyWith(
-      {List<Country>? countryOptions , int? selectedLegendType, int? selectedActiveType, Country? selectedCountry}) {
+      {List<Country>? countryOptions,
+      List<CategoryType>? categoryTypeOptions,
+      List<Category>? categoryOptions,
+      int? selectedLegendType,
+      int? selectedActiveType,
+      Country? selectedCountry,
+      CategoryType? selectedCategoryType,
+      Category? selectedCategory}) {
     return CompetitorsFilterState(
         countryOptions: countryOptions ?? this.countryOptions,
+        categoryTypeOptions: categoryTypeOptions ?? this.categoryTypeOptions,
+        categoryOptions: categoryOptions ?? this.categoryOptions,
         selectedLegendType: selectedLegendType ?? this.selectedLegendType,
         selectedActiveType: selectedActiveType ?? this.selectedActiveType,
-        selectedCountry: selectedCountry ?? this.selectedCountry);
+        selectedCountry: selectedCountry ?? this.selectedCountry,
+        selectedCategoryType: selectedCategoryType ?? this.selectedCategoryType,
+        selectedCategory: selectedCategory ?? this.selectedCategory);
   }
 }

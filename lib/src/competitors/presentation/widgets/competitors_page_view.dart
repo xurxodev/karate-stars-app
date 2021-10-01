@@ -53,7 +53,7 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
     final orientation = MediaQuery.of(context).orientation;
 
     if (state.data.isEmpty) {
-      return const NotificationMessage(Strings.news_empty_message);
+      return const NotificationMessage(Strings.competitor_empty_message);
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
@@ -82,7 +82,7 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
                 ),
                 onRefresh: () => bloc.refresh()),
             onNotification: (notification) {
-              //bloc.registerInteraction();
+              bloc.registerInteraction();
               return true;
             },
           ));

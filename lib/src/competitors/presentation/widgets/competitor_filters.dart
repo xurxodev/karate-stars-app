@@ -37,6 +37,20 @@ class CompetitorFilters extends StatelessWidget {
         ? Option(state.selectedCountry!.id, state.selectedCountry!.name)
         : null;
 
+    final categoryTypeOptions = state.categoryTypeOptions
+        .map((item) => Option(item.id, item.name))
+        .toList();
+    final selectedCategoryTypeOption = state.selectedCategoryType != null
+        ? Option(state.selectedCategoryType!.id, state.selectedCategoryType!.name)
+        : null;
+
+    final categoryOptions = state.categoryOptions
+        .map((item) => Option(item.id, item.name))
+        .toList();
+    final selectedCategoryOption = state.selectedCategory != null
+        ? Option(state.selectedCategory!.id, state.selectedCategory!.name)
+        : null;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,20 +77,52 @@ class CompetitorFilters extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         FilterGroup(
-            label: Strings.competitor_filters_country_label,
-            child: Container(
-              width: double.infinity,
-              child: PlatformDropdown(
-                options: countryOptions,
-                value: selectedCountryOption,
-                onChanged: (Option? option) {
-                  bloc.filter(
-                      selectedCountry: state.countryOptions
-                          .firstWhere((country) => country.id == option?.id));
-                },
-                hint: Strings.competitor_filters_country_hint,
-              ),
-            )),
+          label: Strings.competitor_filters_country_label,
+          child: Container(
+            width: double.infinity,
+            child: PlatformDropdown(
+              options: countryOptions,
+              value: selectedCountryOption,
+              onChanged: (Option? option) {
+                bloc.filter(
+                    selectedCountry: state.countryOptions
+                        .firstWhere((country) => country.id == option?.id));
+              },
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        FilterGroup(
+          label: Strings.competitor_filters_category_type_label,
+          child: Container(
+            width: double.infinity,
+            child: PlatformDropdown(
+              options: categoryTypeOptions,
+              value: selectedCategoryTypeOption,
+              onChanged: (Option? option) {
+                bloc.filter(
+                    selectedCategoryType: state.categoryTypeOptions
+                        .firstWhere((item) => item.id == option?.id));
+              },
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        FilterGroup(
+          label: Strings.competitor_filters_category_label,
+          child: Container(
+            width: double.infinity,
+            child: PlatformDropdown(
+              options: categoryOptions,
+              value: selectedCategoryOption,
+              onChanged: (Option? option) {
+                bloc.filter(
+                    selectedCategory: state.categoryOptions
+                        .firstWhere((item) => item.id == option?.id));
+              },
+            ),
+          ),
+        ),
       ],
     );
   }

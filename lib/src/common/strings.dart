@@ -19,6 +19,8 @@ class Strings {
   static const String competitor_filters_type_label = 'Type';
   static const String competitor_filters_active_label= 'Active';
   static const String competitor_filters_country_label = 'Country';
+  static const String competitor_filters_category_type_label = 'Category Type';
+  static const String competitor_filters_category_label = 'Category';
   static const String competitor_empty_message = 'There are no competitors';
 
 

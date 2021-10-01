@@ -18,9 +18,10 @@ void initAll(
 }
 
 void initBlocAndUseCases() {
-  getIt.registerFactory(() => CompetitorsBloc(getIt(),getIt(), getIt()));
+  getIt.registerFactory(
+      () => CompetitorsBloc(getIt(), getIt(), getIt(), getIt(), getIt()));
 
-  getIt.registerLazySingleton(() => GetCompetitorsUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetCompetitorsUseCase(getIt(), getIt()));
 }
 
 void _initDataDI(

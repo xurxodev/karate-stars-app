@@ -1,5 +1,9 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:karate_stars_app/src/categories/category_di.dart'
+as category_di;
+import 'package:karate_stars_app/src/category_types/category_types_di.dart'
+as category_types_di;
 import 'package:karate_stars_app/src/common/analytics/firebase_analytics_service.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/database.dart';
@@ -39,6 +43,8 @@ Future<void> init() async {
   news_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
   competitors_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
   countries_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
+  category_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
+  category_types_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
 }
 
 void initWithoutDataDependencies() {
@@ -48,6 +54,8 @@ void initWithoutDataDependencies() {
   news_di.initBlocAndUseCases();
   competitors_di.initBlocAndUseCases();
   countries_di.initBlocAndUseCases();
+  category_di.initBlocAndUseCases();
+  category_types_di.initBlocAndUseCases();
 }
 
 void initNoDataAppDependencies() {
