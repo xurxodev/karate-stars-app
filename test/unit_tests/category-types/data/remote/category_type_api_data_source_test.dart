@@ -23,5 +23,5 @@ void expectFirstItem(CategoryType categoryType) {
 
 void main() {
   executeRemoteDataSourceTests('category-types', remoteDataSourceFactory,
-      getCategoryTypes, expectFirstItem);
+      getCategoryTypesResponse, expectFirstItem);
 }
