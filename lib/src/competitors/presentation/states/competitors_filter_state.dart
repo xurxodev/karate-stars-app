@@ -1,4 +1,5 @@
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/countries/domain/entities/country.dart';
 
 class CompetitorsFilterState {
   final Map<int, String> legendTypeOptions = {
@@ -13,22 +14,26 @@ class CompetitorsFilterState {
     2: Strings.competitor_filters_inactive
   };
 
+  final List<Country> countryOptions;
 /*  final List<String> categoryOptions;
-  final List<String> countryOptions;*/
+  */
 
   final int selectedLegendType;
   final int selectedActiveType;
+  final Country? selectedCountry;
 
-/*  final int selectedCountry;
+/*
   final int selectedCategory;*/
 
   CompetitorsFilterState(
-      {this.selectedLegendType = 0, this.selectedActiveType = 0});
+      {required this.countryOptions, this.selectedLegendType = 0, this.selectedActiveType = 0, this.selectedCountry});
 
   CompetitorsFilterState copyWith(
-      {int? selectedLegendType, int? selectedActiveType}) {
+      {List<Country>? countryOptions , int? selectedLegendType, int? selectedActiveType, Country? selectedCountry}) {
     return CompetitorsFilterState(
+        countryOptions: countryOptions ?? this.countryOptions,
         selectedLegendType: selectedLegendType ?? this.selectedLegendType,
-        selectedActiveType: selectedActiveType ?? this.selectedActiveType);
+        selectedActiveType: selectedActiveType ?? this.selectedActiveType,
+        selectedCountry: selectedCountry ?? this.selectedCountry);
   }
 }

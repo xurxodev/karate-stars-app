@@ -1,24 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_widget.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 
-class PlatformAlertDialog extends StatelessWidget {
+class PlatformAlertDialog
+    extends PlatformWidget<CupertinoAlertDialog, AlertDialog> {
   final String title;
   final Widget content;
 
-  const PlatformAlertDialog({required this.title, required this.content});
+  PlatformAlertDialog({required this.title, required this.content});
 
   @override
-  Widget build(BuildContext context) {
-    if (Theme.of(context).platform == TargetPlatform.iOS) {
-      return _cupertinoAlertDialog(context);
-    } else {
-      return _materialAlertDialog(context);
-    }
-  }
-
-  Widget _materialAlertDialog(BuildContext context) {
+  AlertDialog createAndroidWidget(BuildContext context) {
+    print ('AlertDialog');
     return AlertDialog(
       key: const Key(Keys.alert_dialog),
       title: Padding(
@@ -42,11 +37,14 @@ class PlatformAlertDialog extends StatelessWidget {
     );
   }
 
-  Widget _cupertinoAlertDialog(BuildContext context) {
+  @override
+  CupertinoAlertDialog createIosWidget(BuildContext context) {
+    print ('CupertinoAlertDialog');
     return CupertinoAlertDialog(
         key: const Key(Keys.alert_dialog),
         title: Padding(
-            padding: const EdgeInsets.only(bottom: 16.0), child: Text(title)),
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Text(title, style: Theme.of(context).textTheme.headline6)),
         content: content,
         actions: [
           CupertinoDialogAction(
@@ -57,7 +55,7 @@ class PlatformAlertDialog extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .button!
-                    .copyWith(color: Colors.red),
+                    .copyWith(color: Theme.of(context).colorScheme.secondary),
               ),
               onPressed: () {
                 Navigator.of(context).pop();

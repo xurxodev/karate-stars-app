@@ -7,6 +7,7 @@ class Strings {
   static const news_filters_title = 'News Filter';
   static const String news_filters_current = 'News';
   static const String news_filters_social = 'Social';
+  static const String news_filters_type_label = 'Type';
   static const String news_empty_message = 'There are no news';
 
   static const competitor_filters_title = 'Competitors Filter';
@@ -14,7 +15,12 @@ class Strings {
   static const String competitor_filters_legends = 'Legends';
   static const String competitor_filters_active = 'Active';
   static const String competitor_filters_inactive = 'Inactive';
+  static const String competitor_filters_country_hint = 'Select country ...';
+  static const String competitor_filters_type_label = 'Type';
+  static const String competitor_filters_active_label= 'Active';
+  static const String competitor_filters_country_label = 'Country';
   static const String competitor_empty_message = 'There are no competitors';
+
 
   static const String default_filters_all = 'All';
   static const String ok = 'OK';

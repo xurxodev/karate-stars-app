@@ -134,7 +134,7 @@ class NewsContent {
   }
 
   Future<void> _openFilterDialog() async {
-    final filterButtonFinder = find.byValueKey(Keys.home_filter);
+    final filterButtonFinder = find.byValueKey(Keys.news_filter_action);
 
     await _driver.tap(filterButtonFinder);
     await _driver.waitFor(alertDialogFinder);

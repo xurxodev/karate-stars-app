@@ -10,6 +10,8 @@ class GetCountriesUseCase {
   Future<List<Country>> execute(ReadPolicy readPolicy) async {
     final countries = await _countryRepository.getAll(readPolicy);
 
+    countries.sort((a, b) => a.name.compareTo(b.name));
+
     return countries;
   }
 }

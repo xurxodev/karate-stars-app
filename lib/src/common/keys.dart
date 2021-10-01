@@ -4,7 +4,6 @@ class Keys {
   static const String home_competitors_tab = 'competitor_tab';
   static const String home_videos_tab = 'videos_tab';
   static const String home_settings_tab = 'settings_tab';
-  static const String home_filter = 'home_filter';
 
   static const String news_page_view = 'news_page_view';
   static const String news_items_parent = 'news_items_parent';
@@ -13,9 +12,11 @@ class Keys {
   static const String news_item_source = 'source';
   static const String news_item_social_badge = 'social_badge';
   static const String news_item_social_username = 'social_username';
+  static const String news_filter_action = 'news_filter_action';
 
   static const String competitors_page_view = 'competitors_page_view';
   static const String competitors_item = 'competitor_item';
+  static const String competitor_filter_action = 'competitor_filter_action';
 
   static const String videos_page_view = 'videos_page_view';
 

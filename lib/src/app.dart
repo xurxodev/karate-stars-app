@@ -12,18 +12,15 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: title,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          brightness: Brightness.light,
-          primaryIconTheme: const IconThemeData(color: Colors.red),
-          scaffoldBackgroundColor: Colors.grey[300],
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: whiteMaterial)
-              .copyWith(secondary: Colors.red, brightness: Brightness.light)),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primaryIconTheme: const IconThemeData(color: Colors.red),
-        colorScheme: ColorScheme.fromSwatch()
-            .copyWith(secondary: Colors.red, brightness: Brightness.dark),
+      theme: ThemeData.light().copyWith(
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: whiteMaterial)
+            .copyWith(secondary: Colors.red),
+        scaffoldBackgroundColor: Colors.grey[300],
       ),
+      darkTheme: ThemeData.dark().copyWith(
+          colorScheme:
+              const ColorScheme.dark().copyWith(secondary: Colors.red)),
+      themeMode: ThemeMode.system,
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => HomePage.create(),

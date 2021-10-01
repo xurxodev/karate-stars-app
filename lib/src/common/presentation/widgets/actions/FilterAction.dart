@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/common/keys.dart';
 
 class FilterAction extends StatelessWidget {
   final VoidCallback? onPressed;
+  final String? tooltip;
 
-  const FilterAction({this.onPressed});
+  const FilterAction({Key? key, this.tooltip, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        key: const Key(Keys.home_filter),
+        tooltip: tooltip,
         icon: const Icon(Icons.filter_list),
         onPressed: onPressed);
   }

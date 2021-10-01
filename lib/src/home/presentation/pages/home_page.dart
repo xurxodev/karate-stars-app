@@ -4,7 +4,7 @@ import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/actions/FilterAction.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/platform_alert_dialog.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/competitor_filters.dart';
@@ -148,6 +148,8 @@ class _HomePageState extends State<HomePage> {
     if (_currentTab == 0) {
       return [
         FilterAction(
+          key: const Key(Keys.news_filter_action),
+          tooltip: Strings.news_filters_title,
           onPressed: () {
             final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
 
@@ -162,6 +164,8 @@ class _HomePageState extends State<HomePage> {
     } else if (_currentTab == 1) {
       return [
         FilterAction(
+          key: const Key(Keys.competitor_filter_action),
+          tooltip: Strings.competitor_filters_title,
           onPressed: () {
             final CompetitorsBloc bloc = BlocProvider.of<CompetitorsBloc>(context);
 

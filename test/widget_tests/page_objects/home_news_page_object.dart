@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -83,7 +85,7 @@ class HomeNewsPageObject {
   }
 
   Future<void> filterByCurrentNews() async {
-    await _openFilterDialog();
+    await _openFilterDialogByKey(Keys.news_filter_action);
 
     await _tester.tap(find.text(Strings.news_filters_current));
 
@@ -91,7 +93,7 @@ class HomeNewsPageObject {
   }
 
   Future<void> filterBySocialNews() async {
-    await _openFilterDialog();
+    await _openFilterDialogByKey(Keys.news_filter_action);
 
     await _tester.tap(find.text(Strings.news_filters_social));
 
@@ -99,15 +101,15 @@ class HomeNewsPageObject {
   }
 
   Future<void> filterByAllNews() async {
-    await _openFilterDialog();
+    await _openFilterDialogByKey(Keys.news_filter_action);
 
     await _tester.tap(find.text(Strings.default_filters_all));
 
     await _closeFilterDialog();
   }
 
-  Future<void> _openFilterDialog() async {
-    await _tester.tap(find.byKey(const Key(Keys.home_filter)));
+  Future<void> _openFilterDialogByKey(String key) async {
+    await _tester.tap(find.byKey(Key(key)));
     await _tester.pumpAndSettle();
   }
 

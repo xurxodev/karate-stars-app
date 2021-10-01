@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
@@ -23,7 +24,7 @@ void main() {
         final home = HomePageObject(tester);
         await home.open();
 
-        home.expectIsVisible(Keys.home_filter, true);
+        expect(find.byIcon(Icons.filter_list), findsOneWidget);
       });
       testWidgets('should has news page view visible by default',
           (WidgetTester tester) async {
@@ -50,7 +51,7 @@ void main() {
 
         await home.tapOnTab(Keys.home_competitors_tab);
 
-        home.expectIsVisible(Keys.home_filter, false);
+        expect(find.byIcon(Icons.filter_list), findsOneWidget);
       });
       testWidgets('should has competitors page view visible',
           (WidgetTester tester) async {
@@ -80,7 +81,7 @@ void main() {
 
       await home.tapOnTab(Keys.home_videos_tab);
 
-      home.expectIsVisible(Keys.home_filter, false);
+      expect(find.byIcon(Icons.filter_list), findsNothing);
     });
 
     testWidgets('should has videos page view visible',
@@ -110,7 +111,7 @@ void main() {
 
       await home.tapOnTab(Keys.home_settings_tab);
 
-      home.expectIsVisible(Keys.home_filter, false);
+      expect(find.byIcon(Icons.filter_list), findsNothing);
     });
     testWidgets('should has settings page view visible',
         (WidgetTester tester) async {

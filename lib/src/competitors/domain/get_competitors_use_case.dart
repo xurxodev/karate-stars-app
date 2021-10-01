@@ -17,11 +17,12 @@ class GetCompetitorsUseCase {
             (competitorsFilter.legendFilter == null ||
                 competitor.isLegend == competitorsFilter.legendFilter) &&
             (competitorsFilter.activeFilter == null ||
-                competitor.isActive == competitorsFilter.activeFilter))
+                competitor.isActive == competitorsFilter.activeFilter) &&
+            (competitorsFilter.countryId == null ||
+                competitor.countryId == competitorsFilter.countryId))
         .toList();
 
-    filteredCompetitors.sort(
-            (a, b) => b.lastName.compareTo(a.lastName));
+    filteredCompetitors.sort((a, b) => a.lastName.compareTo(b.lastName));
 
     return filteredCompetitors;
   }
