@@ -1,3 +1,5 @@
+import 'package:karate_stars_app/src/categories/domain/boundaries/category_repository.dart';
+import 'package:karate_stars_app/src/category_types/domain/boundaries/category_type_repository.dart';
 import 'package:karate_stars_app/src/competitors/domain/boundaries/competitor_repository.dart';
 import 'package:karate_stars_app/src/countries/domain/boundaries/country_repository.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
@@ -11,3 +13,7 @@ class MockSocialNewsRepository extends Mock implements SocialNewsRepository {}
 class MockCompetitorRepository extends Mock implements CompetitorRepository {}
 
 class MockCountryRepository extends Mock implements CountryRepository {}
+
+class MockCategoryTypeRepository extends Mock implements CategoryTypeRepository {}
+
+class MockCategoryRepository extends Mock implements CategoryRepository {}
