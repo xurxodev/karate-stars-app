@@ -1,20 +1,18 @@
-import 'dart:io' show Platform;
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-abstract class PlatformWidget<I extends Widget, A extends Widget> extends StatelessWidget {
-
+abstract class PlatformWidget<I extends Widget, A extends Widget>
+    extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if(Platform.isAndroid) {
-      return createAndroidWidget(context);
-    } else  {
+    if (Theme.of(context).platform == TargetPlatform.iOS) {
       return createIosWidget(context);
+    } else {
+      return createAndroidWidget(context);
     }
   }
 
   I createIosWidget(BuildContext context);
 
   A createAndroidWidget(BuildContext context);
-
 }

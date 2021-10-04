@@ -27,7 +27,7 @@ class PlatformDropdown extends PlatformWidget<CupertinoButton, DropdownButton> {
   final String? hint;
 
   PlatformDropdown(
-      {required this.options, required this.onChanged, this.value, this.hint});
+      {required this.options, this.onChanged, this.value, this.hint});
 
   @override
   DropdownButton createAndroidWidget(BuildContext context) {
