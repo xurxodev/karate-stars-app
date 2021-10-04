@@ -14,7 +14,7 @@ class VideoPlayer extends StatefulWidget {
 
 class _VideoPlayerState extends State<VideoPlayer> {
   late VideoPlayerController _controller;
-  late ChewieController _chewieController;
+   ChewieController? _chewieController;
 
   @override
   void initState() {
@@ -37,23 +37,30 @@ class _VideoPlayerState extends State<VideoPlayer> {
         deviceOrientationsAfterFullScreen: [
           DeviceOrientation.portraitUp,
           DeviceOrientation.portraitDown
-        ],
-        placeholder: const Center(
-          child: CircularProgressIndicator(),
-        ));
+        ]);
   }
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
         aspectRatio: _controller.value.aspectRatio,
-        child: Chewie(controller: _chewieController));
+        child: _chewieController != null &&
+                _chewieController!.videoPlayerController.value.isInitialized
+            ? Chewie(controller: _chewieController!)
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 20),
+                  Text('Loading'),
+                ],
+              ));
   }
 
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
-    _chewieController.dispose();
+    _chewieController?.dispose();
   }
 }
