@@ -6,6 +6,7 @@ import 'package:mock_web_server/mock_web_server.dart';
 const getCurrentNewsResponse = '/get_current_news_response.json';
 const getSocialNewsResponse = '/get_social_news_response.json';
 const getCompetitorsResponse = '/get_competitors_response.json';
+const getVideosResponse = '/get_videos_response.json';
 const getCountriesResponse = '/get_countries_response.json';
 const getCategoryTypesResponse = '/get_category_types_response.json';
 const getCategoriesResponse = '/get_categories_response.json';
