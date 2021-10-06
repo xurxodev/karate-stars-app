@@ -141,8 +141,8 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
               ? state.filters.selectedCategory?.id
               : null);
 
-      final competitors =
-          await _getCompetitorsUseCase.execute(readPolicy, competitorsFilter);
+      final competitors = await _getCompetitorsUseCase.execute(readPolicy,
+          competitorsFilter: competitorsFilter);
 
       final competitorItems = competitors.map((competitor) {
         final country = countries

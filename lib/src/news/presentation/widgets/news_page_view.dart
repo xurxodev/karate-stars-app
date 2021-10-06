@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
@@ -41,9 +42,7 @@ class _NewsPageViewState extends State<NewsPageView>
 
         if (state != null) {
           if (state.listState is LoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return Progress();
           } else if (state.listState is ErrorState) {
             final listState = state.listState as ErrorState;
             return Center(

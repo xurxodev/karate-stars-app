@@ -1,12 +1,18 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayer extends StatefulWidget {
   final String videoUrl;
+  final bool fullScreenByDefault;
+  final bool autoPlay;
 
-  const VideoPlayer({required this.videoUrl});
+  const VideoPlayer(
+      {required this.videoUrl,
+      this.fullScreenByDefault = false,
+      this.autoPlay = false});
 
   @override
   _VideoPlayerState createState() => _VideoPlayerState();
@@ -14,7 +20,7 @@ class VideoPlayer extends StatefulWidget {
 
 class _VideoPlayerState extends State<VideoPlayer> {
   late VideoPlayerController _controller;
-   ChewieController? _chewieController;
+  ChewieController? _chewieController;
 
   @override
   void initState() {
@@ -34,6 +40,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
     _chewieController = ChewieController(
         videoPlayerController: _controller,
+        fullScreenByDefault: widget.fullScreenByDefault,
+        autoPlay: widget.autoPlay,
         deviceOrientationsAfterFullScreen: [
           DeviceOrientation.portraitUp,
           DeviceOrientation.portraitDown
@@ -42,19 +50,12 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-        aspectRatio: _controller.value.aspectRatio,
-        child: _chewieController != null &&
-                _chewieController!.videoPlayerController.value.isInitialized
-            ? Chewie(controller: _chewieController!)
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 20),
-                  Text('Loading'),
-                ],
-              ));
+    return _chewieController != null &&
+            _chewieController!.videoPlayerController.value.isInitialized
+        ? AspectRatio(
+            aspectRatio: _controller.value.aspectRatio,
+            child: Chewie(controller: _chewieController!))
+        : Progress();
   }
 
   @override

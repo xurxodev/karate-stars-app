@@ -41,17 +41,6 @@ class ItemCompetitor extends StatelessWidget {
                       imageUrl: competitor.flag),
                 )))
       ],
-    )
-
-        /* Positioned(
-            bottom: 0,
-            child: ListTile(
-              title: Text(competitor.name),
-              trailing: CachedNetworkImage(
-                height: 20,
-                imageUrl: 'http://www.karatestarsapp.com/app/flags/es.png',
-              ),
-            )),*/
-        ;
+    );
   }
 }

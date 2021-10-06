@@ -12,6 +12,12 @@ class CompetitorsFilterEvent extends AnalyticsEvent {
   }
 }
 
+class VideosFilterEvent extends AnalyticsEvent {
+  VideosFilterEvent(String searchTerm) : super('videos_filter') {
+    params['filters'] = searchTerm;
+  }
+}
+
 class NewsFilterEvent extends AnalyticsEvent {
   NewsFilterEvent(String newsType) : super('news_filter') {
     params['filters'] = 'type: $newsType';

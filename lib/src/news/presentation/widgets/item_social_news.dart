@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/common/presentation/functions/url.dart'
 import 'package:karate_stars_app/src/common/presentation/widgets/twitter_icon.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
-import 'package:karate_stars_app/src/videos/widgets/video_player.dart';
+import 'package:karate_stars_app/src/videos/presentation/widgets/video_player.dart';
 
 class ItemSocialNews extends ItemNews {
   final SocialNews socialNews;

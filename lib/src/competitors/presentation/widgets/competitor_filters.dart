@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/filters/FilterGroup.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/filters/SegmentedFilter.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_dropdown.dart';

@@ -13,7 +13,8 @@ import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
 import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
-import 'package:karate_stars_app/src/videos/widgets/videos_page_view.dart';
+import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
+import 'package:karate_stars_app/src/videos/presentation/widgets/videos_page_view.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/';
@@ -25,7 +26,9 @@ class HomePage extends StatefulWidget {
     return BlocProvider(
         bloc: app_di.getIt<NewsBloc>(),
         child: BlocProvider(
-            bloc: app_di.getIt<CompetitorsBloc>(), child: const HomePage()));
+            bloc: app_di.getIt<CompetitorsBloc>(),
+            child: BlocProvider(
+                bloc: app_di.getIt<VideosBloc>(), child: const HomePage())));
   }
 
   @override
@@ -167,7 +170,8 @@ class _HomePageState extends State<HomePage> {
           key: const Key(Keys.competitor_filter_action),
           tooltip: Strings.competitor_filters_title,
           onPressed: () {
-            final CompetitorsBloc bloc = BlocProvider.of<CompetitorsBloc>(context);
+            final CompetitorsBloc bloc =
+                BlocProvider.of<CompetitorsBloc>(context);
 
             showDialog(
                 context: context,

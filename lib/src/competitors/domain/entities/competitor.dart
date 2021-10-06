@@ -14,6 +14,10 @@ class Competitor {
   final List<CompetitorLink> links;
   final List<Achievement> achievements;
 
+  String fullName () {
+    return '$firstName $lastName';
+  }
+
   Competitor(this.identifier,
       this.firstName,
       this.lastName,

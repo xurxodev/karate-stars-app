@@ -12,7 +12,7 @@ class GetCompetitorsUseCase {
   GetCompetitorsUseCase(this._competitorRepository, this._categoryRepository);
 
   Future<List<Competitor>> execute(
-      ReadPolicy readPolicy, CompetitorsFilter competitorsFilter) async {
+      ReadPolicy readPolicy, {CompetitorsFilter? competitorsFilter}) async {
     final competitors = await _competitorRepository.getAll(readPolicy);
     final categories = await _categoryRepository.getAll(readPolicy);
 
@@ -20,16 +20,16 @@ class GetCompetitorsUseCase {
         .where((competitor) {
       final competitorCategory = categories.firstWhereOrNull((element) => element.id == competitor.categoryId);
 
-      return (competitorsFilter.legendFilter == null ||
-          competitor.isLegend == competitorsFilter.legendFilter) &&
-          (competitorsFilter.activeFilter == null ||
-              competitor.isActive == competitorsFilter.activeFilter) &&
-          (competitorsFilter.countryId == null ||
-              competitor.countryId == competitorsFilter.countryId) &&
-          (competitorsFilter.categoryTypeId == null || (competitorCategory != null &&
-              competitorCategory.typeId == competitorsFilter.categoryTypeId)) &&
-          (competitorsFilter.categoryId == null ||
-              competitor.categoryId == competitorsFilter.categoryId);
+      return (competitorsFilter?.legendFilter == null ||
+          competitor.isLegend == competitorsFilter?.legendFilter) &&
+          (competitorsFilter?.activeFilter == null ||
+              competitor.isActive == competitorsFilter?.activeFilter) &&
+          (competitorsFilter?.countryId == null ||
+              competitor.countryId == competitorsFilter?.countryId) &&
+          (competitorsFilter?.categoryTypeId == null || (competitorCategory != null &&
+              competitorCategory.typeId == competitorsFilter?.categoryTypeId)) &&
+          (competitorsFilter?.categoryId == null ||
+              competitor.categoryId == competitorsFilter?.categoryId);
         })
         .toList();
 
