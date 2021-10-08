@@ -5,10 +5,19 @@ abstract class PlatformWidget<I extends Widget, A extends Widget>
     extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if (Theme.of(context).platform == TargetPlatform.iOS) {
+    switch (Theme.of(context).platform) {
+      case TargetPlatform.android:
+      case TargetPlatform.fuchsia:
+      case TargetPlatform.windows:
+        return createAndroidWidget(context);
+
+      case TargetPlatform.macOS:
+      case TargetPlatform.linux:
+      case TargetPlatform.iOS:
       return createIosWidget(context);
-    } else {
-      return createAndroidWidget(context);
+
+      default:
+        return createAndroidWidget(context);
     }
   }
 

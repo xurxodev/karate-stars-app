@@ -6,6 +6,7 @@ import 'scenarios_category_types.dart';
 import 'scenarios_competitors.dart';
 import 'scenarios_countries.dart';
 import 'scenarios_news.dart';
+import 'scenarios_videos.dart';
 
 Future<void> givenThereAreNoData() async {
   await app_di.reset();
@@ -16,7 +17,7 @@ Future<void> givenThereAreNoData() async {
   givenThereAreNoCountries();
   givenThereAreNoCategoryTypes();
   givenThereAreNoCategories();
-
+  givenThereAreNoVideos();
 }
 
 Future<void> givenThereAreOnlyNewsAndThrowNetworkException() async {
@@ -28,6 +29,7 @@ Future<void> givenThereAreOnlyNewsAndThrowNetworkException() async {
   givenThereAreNoCountries();
   givenThereAreNoCategoryTypes();
   givenThereAreNoCategories();
+  givenThereAreNoVideos();
 }
 
 Future<List<News>> givenThereAreOnlyNews() async {
@@ -38,6 +40,7 @@ Future<List<News>> givenThereAreOnlyNews() async {
   givenThereAreNoCountries();
   givenThereAreNoCategoryTypes();
   givenThereAreNoCategories();
+  givenThereAreNoVideos();
 
   return givenThereAreNews();
 }

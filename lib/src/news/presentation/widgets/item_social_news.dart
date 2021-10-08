@@ -27,7 +27,7 @@ class ItemSocialNews extends ItemNews {
         onTap: () => url_helper.launchURL(context,
             url_helper.createTwitterURL('@${socialNews.user.userName}')),
         child: ListTile(
-          leading: _avatar(),
+          leading: _avatar(context),
           title: Text(socialNews.user.name,
               key: Key('${itemTextKey}_${Keys.news_item_source}')),
           trailing: Text(
@@ -87,7 +87,7 @@ class ItemSocialNews extends ItemNews {
     }
   }
 
-  Widget _avatar() {
+  Widget _avatar(BuildContext context) {
     if (socialNews.user.image.isNotEmpty) {
       return CircleAvatar(
           backgroundImage: CachedNetworkImageProvider(socialNews.user.image));

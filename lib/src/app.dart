@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:karate_stars_app/src/common/custom_colors.dart';
 import 'package:karate_stars_app/src/home/presentation/pages/home_page.dart';
+import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 
 class App extends StatelessWidget {
   static const String title = 'Karate Stars';
@@ -24,6 +25,7 @@ class App extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => HomePage.create(),
+        VideoPlayerPage.routeName: (context) => const VideoPlayerPage()
       },
     );
   }

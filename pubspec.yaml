@@ -23,6 +23,7 @@ dependencies:
   liquid_pull_to_refresh: ^3.0.0
   share: ^2.0.4
   video_player: ^2.1.15
+  youtube_player_flutter: ^8.0.0
 dev_dependencies:
   build_runner: ^2.1.2
   floor_generator: ^1.1.0
