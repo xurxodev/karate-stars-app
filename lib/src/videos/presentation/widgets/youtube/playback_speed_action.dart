@@ -42,12 +42,12 @@ class _PlaybackSpeedActionState extends State<PlaybackSpeedAction> {
   Widget build(BuildContext context) {
     return PopupMenuButton<double>(
       onSelected: _controller.setPlaybackRate,
-      iconSize: 20.0,
+      iconSize: 18.0,
       padding: const EdgeInsets.all(0.0),
       child: Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 0.0),
+          padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
           child: widget.icon ??
-              const Icon(Icons.speed, size: 15.0, color: Colors.white)),
+              const Icon(Icons.speed, size: 18.0, color: Colors.white)),
       tooltip: 'PlayBack Rate',
       itemBuilder: (context) => [
         _popUpItem('2.0x', PlaybackRate.twice),

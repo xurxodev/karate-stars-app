@@ -51,8 +51,8 @@ class _FullScreenActionState extends State<FullScreenAction> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      iconSize: 15.0,
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 10.0),
+      iconSize: 18.0,
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
       constraints: const BoxConstraints(),
       icon: Icon(
         _controller.value.isFullScreen
