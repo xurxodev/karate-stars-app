@@ -19,6 +19,7 @@ class Keys {
   static const String competitor_filter_action = 'competitor_filter_action';
 
   static const String videos_page_view = 'videos_page_view';
+  static const String video_filter_action = 'video_filter_action';
 
   static const String settings_page_view = 'settings_page_view';
 

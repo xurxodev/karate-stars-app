@@ -14,6 +14,7 @@ import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart'
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
 import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
+import 'package:karate_stars_app/src/videos/presentation/widgets/videos_filters.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_page_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -182,7 +183,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ];
     } else if (_currentTab == 2) {
-      return [];
+      return [
+        FilterAction(
+          key: const Key(Keys.video_filter_action),
+          tooltip: Strings.videos_filters_title,
+          onPressed: () {
+            final VideosBloc bloc = BlocProvider.of<VideosBloc>(context);
+
+            showDialog(
+                context: context,
+                builder: (_) => PlatformAlertDialog(
+                    title: Strings.videos_filters_title,
+                    content: VideosFilters(bloc: bloc)));
+          },
+        ),
+      ];
     } else {
       return [];
     }
