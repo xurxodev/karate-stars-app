@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
-import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 
 class ItemVideo extends StatelessWidget {
   final Video video;
+  final GestureTapCallback? onTap;
 
-  const ItemVideo(this.video);
+  const ItemVideo({required this.video, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +18,7 @@ class ItemVideo extends StatelessWidget {
           borderRadius: const BorderRadius.all(radius),
         ),
         child: GestureDetector(
-          onTap: () async {
-
-
-
-            Navigator.pushNamed(
-            context,
-            VideoPlayerPage.routeName,
-            arguments: video.links[0]);
-          },
+          onTap: onTap ,
           child: ListTile(
             title: Text(video.title),
             subtitle: Text('${video.subtitle} \n${video.description}'),

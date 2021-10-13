@@ -25,7 +25,7 @@ class App extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => HomePage.create(),
-        VideoPlayerPage.routeName: (context) => const VideoPlayerPage()
+        VideoPlayerPage.routeName: (context) => VideoPlayerPage.create()
       },
     );
   }

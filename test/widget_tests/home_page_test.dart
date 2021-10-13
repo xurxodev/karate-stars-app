@@ -45,7 +45,7 @@ void main() {
         home.expectTitle(Strings.home_appbar_title_competitors);
       });
 
-      testWidgets('should not show filter button', (WidgetTester tester) async {
+      testWidgets('should show filter button', (WidgetTester tester) async {
         final home = HomePageObject(tester);
         await home.open();
 
@@ -75,13 +75,13 @@ void main() {
       home.expectTitle(Strings.home_appbar_title_videos);
     });
 
-    testWidgets('should not show filter button', (WidgetTester tester) async {
+    testWidgets('should show filter button', (WidgetTester tester) async {
       final home = HomePageObject(tester);
       await home.open();
 
       await home.tapOnTab(Keys.home_videos_tab);
 
-      expect(find.byIcon(Icons.filter_list), findsNothing);
+      expect(find.byIcon(Icons.filter_list), findsOneWidget);
     });
 
     testWidgets('should has videos page view visible',

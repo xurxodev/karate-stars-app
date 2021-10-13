@@ -7,6 +7,7 @@ import 'package:karate_stars_app/src/common/presentation/widgets/notification_me
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
+import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/states/videos_state.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -48,7 +49,6 @@ class _VideosPageViewState extends State<VideosPageView> {
 
   Widget _renderList(
       BuildContext context, LoadedState<List<Video>> state, VideosBloc bloc) {
-
     if (state.data.isEmpty) {
       return const NotificationMessage(Strings.videos_empty_message);
     } else {
@@ -67,7 +67,13 @@ class _VideosPageViewState extends State<VideosPageView> {
 
                     //final textKey = '${Keys.news_item}_$index';
 
-                    return ItemVideo(video); //, itemTextKey: textKey);
+                    return ItemVideo(
+                      video: video,
+                      onTap: () async {
+                        Navigator.pushNamed(context, VideoPlayerPage.routeName,
+                            arguments: video.id);
+                      },
+                    ); //, itemTextKey: textKey);
                   },
                 ),
                 onRefresh: () => bloc.refresh()),
