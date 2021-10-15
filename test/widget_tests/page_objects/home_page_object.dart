@@ -35,7 +35,7 @@ class HomePageObject {
     expectIsVisible(
         Keys.competitors_page_view, tabKey == Keys.competitors_page_view);
     expectIsVisible(Keys.videos_page_view, tabKey == Keys.videos_page_view);
-    expectIsVisible(Keys.settings_page_view, tabKey == Keys.settings_page_view);
+    expectIsVisible(Keys.search_page_view, tabKey == Keys.search_page_view);
   }
 
   void expectIsVisible(String keyValue, bool visible) {

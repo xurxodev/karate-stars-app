@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/RoundedCard.dart';
 import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
 
 class ItemVideo extends StatelessWidget {
@@ -11,14 +12,11 @@ class ItemVideo extends StatelessWidget {
   Widget build(BuildContext context) {
     const radius = Radius.circular(20.0);
 
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: const BorderRadius.all(radius),
-        ),
+    return RoundedCard(
+        elevation: 0.0,
+        borderRadius: const BorderRadius.all(radius),
         child: GestureDetector(
-          onTap: onTap ,
+          onTap: onTap,
           child: ListTile(
             title: Text(video.title),
             subtitle: Text('${video.subtitle} \n${video.description}'),

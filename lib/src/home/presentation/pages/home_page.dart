@@ -12,7 +12,7 @@ import 'package:karate_stars_app/src/competitors/presentation/widgets/competitor
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
-import 'package:karate_stars_app/src/settings/views/settings_page_view.dart';
+import 'package:karate_stars_app/src/search/views/search_page_view.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_filters.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_page_view.dart';
@@ -68,9 +68,9 @@ class _HomePageState extends State<HomePage> {
           controller: _pageController,
           children: const <Widget>[
             NewsPageView(),
+            SearchPageView(),
             CompetitorsPageView(),
             VideosPageView(),
-            SettingsPageView(),
           ],
           onPageChanged: (int index) {
             setState(() {
@@ -101,6 +101,12 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
+              Icons.search,
+              key: Key(Keys.home_search_tab),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
               Icons.person_outline,
               key: Key(Keys.home_competitors_tab),
             ),
@@ -109,12 +115,6 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(
               Icons.video_library,
               key: Key(Keys.home_videos_tab),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              key: Key(Keys.home_settings_tab),
             ),
           ),
         ],
@@ -128,11 +128,11 @@ class _HomePageState extends State<HomePage> {
     if (_currentTab == 0) {
       titleText = Strings.home_appbar_title_default;
     } else if (_currentTab == 1) {
-      titleText = Strings.home_appbar_title_competitors;
-    } else if (_currentTab == 2) {
-      titleText = Strings.home_appbar_title_videos;
-    } else {
       titleText = Strings.home_appbar_title_settings;
+    } else if (_currentTab == 2) {
+      titleText = Strings.home_appbar_title_competitors;
+    } else {
+      titleText = Strings.home_appbar_title_videos;
     }
     const Key titleKey = Key(Keys.home_appbar_title);
 
@@ -151,6 +151,9 @@ class _HomePageState extends State<HomePage> {
   List<cupertino.Widget> getActions() {
     if (_currentTab == 0) {
       return [
+        IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: (){}),
         FilterAction(
           key: const Key(Keys.news_filter_action),
           tooltip: Strings.news_filters_title,
@@ -165,7 +168,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ];
-    } else if (_currentTab == 1) {
+    } else if (_currentTab == 2) {
       return [
         FilterAction(
           key: const Key(Keys.competitor_filter_action),
@@ -182,7 +185,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ];
-    } else if (_currentTab == 2) {
+    } else if (_currentTab == 3) {
       return [
         FilterAction(
           key: const Key(Keys.video_filter_action),

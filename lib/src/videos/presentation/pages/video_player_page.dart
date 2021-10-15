@@ -12,16 +12,17 @@ import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart
 import 'package:karate_stars_app/src/videos/presentation/widgets/youtube/youtube_video_player.dart';
 
 class VideoPlayerPage extends StatefulWidget {
-  static Widget create() {
+
+  final String videoId;
+
+  const VideoPlayerPage({required this.videoId});
+
+  static Widget create(String videoId) {
     return BlocProvider(
-        bloc: app_di.getIt<VideoPlayerBloc>(), child: const VideoPlayerPage());
+        bloc: app_di.getIt<VideoPlayerBloc>(), child: VideoPlayerPage(videoId:videoId));
   }
 
   static const routeName = '/video';
-
-  const VideoPlayerPage({
-    Key? key,
-  }) : super(key: key);
 
   @override
   State<VideoPlayerPage> createState() => _VideoPlayerPage();
@@ -86,17 +87,15 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
                       child: Column(
                     children: [
                       player,
-              Container(
-              decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-             // borderRadius: const BorderRadius.all(radius),
-              ),
-              child:
-                      ListTile(
-                        title: Text( state.currentVideo!.title),
-                        subtitle: Text('${ state.currentVideo!.subtitle} \n${ state.currentVideo!.description}'),
-                        isThreeLine: true,
-                      )),
+                      Card(
+                          margin: const EdgeInsets.only(bottom: 16.0),
+                          elevation: 15.0,
+                          child: ListTile(
+                            title: Text(state.currentVideo!.title),
+                            subtitle: Text(
+                                '${state.currentVideo!.subtitle} \n${state.currentVideo!.description}'),
+                            isThreeLine: true,
+                          )),
                       Expanded(
                         child: ListView.builder(
                           padding: const EdgeInsets.symmetric(

@@ -18,6 +18,7 @@ dependencies:
   flutter_inappwebview: ^5.3.2
   flutter_parsed_text: ^2.2.1
   flutter_secure_storage: ^4.2.1
+  flutter_speed_dial: ^4.4.0+2
   get_it: ^7.2.0
   http: ^0.13.3
   liquid_pull_to_refresh: ^3.0.0

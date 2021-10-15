@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 import 'competitors_content.dart';
 import 'news_content.dart';
-import 'settings_content.dart';
+import 'search_content.dart';
 import 'videos_content.dart';
 
 class HomePageObject {
@@ -13,13 +13,13 @@ class HomePageObject {
   late NewsContent newsContent;
   late CompetitorsContent competitorsContent;
   late VideosContent videosContent;
-  late SettingsContent settingsContent;
+  late SearchContent settingsContent;
 
   HomePageObject(this._driver) {
     newsContent = NewsContent(_driver);
     competitorsContent = CompetitorsContent(_driver);
     videosContent = VideosContent(_driver);
-    settingsContent = SettingsContent(_driver);
+    settingsContent = SearchContent(_driver);
 
     _driver.waitUntilNoTransientCallbacks();
   }
@@ -38,5 +38,5 @@ class HomePageObject {
       _driver.tap(find.byValueKey(Keys.home_videos_tab));
 
   Future<void> gotoSettings() =>
-      _driver.tap(find.byValueKey(Keys.home_settings_tab));
+      _driver.tap(find.byValueKey(Keys.home_search_tab));
 }

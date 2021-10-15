@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/RoundedCard.dart';
 
 abstract class ItemNews extends StatelessWidget {
   const ItemNews({Key? key}) : super(key: key);
@@ -6,11 +7,10 @@ abstract class ItemNews extends StatelessWidget {
   @override
   @protected
   Widget build(BuildContext context) {
-    return Container(
+    return RoundedCard(
         margin: calculateMargin(context),
-        decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: const BorderRadius.all(Radius.circular(20.0))),
+        elevation: 0.0,
+        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
         child: buildContent(context));
   }
 

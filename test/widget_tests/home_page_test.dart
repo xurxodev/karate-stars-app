@@ -35,6 +35,35 @@ void main() {
       });
     });
 
+    group('to navigate to search', () {
+      testWidgets('should have correct title', (WidgetTester tester) async {
+        final home = HomePageObject(tester);
+        await home.open();
+
+        await home.tapOnTab(Keys.home_search_tab);
+
+        home.expectTitle(Strings.home_appbar_title_settings);
+      });
+
+      testWidgets('should not show filter button', (WidgetTester tester) async {
+        final home = HomePageObject(tester);
+        await home.open();
+
+        await home.tapOnTab(Keys.home_search_tab);
+
+        expect(find.byIcon(Icons.filter_list), findsNothing);
+      });
+      testWidgets('should has search page view visible',
+              (WidgetTester tester) async {
+            final home = HomePageObject(tester);
+            await home.open();
+
+            await home.tapOnTab(Keys.home_search_tab);
+
+            home.expectVisibleTabContent(Keys.search_page_view);
+          });
+    });
+
     group('to navigate to competitors', () {
       testWidgets('should have correct title', (WidgetTester tester) async {
         final home = HomePageObject(tester);
@@ -95,32 +124,5 @@ void main() {
     });
   });
 
-  group('to navigate to settings', () {
-    testWidgets('should have correct title', (WidgetTester tester) async {
-      final home = HomePageObject(tester);
-      await home.open();
 
-      await home.tapOnTab(Keys.home_settings_tab);
-
-      home.expectTitle(Strings.home_appbar_title_settings);
-    });
-
-    testWidgets('should not show filter button', (WidgetTester tester) async {
-      final home = HomePageObject(tester);
-      await home.open();
-
-      await home.tapOnTab(Keys.home_settings_tab);
-
-      expect(find.byIcon(Icons.filter_list), findsNothing);
-    });
-    testWidgets('should has settings page view visible',
-        (WidgetTester tester) async {
-      final home = HomePageObject(tester);
-      await home.open();
-
-      await home.tapOnTab(Keys.home_settings_tab);
-
-      home.expectVisibleTabContent(Keys.settings_page_view);
-    });
-  });
 }
