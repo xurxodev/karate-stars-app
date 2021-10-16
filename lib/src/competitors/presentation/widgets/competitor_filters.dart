@@ -31,27 +31,6 @@ class CompetitorFilters extends StatelessWidget {
 
   Widget _buildFilter(BuildContext context, CompetitorsFilterState state,
       CompetitorsBloc bloc) {
-    final countryOptions = state.countryOptions
-        .map((country) => Option(country.id, country.name))
-        .toList();
-    final selectedCountryOption = state.selectedCountry != null
-        ? Option(state.selectedCountry!.id, state.selectedCountry!.name)
-        : null;
-
-    final categoryTypeOptions = state.categoryTypeOptions
-        .map((item) => Option(item.id, item.name))
-        .toList();
-    final selectedCategoryTypeOption = state.selectedCategoryType != null
-        ? Option(state.selectedCategoryType!.id, state.selectedCategoryType!.name)
-        : null;
-
-    final categoryOptions = state.categoryOptions
-        .map((item) => Option(item.id, item.name))
-        .toList();
-    final selectedCategoryOption = state.selectedCategory != null
-        ? Option(state.selectedCategory!.id, state.selectedCategory!.name)
-        : null;
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,12 +61,10 @@ class CompetitorFilters extends StatelessWidget {
           child: Container(
             width: double.infinity,
             child: PlatformDropdown(
-              options: countryOptions,
-              value: selectedCountryOption,
+              options: state.countryOptions,
+              value: state.selectedCountry,
               onChanged: (Option? option) {
-                bloc.filter(
-                    selectedCountry: state.countryOptions
-                        .firstWhere((country) => country.id == option?.id));
+                bloc.filter(selectedCountry: option);
               },
             ),
           ),
@@ -98,12 +75,10 @@ class CompetitorFilters extends StatelessWidget {
           child: Container(
             width: double.infinity,
             child: PlatformDropdown(
-              options: categoryTypeOptions,
-              value: selectedCategoryTypeOption,
+              options: state.categoryTypeOptions,
+              value: state.selectedCategoryType,
               onChanged: (Option? option) {
-                bloc.filter(
-                    selectedCategoryType: state.categoryTypeOptions
-                        .firstWhere((item) => item.id == option?.id));
+                bloc.filter(selectedCategoryType: option);
               },
             ),
           ),
@@ -114,12 +89,10 @@ class CompetitorFilters extends StatelessWidget {
           child: Container(
             width: double.infinity,
             child: PlatformDropdown(
-              options: categoryOptions,
-              value: selectedCategoryOption,
+              options: state.categoryOptions,
+              value: state.selectedCategory,
               onChanged: (Option? option) {
-                bloc.filter(
-                    selectedCategory: state.categoryOptions
-                        .firstWhere((item) => item.id == option?.id));
+                bloc.filter(selectedCategory: option);
               },
             ),
           ),

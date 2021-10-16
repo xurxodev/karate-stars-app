@@ -1,7 +1,5 @@
-import 'package:karate_stars_app/src/categories/domain/entities/category.dart';
-import 'package:karate_stars_app/src/category_types/domain/entities/category_type.dart';
+import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/countries/domain/entities/country.dart';
 
 class CompetitorsFilterState {
   final Map<int, String> legendTypeOptions = {
@@ -16,15 +14,15 @@ class CompetitorsFilterState {
     2: Strings.competitor_filters_inactive
   };
 
-  final List<Country> countryOptions;
-  final List<CategoryType> categoryTypeOptions;
-  final List<Category> categoryOptions;
+  final List<Option> countryOptions;
+  final List<Option> categoryTypeOptions;
+  final List<Option> categoryOptions;
 
   final int selectedLegendType;
   final int selectedActiveType;
-  final Country? selectedCountry;
-  final CategoryType? selectedCategoryType;
-  final Category? selectedCategory;
+  final Option? selectedCountry;
+  final Option? selectedCategoryType;
+  final Option? selectedCategory;
 
   CompetitorsFilterState({
     required this.countryOptions,
@@ -38,14 +36,14 @@ class CompetitorsFilterState {
   });
 
   CompetitorsFilterState copyWith(
-      {List<Country>? countryOptions,
-      List<CategoryType>? categoryTypeOptions,
-      List<Category>? categoryOptions,
+      {List<Option>? countryOptions,
+      List<Option>? categoryTypeOptions,
+      List<Option>? categoryOptions,
       int? selectedLegendType,
       int? selectedActiveType,
-      Country? selectedCountry,
-      CategoryType? selectedCategoryType,
-      Category? selectedCategory}) {
+      Option? selectedCountry,
+      Option? selectedCategoryType,
+      Option? selectedCategory}) {
     return CompetitorsFilterState(
         countryOptions: countryOptions ?? this.countryOptions,
         categoryTypeOptions: categoryTypeOptions ?? this.categoryTypeOptions,

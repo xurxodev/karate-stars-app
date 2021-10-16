@@ -9,6 +9,7 @@ import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_home_list_content.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
+import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/domain/competitors_filter.dart';
 import 'package:karate_stars_app/src/competitors/domain/get_competitors_use_case.dart';
@@ -25,11 +26,11 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
   final GetCategoriesUseCase _getCategoriesUseCase;
 
   final defaultCountry =
-      Country(Strings.default_filters_all, Strings.default_filters_all, '', '');
+      Option(Strings.default_filters_all, Strings.default_filters_all);
   final defaultCategoryType =
-      CategoryType(Strings.default_filters_all, Strings.default_filters_all);
+      Option(Strings.default_filters_all, Strings.default_filters_all);
   final defaultCategory =
-      Category(Strings.default_filters_all, Strings.default_filters_all, '');
+      Option(Strings.default_filters_all, Strings.default_filters_all);
 
   List<Country> countries = [];
   List<CategoryType> categoryTypes = [];
@@ -62,9 +63,9 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
   void filter(
       {int? selectedLegendTypeIndex,
       int? selectedActiveIndex,
-      Country? selectedCountry,
-      CategoryType? selectedCategoryType,
-      Category? selectedCategory}) {
+      Option? selectedCountry,
+      Option? selectedCategoryType,
+      Option? selectedCategory}) {
     final legendFilterIndex =
         selectedLegendTypeIndex ?? state.filters.selectedLegendType;
     final legendFilter = state.filters.legendTypeOptions[legendFilterIndex];
@@ -105,21 +106,13 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
   }
 
   Future<void> _loadMetadata(ReadPolicy readPolicy) async {
-    countries = [
-      defaultCountry,
-      ...await _getCountriesUseCase.execute(readPolicy)
-    ];
+    countries = await _getCountriesUseCase.execute(readPolicy);
 
-    categoryTypes = [
-      defaultCategoryType,
-      ...await _getCategoryTypesUseCase.execute(readPolicy)
-    ];
+    categoryTypes = await _getCategoryTypesUseCase.execute(readPolicy);
 
-    categories = [
-      defaultCategory,
-      ...(await _getCategoriesUseCase.execute(readPolicy))
-          .where((element) => !element.name.toLowerCase().contains('team'))
-    ];
+    categories = (await _getCategoriesUseCase.execute(readPolicy))
+        .where((element) => !element.name.toLowerCase().contains('team'))
+        .toList();
   }
 
   Future<void> _loadData(ReadPolicy readPolicy) async {
@@ -158,17 +151,40 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
       changeState(state.copyWith(
           list: DefaultState.loaded(competitorItems),
           filters: state.filters.copyWith(
-              countryOptions: countries,
-              categoryTypeOptions: categoryTypes,
-              categoryOptions: categories
-                  .where((element) =>
-                      state.filters.selectedCategoryType?.id ==
-                          Strings.default_filters_all ||
-                      element.typeId == state.filters.selectedCategoryType?.id)
-                  .toList())));
+              countryOptions: getCountryOptions(),
+              categoryTypeOptions: getCategoryTypesOptions(),
+              categoryOptions: getCategoryOptions())));
     } on Exception {
       changeState(state.copyWith(
           list: DefaultState.error(Strings.network_error_message)));
     }
+  }
+
+  List<Option> getCountryOptions() {
+    return [
+      defaultCountry,
+      ...countries.map((item) => Option(item.id, item.name))
+    ];
+  }
+
+  List<Option> getCategoryTypesOptions() {
+    return [
+      defaultCountry,
+      ...categoryTypes.map((item) => Option(item.id, item.name))
+    ];
+  }
+
+  List<Option> getCategoryOptions() {
+    final finalCategories = categories
+        .where((element) =>
+            state.filters.selectedCategoryType?.id ==
+                Strings.default_filters_all ||
+            element.typeId == state.filters.selectedCategoryType?.id)
+        .toList();
+
+    return [
+      defaultCountry,
+      ...finalCategories.map((item) => Option(item.id, item.name))
+    ];
   }
 }
