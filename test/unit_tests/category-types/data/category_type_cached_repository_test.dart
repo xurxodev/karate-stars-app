@@ -13,7 +13,8 @@ List<CategoryType> _remoteData() {
 }
 
 CategoryTypeCachedRepository repositoryFactory(
-    CacheableDataSource<CategoryType> cache, ReadableDataSource<CategoryType> remote) {
+    CacheableDataSource<CategoryType> cache,
+    ReadableDataSource<CategoryType> remote) {
   return CategoryTypeCachedRepository(cache, remote);
 }
 

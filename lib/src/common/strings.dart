@@ -17,19 +17,22 @@ class Strings {
   static const String competitor_filters_inactive = 'Inactive';
   static const String competitor_filters_country_hint = 'Select country ...';
   static const String competitor_filters_type_label = 'Type';
-  static const String competitor_filters_active_label= 'Active';
+  static const String competitor_filters_active_label = 'Active';
   static const String competitor_filters_country_label = 'Country';
   static const String competitor_filters_category_type_label = 'Category Type';
   static const String competitor_filters_category_label = 'Category';
-  static const String competitor_empty_message = 'There are no competitors with the current filters';
+  static const String competitor_empty_message =
+      'There are no competitors with the current filters';
 
   static const videos_filters_title = 'Videos Filter';
-  static const String videos_empty_message = 'There are no videos with the current filters';
+  static const String videos_empty_message =
+      'There are no videos with the current filters';
   static const String video_filters_competitor_label = 'Competitor';
   static const String video_filters_year_label = 'Year';
 
   static const String video_player_appbar_title = 'Video';
-  static const String video_player_error  = 'An error has occurred loading this video, please retry later';
+  static const String video_player_error =
+      'An error has occurred loading this video, please retry later';
 
   static const String default_filters_all = 'All';
   static const String ok = 'OK';

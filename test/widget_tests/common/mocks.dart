@@ -15,7 +15,8 @@ class MockCompetitorRepository extends Mock implements CompetitorRepository {}
 
 class MockCountryRepository extends Mock implements CountryRepository {}
 
-class MockCategoryTypeRepository extends Mock implements CategoryTypeRepository {}
+class MockCategoryTypeRepository extends Mock
+    implements CategoryTypeRepository {}
 
 class MockCategoryRepository extends Mock implements CategoryRepository {}
 

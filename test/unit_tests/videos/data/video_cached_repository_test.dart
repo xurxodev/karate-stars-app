@@ -14,8 +14,7 @@ List<Video> _remoteData() {
 }
 
 VideoCachedRepository repositoryFactory(
-    CacheableDataSource<Video> cache,
-    ReadableDataSource<Video> remote) {
+    CacheableDataSource<Video> cache, ReadableDataSource<Video> remote) {
   return VideoCachedRepository(cache, remote);
 }
 

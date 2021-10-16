@@ -11,21 +11,15 @@ class CompetitorsState {
       {DefaultState<List<CompetitorItemState>>? list,
       CompetitorsFilterState? filters}) {
     return CompetitorsState(
-        list: list ?? this.list,
-        filters: filters ?? this.filters);
+        list: list ?? this.list, filters: filters ?? this.filters);
   }
 }
 
-class CompetitorItemState{
+class CompetitorItemState {
   final String id;
   final String name;
   final String image;
   final String flag;
 
-  CompetitorItemState(this.id,
-      this.name,
-      this.image,
-      this.flag);
+  CompetitorItemState(this.id, this.name, this.image, this.flag);
 }
-
-

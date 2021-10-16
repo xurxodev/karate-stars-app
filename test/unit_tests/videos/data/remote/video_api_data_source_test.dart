@@ -20,8 +20,8 @@ void expectFirstItem(Video video) {
   expect(video.id, 'RB5VUcdkd1l');
   expect(video.title, 'Olympic Games 2020');
   expect(video.subtitle, 'S. Sanchez vs K. Shimizu');
-  expect(video.description,'Final Female Kata');
-  expect(video.competitors, ['MDHfjXTLveS','P0KYRB8l5tH']);
+  expect(video.description, 'Final Female Kata');
+  expect(video.competitors, ['MDHfjXTLveS', 'P0KYRB8l5tH']);
   expect(video.eventDate, DateTime.parse('2021-08-05T00:00:00.000Z'));
   expect(video.createdDate, DateTime.parse('2021-08-08T15:03:16.110Z'));
   expect(video.order, 0);
@@ -31,6 +31,6 @@ void expectFirstItem(Video video) {
 }
 
 void main() {
-  executeRemoteDataSourceTests('videos', remoteDataSourceFactory,
-      getVideosResponse, expectFirstItem);
+  executeRemoteDataSourceTests(
+      'videos', remoteDataSourceFactory, getVideosResponse, expectFirstItem);
 }

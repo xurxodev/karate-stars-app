@@ -151,9 +151,7 @@ class _HomePageState extends State<HomePage> {
   List<cupertino.Widget> getActions() {
     if (_currentTab == 0) {
       return [
-        IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: (){}),
+        IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
         FilterAction(
           key: const Key(Keys.news_filter_action),
           tooltip: Strings.news_filters_title,

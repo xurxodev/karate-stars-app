@@ -11,6 +11,6 @@ void givenThereAreNoCountries() {
   when(() => mockCountryRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
 
-  app_di.getIt.registerLazySingleton<CountryRepository>(
-      () => mockCountryRepository);
+  app_di.getIt
+      .registerLazySingleton<CountryRepository>(() => mockCountryRepository);
 }

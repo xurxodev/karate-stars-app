@@ -28,9 +28,8 @@ class VideosFilters extends StatelessWidget {
     );
   }
 
-  Widget _buildFilter(BuildContext context, VideosFilterState state,
-      VideosBloc bloc) {
-
+  Widget _buildFilter(
+      BuildContext context, VideosFilterState state, VideosBloc bloc) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,8 +42,7 @@ class VideosFilters extends StatelessWidget {
               options: state.competitorOptions,
               value: state.selectedCompetitor,
               onChanged: (Option? option) {
-                bloc.filter(
-                    selectedCompetitor: option);
+                bloc.filter(selectedCompetitor: option);
               },
             ),
           ),
@@ -58,8 +56,7 @@ class VideosFilters extends StatelessWidget {
               options: state.yearOptions,
               value: state.selectedYear,
               onChanged: (Option? option) {
-                bloc.filter(
-                    selectedYear: option);
+                bloc.filter(selectedYear: option);
               },
             ),
           ),

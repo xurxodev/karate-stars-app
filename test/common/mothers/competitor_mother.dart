@@ -32,12 +32,13 @@ Competitor stevenDaCosta() {
 
 Competitor joseEgea() {
   final achievements = [
-  Achievement('MYL8ZJseBkW', 'DDexNXai9Cn', 3),
-  Achievement('CEdI81ejHhq', 'X3WKhryS14n', 3)];
+    Achievement('MYL8ZJseBkW', 'DDexNXai9Cn', 3),
+    Achievement('CEdI81ejHhq', 'X3WKhryS14n', 3)
+  ];
 
   final links = [
-    CompetitorLink('https://www.facebook.com/josemanuel.egeacaceres',
-        SocialLink.facebook),
+    CompetitorLink(
+        'https://www.facebook.com/josemanuel.egeacaceres', SocialLink.facebook),
   ];
 
   return Competitor(
@@ -63,8 +64,7 @@ Competitor damianQuintero() {
 
   final links = [
     CompetitorLink('http://www.damianquintero.com/', SocialLink.web),
-    CompetitorLink('https://twitter.com/DamianHQuintero',
-        SocialLink.twitter)
+    CompetitorLink('https://twitter.com/DamianHQuintero', SocialLink.twitter)
   ];
 
   return Competitor(
@@ -89,7 +89,8 @@ Competitor burakUygur() {
   ];
 
   final links = [
-    CompetitorLink('https://www.instagram.com/_burakuygur', SocialLink.instagram),
+    CompetitorLink(
+        'https://www.instagram.com/_burakuygur', SocialLink.instagram),
     CompetitorLink('https://twitter.com/_burakuygur', SocialLink.twitter)
   ];
 
@@ -101,7 +102,7 @@ Competitor burakUygur() {
       'Burak Uygur (born April 14, 1995) is a European Games...',
       'TRxEGfqs7S7',
       'wa8Xgi22vUo',
-       'https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/cyaNlRCq0Su.jpeg',
+      'https://storage.googleapis.com/karatestars-1261.appspot.com/competitors/cyaNlRCq0Su.jpeg',
       true,
       false,
       links,

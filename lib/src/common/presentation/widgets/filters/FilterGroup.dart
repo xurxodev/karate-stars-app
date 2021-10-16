@@ -12,12 +12,14 @@ class FilterGroup extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Align(alignment: Alignment.centerLeft, child: Text(label,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle1
-                ?.copyWith(fontWeight: FontWeight.bold)),)
-        ,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(label,
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1
+                  ?.copyWith(fontWeight: FontWeight.bold)),
+        ),
         const SizedBox(height: 10),
         child
       ],

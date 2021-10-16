@@ -9,8 +9,9 @@ const getCompetitorsResponse = '/get_competitors_response.json';
 const getVideosResponse = '/get_videos_response.json';
 const getCountriesResponse = '/get_countries_response.json';
 const getCategoryTypesResponse = '/get_category_types_response.json';
-const getEventTypesResponse = '/get_event_types_response.json';
 const getCategoriesResponse = '/get_categories_response.json';
+const getEventTypesResponse = '/get_event_types_response.json';
+const getEventsResponse = '/get_events_response.json';
 const loginResponse = '/login_response.json';
 const anyTokenHeader =
     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiMTdlMDlmYy1kMmRhLTRiMGEtYjM0YS05MGVjYjdlMDgyZWMiLCJpYXQiOjE1ODE2MTAwNzYsImV4cCI6MTU4MTY5NjQ3Nn0.CY-fpMO0A7b95e4m-cWdbfxTR_yI0aaVolucPZ1D3wo';

@@ -9,6 +9,6 @@ void givenThereAreNoVideos() {
   final mockVideoRepository = MockVideoRepository();
   when(() => mockVideoRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
-  app_di.getIt.registerLazySingleton<VideoRepository>(
-      () => mockVideoRepository);
+  app_di.getIt
+      .registerLazySingleton<VideoRepository>(() => mockVideoRepository);
 }

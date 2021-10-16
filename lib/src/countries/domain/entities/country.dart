@@ -4,7 +4,7 @@ class Country {
   final String iso2;
   final String image;
 
-  Country(this.id, this.name, this.iso2,this.image);
+  Country(this.id, this.name, this.iso2, this.image);
 
   @override
   bool operator ==(Object other) =>

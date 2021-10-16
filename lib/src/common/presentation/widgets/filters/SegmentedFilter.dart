@@ -8,7 +8,10 @@ class SegmentedFilter extends StatelessWidget {
   final EdgeInsetsGeometry padding;
 
   const SegmentedFilter(
-      {required this.options, required this.onValueChanged, this.value = 0, this.padding = const EdgeInsets.all(0)});
+      {required this.options,
+      required this.onValueChanged,
+      this.value = 0,
+      this.padding = const EdgeInsets.all(0)});
 
   @override
   Widget build(BuildContext context) {

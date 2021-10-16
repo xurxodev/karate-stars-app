@@ -6,6 +6,6 @@ class CategoryParser {
   }
 
   Category _parseCountry(Map<String, dynamic> jsonData) {
-    return Category(jsonData['id'], jsonData['name'],jsonData['typeId']);
+    return Category(jsonData['id'], jsonData['name'], jsonData['typeId']);
   }
 }

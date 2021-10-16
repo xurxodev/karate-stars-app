@@ -11,6 +11,6 @@ void givenThereAreNoCategories() {
   when(() => mockCategoryRepository.getAll(ReadPolicy.cache_first))
       .thenAnswer((_) => Future.value([]));
 
-  app_di.getIt.registerLazySingleton<CategoryRepository>(() =>
-  mockCategoryRepository);
+  app_di.getIt
+      .registerLazySingleton<CategoryRepository>(() => mockCategoryRepository);
 }

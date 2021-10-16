@@ -34,7 +34,8 @@ void main() {
 
       debugDefaultTargetPlatformOverride = null;
     });
-    testWidgets('should select an option in dropdown', (WidgetTester tester) async {
+    testWidgets('should select an option in dropdown',
+        (WidgetTester tester) async {
       final options = givenAnOptions();
       final selectedOption = options[3];
       final optionToSelect = options[6];
@@ -84,8 +85,8 @@ void main() {
 
       debugDefaultTargetPlatformOverride = null;
     });
-    testWidgets('should select an option in cupertino picker', (WidgetTester tester) async {
-
+    testWidgets('should select an option in cupertino picker',
+        (WidgetTester tester) async {
       final options = givenAnOptions();
       final selectedOption = options[3];
       final optionToSelect = options[6];

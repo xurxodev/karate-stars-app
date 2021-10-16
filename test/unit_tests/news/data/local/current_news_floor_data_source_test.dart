@@ -7,7 +7,7 @@ import '../../../../common/mothers/current_news_mother.dart';
 import '../../../common/data/local/common_local_data_source_test.dart';
 
 Future<CacheableDataSource<CurrentNews>> cacheFactory(int millis) async {
-  final appDatabase =  await $FloorAppDatabase.inMemoryDatabaseBuilder().build();
+  final appDatabase = await $FloorAppDatabase.inMemoryDatabaseBuilder().build();
 
   // Delete data because its a unique instance database for all tests
   final currentNewsDao = appDatabase.currentNewsDao..deleteAll();

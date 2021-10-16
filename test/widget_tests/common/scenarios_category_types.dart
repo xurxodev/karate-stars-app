@@ -12,5 +12,5 @@ void givenThereAreNoCategoryTypes() {
       .thenAnswer((_) => Future.value([]));
 
   app_di.getIt.registerLazySingleton<CategoryTypeRepository>(
-          () => mockCategoryTypeRepository);
+      () => mockCategoryTypeRepository);
 }

@@ -1,4 +1,3 @@
-
 import 'package:karate_stars_app/src/category_types/domain/entities/category_type.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/local/cache_data_source.dart';

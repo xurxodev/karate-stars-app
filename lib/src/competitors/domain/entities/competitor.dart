@@ -14,11 +14,12 @@ class Competitor {
   final List<CompetitorLink> links;
   final List<Achievement> achievements;
 
-  String fullName () {
+  String fullName() {
     return '$firstName $lastName';
   }
 
-  Competitor(this.identifier,
+  Competitor(
+      this.identifier,
       this.firstName,
       this.lastName,
       this.wkfId,
@@ -34,20 +35,20 @@ class Competitor {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Competitor &&
-              runtimeType == other.runtimeType &&
-              identifier == other.identifier &&
-              firstName == other.firstName &&
-              lastName == other.lastName &&
-              wkfId == other.wkfId &&
-              biography == other.biography &&
-              countryId == other.countryId &&
-              categoryId == other.categoryId &&
-              mainImage == other.mainImage &&
-              isActive == other.isActive &&
-              isLegend == other.isLegend &&
-              links == other.links &&
-              achievements == other.achievements;
+      other is Competitor &&
+          runtimeType == other.runtimeType &&
+          identifier == other.identifier &&
+          firstName == other.firstName &&
+          lastName == other.lastName &&
+          wkfId == other.wkfId &&
+          biography == other.biography &&
+          countryId == other.countryId &&
+          categoryId == other.categoryId &&
+          mainImage == other.mainImage &&
+          isActive == other.isActive &&
+          isLegend == other.isLegend &&
+          links == other.links &&
+          achievements == other.achievements;
 
   @override
   int get hashCode =>

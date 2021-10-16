@@ -46,8 +46,7 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
           bottomActions: [PlatformBottomActions()],
           onEnded: widget.onEnded,
         ),
-        builder: widget.builder
-    );
+        builder: widget.builder);
   }
 
   Future<void> _initializePlayer(String videoId) async {

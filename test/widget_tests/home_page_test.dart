@@ -54,14 +54,14 @@ void main() {
         expect(find.byIcon(Icons.filter_list), findsNothing);
       });
       testWidgets('should has search page view visible',
-              (WidgetTester tester) async {
-            final home = HomePageObject(tester);
-            await home.open();
+          (WidgetTester tester) async {
+        final home = HomePageObject(tester);
+        await home.open();
 
-            await home.tapOnTab(Keys.home_search_tab);
+        await home.tapOnTab(Keys.home_search_tab);
 
-            home.expectVisibleTabContent(Keys.search_page_view);
-          });
+        home.expectVisibleTabContent(Keys.search_page_view);
+      });
     });
 
     group('to navigate to competitors', () {
@@ -123,6 +123,4 @@ void main() {
       home.expectVisibleTabContent(Keys.videos_page_view);
     });
   });
-
-
 }

@@ -49,8 +49,8 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
   }
 
   // ignore: missing_return
-  Widget _renderList(BuildContext context, LoadedState<List<CompetitorItemState>> state,
-      CompetitorsBloc bloc) {
+  Widget _renderList(BuildContext context,
+      LoadedState<List<CompetitorItemState>> state, CompetitorsBloc bloc) {
     final orientation = MediaQuery.of(context).orientation;
 
     if (state.data.isEmpty) {

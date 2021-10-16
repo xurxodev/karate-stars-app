@@ -14,7 +14,7 @@ abstract class PlatformWidget<I extends Widget, A extends Widget>
       case TargetPlatform.macOS:
       case TargetPlatform.linux:
       case TargetPlatform.iOS:
-      return createIosWidget(context);
+        return createIosWidget(context);
 
       default:
         return createAndroidWidget(context);

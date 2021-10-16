@@ -27,7 +27,6 @@ class GetPlayListByVideoIdUseCase {
 
     final playList = [...relatedVideos, ...nonRelatedVideos];
 
-
     return [video, ...playList];
   }
 }

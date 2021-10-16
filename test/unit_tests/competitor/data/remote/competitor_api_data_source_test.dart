@@ -29,7 +29,8 @@ void expectFirstItem(Competitor competitor) {
   expect(competitor.isActive, false);
   expect(competitor.isLegend, true);
   expect(competitor.links.length, 2);
-  expect(competitor.links[0].url, 'https://www.facebook.com/Rika-Usami-513277155360507/');
+  expect(competitor.links[0].url,
+      'https://www.facebook.com/Rika-Usami-513277155360507/');
   expect(competitor.links[0].type, SocialLink.facebook);
   expect(competitor.achievements.length, 6);
   expect(competitor.achievements[0].eventId, 'hSEiLEWuxF1');

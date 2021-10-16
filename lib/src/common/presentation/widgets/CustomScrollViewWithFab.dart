@@ -30,7 +30,8 @@ class CustomScrollViewWithFab extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _CustomScrollViewWithFabState();
-  }}
+  }
+}
 
 class _CustomScrollViewWithFabState extends State<CustomScrollViewWithFab> {
   late ScrollController scrollController;
@@ -63,10 +64,7 @@ class _CustomScrollViewWithFabState extends State<CustomScrollViewWithFab> {
 
   Widget _buildFab() {
     const double defaultFabSize = 56.0;
-    final double paddingTop = MediaQuery
-        .of(context)
-        .padding
-        .top;
+    final double paddingTop = MediaQuery.of(context).padding.top;
     final double defaultTopMargin = widget.expandedHeight +
         paddingTop +
         (widget.floatingPosition.top ?? 0) -
@@ -94,8 +92,7 @@ class _CustomScrollViewWithFabState extends State<CustomScrollViewWithFab> {
       right: widget.floatingPosition.right,
       left: widget.floatingPosition.left,
       child: Transform(
-        transform: Matrix4.identity()
-          ..scale(scale, scale),
+        transform: Matrix4.identity()..scale(scale, scale),
         alignment: Alignment.center,
         child: widget.floatingWidget,
       ),

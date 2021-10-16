@@ -7,13 +7,13 @@ import '../../../../common/mothers/social_news_mother.dart';
 import '../../../common/data/local/common_local_data_source_test.dart';
 
 Future<CacheableDataSource<SocialNews>> cacheFactory(int millis) async {
-  final appDatabase =  await $FloorAppDatabase.inMemoryDatabaseBuilder().build();
+  final appDatabase = await $FloorAppDatabase.inMemoryDatabaseBuilder().build();
 
   // Delete data because its a unique instance database for all tests
   final socialNewsDao = appDatabase.socialNewsDao..deleteAll();
   final socialUsersDao = appDatabase.socialUsersDao..deleteAll();
 
-  return SocialNewsFloorDataSource( socialNewsDao,socialUsersDao,
+  return SocialNewsFloorDataSource(socialNewsDao, socialUsersDao,
       Duration(milliseconds: millis).inMilliseconds);
 }
 

@@ -9,11 +9,8 @@ class VideosState {
   VideosState({required this.filters, required this.list});
 
   VideosState copyWith(
-      {DefaultState<List<Video>>? list,
-      VideosFilterState? filters}) {
+      {DefaultState<List<Video>>? list, VideosFilterState? filters}) {
     return VideosState(
-        list: list ?? this.list,
-        filters: filters ?? this.filters);
+        list: list ?? this.list, filters: filters ?? this.filters);
   }
 }
-

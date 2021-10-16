@@ -8,8 +8,7 @@ class VideoPlayerState {
   VideoPlayerState({required this.playList, this.currentVideo});
 
   VideoPlayerState copyWith(
-      {DefaultState<List<Video>>? playList,
-        Video? currentVideo}) {
+      {DefaultState<List<Video>>? playList, Video? currentVideo}) {
     return VideoPlayerState(
         playList: playList ?? this.playList,
         currentVideo: currentVideo ?? this.currentVideo);

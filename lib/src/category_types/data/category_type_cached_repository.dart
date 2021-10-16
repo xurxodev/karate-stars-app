@@ -6,7 +6,8 @@ import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 
 class CategoryTypeCachedRepository extends CachedRepository<CategoryType>
     implements CategoryTypeRepository {
-  CategoryTypeCachedRepository(CacheableDataSource<CategoryType> cacheDataSource,
+  CategoryTypeCachedRepository(
+      CacheableDataSource<CategoryType> cacheDataSource,
       ReadableDataSource<CategoryType> remoteDataSource)
       : super(cacheDataSource, remoteDataSource);
 

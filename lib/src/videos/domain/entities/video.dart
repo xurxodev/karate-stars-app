@@ -1,4 +1,3 @@
-
 class Video {
   final String id;
   final String title;
@@ -10,15 +9,8 @@ class Video {
   final int order;
   final List<VideoLink> links;
 
-  Video(this.id,
-      this.title,
-      this.subtitle,
-      this.description,
-      this.competitors,
-      this.eventDate,
-      this.createdDate,
-      this.order,
-      this.links);
+  Video(this.id, this.title, this.subtitle, this.description, this.competitors,
+      this.eventDate, this.createdDate, this.order, this.links);
 
   @override
   bool operator ==(Object other) =>
@@ -48,7 +40,7 @@ class Video {
       links.hashCode;
 }
 
-enum VideoLinkType { youtube , facebook , vimeo }
+enum VideoLinkType { youtube, facebook, vimeo }
 
 class VideoLink {
   final String id;

@@ -5,7 +5,8 @@ import '../../../common/api/mock_api.dart';
 
 late MockApi mockApi;
 
-void executeRemoteDataSourceTests<T>(String endpoint,
+void executeRemoteDataSourceTests<T>(
+    String endpoint,
     Function(String baseAddress) remoteDataSourceFactory,
     stubResponseFile,
     Function(T item) expectFirstItem) {
@@ -22,7 +23,7 @@ void executeRemoteDataSourceTests<T>(String endpoint,
     mockApi.shutdown();
   });
 
-  group('SocialNewsApiDataSource should', () {
+  group('$endpoint should', () {
     test('sends get request to the correct endpoint', () async {
       await mockApi.enqueueMockResponse(fileName: stubResponseFile);
 
@@ -56,21 +57,21 @@ void executeRemoteDataSourceTests<T>(String endpoint,
         });*/
     test(
         'throws UnknownErrorException if there is not handled error getting news',
-            () async {
-          await mockApi.enqueueMockResponse(httpCode: 454);
+        () async {
+      await mockApi.enqueueMockResponse(httpCode: 454);
 
-          expect(() => _remoteApiDataSource.getAll(),
-              throwsA(isInstanceOf<UnKnowApiException>()));
-        });
+      expect(() => _remoteApiDataSource.getAll(),
+          throwsA(isInstanceOf<UnKnowApiException>()));
+    });
     test(
         'throws RenewTokenException if the server returns unauthorized response twice',
-            () async {
-          await mockApi.enqueueUnauthorizedResponse();
-          await mockApi.enqueueUnauthorizedResponse();
+        () async {
+      await mockApi.enqueueUnauthorizedResponse();
+      await mockApi.enqueueUnauthorizedResponse();
 
-          expect(() => _remoteApiDataSource.getAll(),
-              throwsA(isInstanceOf<RenewTokenException>()));
-        });
+      expect(() => _remoteApiDataSource.getAll(),
+          throwsA(isInstanceOf<RenewTokenException>()));
+    });
   });
 }
 

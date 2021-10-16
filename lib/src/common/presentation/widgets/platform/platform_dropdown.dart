@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_widget.dart';
 
-
 class PlatformDropdown extends PlatformWidget<CupertinoButton, DropdownButton> {
   final List<Option> options;
   final Option? value;

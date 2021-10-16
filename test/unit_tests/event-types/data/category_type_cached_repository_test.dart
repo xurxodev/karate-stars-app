@@ -13,7 +13,8 @@ List<EventType> _remoteData() {
 }
 
 EventTypeCachedRepository repositoryFactory(
-    CacheableDataSource<EventType> cache, ReadableDataSource<EventType> remote) {
+    CacheableDataSource<EventType> cache,
+    ReadableDataSource<EventType> remote) {
   return EventTypeCachedRepository(cache, remote);
 }
 

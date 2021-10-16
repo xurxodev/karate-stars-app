@@ -12,14 +12,14 @@ import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart
 import 'package:karate_stars_app/src/videos/presentation/widgets/youtube/youtube_video_player.dart';
 
 class VideoPlayerPage extends StatefulWidget {
-
   final String videoId;
 
   const VideoPlayerPage({required this.videoId});
 
   static Widget create(String videoId) {
     return BlocProvider(
-        bloc: app_di.getIt<VideoPlayerBloc>(), child: VideoPlayerPage(videoId:videoId));
+        bloc: app_di.getIt<VideoPlayerBloc>(),
+        child: VideoPlayerPage(videoId: videoId));
   }
 
   static const routeName = '/video';

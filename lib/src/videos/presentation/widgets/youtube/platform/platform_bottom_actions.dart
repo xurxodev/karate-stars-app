@@ -23,8 +23,7 @@ class PlatformBottomActions extends PlatformWidget<Widget, Widget> {
               ),
               RemainingDuration(),
             ]),
-            Expanded(
-                child: Container(child: const Text(''))),
+            Expanded(child: Container(child: const Text(''))),
             const FullScreenAction()
           ],
         ),
