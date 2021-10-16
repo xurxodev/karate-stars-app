@@ -9,6 +9,7 @@ const getCompetitorsResponse = '/get_competitors_response.json';
 const getVideosResponse = '/get_videos_response.json';
 const getCountriesResponse = '/get_countries_response.json';
 const getCategoryTypesResponse = '/get_category_types_response.json';
+const getEventTypesResponse = '/get_event_types_response.json';
 const getCategoriesResponse = '/get_categories_response.json';
 const loginResponse = '/login_response.json';
 const anyTokenHeader =
