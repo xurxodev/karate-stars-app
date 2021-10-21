@@ -13,6 +13,10 @@ import 'package:karate_stars_app/src/competitors/competitors_di.dart'
     as competitors_di;
 import 'package:karate_stars_app/src/countries/countries_di.dart'
     as countries_di;
+import 'package:karate_stars_app/src/event_types/event_types_di.dart'
+as event_types_di;
+import 'package:karate_stars_app/src/events/event_di.dart'
+as event_di;
 import 'package:karate_stars_app/src/news/news_di.dart' as news_di;
 import 'package:karate_stars_app/src/videos/videos_di.dart' as videos_di;
 
@@ -47,6 +51,8 @@ Future<void> init() async {
   countries_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
   category_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
   category_types_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
+  event_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
+  event_types_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
 }
 
 void initWithoutDataDependencies() {
@@ -59,6 +65,8 @@ void initWithoutDataDependencies() {
   countries_di.initBlocAndUseCases();
   category_di.initBlocAndUseCases();
   category_types_di.initBlocAndUseCases();
+  event_di.initBlocAndUseCases();
+  event_types_di.initBlocAndUseCases();
 }
 
 void initNoDataAppDependencies() {

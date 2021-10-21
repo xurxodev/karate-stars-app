@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
@@ -8,9 +9,11 @@ import 'package:karate_stars_app/src/common/presentation/states/default_state.da
 import 'package:karate_stars_app/src/common/presentation/widgets/CircleImage.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/CustomScrollViewWithFab.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/medals.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitor_detail_bloc.dart';
+import 'package:karate_stars_app/src/competitors/presentation/states/competitor_info_state.dart';
 
 class CompetitorDetailArgs {
   final String competitorId;
@@ -87,18 +90,21 @@ class CompetitorDetailPage extends StatelessWidget {
                       expandedHeight: 400,
                       collapsedHeight: 100,
                     ),
-                    SliverList(
+                    SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: _renderHeaderContent(context, state)),
+                    /*SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
                           if (index == 0) {
-                            return _renderContent(context, state);
+                            return _renderHeaderContent(context, state);
                           } else {
-                            return ListTile(title: Text('title $index'));
+                            return _renderAchievementGroup(context, index-1, state);
                           }
                         },
-                        childCount: 51,
+                        childCount: _getItemsCount(state) + 1,
                       ),
-                    ),
+                    ),*/
                   ]);
             } else {
               return const Text('No Data');
@@ -108,9 +114,9 @@ class CompetitorDetailPage extends StatelessWidget {
   }
 
   List<SpeedDialChild> getActions(
-      BuildContext context, DefaultState<Competitor> state) {
+      BuildContext context, DefaultState<CompetitorInfoState> state) {
     if (state is LoadedState) {
-      final competitor = (state as LoadedState<Competitor>).data;
+      final competitor = (state as LoadedState<CompetitorInfoState>).data;
 
       final linkColors = {
         SocialLink.facebook: Colors.indigo,
@@ -149,19 +155,21 @@ class CompetitorDetailPage extends StatelessWidget {
     }
   }
 
-  Widget _renderContent(BuildContext context, DefaultState<Competitor> state) {
+  Widget _renderHeaderContent(
+      BuildContext context, DefaultState<CompetitorInfoState> state) {
     if (state is LoadingState) {
       return Progress();
     } else if (state is ErrorState) {
       final errorState = state as ErrorState;
       return Center(child: NotificationMessage(errorState.message));
     } else {
-      final competitor = (state as LoadedState<Competitor>).data;
+      final competitor = (state as LoadedState<CompetitorInfoState>).data;
       return _renderCompetitorInfo(context, competitor);
     }
   }
 
-  Widget _renderCompetitorInfo(BuildContext context, Competitor competitor) {
+  Widget _renderCompetitorInfo(
+      BuildContext context, CompetitorInfoState competitor) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -170,7 +178,7 @@ class CompetitorDetailPage extends StatelessWidget {
         const SizedBox(
           height: 16.0,
         ),
-        Text('Biography', style: Theme.of(context).textTheme.subtitle2),
+        Text('Biography', style: Theme.of(context).textTheme.subtitle1),
         const SizedBox(
           height: 16.0,
         ),
@@ -178,23 +186,60 @@ class CompetitorDetailPage extends StatelessWidget {
         const SizedBox(
           height: 16.0,
         ),
-        Text('Achievements', style: Theme.of(context).textTheme.subtitle2),
+        Text('Achievements', style: Theme.of(context).textTheme.subtitle1),
+        const SizedBox(
+          height: 16.0,
+        ),
+        Expanded(
+            child: Column(
+          children: [..._renderAchievementGroups(context, competitor)],
+        ))
       ]),
     );
   }
 
-  String getImage(DefaultState<Competitor> state) {
+  String getImage(DefaultState<CompetitorInfoState> state) {
     if (state is LoadedState) {
-      final competitor = (state as LoadedState<Competitor>).data;
+      final competitor = (state as LoadedState<CompetitorInfoState>).data;
       return competitor.mainImage;
     } else {
       return args.imageUrl;
     }
   }
 
-  String getTitle(DefaultState<Competitor> state) {
+  List<Widget> _renderAchievementGroups(
+      BuildContext context, CompetitorInfoState competitor) {
+    final group = (String group) {
+      final groupItems = competitor.achievements[group]!.map((achievement) {
+        return ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: achievement.position == 1
+                ? GoldMedalIcon()
+                : achievement.position == 2
+                ? SilverMedalIcon()
+                : BronzeMedalIcon(),
+            title: Text(achievement.event.replaceFirst(group, ''),
+                style: Theme.of(context).textTheme.bodyText2),
+            trailing: Text(achievement.category,
+                style: Theme.of(context).textTheme.bodyText2));
+      }).toList();
+
+      return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(group, style: Theme.of(context).textTheme.subtitle2),
+        Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: [...groupItems]))
+      ]);
+    };
+
+    return competitor.achievements.keys.map((key) {
+      return group(key);
+    }).toList();
+  }
+
+  String getTitle(DefaultState<CompetitorInfoState> state) {
     if (state is LoadedState) {
-      final competitor = (state as LoadedState<Competitor>).data;
+      final competitor = (state as LoadedState<CompetitorInfoState>).data;
       return competitor.fullName();
     } else {
       return '';
