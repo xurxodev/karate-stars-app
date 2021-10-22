@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:karate_stars_app/src/common/custom_colors.dart';
 import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_detail_page.dart';
 import 'package:karate_stars_app/src/home/presentation/pages/home_page.dart';
+import 'package:karate_stars_app/src/videos/presentation/pages/competitor_videos_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 
 class App extends StatelessWidget {
@@ -31,7 +32,11 @@ class App extends StatelessWidget {
           CompetitorDetailPage.routeName: (context) =>
               CompetitorDetailPage.create(ModalRoute.of(context)!
                   .settings
-                  .arguments as CompetitorDetailArgs)
+                  .arguments as CompetitorDetailArgs),
+          CompetitorVideosPage.routeName: (context) =>
+              CompetitorVideosPage.create(ModalRoute.of(context)!
+                  .settings
+                  .arguments as CompetitorVideosArgs)
         });
   }
 }

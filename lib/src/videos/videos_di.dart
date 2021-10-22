@@ -9,6 +9,7 @@ import 'package:karate_stars_app/src/videos/domain/boundaries/video_repository.d
 import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
 import 'package:karate_stars_app/src/videos/domain/get_play_list_use_case.dart';
 import 'package:karate_stars_app/src/videos/domain/get_videos_use_case.dart';
+import 'package:karate_stars_app/src/videos/presentation/blocs/competitor_videos_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/video_player_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
 
@@ -22,6 +23,7 @@ void initAll(
 void initBlocAndUseCases() {
   getIt.registerFactory(() => VideosBloc(getIt(), getIt(), getIt()));
   getIt.registerFactory(() => VideoPlayerBloc(getIt(), getIt()));
+  getIt.registerFactory(() => CompetitorVideosBloc(getIt(), getIt(), getIt()));
 
   getIt.registerLazySingleton(() => GetVideosUseCase(getIt()));
   getIt.registerLazySingleton(() => GetPlayListByVideoIdUseCase(getIt()));

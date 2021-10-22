@@ -14,6 +14,7 @@ import 'package:karate_stars_app/src/common/presentation/widgets/notification_me
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitor_detail_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitor_info_state.dart';
+import 'package:karate_stars_app/src/videos/presentation/pages/competitor_videos_page.dart';
 
 class CompetitorDetailArgs {
   final String competitorId;
@@ -59,7 +60,6 @@ class CompetitorDetailPage extends StatelessWidget {
                   floatingPosition: const FloatingPosition(right: 20.0),
                   floatingWidget: SpeedDial(
                       icon: Icons.navigate_next_sharp,
-                      // backgroundColor: Colors.amber,
                       children: getActions(context, state)),
                   slivers: <Widget>[
                     SliverAppBar(
@@ -76,7 +76,6 @@ class CompetitorDetailPage extends StatelessWidget {
                       backgroundColor: Theme.of(context).cardColor,
                       floating: true,
                       elevation: 5.0,
-                      //forceElevated:true,
                       flexibleSpace: CircleImage(
                           heroTag: args.competitorId,
                           borderRadius: const BorderRadius.only(
@@ -93,18 +92,6 @@ class CompetitorDetailPage extends StatelessWidget {
                     SliverFillRemaining(
                         hasScrollBody: false,
                         child: _renderHeaderContent(context, state)),
-                    /*SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          if (index == 0) {
-                            return _renderHeaderContent(context, state);
-                          } else {
-                            return _renderAchievementGroup(context, index-1, state);
-                          }
-                        },
-                        childCount: _getItemsCount(state) + 1,
-                      ),
-                    ),*/
                   ]);
             } else {
               return const Text('No Data');
@@ -146,7 +133,9 @@ class CompetitorDetailPage extends StatelessWidget {
           child: const Icon(Icons.video_library),
           foregroundColor: Colors.red,
           onTap: () {
-            /* Do something */
+            Navigator.pushNamed(context, CompetitorVideosPage.routeName,
+                arguments: CompetitorVideosArgs(
+                    competitor.identifier, competitor.mainImage));
           },
         )
       ];
@@ -216,8 +205,8 @@ class CompetitorDetailPage extends StatelessWidget {
             leading: achievement.position == 1
                 ? GoldMedalIcon()
                 : achievement.position == 2
-                ? SilverMedalIcon()
-                : BronzeMedalIcon(),
+                    ? SilverMedalIcon()
+                    : BronzeMedalIcon(),
             title: Text(achievement.event.replaceFirst(group, ''),
                 style: Theme.of(context).textTheme.bodyText2),
             trailing: Text(achievement.category,
