@@ -71,7 +71,7 @@ class _NewsPageViewState extends State<NewsPageView>
             child: LiquidPullToRefresh(
                 key: const Key(Keys.news_items_parent),
                 borderWidth: 2,
-                color: Theme.of(context).cardColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
                 child: ListView.builder(

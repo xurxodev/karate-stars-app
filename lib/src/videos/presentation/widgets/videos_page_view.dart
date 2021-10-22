@@ -57,7 +57,7 @@ class _VideosPageViewState extends State<VideosPageView> {
           child: NotificationListener<ScrollUpdateNotification>(
             child: LiquidPullToRefresh(
                 borderWidth: 2,
-                color: Theme.of(context).cardColor,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
                 child: ListView.builder(
