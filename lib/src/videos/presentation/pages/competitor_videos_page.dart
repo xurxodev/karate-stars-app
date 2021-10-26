@@ -135,7 +135,7 @@ class CompetitorVideosPage extends StatelessWidget {
       BuildContext context, CompetitorVideos competitorVideos) {
     return competitorVideos.videos.map((video) {
       return ItemVideo(
-        color: Colors.blueGrey[50],
+        color: Theme.of(context).brightness == Brightness.light? Colors.blueGrey[50]:Colors.grey[600],
         video: video,
         onTap: () async {
           Navigator.pushNamed(context, VideoPlayerPage.routeName,
