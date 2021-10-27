@@ -13,6 +13,7 @@ import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
 import 'package:karate_stars_app/src/search/views/search_page_view.dart';
+import 'package:karate_stars_app/src/settings/presentation/page/settings_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_filters.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_page_view.dart';
@@ -164,7 +165,9 @@ class _HomePageState extends State<HomePage> {
                     content: NewsFilter(bloc: bloc)));
           },
         ),
-        IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
+        IconButton(icon: const Icon(Icons.settings), onPressed: () {
+          Navigator.pushNamed(context, SettingsPage.routeName);
+        }),
       ];
     } else if (_currentTab == 2) {
       return [

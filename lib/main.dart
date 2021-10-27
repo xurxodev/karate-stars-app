@@ -15,11 +15,11 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  runApp(App());
+  runApp(App.create());
 }
 
 void mainWithoutDataDependencies() {
   app_di.initWithoutDataDependencies();
 
-  runApp(App());
+  runApp(App.create());
 }

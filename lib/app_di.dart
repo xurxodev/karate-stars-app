@@ -18,6 +18,7 @@ as event_types_di;
 import 'package:karate_stars_app/src/events/event_di.dart'
 as event_di;
 import 'package:karate_stars_app/src/news/news_di.dart' as news_di;
+import 'package:karate_stars_app/src/settings/settings_di.dart' as settings_di;
 import 'package:karate_stars_app/src/videos/videos_di.dart' as videos_di;
 
 final getIt = GetIt.instance;
@@ -53,6 +54,7 @@ Future<void> init() async {
   category_types_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
   event_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
   event_types_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
+  settings_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
 }
 
 void initWithoutDataDependencies() {
@@ -67,6 +69,7 @@ void initWithoutDataDependencies() {
   category_types_di.initBlocAndUseCases();
   event_di.initBlocAndUseCases();
   event_types_di.initBlocAndUseCases();
+  settings_di.initBlocAndUseCases();
 }
 
 void initNoDataAppDependencies() {

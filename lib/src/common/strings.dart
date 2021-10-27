@@ -34,6 +34,13 @@ class Strings {
   static const String video_player_error =
       'An error has occurred loading this video, please retry later';
 
+
+  static const String settings_title = 'Settings';
+  static const String settings_brightness = 'Brightness';
+  static const String settings_brightness_system = 'System';
+  static const String settings_brightness_light = 'Light';
+  static const String settings_brightness_dark = 'Dark';
+
   static const String default_filters_all = 'All';
   static const String ok = 'OK';
 

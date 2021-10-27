@@ -12,7 +12,7 @@ class HomePageObject {
   HomePageObject(this._tester) : news = HomeNewsPageObject(_tester);
 
   Future open() async {
-    await _tester.pumpWidget(App());
+    await _tester.pumpWidget(App.create());
     await _tester.pumpAndSettle();
   }
 
