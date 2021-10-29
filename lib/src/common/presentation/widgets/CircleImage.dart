@@ -36,7 +36,7 @@ class CircleImage extends StatelessWidget {
                   width: width,
                   height: height,
                   imageUrl: imageUrl,
-                  fit: fit ?? BoxFit.fill,
+                  fit: fit ?? BoxFit.cover,
                 ))
             : CachedNetworkImage(
                 width: width,
