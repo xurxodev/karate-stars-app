@@ -88,10 +88,11 @@ class VideosBloc extends BlocHomeListContent<VideosState> {
   Future<void> _loadData(ReadPolicy readPolicy) async {
     try {
       final videosFilter = VideosFilter(
-          state.filters.selectedCompetitor?.id != Strings.default_filters_all
+          competitorId: state.filters.selectedCompetitor?.id !=
+                  Strings.default_filters_all
               ? state.filters.selectedCompetitor?.id
               : null,
-          state.filters.selectedYear?.id != Strings.default_filters_all
+          year: state.filters.selectedYear?.id != Strings.default_filters_all
               ? int.parse(state.filters.selectedYear!.id)
               : null);
 

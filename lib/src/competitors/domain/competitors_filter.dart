@@ -4,11 +4,13 @@ class CompetitorsFilter {
   final String? countryId;
   final String? categoryTypeId;
   final String? categoryId;
+  final String? searchTerm;
 
   CompetitorsFilter(
-      [this.legendFilter,
+      {this.legendFilter,
       this.activeFilter,
       this.countryId,
       this.categoryTypeId,
-      this.categoryId]);
+      this.categoryId,
+      this.searchTerm});
 }

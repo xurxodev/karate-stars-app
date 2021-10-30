@@ -29,16 +29,13 @@ class CompetitorVideosBloc extends Bloc<CompetitorVideosState> {
     try {
       final competitor = await _getCompetitorByIdUseCase.execute(
           ReadPolicy.cache_first, competitorId);
-      final videos =
-          await _getVideosUseCase.execute(ReadPolicy.cache_first, VideosFilter(competitorId) );
+      final videos = await _getVideosUseCase.execute(
+          ReadPolicy.cache_first, VideosFilter(competitorId: competitorId));
 
       _analyticsService.sendScreenName('$screen_name/${competitor.identifier}');
 
-      final competitorInfo = CompetitorVideos(
-          competitor.identifier,
-          competitor.fullName(),
-          competitor.mainImage,
-          videos);
+      final competitorInfo = CompetitorVideos(competitor.identifier,
+          competitor.fullName(), competitor.mainImage, videos);
 
       changeState(DefaultState.loaded(competitorInfo));
     } on Exception {

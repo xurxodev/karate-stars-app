@@ -25,7 +25,7 @@ void initBlocAndUseCases() {
   getIt.registerFactory(() => VideoPlayerBloc(getIt(), getIt()));
   getIt.registerFactory(() => CompetitorVideosBloc(getIt(), getIt(), getIt()));
 
-  getIt.registerLazySingleton(() => GetVideosUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetVideosUseCase(getIt(), getIt()));
   getIt.registerLazySingleton(() => GetPlayListByVideoIdUseCase(getIt()));
 }
 

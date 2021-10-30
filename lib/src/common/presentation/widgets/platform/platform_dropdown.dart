@@ -13,7 +13,7 @@ class PlatformDropdown extends PlatformWidget<CupertinoButton, DropdownButton> {
       {required this.options, this.onChanged, this.value, this.hint});
 
   @override
-  DropdownButton createAndroidWidget(BuildContext context) {
+  DropdownButton createMaterialWidget(BuildContext context) {
     return DropdownButton<Option>(
       isExpanded: true,
       value: value,
@@ -29,7 +29,7 @@ class PlatformDropdown extends PlatformWidget<CupertinoButton, DropdownButton> {
   }
 
   @override
-  CupertinoButton createIosWidget(BuildContext context) {
+  CupertinoButton createCupertinoWidget(BuildContext context) {
     return CupertinoButton(
         minSize: 32.0,
         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),

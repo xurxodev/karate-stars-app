@@ -2,7 +2,7 @@ class Strings {
   static const String home_appbar_title_default = 'Karate Stars';
   static const String home_appbar_title_competitors = 'Competitors';
   static const String home_appbar_title_videos = 'Videos';
-  static const String home_appbar_title_settings = 'Settings';
+  static const String home_appbar_title_search = 'Search';
 
   static const news_filters_title = 'News Filter';
   static const String news_filters_current = 'News';
@@ -34,12 +34,18 @@ class Strings {
   static const String video_player_error =
       'An error has occurred loading this video, please retry later';
 
-
   static const String settings_title = 'Settings';
   static const String settings_brightness = 'Brightness';
   static const String settings_brightness_system = 'System';
   static const String settings_brightness_light = 'Light';
   static const String settings_brightness_dark = 'Dark';
+
+  static const String search_app_bar_hint = 'Search ...';
+  static const String search_news_title = 'News';
+  static const String search_competitor_title = 'Competitors';
+  static const String search_videos_title = 'Videos';
+  static const String search_initial_message = 'Find your favourite karate stars, news and videos';
+  static const String search_empty_message = 'There are no results';
 
   static const String default_filters_all = 'All';
   static const String ok = 'OK';

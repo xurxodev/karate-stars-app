@@ -12,7 +12,7 @@ class PlatformAlertDialog
   PlatformAlertDialog({required this.title, required this.content});
 
   @override
-  AlertDialog createAndroidWidget(BuildContext context) {
+  AlertDialog createMaterialWidget(BuildContext context) {
     print('AlertDialog');
     return AlertDialog(
       key: const Key(Keys.alert_dialog),
@@ -38,7 +38,7 @@ class PlatformAlertDialog
   }
 
   @override
-  CupertinoAlertDialog createIosWidget(BuildContext context) {
+  CupertinoAlertDialog createCupertinoWidget(BuildContext context) {
     print('CupertinoAlertDialog');
     return CupertinoAlertDialog(
         key: const Key(Keys.alert_dialog),

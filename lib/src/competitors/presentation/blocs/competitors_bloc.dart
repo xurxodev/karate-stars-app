@@ -118,19 +118,19 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
   Future<void> _loadData(ReadPolicy readPolicy) async {
     try {
       final competitorsFilter = CompetitorsFilter(
-          state.filters.selectedLegendType == 0
+          legendFilter: state.filters.selectedLegendType == 0
               ? null
               : state.filters.selectedLegendType == 1 || false,
-          state.filters.selectedActiveType == 0
+          activeFilter: state.filters.selectedActiveType == 0
               ? null
               : state.filters.selectedActiveType == 1 || false,
-          state.filters.selectedCountry?.id != Strings.default_filters_all
+          countryId: state.filters.selectedCountry?.id != Strings.default_filters_all
               ? state.filters.selectedCountry?.id
               : null,
-          state.filters.selectedCategoryType?.id != Strings.default_filters_all
+          categoryTypeId: state.filters.selectedCategoryType?.id != Strings.default_filters_all
               ? state.filters.selectedCategoryType?.id
               : null,
-          state.filters.selectedCategory?.id != Strings.default_filters_all
+          categoryId:state.filters.selectedCategory?.id != Strings.default_filters_all
               ? state.filters.selectedCategory?.id
               : null);
 

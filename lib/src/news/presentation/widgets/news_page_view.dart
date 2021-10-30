@@ -35,28 +35,28 @@ class _NewsPageViewState extends State<NewsPageView>
     final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
 
     return StreamBuilder<NewsState>(
-      initialData: bloc.state,
-      stream: bloc.observableState,
-      builder: (context, snapshot) {
-        final state = snapshot.data;
+          initialData: bloc.state,
+          stream: bloc.observableState,
+          builder: (context, snapshot) {
+            final state = snapshot.data;
 
-        if (state != null) {
-          if (state.listState is LoadingState) {
-            return Progress();
-          } else if (state.listState is ErrorState) {
-            final listState = state.listState as ErrorState;
-            return Center(
-              child: NotificationMessage(listState.message),
-            );
-          } else {
-            return _renderNews(
-                context, state.listState as LoadedState<List<News>>, bloc);
-          }
-        } else {
-          return const Text('No data');
-        }
-      },
-    );
+            if (state != null) {
+              if (state.listState is LoadingState) {
+                return Progress();
+              } else if (state.listState is ErrorState) {
+                final listState = state.listState as ErrorState;
+                return Center(
+                  child: NotificationMessage(listState.message),
+                );
+              } else {
+                return _renderNews(
+                    context, state.listState as LoadedState<List<News>>, bloc);
+              }
+            } else {
+              return const Text('No data');
+            }
+          },
+        );
   }
 
   // ignore: missing_return

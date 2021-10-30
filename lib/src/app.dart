@@ -10,6 +10,7 @@ import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_detail_page.dart';
 import 'package:karate_stars_app/src/home/presentation/pages/home_page.dart';
+import 'package:karate_stars_app/src/search/presentation/page/search_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/blocs/settings_bloc.dart';
 import 'package:karate_stars_app/src/settings/presentation/page/settings_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/states/settings_state.dart';
@@ -68,13 +69,14 @@ class App extends StatelessWidget {
         ),
         darkTheme: ThemeData.dark().copyWith(
             colorScheme:
-                const ColorScheme.dark().copyWith(secondary: Colors.red)),
+                const ColorScheme.dark().copyWith(primary: Colors.grey, secondary: Colors.red)),
         themeMode: ThemeMode.values.firstWhere(
             (element) => element.name == data.selectedBrightnessOption.id),
         initialRoute: HomePage.routeName,
         routes: {
           HomePage.routeName: (context) => HomePage.create(),
           SettingsPage.routeName: (context) => SettingsPage(),
+          SearchPage.routeName: (context) => SearchPage.create(),
           VideoPlayerPage.routeName: (context) => VideoPlayerPage.create(
               ModalRoute.of(context)!.settings.arguments as String),
           CompetitorDetailPage.routeName: (context) =>

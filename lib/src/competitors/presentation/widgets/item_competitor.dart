@@ -7,48 +7,45 @@ import 'package:karate_stars_app/src/competitors/presentation/states/competitors
 class ItemCompetitor extends StatelessWidget {
   final CompetitorItemState competitor;
   final String itemTextKey;
+  final EdgeInsetsGeometry? margin;
 
-  ItemCompetitor(this.competitor, {required this.itemTextKey})
+  ItemCompetitor(this.competitor, {required this.itemTextKey, this.margin})
       : super(key: Key(itemTextKey));
 
   @override
   Widget build(BuildContext context) {
     const radius = Radius.circular(20.0);
 
-    return GestureDetector(
-        onTap: () async {
-          Navigator.pushNamed(context, CompetitorDetailPage.routeName,
-              arguments: CompetitorDetailArgs(competitor.id, competitor.image));
-        },
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 10,
-              child: CircleImage(
+    return RoundedCard(
+      elevation: 0.0,
+      margin: margin ??  EdgeInsets.zero,
+      borderRadius: const BorderRadius.all(radius),
+      child: GestureDetector(
+          onTap: () async {
+            Navigator.pushNamed(context, CompetitorDetailPage.routeName,
+                arguments:
+                    CompetitorDetailArgs(competitor.id, competitor.image));
+          },
+          child: Column(
+            children: <Widget>[
+              CircleImage(
+                height: 250,
                   heroTag: competitor.id,
                   borderRadius: const BorderRadius.only(
                       topLeft: radius, topRight: radius),
                   width: double.infinity,
                   imageUrl: competitor.image),
-            ),
-            Expanded(
-                flex: 2,
-                child: Container(
-                    child: RoundedCard(
-                        elevation: 0.0,
-                        margin: EdgeInsets.zero,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: radius, bottomRight: radius),
-                        child: ListTile(
-                          title: Text(competitor.name),
-                          trailing: CircleImage(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5.0)),
-                              height: 20,
-                              width: 30,
-                              imageUrl: competitor.flag),
-                        ))))
-          ],
-        ));
+              ListTile(
+                title: Text(competitor.name),
+                trailing: CircleImage(
+                    borderRadius:
+                    const BorderRadius.all(Radius.circular(5.0)),
+                    height: 20,
+                    width: 30,
+                    imageUrl: competitor.flag),
+              )
+            ],
+          )),
+    );
   }
 }

@@ -7,12 +7,12 @@ import '../ios_player_controls_container.dart';
 
 class PlatformTopActions extends PlatformWidget<Widget, Widget> {
   @override
-  Widget createAndroidWidget(BuildContext context) {
+  Widget createMaterialWidget(BuildContext context) {
     return Container();
   }
 
   @override
-  Widget createIosWidget(BuildContext context) {
+  Widget createCupertinoWidget(BuildContext context) {
     return Expanded(
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

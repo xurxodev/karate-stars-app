@@ -8,7 +8,7 @@ import '../playback_speed_action.dart';
 
 class PlatformBottomActions extends PlatformWidget<Widget, Widget> {
   @override
-  Widget createAndroidWidget(BuildContext context) {
+  Widget createMaterialWidget(BuildContext context) {
     return Expanded(
         child: Column(
       children: [
@@ -43,7 +43,7 @@ class PlatformBottomActions extends PlatformWidget<Widget, Widget> {
   }
 
   @override
-  Widget createIosWidget(BuildContext context) {
+  Widget createCupertinoWidget(BuildContext context) {
     return Expanded(
         child: IosPlayerControlContainer(
             child: Row(

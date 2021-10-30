@@ -9,19 +9,19 @@ abstract class PlatformWidget<I extends Widget, A extends Widget>
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
       case TargetPlatform.windows:
-        return createAndroidWidget(context);
+        return createMaterialWidget(context);
 
       case TargetPlatform.macOS:
       case TargetPlatform.linux:
       case TargetPlatform.iOS:
-        return createIosWidget(context);
+        return createCupertinoWidget(context);
 
       default:
-        return createAndroidWidget(context);
+        return createMaterialWidget(context);
     }
   }
 
-  I createIosWidget(BuildContext context);
+  I createCupertinoWidget(BuildContext context);
 
-  A createAndroidWidget(BuildContext context);
+  A createMaterialWidget(BuildContext context);
 }

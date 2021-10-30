@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/actions/FilterAction.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_alert_dialog.dart';
-import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
-import 'package:karate_stars_app/src/competitors/presentation/widgets/competitor_filters.dart';
+import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_app_bar.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_page_view.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
-import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
+import 'package:karate_stars_app/src/news/presentation/widgets/news_app_bar.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
-import 'package:karate_stars_app/src/search/views/search_page_view.dart';
-import 'package:karate_stars_app/src/settings/presentation/page/settings_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
-import 'package:karate_stars_app/src/videos/presentation/widgets/videos_filters.dart';
+import 'package:karate_stars_app/src/videos/presentation/widgets/videos_app_bar.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_page_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -53,23 +48,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final leading = getLeading();
-    final title = getTitle();
-    final actions = getActions();
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        leading: leading,
-        title: title,
-        actions: actions,
-      ),
+      appBar: getAppBar(),
       body: SafeArea(
         child: PageView(
           controller: _pageController,
           children: const <Widget>[
             NewsPageView(),
-            SearchPageView(),
+            //SearchPageView(),
             CompetitorsPageView(),
             VideosPageView(),
           ],
@@ -96,16 +83,16 @@ class _HomePageState extends State<HomePage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.view_quilt,
+              Icons.home,
               key: Key(Keys.home_news_tab),
             ),
           ),
-          BottomNavigationBarItem(
+  /*        BottomNavigationBarItem(
             icon: Icon(
               Icons.search,
               key: Key(Keys.home_search_tab),
             ),
-          ),
+          ),*/
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person_outline,
@@ -123,97 +110,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget getTitle() {
-    String titleText = '';
-
+  PreferredSizeWidget getAppBar() {
     if (_currentTab == 0) {
-      titleText = Strings.home_appbar_title_default;
+      return  NewsAppBar();
+/*    } else if (_currentTab == 1) {
+      return  SearchAppBar();*/
     } else if (_currentTab == 1) {
-      titleText = Strings.home_appbar_title_settings;
-    } else if (_currentTab == 2) {
-      titleText = Strings.home_appbar_title_competitors;
+      return CompetitorsAppBar();
     } else {
-      titleText = Strings.home_appbar_title_videos;
-    }
-    const Key titleKey = Key(Keys.home_appbar_title);
-
-    if (_currentTab == 0) {
-      return Text(titleText,
-          key: titleKey,
-          style: const TextStyle(fontFamily: 'Billabong', fontSize: 30));
-    } else {
-      return Text(titleText,
-          key: titleKey,
-          style: TextStyle(
-              fontSize: Theme.of(context).textTheme.headline6!.fontSize));
-    }
-  }
-
-  List<cupertino.Widget> getActions() {
-    if (_currentTab == 0) {
-      return [
-        FilterAction(
-          key: const Key(Keys.news_filter_action),
-          tooltip: Strings.news_filters_title,
-          onPressed: () {
-            final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
-
-            showDialog(
-                context: context,
-                builder: (_) => PlatformAlertDialog(
-                    title: Strings.news_filters_title,
-                    content: NewsFilter(bloc: bloc)));
-          },
-        ),
-        IconButton(icon: const Icon(Icons.settings), onPressed: () {
-          Navigator.pushNamed(context, SettingsPage.routeName);
-        }),
-      ];
-    } else if (_currentTab == 2) {
-      return [
-        FilterAction(
-          key: const Key(Keys.competitor_filter_action),
-          tooltip: Strings.competitor_filters_title,
-          onPressed: () {
-            final CompetitorsBloc bloc =
-                BlocProvider.of<CompetitorsBloc>(context);
-
-            showDialog(
-                context: context,
-                builder: (_) => PlatformAlertDialog(
-                    title: Strings.competitor_filters_title,
-                    content: CompetitorFilters(bloc: bloc)));
-          },
-        ),
-      ];
-    } else if (_currentTab == 3) {
-      return [
-        FilterAction(
-          key: const Key(Keys.video_filter_action),
-          tooltip: Strings.videos_filters_title,
-          onPressed: () {
-            final VideosBloc bloc = BlocProvider.of<VideosBloc>(context);
-
-            showDialog(
-                context: context,
-                builder: (_) => PlatformAlertDialog(
-                    title: Strings.videos_filters_title,
-                    content: VideosFilters(bloc: bloc)));
-          },
-        ),
-      ];
-    } else {
-      return [];
-    }
-  }
-
-  Widget? getLeading() {
-    if (_currentTab == 0) {
-      return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('assets/images/logo.png'));
-    } else {
-      return null;
+      return VideosAppBar();
     }
   }
 }

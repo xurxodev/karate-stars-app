@@ -25,7 +25,7 @@ class NewsBloc extends BlocHomeListContent<NewsState> {
   }
 
   void filter(int selectedIndex) {
-    final NewsFilter selectedFilter = NewsFilter.values[selectedIndex];
+    final NewsType selectedFilter = NewsType.values[selectedIndex];
 
     final filter = selectedFilter.toString().split('.')[1];
     super.analyticsService.sendEvent(NewsFilterEvent(filter));
@@ -38,7 +38,7 @@ class NewsBloc extends BlocHomeListContent<NewsState> {
 
   void _loadData(ReadPolicy readPolicy) {
     final NewsFilter selectedFilter =
-        NewsFilter.values[state.filtersState.selectedIndex];
+        NewsFilter(type: NewsType.values[state.filtersState.selectedIndex]);
 
     _getNewsUseCase.execute(readPolicy, selectedFilter).then((news) {
       changeState(state.copyWith(listState: DefaultState.loaded(news)));
