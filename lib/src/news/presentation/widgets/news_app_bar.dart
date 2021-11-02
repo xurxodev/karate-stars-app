@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/functions/showPlatformDialog.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/actions/FilterAction.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
@@ -36,7 +37,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget{
             key: const Key(Keys.news_filter_action),
             tooltip: Strings.news_filters_title,
             onPressed: () {
-              showDialog(
+              showPlatformDialog(
                   context: context,
                   builder: (_) => PlatformAlertDialog(
                       title: Strings.news_filters_title,

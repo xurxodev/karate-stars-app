@@ -13,7 +13,6 @@ class PlatformAlertDialog
 
   @override
   AlertDialog createMaterialWidget(BuildContext context) {
-    print('AlertDialog');
     return AlertDialog(
       key: const Key(Keys.alert_dialog),
       title: Padding(
@@ -39,7 +38,6 @@ class PlatformAlertDialog
 
   @override
   CupertinoAlertDialog createCupertinoWidget(BuildContext context) {
-    print('CupertinoAlertDialog');
     return CupertinoAlertDialog(
         key: const Key(Keys.alert_dialog),
         title: Padding(

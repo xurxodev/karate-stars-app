@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/functions/showPlatformDialog.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/actions/FilterAction.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
@@ -26,7 +27,7 @@ class CompetitorsAppBar extends StatelessWidget implements PreferredSizeWidget {
             key: const Key(Keys.competitor_filter_action),
             tooltip: Strings.competitor_filters_title,
             onPressed: () {
-              showDialog(
+              showPlatformDialog(
                   context: context,
                   builder: (_) => PlatformAlertDialog(
                       title: Strings.competitor_filters_title,
