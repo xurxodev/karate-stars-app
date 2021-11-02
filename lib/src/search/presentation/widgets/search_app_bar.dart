@@ -9,7 +9,8 @@ const double _kTabHeight = 46.0;
 
 class SearchAppBar extends PlatformWidget implements PreferredSizeWidget {
   @override
-  final Size preferredSize = const Size.fromHeight(kToolbarHeight + _kTabHeight);
+  final Size preferredSize =
+      const Size.fromHeight(kToolbarHeight + _kTabHeight);
 
   final _controller = TextEditingController();
 
@@ -23,8 +24,7 @@ class SearchAppBar extends PlatformWidget implements PreferredSizeWidget {
       title: TextField(
         controller: _controller,
         decoration: const InputDecoration.collapsed(
-            hintText: Strings.search_app_bar_hint
-        ),
+            hintText: Strings.search_app_bar_hint),
         onChanged: (query) {
           bloc.search(query);
         },
@@ -57,6 +57,7 @@ class SearchAppBar extends PlatformWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       title: CupertinoSearchTextField(
+        style: Theme.of(context).textTheme.bodyText2,
         placeholder: Strings.search_app_bar_hint,
         onChanged: (query) {
           bloc.search(query);
