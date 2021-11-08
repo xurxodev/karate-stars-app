@@ -19,6 +19,7 @@ class VideoParser {
         DateTime.parse(jsonData['eventDate']),
         DateTime.parse(jsonData['createdDate']),
         jsonData['order'],
+        jsonData['isLive'],
         links);
   }
 

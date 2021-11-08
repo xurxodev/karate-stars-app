@@ -5,11 +5,15 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubeVideoPlayer extends StatefulWidget {
   final String youtubeVideoId;
+  final bool? isLive;
   final Widget Function(BuildContext, Widget) builder;
   final void Function(YoutubeMetaData metaData)? onEnded;
 
   const YoutubeVideoPlayer(
-      {required this.youtubeVideoId, required this.builder, this.onEnded});
+      {required this.youtubeVideoId,
+      required this.builder,
+      this.onEnded,
+      this.isLive});
 
   @override
   State<YoutubeVideoPlayer> createState() => _YoutubeVideoPlayerState();
@@ -43,10 +47,27 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
           controller: _controller!,
           showVideoProgressIndicator: true,
           topActions: [PlatformTopActions()],
-          bottomActions: [PlatformBottomActions()],
+          bottomActions: [
+            if (widget.isLive != null && !widget.isLive!)
+              PlatformBottomActions()
+            else
+              liveLabel(context)
+          ],
           onEnded: widget.onEnded,
         ),
         builder: widget.builder);
+  }
+
+  Row liveLabel(BuildContext context) {
+    return Row(children: [Container(
+              margin: const EdgeInsets.only(right: 4.0),
+              width: 10.0,
+              height: 10.0,
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+              ))
+            ,Text('Live', style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white))],);
   }
 
   Future<void> _initializePlayer(String videoId) async {

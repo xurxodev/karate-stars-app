@@ -12,21 +12,26 @@ class GetPlayListByVideoIdUseCase {
 
     final video = videos.firstWhere((video) => video.id == videoId);
 
-    final relatedVideos = videos.where((v) {
-      return v.competitors
-          .any((cId) => video.competitors.contains(cId) && v.id != video.id);
-    }).toList();
+    if (video.isLive){
+      final playList = videos.where((v) => v.isLive && v.id != video.id).toList();
+      return [video, ...playList];
+    } else {
+      final relatedVideos = videos.where((v) {
+        return v.competitors
+            .any((cId) => video.competitors.contains(cId) && v.id != video.id);
+      }).toList();
 
-    relatedVideos.shuffle();
+      relatedVideos.shuffle();
 
-    final nonRelatedVideos = videos.where((v) {
-      return v.competitors.any((cId) => !video.competitors.contains(cId));
-    }).toList();
+      final nonRelatedVideos = videos.where((v) {
+        return v.competitors.any((cId) => !video.competitors.contains(cId));
+      }).toList();
 
-    nonRelatedVideos.shuffle();
+      nonRelatedVideos.shuffle();
 
-    final playList = [...relatedVideos, ...nonRelatedVideos];
+      final playList = [...relatedVideos, ...nonRelatedVideos];
 
-    return [video, ...playList];
+      return [video, ...playList];
+    }
   }
 }

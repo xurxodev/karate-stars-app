@@ -14,6 +14,7 @@ Video sandraTokyo2020() {
       DateTime.parse('2021-08-05T00:00:00.000Z'),
       DateTime.parse('2021-08-08T15:03:16.110Z'),
       0,
+      false,
       links);
 }
 
@@ -31,6 +32,7 @@ Video ryoKiyuna2020() {
       DateTime.parse('2021-08-06T00:00:00.000Z'),
       DateTime.parse('2021-08-08T15:03:16.110Z'),
       0,
+      false,
       links);
 }
 

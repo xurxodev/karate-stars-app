@@ -71,6 +71,7 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
         ? Progress()
         : YoutubeVideoPlayer(
             youtubeVideoId: state.currentVideo!.links[0].id,
+            isLive:  state.currentVideo!.isLive,
             builder: (context, player) {
               return Scaffold(
                   appBar: AppBar(

@@ -7,10 +7,11 @@ class Video {
   final DateTime eventDate;
   final DateTime createdDate;
   final int order;
+  final bool isLive;
   final List<VideoLink> links;
 
   Video(this.id, this.title, this.subtitle, this.description, this.competitors,
-      this.eventDate, this.createdDate, this.order, this.links);
+      this.eventDate, this.createdDate, this.order, this.isLive, this.links);
 
   @override
   bool operator ==(Object other) =>
@@ -25,6 +26,7 @@ class Video {
           eventDate == other.eventDate &&
           createdDate == other.createdDate &&
           order == other.order &&
+          isLive == other.isLive &&
           links == other.links;
 
   @override
@@ -37,6 +39,7 @@ class Video {
       eventDate.hashCode ^
       createdDate.hashCode ^
       order.hashCode ^
+      isLive.hashCode ^
       links.hashCode;
 }
 

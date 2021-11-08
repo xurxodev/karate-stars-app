@@ -13,6 +13,27 @@ class ItemVideo extends StatelessWidget {
   Widget build(BuildContext context) {
     const radius = Radius.circular(20.0);
 
+    final trailing = [
+      Text(
+        'Live',
+        style: Theme
+            .of(context)
+            .textTheme
+            .button!
+            .copyWith(color: Theme
+            .of(context)
+            .colorScheme
+            .secondary),
+      ),
+      Icon(
+        Icons.play_arrow,
+        color: Theme
+            .of(context)
+            .colorScheme
+            .secondary,
+      )
+    ];
+
     return RoundedCard(
         color: color,
         elevation: 0.0,
@@ -23,12 +44,13 @@ class ItemVideo extends StatelessWidget {
             title: Text(video.title),
             subtitle: Text('${video.subtitle} \n${video.description}'),
             isThreeLine: true,
-            trailing: Container(
-              height: double.infinity,
-              child: Icon(
-                Icons.play_arrow,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                if (video.isLive) ...trailing else
+                  trailing[1]
+              ],
             ),
           ),
         ));

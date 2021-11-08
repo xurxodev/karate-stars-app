@@ -16,7 +16,8 @@
     ],
     "eventDate": "2021-08-05T00:00:00.000Z",
     "createdDate": "2021-08-08T15:03:16.110Z",
-    "order": 0
+    "order": 0,
+    "isLive": false
   },
   {
     "id": "KJQ2Kj3VW55",
@@ -35,6 +36,8 @@
     ],
     "eventDate": "2021-08-06T00:00:00.000Z",
     "createdDate": "2021-08-08T15:03:02.644Z",
-    "order": 0
+    "order": 0,
+
+    "isLive": false
   }
 ]
