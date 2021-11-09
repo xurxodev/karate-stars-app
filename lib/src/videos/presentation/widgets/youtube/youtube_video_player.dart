@@ -48,27 +48,14 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
           showVideoProgressIndicator: true,
           topActions: [PlatformTopActions()],
           bottomActions: [
-            if (widget.isLive != null && !widget.isLive!)
-              PlatformBottomActions()
-            else
-              liveLabel(context)
+              PlatformBottomActions(isLive:widget.isLive ?? false)
           ],
           onEnded: widget.onEnded,
         ),
         builder: widget.builder);
   }
 
-  Row liveLabel(BuildContext context) {
-    return Row(children: [Container(
-              margin: const EdgeInsets.only(right: 4.0),
-              width: 10.0,
-              height: 10.0,
-              decoration: const BoxDecoration(
-                color: Colors.red,
-                shape: BoxShape.circle,
-              ))
-            ,Text('Live', style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white))],);
-  }
+
 
   Future<void> _initializePlayer(String videoId) async {
     _controller = YoutubePlayerController(
