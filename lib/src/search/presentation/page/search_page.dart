@@ -17,6 +17,7 @@ import 'package:karate_stars_app/src/search/presentation/blocs/search_bloc.dart'
 import 'package:karate_stars_app/src/search/presentation/states/search_state.dart';
 import 'package:karate_stars_app/src/search/presentation/widgets/search_app_bar.dart';
 import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
+import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart';
 
 class SearchPage extends StatelessWidget {
@@ -136,7 +137,10 @@ class SearchPage extends StatelessWidget {
 
               //final textKey = '${Keys.competitors_item}_$index';
 
-              return ItemVideo(video: video);
+              return ItemVideo(video: video, onTap: () async {
+                Navigator.pushNamed(context, VideoPlayerPage.routeName,
+                    arguments: video.id);
+              },);
             },
           ));
     }
