@@ -8,11 +8,10 @@ class CurrentNewsMapper {
   CurrentNews mapNewsToDomain(
       CurrentNewsDB currentNewsDB, CurrentNewsSourceDB currentNewsSourcesDB) {
     final NewsSummary summary = NewsSummary(
-        currentNewsDB.title,
-        currentNewsDB.link,
-        currentNewsDB.image,
-        null,
-        PubDate(DateTime.parse(currentNewsDB.pubDate)));
+        title: currentNewsDB.title,
+        link: currentNewsDB.link,
+        image: currentNewsDB.image,
+        pubDate: PubDate(DateTime.parse(currentNewsDB.pubDate)));
 
     final NewsSource source = NewsSource(currentNewsSourcesDB.name,
         currentNewsSourcesDB.image, currentNewsSourcesDB.url);
@@ -23,7 +22,7 @@ class CurrentNewsMapper {
   CurrentNewsDB mapNewsToDB(CurrentNews currentNews, int sourceId) {
     return CurrentNewsDB(
       null,
-      currentNews.summary.link,
+      currentNews.summary.link ?? '',
       currentNews.summary.title,
       currentNews.summary.image,
       currentNews.summary.pubDate.date.toIso8601String(),

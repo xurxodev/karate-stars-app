@@ -8,11 +8,11 @@ class SocialNewsMapper {
   SocialNews mapNewsToDomain(
       SocialNewsDB socialNewsDB, SocialUserDB socialUserDB) {
     final NewsSummary summary = NewsSummary(
-        socialNewsDB.title,
-        socialNewsDB.link,
-        socialNewsDB.image,
-        socialNewsDB.video,
-        PubDate(DateTime.parse(socialNewsDB.pubDate)));
+        title: socialNewsDB.title,
+        link: socialNewsDB.link,
+        image: socialNewsDB.image,
+        video: socialNewsDB.video,
+        pubDate: PubDate(DateTime.parse(socialNewsDB.pubDate)));
 
     final SocialUser socialUser = SocialUser(socialUserDB.name,
         socialUserDB.userName, socialUserDB.image, socialUserDB.url);
@@ -23,7 +23,7 @@ class SocialNewsMapper {
   SocialNewsDB mapNewsToDB(SocialNews socialNews, int socialUserId) {
     return SocialNewsDB(
       null,
-      socialNews.summary.link,
+      socialNews.summary.link ?? '',
       socialNews.summary.title,
       socialNews.summary.image,
       socialNews.summary.video,

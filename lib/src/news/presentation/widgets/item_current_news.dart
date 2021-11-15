@@ -16,7 +16,7 @@ class ItemCurrentNews extends ItemNews {
   @override
   Widget buildContent(BuildContext context) {
     return GestureDetector(
-        onTap: () => url_helper.launchURL(context, currentNews.summary.link),
+        onTap: () => url_helper.launchURL(context, currentNews.summary.link!),
         child: Column(children: <Widget>[
           ListTile(
             leading: _avatar(),

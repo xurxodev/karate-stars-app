@@ -29,6 +29,8 @@ class GetVideosUseCase {
               video.competitors.contains(videosFilter.competitorId)) &&
           (videosFilter.year == null ||
               video.eventDate.year == videosFilter.year) &&
+          (videosFilter.isLive == null ||
+              video.isLive == videosFilter.isLive) &&
           (videosFilter.searchTerm == null ||
               video.title
                   .toLowerCase()

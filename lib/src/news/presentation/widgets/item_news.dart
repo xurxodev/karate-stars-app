@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/RoundedCard.dart';
 
 abstract class ItemNews extends StatelessWidget {
-  const ItemNews({Key? key}) : super(key: key);
+  final Color? color;
+  
+  const ItemNews({Key? key, this.color}) : super(key: key);
 
   @override
   @protected
   Widget build(BuildContext context) {
     return RoundedCard(
+        color: color,
         margin: calculateMargin(context),
         elevation: 0.0,
         borderRadius: const BorderRadius.all(Radius.circular(20.0)),

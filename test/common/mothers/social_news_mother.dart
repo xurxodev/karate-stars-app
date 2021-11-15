@@ -6,11 +6,11 @@ import 'package:karate_stars_app/src/news/domain/entities/summary.dart';
 SocialNews newVideoInKarateStars() {
   return News.socialNews(
       NewsSummary(
-          'EKF Senior Championships cancelled over coronavirus outbreak https://t.co/P2i7Ihogpo?amp=1',
-          'https://twitter.com/worldkarate_wkf/status/1238499006063542278',
-          '',
-          null,
-          PubDate(DateTime.now())),
+          title:'EKF Senior Championships cancelled over coronavirus outbreak https://t.co/P2i7Ihogpo?amp=1',
+          link: 'https://twitter.com/worldkarate_wkf/status/1238499006063542278',
+          image:'',
+          video:null,
+          pubDate: PubDate(DateTime.now())),
       Network.twitter,
       SocialUser(
           'World Karate Federation',
@@ -23,11 +23,11 @@ SocialNews newVideoInKarateStars() {
 SocialNews countDownMadrid2018() {
   return News.socialNews(
       NewsSummary(
-          'The countdown to the big #KARATE event of the year has already started!',
-          'https://twitter.com/wkf_tweet/status/961155264211836928',
-          '', //'https://pbs.twimg.com/media/DVa1YUhX4AAW4hN.jpg',
-          null,
-          PubDate(DateTime.now())),
+          title:'The countdown to the big #KARATE event of the year has already started!',
+         link: 'https://twitter.com/wkf_tweet/status/961155264211836928',
+          image:'', //'https://pbs.twimg.com/media/DVa1YUhX4AAW4hN.jpg',
+          video:null,
+          pubDate: PubDate(DateTime.now())),
       Network.twitter,
       SocialUser(
           'World Karate Federation',

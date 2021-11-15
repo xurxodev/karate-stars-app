@@ -25,7 +25,7 @@ void initAll(
 }
 
 void initBlocAndUseCases() {
-  getIt.registerFactory(() => NewsBloc(getIt(), getIt()));
+  getIt.registerFactory(() => NewsBloc(getIt(), getIt(), getIt()));
 
   getIt.registerLazySingleton(() => GetNewsUseCase(getIt(), getIt()));
 }

@@ -16,11 +16,11 @@ class CurrentNewsParser {
 
   NewsSummary parseNewsSummary(Map<String, dynamic> json) {
     final NewsSummary newsSummary = NewsSummary(
-        json['title'],
-        json['link'],
-        json['image'],
-        json['video'] ?? '',
-        PubDate(DateTime.parse(json['date'])));
+        title: json['title'],
+        link: json['link'],
+        image: json['image'],
+        video: json['video'] ?? '',
+        pubDate: PubDate(DateTime.parse(json['date'])));
     return newsSummary;
   }
 

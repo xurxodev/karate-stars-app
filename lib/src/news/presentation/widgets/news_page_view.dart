@@ -7,11 +7,13 @@ import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
+import 'package:karate_stars_app/src/news/domain/entities/live_video_news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/states/news_state.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_current_news.dart';
+import 'package:karate_stars_app/src/news/presentation/widgets/item_live_video_news.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_social_news.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
@@ -35,28 +37,28 @@ class _NewsPageViewState extends State<NewsPageView>
     final NewsBloc bloc = BlocProvider.of<NewsBloc>(context);
 
     return StreamBuilder<NewsState>(
-          initialData: bloc.state,
-          stream: bloc.observableState,
-          builder: (context, snapshot) {
-            final state = snapshot.data;
+      initialData: bloc.state,
+      stream: bloc.observableState,
+      builder: (context, snapshot) {
+        final state = snapshot.data;
 
-            if (state != null) {
-              if (state.listState is LoadingState) {
-                return Progress();
-              } else if (state.listState is ErrorState) {
-                final listState = state.listState as ErrorState;
-                return Center(
-                  child: NotificationMessage(listState.message),
-                );
-              } else {
-                return _renderNews(
-                    context, state.listState as LoadedState<List<News>>, bloc);
-              }
-            } else {
-              return const Text('No data');
-            }
-          },
-        );
+        if (state != null) {
+          if (state.listState is LoadingState) {
+            return Progress();
+          } else if (state.listState is ErrorState) {
+            final listState = state.listState as ErrorState;
+            return Center(
+              child: NotificationMessage(listState.message),
+            );
+          } else {
+            return _renderNews(
+                context, state.listState as LoadedState<List<News>>, bloc);
+          }
+        } else {
+          return const Text('No data');
+        }
+      },
+    );
   }
 
   // ignore: missing_return
@@ -81,7 +83,9 @@ class _NewsPageViewState extends State<NewsPageView>
 
                     final textKey = '${Keys.news_item}_$index';
 
-                    if (news is SocialNews) {
+                    if (news is LiveVideoNews) {
+                      return ItemLiveVideoNews(liveVideoNews: news);
+                    } else if (news is SocialNews) {
                       return ItemSocialNews(news, itemTextKey: textKey);
                     } else {
                       return ItemCurrentNews(news as CurrentNews,
