@@ -18,18 +18,18 @@ class ItemCompetitor extends StatelessWidget {
 
     return RoundedCard(
       elevation: 0.0,
-      margin: margin ??  EdgeInsets.zero,
+      margin: margin ?? EdgeInsets.zero,
       borderRadius: const BorderRadius.all(radius),
       child: GestureDetector(
           onTap: () async {
             Navigator.pushNamed(context, CompetitorDetailPage.routeName,
-                arguments:
-                    CompetitorDetailArgs(competitor.id, competitor.image));
+                arguments: CompetitorDetailArgs(
+                    competitorId: competitor.id, imageUrl: competitor.image));
           },
           child: Column(
             children: <Widget>[
               CircleImage(
-                height: 250,
+                  height: 250,
                   heroTag: competitor.id,
                   borderRadius: const BorderRadius.only(
                       topLeft: radius, topRight: radius),
@@ -38,8 +38,7 @@ class ItemCompetitor extends StatelessWidget {
               ListTile(
                 title: Text(competitor.name),
                 trailing: CircleImage(
-                    borderRadius:
-                    const BorderRadius.all(Radius.circular(5.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                     height: 20,
                     width: 30,
                     imageUrl: competitor.flag),

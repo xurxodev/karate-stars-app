@@ -18,9 +18,9 @@ import 'package:karate_stars_app/src/videos/presentation/pages/competitor_videos
 
 class CompetitorDetailArgs {
   final String competitorId;
-  final String imageUrl;
+  final String? imageUrl;
 
-  CompetitorDetailArgs(this.competitorId, this.imageUrl);
+  CompetitorDetailArgs({required this.competitorId, this.imageUrl});
 }
 
 class CompetitorDetailPage extends StatelessWidget {
@@ -76,16 +76,19 @@ class CompetitorDetailPage extends StatelessWidget {
                       backgroundColor: Theme.of(context).cardColor,
                       floating: true,
                       elevation: 5.0,
-                      flexibleSpace: CircleImage(
-                          heroTag: args.competitorId,
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: radius,
-                            bottomRight: radius,
-                          ),
-                          height: 400,
-                          fit: BoxFit.cover,
-                          elevation: 15.0,
-                          imageUrl: getImage(state)),
+                      flexibleSpace: Visibility(
+                        visible: getImage(state).isNotEmpty,
+                        child: CircleImage(
+                            heroTag: args.competitorId,
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: radius,
+                              bottomRight: radius,
+                            ),
+                            height: 400,
+                            fit: BoxFit.cover,
+                            elevation: 15.0,
+                            imageUrl: getImage(state)),
+                      ),
                       expandedHeight: 400,
                       collapsedHeight: 100,
                     ),
@@ -192,7 +195,7 @@ class CompetitorDetailPage extends StatelessWidget {
       final competitor = (state as LoadedState<CompetitorInfoState>).data;
       return competitor.mainImage;
     } else {
-      return args.imageUrl;
+      return args.imageUrl ?? '';
     }
   }
 
