@@ -8,7 +8,7 @@ class ItemLiveVideoNews extends ItemNews {
   final LiveVideoNews liveVideoNews;
 
   const ItemLiveVideoNews({required this.liveVideoNews})
-      : super(color: Colors.red);
+      : super();
 
   @override
   Widget buildContent(BuildContext context) {
