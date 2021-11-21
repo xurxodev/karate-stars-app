@@ -16,6 +16,7 @@ import 'package:karate_stars_app/src/settings/presentation/page/settings_page.da
 import 'package:karate_stars_app/src/settings/presentation/states/settings_state.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/competitor_videos_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 extension ThemeModeExtension on ThemeMode {
   String get name => describeEnum(this);
@@ -23,9 +24,14 @@ extension ThemeModeExtension on ThemeMode {
 
 class App extends StatelessWidget {
   static const String title = 'Karate Stars';
+  final bool testing;
 
-  static Widget create() {
-    return BlocProvider(bloc: app_di.getIt<SettingsBloc>(), child: App());
+  const App({required this.testing});
+
+  static Widget create({required bool testing}) {
+    return BlocProvider(
+        bloc: app_di.getIt<SettingsBloc>(),
+        child: OverlaySupport.global(child: App(testing: testing)));
   }
 
   @override
@@ -68,13 +74,13 @@ class App extends StatelessWidget {
           scaffoldBackgroundColor: Colors.grey[300],
         ),
         darkTheme: ThemeData.dark().copyWith(
-            colorScheme:
-                const ColorScheme.dark().copyWith(primary: Colors.grey, secondary: Colors.red)),
+            colorScheme: const ColorScheme.dark()
+                .copyWith(primary: Colors.grey, secondary: Colors.red)),
         themeMode: ThemeMode.values.firstWhere(
             (element) => element.name == data.selectedBrightnessOption.id),
         initialRoute: HomePage.routeName,
         routes: {
-          HomePage.routeName: (context) => HomePage.create(),
+          HomePage.routeName: (context) => HomePage.create(testing),
           SettingsPage.routeName: (context) => SettingsPage(),
           SearchPage.routeName: (context) => SearchPage.create(),
           VideoPlayerPage.routeName: (context) => VideoPlayerPage.create(

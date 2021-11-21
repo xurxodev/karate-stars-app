@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,7 +13,8 @@ class HomePageObject {
   HomePageObject(this._tester) : news = HomeNewsPageObject(_tester);
 
   Future open() async {
-    await _tester.pumpWidget(App.create());
+    //await Firebase.initializeApp();
+    await _tester.pumpWidget(App.create(testing: true));
     await _tester.pumpAndSettle();
   }
 

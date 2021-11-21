@@ -9,6 +9,7 @@ import 'package:karate_stars_app/src/competitors/presentation/widgets/competitor
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_app_bar.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
+import 'package:karate_stars_app/src/push_notifications/push_notification_handler.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_app_bar.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_page_view.dart';
@@ -19,13 +20,17 @@ class HomePage extends StatefulWidget {
 
   const HomePage() : super(key: const Key(id));
 
-  static Widget create() {
-    return BlocProvider(
+  static Widget create(bool testing) {
+    final providersAndHome = BlocProvider(
         bloc: app_di.getIt<NewsBloc>(),
         child: BlocProvider(
             bloc: app_di.getIt<CompetitorsBloc>(),
             child: BlocProvider(
                 bloc: app_di.getIt<VideosBloc>(), child: const HomePage())));
+
+    return !testing
+        ? PushNotificationsHandler(child: providersAndHome)
+        : providersAndHome;
   }
 
   @override
@@ -48,7 +53,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: getAppBar(),
       body: SafeArea(
@@ -87,7 +91,7 @@ class _HomePageState extends State<HomePage> {
               key: Key(Keys.home_news_tab),
             ),
           ),
-  /*        BottomNavigationBarItem(
+          /*        BottomNavigationBarItem(
             icon: Icon(
               Icons.search,
               key: Key(Keys.home_search_tab),
@@ -112,7 +116,7 @@ class _HomePageState extends State<HomePage> {
 
   PreferredSizeWidget getAppBar() {
     if (_currentTab == 0) {
-      return  NewsAppBar();
+      return NewsAppBar();
 /*    } else if (_currentTab == 1) {
       return  SearchAppBar();*/
     } else if (_currentTab == 1) {

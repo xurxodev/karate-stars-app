@@ -11,6 +11,7 @@ dependencies:
   chewie: ^1.2.2
   cupertino_icons: ^1.0.3
   firebase_analytics: ^8.3.1
+  firebase_messaging: ^10.0.6
   floor: ^1.1.0
   flutter:
     sdk: flutter
@@ -23,6 +24,7 @@ dependencies:
   http: ^0.13.3
   line_icons: ^2.0.1
   liquid_pull_to_refresh: ^3.0.0
+  overlay_support: ^1.2.1
   share: ^2.0.4
   shared_preferences: ^2.0.8
   video_player: ^2.1.15
@@ -52,4 +54,4 @@ flutter:
         - asset: assets/fonts/billabong.ttf
     - family: CustomIcons
       fonts:
-       - asset: assets/fonts/custom_icons.ttf
+        - asset: assets/fonts/custom_icons.ttf
