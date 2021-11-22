@@ -20,9 +20,3 @@ Future<void> main() async {
 
   runApp(App.create(testing: false));
 }
-
-void mainWithoutDataDependencies() {
-  app_di.initWithoutDataDependencies();
-
-  runApp(App.create(testing: true));
-}
