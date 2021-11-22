@@ -29,7 +29,7 @@ class ItemCompetitor extends StatelessWidget {
           child: Column(
             children: <Widget>[
               CircleImage(
-                  height: 250,
+                  //height: 250,
                   heroTag: competitor.id,
                   borderRadius: const BorderRadius.only(
                       topLeft: radius, topRight: radius),

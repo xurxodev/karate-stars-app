@@ -12,7 +12,6 @@ class HomePageObject {
   HomePageObject(this._tester) : news = HomeNewsPageObject(_tester);
 
   Future open() async {
-    //await Firebase.initializeApp();
     await _tester.pumpWidget(App.create(testing: true));
     await _tester.pumpAndSettle();
   }

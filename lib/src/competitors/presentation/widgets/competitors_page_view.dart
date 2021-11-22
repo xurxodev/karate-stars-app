@@ -51,7 +51,6 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
   // ignore: missing_return
   Widget _renderList(BuildContext context,
       LoadedState<List<CompetitorItemState>> state, CompetitorsBloc bloc) {
-    final orientation = MediaQuery.of(context).orientation;
 
     if (state.data.isEmpty) {
       return const NotificationMessage(Strings.competitor_empty_message);
@@ -65,20 +64,18 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
                 color: Theme.of(context).scaffoldBackgroundColor,
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                      crossAxisCount:
-                          orientation == Orientation.portrait ? 1 : 2,
-                      childAspectRatio: 1.1),
+                child: ListView.builder(
                   itemCount: state.data.length,
                   itemBuilder: (context, index) {
                     final competitor = state.data[index];
 
-                    final textKey = '${Keys.news_item}_$index';
+                    final textKey = '${Keys.competitors_item}_$index';
 
-                    return ItemCompetitor(competitor, itemTextKey: textKey);
+                    return ItemCompetitor(
+                      competitor,
+                      itemTextKey: textKey,
+                      margin: const EdgeInsets.symmetric(vertical: 4.0),
+                    );
                   },
                 ),
                 onRefresh: () => bloc.refresh()),
