@@ -26,7 +26,6 @@ dependencies:
   line_icons: ^2.0.1
   liquid_pull_to_refresh: ^3.0.0
   overlay_support: ^1.2.1
-  provider: ^5.0.0
   share: ^2.0.4
   shared_preferences: ^2.0.8
   video_player: ^2.1.15

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:karate_stars_app/src/ads/ads_state.dart';
+import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
@@ -18,7 +18,6 @@ import 'package:karate_stars_app/src/news/presentation/widgets/item_current_news
 import 'package:karate_stars_app/src/news/presentation/widgets/item_live_video_news.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_social_news.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:provider/provider.dart';
 
 class NewsPageView extends StatefulWidget {
   const NewsPageView() : super(key: const Key(Keys.news_page_view));
@@ -29,28 +28,13 @@ class NewsPageView extends StatefulWidget {
 
 class _NewsPageViewState extends State<NewsPageView>
     with AutomaticKeepAliveClientMixin<NewsPageView> {
-  BannerAd? banner;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    final adState = Provider.of<AdsState>(context);
-    adState.initialization.then((status) => {
-          setState(() {
-            banner = BannerAd(
-                adUnitId: adState.bannerAdUnitId,
-                size: AdSize.banner,
-                request: const AdRequest(),
-                listener: adState.adListener)
-              ..load();
-          })
-        });
-  }
+  BannerAd? _bottomBannerAd;
+  bool _isBottomBannerAdLoaded = false;
 
   @override
   void initState() {
     super.initState();
+    _createBottomBannerAd();
   }
 
   @override
@@ -118,13 +102,13 @@ class _NewsPageViewState extends State<NewsPageView>
                                     itemTextKey: textKey);
                               }
                             })),
-                    if (banner == null)
-                      const SizedBox(height: 50)
-                    else
+                    if (_isBottomBannerAdLoaded)
                       Container(
                         height: 50.0,
-                        child: AdWidget(ad: banner!),
+                        child: AdWidget(ad: _bottomBannerAd!),
                       )
+                    else
+                      const SizedBox(height: 50)
                   ],
                 ),
                 onRefresh: () async {
@@ -138,6 +122,31 @@ class _NewsPageViewState extends State<NewsPageView>
     }
   }
 
+  void _createBottomBannerAd() {
+    _bottomBannerAd = BannerAd(
+      adUnitId: AdsHelper.newsBannerAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isBottomBannerAdLoaded = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+        },
+      ),
+    );
+    _bottomBannerAd!.load();
+  }
+
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bottomBannerAd?.dispose();
+  }
 }
