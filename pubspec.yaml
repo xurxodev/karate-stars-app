@@ -21,10 +21,12 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   flutter_speed_dial: ^4.4.0+2
   get_it: ^7.2.0
+  google_mobile_ads: ^1.0.0
   http: ^0.13.3
   line_icons: ^2.0.1
   liquid_pull_to_refresh: ^3.0.0
   overlay_support: ^1.2.1
+  provider: ^5.0.0
   share: ^2.0.4
   shared_preferences: ^2.0.8
   video_player: ^2.1.15
