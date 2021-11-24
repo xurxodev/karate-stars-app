@@ -55,19 +55,10 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
     _firebaseMessaging.subscribeToTopic(_debugCompetitorTopic);
     _firebaseMessaging.subscribeToTopic(_debugVideoTopic);
 
-    FirebaseMessaging.onBackgroundMessage(_backgroundHandler);
     FirebaseMessaging.onMessage.listen(_onMessageHandler);
     FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenApp);
-  }
 
-  Future<void> _backgroundHandler(RemoteMessage message) async {
-    print('Handling a background message');
-    print('Message data: ${message.data}');
-    print(
-        'Message notification: ${message.notification!.title} - ${message
-            .notification!.body}');
-
-    _handleNotificationClick(message);
+    _firebaseMessaging.getInitialMessage().then(_onInitialMessage);
   }
 
   Future<void> _onMessageHandler(RemoteMessage message) async {
@@ -90,6 +81,19 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
             .notification!.body}');
 
     _handleNotificationClick(message);
+  }
+
+  Future<void> _onInitialMessage(RemoteMessage? message) async {
+    print('Handling a on initial message');
+
+    if (message != null){
+      print('Message data: ${message.data}');
+      print(
+          'Message notification: ${message.notification!.title} - ${message
+              .notification!.body}');
+
+      _handleNotificationClick(message);
+    }
   }
 
   Future<void> _handleNotificationClick(RemoteMessage message) async {
