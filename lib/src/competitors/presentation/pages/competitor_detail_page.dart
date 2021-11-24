@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/ads/ad.dart';
+import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
 import 'package:karate_stars_app/src/common/presentation/icons/custom_icons.dart';
@@ -184,7 +186,7 @@ class CompetitorDetailPage extends StatelessWidget {
         ),
         Expanded(
             child: Column(
-          children: [..._renderAchievementGroups(context, competitor)],
+          children: [..._renderAchievementGroups(context, competitor), Ad(adUnitId: AdsHelper.competitorNativeAdUnitId,) ],
         ))
       ]),
     );

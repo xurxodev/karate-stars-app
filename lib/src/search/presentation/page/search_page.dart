@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/ads/ads_helper.dart';
+import 'package:karate_stars_app/src/ads/ads_listview.dart';
+import 'package:karate_stars_app/src/ads/item_ad.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
@@ -81,8 +84,10 @@ class SearchPage extends StatelessWidget {
     } else {
       return Container(
           padding: const EdgeInsets.only(top: 8.0),
-          child: ListView.builder(
+          child: AdsListView(
+            adUnitId: AdsHelper.searchNewsNativeAdUnitId,
             itemCount: newsResults.length,
+            adBuilder: (context, ad) => ItemAd(nativeAd: ad),
             itemBuilder: (context, index) {
               final News news = newsResults[index];
 
@@ -106,8 +111,10 @@ class SearchPage extends StatelessWidget {
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          child: ListView.builder(
+          child: AdsListView(
+            adUnitId: AdsHelper.searchCompetitorsNativeAdUnitId,
             itemCount: competitorResults.length,
+            adBuilder: (context, ad) => ItemAd(nativeAd: ad),
             itemBuilder: (context, index) {
               final competitor = competitorResults[index];
 
@@ -130,7 +137,9 @@ class SearchPage extends StatelessWidget {
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          child: ListView.builder(
+          child: AdsListView(
+            adUnitId: AdsHelper.searchVideosNativeAdUnitId,
+            adBuilder: (context, ad) => ItemAd(nativeAd: ad),
             itemCount: videoResults.length,
             itemBuilder: (context, index) {
               final video = videoResults[index];

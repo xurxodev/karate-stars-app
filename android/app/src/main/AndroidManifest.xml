@@ -35,12 +35,12 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
-            <!-- Admob ads-->
-            <meta-data
-                android:name="com.google.android.gsm.ads.APPLICATION_ID"
-                android:value="ca-app-pub-3409991930157804~5528717571"
-                />
         </activity>
+
+        <!-- Admob ads-->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3409991930157804~5528717571"
+            />
     </application>
 </manifest>

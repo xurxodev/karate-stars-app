@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
+import 'package:karate_stars_app/src/ads/ads_listview.dart';
+import 'package:karate_stars_app/src/ads/item_ad_news.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
@@ -28,15 +29,6 @@ class NewsPageView extends StatefulWidget {
 
 class _NewsPageViewState extends State<NewsPageView>
     with AutomaticKeepAliveClientMixin<NewsPageView> {
-  BannerAd? _bottomBannerAd;
-  bool _isBottomBannerAdLoaded = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _createBottomBannerAd();
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -82,35 +74,24 @@ class _NewsPageViewState extends State<NewsPageView>
                 color: Theme.of(context).scaffoldBackgroundColor,
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
-                child: Column(
-                  children: [
-                    Expanded(
-                        child: ListView.builder(
-                            itemCount: state.data.length,
-                            itemBuilder: (context, index) {
-                              final News news = state.data[index];
+                child: AdsListView(
+                    adUnitId: AdsHelper.newsNativeAdUnitId,
+                    itemCount: state.data.length,
+                    adBuilder: (context,ad) => ItemAdNews(nativeAd: ad),
+                    itemBuilder: (context, index) {
+                      final News news = state.data[index];
 
-                              final textKey = '${Keys.news_item}_$index';
+                      final textKey = '${Keys.news_item}_$index';
 
-                              if (news is LiveVideoNews) {
-                                return ItemLiveVideoNews(liveVideoNews: news);
-                              } else if (news is SocialNews) {
-                                return ItemSocialNews(news,
-                                    itemTextKey: textKey);
-                              } else {
-                                return ItemCurrentNews(news as CurrentNews,
-                                    itemTextKey: textKey);
-                              }
-                            })),
-                    if (_isBottomBannerAdLoaded)
-                      Container(
-                        height: 50.0,
-                        child: AdWidget(ad: _bottomBannerAd!),
-                      )
-                    else
-                      const SizedBox(height: 50)
-                  ],
-                ),
+                      if (news is LiveVideoNews) {
+                        return ItemLiveVideoNews(liveVideoNews: news);
+                      } else if (news is SocialNews) {
+                        return ItemSocialNews(news, itemTextKey: textKey);
+                      } else {
+                        return ItemCurrentNews(news as CurrentNews,
+                            itemTextKey: textKey);
+                      }
+                    }),
                 onRefresh: () async {
                   bloc.refresh();
                 }),
@@ -122,31 +103,6 @@ class _NewsPageViewState extends State<NewsPageView>
     }
   }
 
-  void _createBottomBannerAd() {
-    _bottomBannerAd = BannerAd(
-      adUnitId: AdsHelper.newsBannerAdUnitId,
-      size: AdSize.banner,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isBottomBannerAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-        },
-      ),
-    );
-    _bottomBannerAd!.load();
-  }
-
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bottomBannerAd?.dispose();
-  }
 }
