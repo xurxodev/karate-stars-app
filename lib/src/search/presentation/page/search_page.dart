@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
+import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
 import 'package:karate_stars_app/src/ads/item_ad.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
@@ -23,11 +24,25 @@ import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   static const routeName = '/search';
 
   static Widget create() {
     return BlocProvider(bloc: app_di.getIt<SearchBloc>(), child: SearchPage());
+  }
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  late PlayVideoInterstitialAd _playVideoInterstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _playVideoInterstitialAd = PlayVideoInterstitialAd();
   }
 
   @override
@@ -147,12 +162,19 @@ class SearchPage extends StatelessWidget {
               //final textKey = '${Keys.competitors_item}_$index';
 
               return ItemVideo(video: video, onTap: () async {
+                _playVideoInterstitialAd.show();
                 Navigator.pushNamed(context, VideoPlayerPage.routeName,
                     arguments: video.id);
               },);
             },
           ));
     }
+  }
+
+  @override
+  void dispose() {
+    _playVideoInterstitialAd.dispose();
+    super.dispose();
   }
 }
 

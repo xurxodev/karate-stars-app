@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
+import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
 import 'package:karate_stars_app/src/ads/item_ad.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
@@ -23,6 +25,15 @@ class VideosPageView extends StatefulWidget {
 }
 
 class _VideosPageViewState extends State<VideosPageView> {
+  late PlayVideoInterstitialAd _playVideoInterstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _playVideoInterstitialAd = PlayVideoInterstitialAd();
+  }
+
   @override
   Widget build(BuildContext context) {
     final VideosBloc bloc = BlocProvider.of<VideosBloc>(context);
@@ -50,8 +61,8 @@ class _VideosPageViewState extends State<VideosPageView> {
     );
   }
 
-  Widget _renderList(
-      BuildContext context, LoadedState<List<Video>> state, VideosBloc bloc) {
+  Widget _renderList(BuildContext context, LoadedState<List<Video>> state,
+      VideosBloc bloc) {
     if (state.data.isEmpty) {
       return const NotificationMessage(Strings.videos_empty_message);
     } else {
@@ -60,13 +71,18 @@ class _VideosPageViewState extends State<VideosPageView> {
           child: NotificationListener<ScrollUpdateNotification>(
             child: LiquidPullToRefresh(
                 borderWidth: 2,
-                color: Theme.of(context).scaffoldBackgroundColor,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
+                color: Theme
+                    .of(context)
+                    .scaffoldBackgroundColor,
+                backgroundColor: Theme
+                    .of(context)
+                    .colorScheme
+                    .secondary,
                 showChildOpacityTransition: false,
                 child: AdsListView(
                   adUnitId: AdsHelper.videosNativeAdUnitId,
                   itemCount: state.data.length,
-                  adBuilder: (context,ad) => ItemAd(nativeAd: ad),
+                  adBuilder: (context, ad) => ItemAd(nativeAd: ad),
                   itemBuilder: (context, index) {
                     final video = state.data[index];
 
@@ -75,6 +91,7 @@ class _VideosPageViewState extends State<VideosPageView> {
                     return ItemVideo(
                       video: video,
                       onTap: () async {
+                        _playVideoInterstitialAd.show();
                         Navigator.pushNamed(context, VideoPlayerPage.routeName,
                             arguments: video.id);
                       },
@@ -88,5 +105,11 @@ class _VideosPageViewState extends State<VideosPageView> {
             },
           ));
     }
+  }
+
+  @override
+  void dispose() {
+    _playVideoInterstitialAd.dispose();
+    super.dispose();
   }
 }
