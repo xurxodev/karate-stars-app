@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
 import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
-import 'package:karate_stars_app/src/ads/item_ad.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
@@ -100,9 +100,9 @@ class _SearchPageState extends State<SearchPage> {
       return Container(
           padding: const EdgeInsets.only(top: 8.0),
           child: AdsListView(
-            adUnitId: AdsHelper.searchNewsNativeAdUnitId,
             itemCount: newsResults.length,
-            adBuilder: (context, ad) => ItemAd(nativeAd: ad),
+            adBuilder: (context) =>
+                Ad(adUnitId: AdsHelper.searchNewsNativeAdUnitId),
             itemBuilder: (context, index) {
               final News news = newsResults[index];
 
@@ -121,15 +121,14 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _competitorResults(List<CompetitorItemState> competitorResults) {
     if (competitorResults.isEmpty) {
-      return const NotificationMessage(
-          Strings.search_empty_message);
+      return const NotificationMessage(Strings.search_empty_message);
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
           child: AdsListView(
-            adUnitId: AdsHelper.searchCompetitorsNativeAdUnitId,
             itemCount: competitorResults.length,
-            adBuilder: (context, ad) => ItemAd(nativeAd: ad),
+            adBuilder: (context) =>
+                Ad(adUnitId: AdsHelper.searchCompetitorsNativeAdUnitId),
             itemBuilder: (context, index) {
               final competitor = competitorResults[index];
 
@@ -147,25 +146,27 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _videoResults(List<Video> videoResults) {
     if (videoResults.isEmpty) {
-      return const NotificationMessage(
-          Strings.search_empty_message);
+      return const NotificationMessage(Strings.search_empty_message);
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
           child: AdsListView(
-            adUnitId: AdsHelper.searchVideosNativeAdUnitId,
-            adBuilder: (context, ad) => ItemAd(nativeAd: ad),
+            adBuilder: (context) =>
+                Ad(adUnitId: AdsHelper.searchVideosNativeAdUnitId),
             itemCount: videoResults.length,
             itemBuilder: (context, index) {
               final video = videoResults[index];
 
               //final textKey = '${Keys.competitors_item}_$index';
 
-              return ItemVideo(video: video, onTap: () async {
-                _playVideoInterstitialAd.show();
-                Navigator.pushNamed(context, VideoPlayerPage.routeName,
-                    arguments: video.id);
-              },);
+              return ItemVideo(
+                video: video,
+                onTap: () async {
+                  _playVideoInterstitialAd.show();
+                  Navigator.pushNamed(context, VideoPlayerPage.routeName,
+                      arguments: video.id);
+                },
+              );
             },
           ));
     }
@@ -177,5 +178,3 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 }
-
-

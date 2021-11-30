@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
-import 'package:karate_stars_app/src/ads/item_ad_news.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/functions/calculate_item_news_margin.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
@@ -75,9 +76,10 @@ class _NewsPageViewState extends State<NewsPageView>
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
                 child: AdsListView(
-                    adUnitId: AdsHelper.newsNativeAdUnitId,
                     itemCount: state.data.length,
-                    adBuilder: (context,ad) => ItemAdNews(nativeAd: ad),
+                    adBuilder: (context) => Ad(
+                        adUnitId: AdsHelper.newsNativeAdUnitId,
+                        margin: calculateItemNewsMargin(context)),
                     itemBuilder: (context, index) {
                       final News news = state.data[index];
 

@@ -1,19 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
 
+abstract class Item {}
+
+class AdItem implements Item {}
+
+class OriginalItem implements Item {
+  final int originalIndex;
+
+  OriginalItem(this.originalIndex);
+}
+
 class AdsListView extends StatefulWidget {
-  final String adUnitId;
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
-  final Widget Function(BuildContext context, NativeAd ad) adBuilder;
+  final Widget Function(BuildContext context) adBuilder;
   final EdgeInsetsGeometry? padding;
 
   const AdsListView(
-      {required this.adUnitId,
-      required this.itemCount,
+      {required this.itemCount,
       required this.itemBuilder,
       required this.adBuilder,
       this.padding});
@@ -23,66 +29,56 @@ class AdsListView extends StatefulWidget {
 }
 
 class _AdsListViewState extends State<AdsListView> {
-  static const _defaultAdIndex = 4;
-  late NativeAd _ad;
-  bool _isAdLoaded = false;
+  static const _itemsPerAd = 8;
+
+  List<Item> virtualItems = [];
 
   @override
   void initState() {
     super.initState();
+    _generateVirtualItems();
+  }
 
-    _ad = NativeAd(
-      adUnitId: widget.adUnitId,
-      factoryId: 'listTile',
-      request: const AdRequest(),
-      listener: NativeAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          // Releases an ad resource when it fails to load
-          ad.dispose();
+  @override
+  void didUpdateWidget(AdsListView oldWidget) {
+    super.didUpdateWidget(oldWidget);
 
-          print('Ad load failed (code=${error.code} message=${error.message})');
-        },
-      ),
-    );
+    if (widget.itemCount != oldWidget.itemCount) {
+      _generateVirtualItems();
+    }
+  }
 
-    _ad.load();
+  void _generateVirtualItems() {
+    final items = Iterable<int>.generate(widget.itemCount).map((i) {
+      final Item item = OriginalItem(i);
+      return item;
+    }).toList();
+
+    if (items.length <= _itemsPerAd) {
+      items.insert(items.length, AdItem());
+    } else {
+      for (int i = _itemsPerAd; i <= items.length; i += _itemsPerAd) {
+        items.insert(i, AdItem());
+      }
+    }
+
+    setState(() {
+      virtualItems = items;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         padding: widget.padding,
-        itemCount: widget.itemCount + (_isAdLoaded ? 1 : 0),
+        itemCount: virtualItems.length,
         itemBuilder: (context, index) {
-          if (_isAdLoaded && index == _adIndex) {
-            return widget.adBuilder(context, _ad);
+          if (virtualItems[index] is AdItem) {
+            return widget.adBuilder(context);
           } else {
-            return widget.itemBuilder(context, _getOriginalItemIndex(index));
+            final item = virtualItems[index] as OriginalItem;
+            return widget.itemBuilder(context, item.originalIndex);
           }
         });
-  }
-
-  int get _adIndex {
-    return widget.itemCount > _defaultAdIndex - 1
-        ? _defaultAdIndex
-        : widget.itemCount;
-  }
-
-  int _getOriginalItemIndex(int rawIndex) {
-    if (rawIndex >= _adIndex && _isAdLoaded) {
-      return rawIndex - 1;
-    }
-    return rawIndex;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _ad.dispose();
   }
 }

@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/RoundedCard.dart';
 
 typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
 
 class Ad extends StatefulWidget {
   final String adUnitId;
+  final EdgeInsetsGeometry? margin;
+  final BorderRadiusGeometry? borderRadius;
 
-  const Ad({required this.adUnitId});
+  const Ad({required this.adUnitId, this.margin, this.borderRadius});
 
   @override
   _AdState createState() => _AdState();
@@ -45,12 +48,20 @@ class _AdState extends State<Ad> {
 
   @override
   Widget build(BuildContext context) {
-    return _isAdLoaded? Container(
-          height: 75,
-          padding: const EdgeInsets.all(8),
-          child: AdWidget(ad: _ad),
-          alignment: Alignment.center,
-        ): Container();
+    return _isAdLoaded
+        ? RoundedCard(
+            color: const Color(0xFFFAFAFA),
+            elevation: 0.0,
+            margin: widget.margin,
+            borderRadius: widget.borderRadius ??
+                const BorderRadius.all(Radius.circular(20.0)),
+            child: Container(
+              height: 75,
+              padding: const EdgeInsets.all(8),
+              child: AdWidget(ad: _ad),
+              alignment: Alignment.center,
+            ))
+        : Container();
   }
 
   @override
