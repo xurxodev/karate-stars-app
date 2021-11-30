@@ -42,4 +42,6 @@ abstract class ItemNews extends StatelessWidget {
 
   @protected
   Widget buildContent(BuildContext context);
+
+
 }

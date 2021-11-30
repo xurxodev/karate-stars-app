@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/ads/ad.dart';
+import 'package:karate_stars_app/src/ads/ads_helper.dart';
+import 'package:karate_stars_app/src/ads/ads_listview.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/functions/calculate_item_news_margin.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
@@ -26,11 +30,6 @@ class NewsPageView extends StatefulWidget {
 
 class _NewsPageViewState extends State<NewsPageView>
     with AutomaticKeepAliveClientMixin<NewsPageView> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -76,23 +75,25 @@ class _NewsPageViewState extends State<NewsPageView>
                 color: Theme.of(context).scaffoldBackgroundColor,
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
-                child: ListView.builder(
-                  itemCount: state.data.length,
-                  itemBuilder: (context, index) {
-                    final News news = state.data[index];
+                child: AdsListView(
+                    itemCount: state.data.length,
+                    adBuilder: (context) => Ad(
+                        adUnitId: AdsHelper.newsNativeAdUnitId,
+                        margin: calculateItemNewsMargin(context)),
+                    itemBuilder: (context, index) {
+                      final News news = state.data[index];
 
-                    final textKey = '${Keys.news_item}_$index';
+                      final textKey = '${Keys.news_item}_$index';
 
-                    if (news is LiveVideoNews) {
-                      return ItemLiveVideoNews(liveVideoNews: news);
-                    } else if (news is SocialNews) {
-                      return ItemSocialNews(news, itemTextKey: textKey);
-                    } else {
-                      return ItemCurrentNews(news as CurrentNews,
-                          itemTextKey: textKey);
-                    }
-                  },
-                ),
+                      if (news is LiveVideoNews) {
+                        return ItemLiveVideoNews(liveVideoNews: news);
+                      } else if (news is SocialNews) {
+                        return ItemSocialNews(news, itemTextKey: textKey);
+                      } else {
+                        return ItemCurrentNews(news as CurrentNews,
+                            itemTextKey: textKey);
+                      }
+                    }),
                 onRefresh: () async {
                   bloc.refresh();
                 }),

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/ads/ad.dart';
+import 'package:karate_stars_app/src/ads/ads_helper.dart';
+import 'package:karate_stars_app/src/ads/ads_listview.dart';
+import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
@@ -20,6 +24,15 @@ class VideosPageView extends StatefulWidget {
 }
 
 class _VideosPageViewState extends State<VideosPageView> {
+  late PlayVideoInterstitialAd _playVideoInterstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _playVideoInterstitialAd = PlayVideoInterstitialAd();
+  }
+
   @override
   Widget build(BuildContext context) {
     final VideosBloc bloc = BlocProvider.of<VideosBloc>(context);
@@ -49,6 +62,7 @@ class _VideosPageViewState extends State<VideosPageView> {
 
   Widget _renderList(
       BuildContext context, LoadedState<List<Video>> state, VideosBloc bloc) {
+    print('videos' + state.data.length.toString());
     if (state.data.isEmpty) {
       return const NotificationMessage(Strings.videos_empty_message);
     } else {
@@ -60,8 +74,10 @@ class _VideosPageViewState extends State<VideosPageView> {
                 color: Theme.of(context).scaffoldBackgroundColor,
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
-                child: ListView.builder(
+                child: AdsListView(
                   itemCount: state.data.length,
+                  adBuilder: (context) =>
+                      Ad(adUnitId: AdsHelper.videosNativeAdUnitId),
                   itemBuilder: (context, index) {
                     final video = state.data[index];
 
@@ -70,6 +86,7 @@ class _VideosPageViewState extends State<VideosPageView> {
                     return ItemVideo(
                       video: video,
                       onTap: () async {
+                        _playVideoInterstitialAd.show();
                         Navigator.pushNamed(context, VideoPlayerPage.routeName,
                             arguments: video.id);
                       },
@@ -83,5 +100,11 @@ class _VideosPageViewState extends State<VideosPageView> {
             },
           ));
     }
+  }
+
+  @override
+  void dispose() {
+    _playVideoInterstitialAd.dispose();
+    super.dispose();
   }
 }

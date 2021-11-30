@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/ads/ad.dart';
+import 'package:karate_stars_app/src/ads/ads_helper.dart';
+import 'package:karate_stars_app/src/ads/ads_listview.dart';
+import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
@@ -20,11 +24,25 @@ import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   static const routeName = '/search';
 
   static Widget create() {
     return BlocProvider(bloc: app_di.getIt<SearchBloc>(), child: SearchPage());
+  }
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  late PlayVideoInterstitialAd _playVideoInterstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _playVideoInterstitialAd = PlayVideoInterstitialAd();
   }
 
   @override
@@ -81,8 +99,10 @@ class SearchPage extends StatelessWidget {
     } else {
       return Container(
           padding: const EdgeInsets.only(top: 8.0),
-          child: ListView.builder(
+          child: AdsListView(
             itemCount: newsResults.length,
+            adBuilder: (context) =>
+                Ad(adUnitId: AdsHelper.searchNewsNativeAdUnitId),
             itemBuilder: (context, index) {
               final News news = newsResults[index];
 
@@ -101,13 +121,14 @@ class SearchPage extends StatelessWidget {
 
   Widget _competitorResults(List<CompetitorItemState> competitorResults) {
     if (competitorResults.isEmpty) {
-      return const NotificationMessage(
-          Strings.search_empty_message);
+      return const NotificationMessage(Strings.search_empty_message);
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          child: ListView.builder(
+          child: AdsListView(
             itemCount: competitorResults.length,
+            adBuilder: (context) =>
+                Ad(adUnitId: AdsHelper.searchCompetitorsNativeAdUnitId),
             itemBuilder: (context, index) {
               final competitor = competitorResults[index];
 
@@ -125,26 +146,35 @@ class SearchPage extends StatelessWidget {
 
   Widget _videoResults(List<Video> videoResults) {
     if (videoResults.isEmpty) {
-      return const NotificationMessage(
-          Strings.search_empty_message);
+      return const NotificationMessage(Strings.search_empty_message);
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          child: ListView.builder(
+          child: AdsListView(
+            adBuilder: (context) =>
+                Ad(adUnitId: AdsHelper.searchVideosNativeAdUnitId),
             itemCount: videoResults.length,
             itemBuilder: (context, index) {
               final video = videoResults[index];
 
               //final textKey = '${Keys.competitors_item}_$index';
 
-              return ItemVideo(video: video, onTap: () async {
-                Navigator.pushNamed(context, VideoPlayerPage.routeName,
-                    arguments: video.id);
-              },);
+              return ItemVideo(
+                video: video,
+                onTap: () async {
+                  _playVideoInterstitialAd.show();
+                  Navigator.pushNamed(context, VideoPlayerPage.routeName,
+                      arguments: video.id);
+                },
+              );
             },
           ));
     }
   }
+
+  @override
+  void dispose() {
+    _playVideoInterstitialAd.dispose();
+    super.dispose();
+  }
 }
-
-

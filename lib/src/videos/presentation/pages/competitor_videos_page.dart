@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/CircleImage.dart';
@@ -19,7 +20,7 @@ class CompetitorVideosArgs {
   CompetitorVideosArgs(this.competitorId, this.imageUrl);
 }
 
-class CompetitorVideosPage extends StatelessWidget {
+class CompetitorVideosPage extends StatefulWidget {
   final CompetitorVideosArgs args;
 
   const CompetitorVideosPage({required this.args});
@@ -33,10 +34,24 @@ class CompetitorVideosPage extends StatelessWidget {
   static const routeName = '/competitor-videos';
 
   @override
+  State<CompetitorVideosPage> createState() => _CompetitorVideosPageState();
+}
+
+class _CompetitorVideosPageState extends State<CompetitorVideosPage> {
+  late PlayVideoInterstitialAd _playVideoInterstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _playVideoInterstitialAd = PlayVideoInterstitialAd();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final CompetitorVideosBloc bloc =
         BlocProvider.of<CompetitorVideosBloc>(context);
-    bloc.init(args.competitorId);
+    bloc.init(widget.args.competitorId);
 
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -68,7 +83,7 @@ class CompetitorVideosPage extends StatelessWidget {
                   elevation: 5.0,
                   //forceElevated:true,
                   flexibleSpace: CircleImage(
-                      heroTag: args.competitorId,
+                      heroTag: widget.args.competitorId,
                       borderRadius: const BorderRadius.only(
                         bottomLeft: radius,
                         bottomRight: radius,
@@ -127,7 +142,7 @@ class CompetitorVideosPage extends StatelessWidget {
       final data = (state as LoadedState<CompetitorVideos>).data;
       return data.image;
     } else {
-      return args.imageUrl;
+      return widget.args.imageUrl;
     }
   }
 
@@ -138,6 +153,7 @@ class CompetitorVideosPage extends StatelessWidget {
         color: Theme.of(context).brightness == Brightness.light? Colors.blueGrey[50]:Colors.grey[600],
         video: video,
         onTap: () async {
+          _playVideoInterstitialAd.show();
           Navigator.pushNamed(context, VideoPlayerPage.routeName,
               arguments: video.id);
         },
@@ -152,5 +168,11 @@ class CompetitorVideosPage extends StatelessWidget {
     } else {
       return '';
     }
+  }
+
+  @override
+  void dispose() {
+    _playVideoInterstitialAd.dispose();
+    super.dispose();
   }
 }

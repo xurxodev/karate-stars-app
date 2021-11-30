@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/ads/ad.dart';
+import 'package:karate_stars_app/src/ads/ads_helper.dart';
+import 'package:karate_stars_app/src/ads/ads_listview.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
@@ -71,7 +74,7 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
         ? Progress()
         : YoutubeVideoPlayer(
             youtubeVideoId: state.currentVideo!.links[0].id,
-            isLive:  state.currentVideo!.isLive,
+            isLive: state.currentVideo!.isLive,
             builder: (context, player) {
               return Scaffold(
                   appBar: AppBar(
@@ -98,10 +101,12 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
                             isThreeLine: true,
                           )),
                       Expanded(
-                        child: ListView.builder(
+                        child: AdsListView(
                           padding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16),
                           itemCount: playList.data.length,
+                          adBuilder: (context) =>
+                              Ad(adUnitId: AdsHelper.videoNativeAdUnitId),
                           itemBuilder: (context, index) {
                             final video = playList.data[index];
 
