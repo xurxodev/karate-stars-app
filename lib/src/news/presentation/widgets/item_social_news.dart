@@ -4,6 +4,8 @@ import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/url.dart'
     as url_helper;
+import 'package:karate_stars_app/src/common/presentation/widgets/facebook_icon.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/instagram_icon.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/twitter_icon.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
@@ -54,25 +56,46 @@ class ItemSocialNews extends ItemNews {
             pattern: r'(^|\s)#(\w*[a-zA-Z_]+\S*)',
             style: linkStyle,
             onTap: (hashtag) => url_helper.launchURL(
-                context, url_helper.createTwitterURL(hashtag)),
+                context, getNetworkUrl(socialNews.network, hashtag)),
           ),
           MatchText(
             pattern: '@[A-Za-z0-9]*',
             style: linkStyle,
             onTap: (user) => url_helper.launchURL(
-                context, url_helper.createTwitterURL(user)),
+                context,  getNetworkUrl(socialNews.network, user)),
           ),
         ],
       )),
       ListTile(
-        leading: TwitterIcon(
-            key: Key('${itemTextKey}_${Keys.news_item_social_badge}')),
+        leading: getSocialIcon(socialNews.network),
         trailing: Text(
           socialNews.summary.pubDate.antiquity,
           style: Theme.of(context).textTheme.caption,
         ),
       )
     ]);
+  }
+
+  Widget getSocialIcon(Network network) {
+    final key = Key('${itemTextKey}_${Keys.news_item_social_badge}');
+
+    final networkIcon = {
+      Network.facebook: FacebookIcon(),
+      Network.twitter: TwitterIcon(key: key),
+      Network.instagram: InstagramIcon(),
+    };
+
+    return networkIcon[network]!;
+  }
+
+  String getNetworkUrl(Network network, String text) {
+    final networkUrl = {
+      Network.facebook:  url_helper.createFacebookURL(text),
+      Network.twitter: url_helper.createTwitterURL(text),
+      Network.instagram: url_helper.createInstagramURL(text),
+    };
+
+    return networkUrl[network]!;
   }
 
   Widget _mediaWidget() {

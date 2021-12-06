@@ -16,12 +16,40 @@ Future<void> launchURL(BuildContext context, String url) async {
 }
 
 String createTwitterURL(String text) {
-  const baseAddress = 'https://twitter.com/';
+  const baseAddress = 'https://twitter.com';
 
   text = text.trim();
 
   if (text.substring(0, 1) == '#') {
-    return baseAddress + 'hashtag/' + text.replaceFirst('#', '') + '?src=hash';
+    return baseAddress + '/hashtag/' + text.replaceFirst('#', '') + '?src=hash';
+  } else if (text.substring(0, 1) == '@') {
+    return baseAddress + text.replaceFirst('@', '');
+  } else {
+    return text;
+  }
+}
+
+String createInstagramURL(String text) {
+  const baseAddress = 'https://www.instagram.com';
+
+  text = text.trim();
+
+  if (text.substring(0, 1) == '#') {
+    return baseAddress + '/explore/tags/' + text.replaceFirst('#', '')  ;
+  } else if (text.substring(0, 1) == '@') {
+    return baseAddress + text.replaceFirst('@', '');
+  } else {
+    return text;
+  }
+}
+
+String createFacebookURL(String text) {
+  const baseAddress = 'https://www.instagram.com';
+
+  text = text.trim();
+
+  if (text.substring(0, 1) == '#') {
+    return baseAddress + '/hashtag/' + text.replaceFirst('#', '')  ;
   } else if (text.substring(0, 1) == '@') {
     return baseAddress + text.replaceFirst('@', '');
   } else {
