@@ -56,7 +56,7 @@ void _initSocialNewsDataDI(
   getIt.registerLazySingleton(() => appDatabase.socialUsersDao);
 
   getIt.registerLazySingleton<CacheableDataSource<SocialNews>>(
-      () => SocialNewsFloorDataSource(getIt(), getIt(), mediumCacheTimeMillis));
+      () => SocialNewsFloorDataSource(getIt(), getIt(), smallCacheTimeMillis));
 
   getIt.registerLazySingleton<SocialNewsRepository>(
       () => SocialNewsCachedRepository(getIt(), getIt()));

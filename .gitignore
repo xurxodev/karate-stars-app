@@ -85,4 +85,4 @@
 /ios/Runner/GoogleService-Info.plist
 
 # Environemnt variables file
-*.env
+.env

@@ -17,12 +17,18 @@ class SocialNewsMapper {
     final SocialUser socialUser = SocialUser(socialUserDB.name,
         socialUserDB.userName, socialUserDB.image, socialUserDB.url);
 
-    return News.socialNews(summary, Network.twitter, socialUser) as SocialNews;
+    final Network network = Network.values.firstWhere((e) => e
+        .toString()
+        .toLowerCase()
+        .contains(socialNewsDB.network));
+
+    return News.socialNews(summary, network, socialUser) as SocialNews;
   }
 
   SocialNewsDB mapNewsToDB(SocialNews socialNews, int socialUserId) {
     return SocialNewsDB(
       null,
+      socialNews.network.toString().toLowerCase(),
       socialNews.summary.link ?? '',
       socialNews.summary.title,
       socialNews.summary.image,

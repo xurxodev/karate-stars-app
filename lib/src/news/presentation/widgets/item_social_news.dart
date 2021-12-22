@@ -27,7 +27,7 @@ class ItemSocialNews extends ItemNews {
     return Column(children: <Widget>[
       GestureDetector(
         onTap: () => url_helper.launchURL(context,
-            url_helper.createTwitterURL('@${socialNews.user.userName}')),
+            getNetworkUrl(socialNews.network, '@${socialNews.user.userName}')),
         child: ListTile(
           leading: _avatar(context),
           title: Text(socialNews.user.name,
@@ -62,7 +62,7 @@ class ItemSocialNews extends ItemNews {
             pattern: '@[A-Za-z0-9]*',
             style: linkStyle,
             onTap: (user) => url_helper.launchURL(
-                context,  getNetworkUrl(socialNews.network, user)),
+                context, getNetworkUrl(socialNews.network, user)),
           ),
         ],
       )),
@@ -90,7 +90,7 @@ class ItemSocialNews extends ItemNews {
 
   String getNetworkUrl(Network network, String text) {
     final networkUrl = {
-      Network.facebook:  url_helper.createFacebookURL(text),
+      Network.facebook: url_helper.createFacebookURL(text),
       Network.twitter: url_helper.createTwitterURL(text),
       Network.instagram: url_helper.createInstagramURL(text),
     };

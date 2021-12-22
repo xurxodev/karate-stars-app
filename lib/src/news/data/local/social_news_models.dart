@@ -45,8 +45,9 @@ class SocialNewsDB extends ModelDB {
   final String? video;
   final String pubDate;
   final int socialUserId;
+  final String network;
 
-  SocialNewsDB(this.id, this.link, this.title, this.image, this.video,
+  SocialNewsDB(this.id, this.network, this.link, this.title, this.image, this.video,
       this.pubDate, this.socialUserId, String lastUpdate)
       : super(lastUpdate);
 }
