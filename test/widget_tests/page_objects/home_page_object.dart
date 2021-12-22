@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/app.dart';
 import 'package:karate_stars_app/src/common/keys.dart';

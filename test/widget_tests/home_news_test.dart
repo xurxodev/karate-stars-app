@@ -71,7 +71,7 @@ void main() {
         await Future.forEach(newsList, (newsItem) async {
           if (newsItem is SocialNews) {
             await home.news.expectSocialBadgeIsVisible(
-                newsList.indexOf(newsItem), newsItem is SocialNews);
+                newsList.indexOf(newsItem), true);
           }
         });
       });
