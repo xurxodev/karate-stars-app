@@ -1,19 +1,30 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
+import 'package:karate_stars_app/src/common/data/local/DataBaseMapper.dart';
 
-void executeCacheTests<T>(Function(int millis) cacheFactory, List<T> data) {
-  Future<CacheableDataSource<T>> givenACacheWithoutData([int millis = 100]) {
-    return cacheFactory(millis);
+import '../../../../common/in_memory_box.dart';
+
+void executeCacheTests<Entity, ModelDB>(
+    Function(Box<ModelDB> box, int millis) cacheFactory,
+    List<Entity> data,
+    DataBaseMapper<Entity, ModelDB> mapper) {
+  Future<CacheableDataSource<Entity>> givenACacheWithoutData(
+      [int millis = 100]) {
+    final box = InMemoryBox<ModelDB>([]);
+
+    return cacheFactory(box, millis);
   }
 
-  Future<CacheableDataSource<T>> givenACacheWithData([int millis = 100]) async {
-    final currentNewsCache = await givenACacheWithoutData(millis);
+  Future<CacheableDataSource<Entity>> givenACacheWithData(
+      [int millis = 100]) async {
+    final dataDB = data.map((entity) => mapper.mapToDB(entity)).toList();
 
-    await currentNewsCache.save(data);
+    final _box = InMemoryBox<ModelDB>(dataDB);
 
-    return currentNewsCache;
+    return cacheFactory(_box, millis);
   }
 
   group('local data source should', () {
@@ -52,7 +63,7 @@ void executeCacheTests<T>(Function(int millis) cacheFactory, List<T> data) {
     test('return empty list if cache is invalidated', () async {
       final cache = await givenACacheWithData(100);
 
-      cache.invalidate();
+      await cache.invalidate();
 
       final currentData = await cache.getAll();
 

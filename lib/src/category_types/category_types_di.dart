@@ -7,11 +7,9 @@ import 'package:karate_stars_app/src/category_types/domain/entities/category_typ
 import 'package:karate_stars_app/src/category_types/domain/get_category_types.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
-import 'package:karate_stars_app/src/common/data/database.dart';
 
-void initAll(
-    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
-  _initDataDI(appDatabase, apiUrl, apiCredentials);
+void initAll(String apiUrl, Credentials apiCredentials) {
+  _initDataDI(apiUrl, apiCredentials);
 
   initBlocAndUseCases();
 }
@@ -20,8 +18,7 @@ void initBlocAndUseCases() {
   getIt.registerLazySingleton(() => GetCategoryTypesUseCase(getIt()));
 }
 
-void _initDataDI(
-    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
+void _initDataDI(String apiUrl, Credentials apiCredentials) {
   getIt.registerLazySingleton<ReadableDataSource<CategoryType>>(
       () => CategoryTypeApiDataSource(apiUrl, apiCredentials, getIt()));
 

@@ -1,12 +1,22 @@
-import 'package:karate_stars_app/src/news/data/local/social_news_models.dart';
+import 'package:karate_stars_app/src/common/data/local/DataBaseMapper.dart';
+import 'package:karate_stars_app/src/news/data/local/models/social_news_db.dart';
+import 'package:karate_stars_app/src/news/data/local/models/social_user_db.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/domain/entities/summary.dart';
 
-class SocialNewsMapper {
-  SocialNews mapNewsToDomain(
-      SocialNewsDB socialNewsDB, SocialUserDB socialUserDB) {
+class SocialNewsMapper  implements DataBaseMapper<SocialNews,SocialNewsDB>{
+  @override
+  SocialNews mapToDomain(
+      SocialNewsDB socialNewsDB) {
+
+    final SocialUser socialUser = SocialUser(
+        socialNewsDB.user.name,
+        socialNewsDB.user.userName,
+        socialNewsDB.user.image,
+        socialNewsDB.user.url);
+
     final NewsSummary summary = NewsSummary(
         title: socialNewsDB.title,
         link: socialNewsDB.link,
@@ -14,8 +24,6 @@ class SocialNewsMapper {
         video: socialNewsDB.video,
         pubDate: PubDate(DateTime.parse(socialNewsDB.pubDate)));
 
-    final SocialUser socialUser = SocialUser(socialUserDB.name,
-        socialUserDB.userName, socialUserDB.image, socialUserDB.url);
 
     final Network network = Network.values.firstWhere((e) => e
         .toString()
@@ -25,22 +33,24 @@ class SocialNewsMapper {
     return News.socialNews(summary, network, socialUser) as SocialNews;
   }
 
-  SocialNewsDB mapNewsToDB(SocialNews socialNews, int socialUserId) {
+  @override
+  SocialNewsDB mapToDB(SocialNews socialNews) {
+    final user = SocialUserDB(
+        socialNews.user.name,
+        socialNews.user.userName,
+        socialNews.user.image,
+        socialNews.user.url,
+        DateTime.now().toIso8601String());
+
     return SocialNewsDB(
-      null,
       socialNews.network.toString().toLowerCase(),
       socialNews.summary.link ?? '',
       socialNews.summary.title,
       socialNews.summary.image,
       socialNews.summary.video,
       socialNews.summary.pubDate.date.toIso8601String(),
-      socialUserId,
+      user,
       DateTime.now().toIso8601String(),
     );
-  }
-
-  SocialUserDB mapSocialUserToDB(SocialUser socialUser) {
-    return SocialUserDB(null, socialUser.name, socialUser.userName,
-        socialUser.image, socialUser.url, DateTime.now().toIso8601String());
   }
 }

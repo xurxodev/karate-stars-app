@@ -1,7 +1,6 @@
 import 'package:karate_stars_app/app_di.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
-import 'package:karate_stars_app/src/common/data/database.dart';
 import 'package:karate_stars_app/src/competitors/data/competitor_cached_repository.dart';
 import 'package:karate_stars_app/src/competitors/data/local/competitors_in_memory_data_source.dart';
 import 'package:karate_stars_app/src/competitors/data/remote/competitor_api_data_source.dart';
@@ -12,9 +11,8 @@ import 'package:karate_stars_app/src/competitors/domain/get_competitors_use_case
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitor_detail_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
 
-void initAll(
-    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
-  _initDataDI(appDatabase, apiUrl, apiCredentials);
+void initAll(String apiUrl, Credentials apiCredentials) {
+  _initDataDI(apiUrl, apiCredentials);
 
   initBlocAndUseCases();
 }
@@ -29,8 +27,7 @@ void initBlocAndUseCases() {
   getIt.registerLazySingleton(() => GetCompetitorByIdUseCase(getIt()));
 }
 
-void _initDataDI(
-    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
+void _initDataDI(String apiUrl, Credentials apiCredentials) {
   getIt.registerLazySingleton<ReadableDataSource<Competitor>>(
       () => CompetitorApiDataSource(apiUrl, apiCredentials, getIt()));
 

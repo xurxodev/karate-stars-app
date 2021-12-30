@@ -15,6 +15,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   MobileAds.instance.initialize();
+
   await app_di.init();
 
   await SystemChrome.setPreferredOrientations(

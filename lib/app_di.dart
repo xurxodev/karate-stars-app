@@ -6,7 +6,7 @@ import 'package:karate_stars_app/src/category_types/category_types_di.dart'
     as category_types_di;
 import 'package:karate_stars_app/src/common/analytics/firebase_analytics_service.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
-import 'package:karate_stars_app/src/common/data/database.dart';
+import 'package:karate_stars_app/src/common/data/local/database.dart';
 import 'package:karate_stars_app/src/common/data/remote/token_storage.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/competitors/competitors_di.dart'
@@ -26,14 +26,13 @@ final getIt = GetIt.instance;
 
 int largeCacheTimeMillis = const Duration(days: 7).inMilliseconds;
 int mediumCacheTimeMillis = const Duration(hours: 4).inMilliseconds;
-int smallCacheTimeMillis = const Duration(hours: 1).inMilliseconds;
+int smallCacheTimeMillis = const Duration(minutes: 10).inMilliseconds;
 
 Future<void> init() async {
   getIt.allowReassignment = true;
   initNoDataAppDependencies();
 
-  final AppDatabase appDatabase =
-      await $FloorAppDatabase.databaseBuilder('karate_stars.db').build();
+  final database = await Database.create();
 
   final apiBaseAddress = dotenv.env['API_URL'] ?? '';
   final username = dotenv.env['API_USERNAME'] ?? '';
@@ -47,16 +46,16 @@ Future<void> init() async {
 
   getIt.registerLazySingleton<ApiTokenStorage>(() => ApiTokenSecureStorage());
 
-  news_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  competitors_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  videos_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  countries_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  category_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  category_types_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  event_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  event_types_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  settings_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
-  search_di.initAll(appDatabase, apiBaseAddress, apiCredentials);
+  news_di.initAll(database, apiBaseAddress, apiCredentials);
+  competitors_di.initAll(apiBaseAddress, apiCredentials);
+  videos_di.initAll( apiBaseAddress, apiCredentials);
+  countries_di.initAll( apiBaseAddress, apiCredentials);
+  category_di.initAll( apiBaseAddress, apiCredentials);
+  category_types_di.initAll(apiBaseAddress, apiCredentials);
+  event_di.initAll(apiBaseAddress, apiCredentials);
+  event_types_di.initAll(apiBaseAddress, apiCredentials);
+  settings_di.initAll(apiBaseAddress, apiCredentials);
+  search_di.initAll( apiBaseAddress, apiCredentials);
 }
 
 void initWithoutDataDependencies() {

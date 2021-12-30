@@ -1,7 +1,6 @@
 import 'package:karate_stars_app/app_di.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
-import 'package:karate_stars_app/src/common/data/database.dart';
 import 'package:karate_stars_app/src/videos/data/local/videos_in_memory_data_source.dart';
 import 'package:karate_stars_app/src/videos/data/remote/video_api_data_source.dart';
 import 'package:karate_stars_app/src/videos/data/video_cached_repository.dart';
@@ -13,9 +12,8 @@ import 'package:karate_stars_app/src/videos/presentation/blocs/competitor_videos
 import 'package:karate_stars_app/src/videos/presentation/blocs/video_player_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
 
-void initAll(
-    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
-  _initDataDI(appDatabase, apiUrl, apiCredentials);
+void initAll(String apiUrl, Credentials apiCredentials) {
+  _initDataDI(apiUrl, apiCredentials);
 
   initBlocAndUseCases();
 }
@@ -29,8 +27,7 @@ void initBlocAndUseCases() {
   getIt.registerLazySingleton(() => GetPlayListByVideoIdUseCase(getIt()));
 }
 
-void _initDataDI(
-    AppDatabase appDatabase, String apiUrl, Credentials apiCredentials) {
+void _initDataDI(String apiUrl, Credentials apiCredentials) {
   getIt.registerLazySingleton<ReadableDataSource<Video>>(
       () => VideoApiDataSource(apiUrl, apiCredentials, getIt()));
 
