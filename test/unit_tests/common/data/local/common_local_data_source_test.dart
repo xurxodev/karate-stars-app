@@ -46,13 +46,13 @@ void executeCacheTests<Entity, ModelDB>(
     });
     test('return are valid values equal to true if cache is not dirty',
         () async {
-      final cache = await givenACacheWithData(200);
+      final cache = await givenACacheWithData(500);
 
       sleep(const Duration(milliseconds: 100));
 
       expect(await cache.areValidValues(), true);
     });
-    test('return are  valid values equal to false if cache is  dirty',
+    test('return are valid values equal to false if cache is  dirty',
         () async {
       final cache = await givenACacheWithData(100);
 

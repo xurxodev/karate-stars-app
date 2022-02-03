@@ -74,7 +74,7 @@ class VideosBloc extends BlocHomeListContent<VideosState> {
     competitorsOptions = [
       defaultCompetitor,
       ...(await _getCompetitorsUseCase.execute(readPolicy))
-          .map((item) => Option(item.identifier, item.fullName()))
+          .map((item) => Option(item.id, item.fullName()))
     ];
 
     final videos = await _getVideosUseCase.execute(readPolicy, VideosFilter());

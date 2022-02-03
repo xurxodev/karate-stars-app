@@ -1,7 +1,10 @@
+import 'package:hive/hive.dart';
 import 'package:karate_stars_app/app_di.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
-import 'package:karate_stars_app/src/videos/data/local/videos_in_memory_data_source.dart';
+import 'package:karate_stars_app/src/common/data/local/database.dart';
+import 'package:karate_stars_app/src/videos/data/local/models/video_db.dart';
+import 'package:karate_stars_app/src/videos/data/local/video_hive_data_source.dart';
 import 'package:karate_stars_app/src/videos/data/remote/video_api_data_source.dart';
 import 'package:karate_stars_app/src/videos/data/video_cached_repository.dart';
 import 'package:karate_stars_app/src/videos/domain/boundaries/video_repository.dart';
@@ -12,8 +15,8 @@ import 'package:karate_stars_app/src/videos/presentation/blocs/competitor_videos
 import 'package:karate_stars_app/src/videos/presentation/blocs/video_player_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
 
-void initAll(String apiUrl, Credentials apiCredentials) {
-  _initDataDI(apiUrl, apiCredentials);
+void initAll(Database database, String apiUrl, Credentials apiCredentials) {
+  _initDataDI(database, apiUrl, apiCredentials);
 
   initBlocAndUseCases();
 }
@@ -27,12 +30,14 @@ void initBlocAndUseCases() {
   getIt.registerLazySingleton(() => GetPlayListByVideoIdUseCase(getIt()));
 }
 
-void _initDataDI(String apiUrl, Credentials apiCredentials) {
+void _initDataDI(Database database, String apiUrl, Credentials apiCredentials) {
   getIt.registerLazySingleton<ReadableDataSource<Video>>(
       () => VideoApiDataSource(apiUrl, apiCredentials, getIt()));
 
+  getIt.registerLazySingleton<Box<VideoDB>>(() => database.videosBox);
+
   getIt.registerLazySingleton<CacheableDataSource<Video>>(
-      () => VideoInMemoryDataSource(largeCacheTimeMillis));
+      () => VideoHiveDataSource(getIt(), largeCacheTimeMillis));
 
   getIt.registerLazySingleton<VideoRepository>(
       () => VideoCachedRepository(getIt(), getIt()));

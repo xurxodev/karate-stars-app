@@ -17,7 +17,7 @@ ReadableDataSource<Competitor> remoteDataSourceFactory(String baseAddress) {
 
 void expectFirstItem(Competitor competitor) {
   expect(competitor, isNotNull);
-  expect(competitor.identifier, 'Lx1ChvOLNoS');
+  expect(competitor.id, 'Lx1ChvOLNoS');
   expect(competitor.firstName, 'Rika');
   expect(competitor.lastName, 'Usami');
   expect(competitor.biography,

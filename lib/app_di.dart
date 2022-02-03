@@ -14,9 +14,8 @@ import 'package:karate_stars_app/src/competitors/competitors_di.dart'
 import 'package:karate_stars_app/src/countries/countries_di.dart'
     as countries_di;
 import 'package:karate_stars_app/src/event_types/event_types_di.dart'
-as event_types_di;
-import 'package:karate_stars_app/src/events/event_di.dart'
-as event_di;
+    as event_types_di;
+import 'package:karate_stars_app/src/events/event_di.dart' as event_di;
 import 'package:karate_stars_app/src/news/news_di.dart' as news_di;
 import 'package:karate_stars_app/src/search/search_di.dart' as search_di;
 import 'package:karate_stars_app/src/settings/settings_di.dart' as settings_di;
@@ -47,15 +46,15 @@ Future<void> init() async {
   getIt.registerLazySingleton<ApiTokenStorage>(() => ApiTokenSecureStorage());
 
   news_di.initAll(database, apiBaseAddress, apiCredentials);
-  competitors_di.initAll(apiBaseAddress, apiCredentials);
-  videos_di.initAll( apiBaseAddress, apiCredentials);
-  countries_di.initAll( apiBaseAddress, apiCredentials);
-  category_di.initAll( apiBaseAddress, apiCredentials);
-  category_types_di.initAll(apiBaseAddress, apiCredentials);
-  event_di.initAll(apiBaseAddress, apiCredentials);
-  event_types_di.initAll(apiBaseAddress, apiCredentials);
+  competitors_di.initAll(database, apiBaseAddress, apiCredentials);
+  videos_di.initAll(database, apiBaseAddress, apiCredentials);
+  countries_di.initAll(database, apiBaseAddress, apiCredentials);
+  category_di.initAll(database, apiBaseAddress, apiCredentials);
+  category_types_di.initAll(database, apiBaseAddress, apiCredentials);
+  event_di.initAll(database, apiBaseAddress, apiCredentials);
+  event_types_di.initAll(database, apiBaseAddress, apiCredentials);
   settings_di.initAll(apiBaseAddress, apiCredentials);
-  search_di.initAll( apiBaseAddress, apiCredentials);
+  search_di.initAll(apiBaseAddress, apiCredentials);
 }
 
 void initWithoutDataDependencies() {

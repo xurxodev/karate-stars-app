@@ -11,7 +11,7 @@ class GetCompetitorByIdUseCase {
     final competitors = await _competitorRepository.getAll(readPolicy);
 
     final competitor = competitors
-        .firstWhere((competitor) => competitor.identifier == competitorId);
+        .firstWhere((competitor) => competitor.id == competitorId);
 
     return competitor;
   }

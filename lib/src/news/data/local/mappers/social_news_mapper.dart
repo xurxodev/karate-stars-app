@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:karate_stars_app/src/common/data/local/DataBaseMapper.dart';
 import 'package:karate_stars_app/src/news/data/local/models/social_news_db.dart';
 import 'package:karate_stars_app/src/news/data/local/models/social_user_db.dart';
@@ -39,11 +40,10 @@ class SocialNewsMapper  implements DataBaseMapper<SocialNews,SocialNewsDB>{
         socialNews.user.name,
         socialNews.user.userName,
         socialNews.user.image,
-        socialNews.user.url,
-        DateTime.now().toIso8601String());
+        socialNews.user.url);
 
     return SocialNewsDB(
-      socialNews.network.toString().toLowerCase(),
+      describeEnum(socialNews.network),
       socialNews.summary.link ?? '',
       socialNews.summary.title,
       socialNews.summary.image,

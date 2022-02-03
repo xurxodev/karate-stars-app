@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
+
 import 'achievement.dart';
 
 class Competitor {
-  final String identifier;
+  final String id;
   final String firstName;
   final String lastName;
   final String wkfId;
@@ -19,7 +21,7 @@ class Competitor {
   }
 
   Competitor(
-      this.identifier,
+      this.id,
       this.firstName,
       this.lastName,
       this.wkfId,
@@ -37,7 +39,7 @@ class Competitor {
       identical(this, other) ||
       other is Competitor &&
           runtimeType == other.runtimeType &&
-          identifier == other.identifier &&
+          id == other.id &&
           firstName == other.firstName &&
           lastName == other.lastName &&
           wkfId == other.wkfId &&
@@ -47,12 +49,12 @@ class Competitor {
           mainImage == other.mainImage &&
           isActive == other.isActive &&
           isLegend == other.isLegend &&
-          links == other.links &&
-          achievements == other.achievements;
+          listEquals(links, other.links) &&
+          listEquals(achievements ,other.achievements);
 
   @override
   int get hashCode =>
-      identifier.hashCode ^
+      id.hashCode ^
       firstName.hashCode ^
       lastName.hashCode ^
       wkfId.hashCode ^

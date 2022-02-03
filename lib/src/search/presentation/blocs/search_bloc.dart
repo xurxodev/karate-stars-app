@@ -77,7 +77,7 @@ class SearchBloc extends Bloc<SearchState> {
             .firstWhere((country) => country.id == competitor.countryId);
 
         return CompetitorItemState(
-            competitor.identifier,
+            competitor.id,
             '${competitor.firstName} ${competitor.lastName}',
             competitor.mainImage,
             country.image);

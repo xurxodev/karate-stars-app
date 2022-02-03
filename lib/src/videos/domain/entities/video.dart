@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Video {
   final String id;
   final String title;
@@ -27,7 +29,7 @@ class Video {
           createdDate == other.createdDate &&
           order == other.order &&
           isLive == other.isLive &&
-          links == other.links;
+          listEquals(links, other.links);
 
   @override
   int get hashCode =>

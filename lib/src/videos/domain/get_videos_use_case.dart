@@ -20,7 +20,7 @@ class GetVideosUseCase {
                 .fullName()
                 .toLowerCase()
                 .contains(videosFilter.searchTerm!.toLowerCase()))
-            .map((item) => item.identifier)
+            .map((item) => item.id)
             .toList()
         : null;
 

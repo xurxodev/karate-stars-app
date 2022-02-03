@@ -45,7 +45,7 @@ class CompetitorDetailBloc extends Bloc<CompetitorDetailState> {
       final categories =
       await _getCategoriesUseCase.execute(ReadPolicy.cache_first);
 
-      _analyticsService.sendScreenName('$screen_name/${competitor.identifier}');
+      _analyticsService.sendScreenName('$screen_name/${competitor.id}');
 
       final achievementsByEventType =
       competitor.achievements.groupListsBy((achievement) {
@@ -73,7 +73,7 @@ class CompetitorDetailBloc extends Bloc<CompetitorDetailState> {
       });
 
       final competitorInfo = CompetitorInfoState(
-          competitor.identifier,
+          competitor.id,
           competitor.firstName,
           competitor.lastName,
           competitor.wkfId,

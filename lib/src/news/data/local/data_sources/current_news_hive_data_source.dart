@@ -7,34 +7,28 @@ import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 
 class CurrentNewsHiveDataSource extends CacheDataSource
     implements CacheableDataSource<CurrentNews> {
-  final Box<CurrentNewsDB> _currentNewsBox;
+  final Box<CurrentNewsDB> _box;
   final _mapper = CurrentNewsMapper();
 
-  CurrentNewsHiveDataSource(this._currentNewsBox, int maxCacheTime)
-      : super(maxCacheTime);
+  CurrentNewsHiveDataSource(this._box, int maxCacheTime) : super(maxCacheTime);
 
   @override
   Future<List<CurrentNews>> getAll() async {
-    final newsList = _currentNewsBox.values;
-
-    return newsList.map((news) => _mapper.mapToDomain(news)).toList();
+    return _box.values.map(_mapper.mapToDomain).toList();
   }
 
   @override
   Future<void> save(List<CurrentNews> items) async {
-    final newsDB = items.map((item) => _mapper.mapToDB(item)).toList();
-
-    await _currentNewsBox.addAll(newsDB);
+    await _box.addAll(items.map(_mapper.mapToDB));
   }
 
   @override
   Future<bool> areValidValues() async {
-    final data = _currentNewsBox.values.toList();
-    return !super.areDirty(data);
+    return !super.areDirty(_box.values.toList());
   }
 
   @override
   Future<void> invalidate() async {
-    _currentNewsBox.clear();
+    _box.clear();
   }
 }
