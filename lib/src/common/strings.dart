@@ -3,6 +3,9 @@ class Strings {
   static const String home_appbar_title_competitors = 'Competitors';
   static const String home_appbar_title_videos = 'Videos';
   static const String home_appbar_title_search = 'Search';
+  static const String home_menu_settings = 'Settings';
+  static const String home_menu_rankings = 'Rankings';
+  static const String home_menu_title= 'More';
 
   static const news_filters_title = 'News Filter';
   static const String news_filters_current = 'News';
@@ -52,4 +55,7 @@ class Strings {
 
   static const String network_error_message =
       'An error connection has ocurred, please try later!!';
+
+
+  static const String url_rankings = 'https://setopen.sportdata.org/wkfranking/ranking_main.php';
 }
