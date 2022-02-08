@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,7 +13,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //default filename is .env
-  await dotenv.load();
+  //if (kReleaseMode) {
+    await dotenv.load(
+        fileName: '.env.production', mergeWith: Platform.environment);
+  //} else {
+  //  await dotenv.load(
+  //      fileName: '.env.development', mergeWith: Platform.environment);
+  //}
 
   await Firebase.initializeApp();
 

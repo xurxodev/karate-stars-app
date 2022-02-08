@@ -48,7 +48,8 @@ flutter:
     - assets/images/
     - assets/stubs/current_news.json
     - assets/stubs/social_news.json
-    - .env
+    - .env.development
+    - .env.production
 
   fonts:
     - family: Billabong
