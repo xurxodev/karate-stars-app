@@ -15,11 +15,18 @@ class EventDB implements ModelDB {
   final String typeId;
 
   @HiveField(3)
-  final int year;
+  final DateTime startDate;
+
+  @HiveField(4)
+  final DateTime endDate;
+
+  @HiveField(5)
+  final String? url;
 
   @override
-  @HiveField(4)
+  @HiveField(6)
   final String lastUpdate;
 
-  EventDB(this.id, this.name, this.typeId, this.year, this.lastUpdate);
+  EventDB(this.id, this.name, this.typeId, this.startDate, this.endDate,
+      this.url, this.lastUpdate);
 }

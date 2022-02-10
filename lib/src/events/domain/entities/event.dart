@@ -2,9 +2,12 @@ class Event {
   final String id;
   final String name;
   final String typeId;
-  final int year;
+  final DateTime startDate;
+  final DateTime endDate;
+  final String? url;
 
-  Event(this.id, this.name, this.typeId, this.year);
+  Event(
+      this.id, this.name, this.typeId, this.startDate, this.endDate, this.url);
 
   @override
   bool operator ==(Object other) =>
@@ -14,9 +17,16 @@ class Event {
           id == other.id &&
           name == other.name &&
           typeId == other.typeId &&
-          year == other.year;
+          startDate == other.startDate &&
+          endDate == other.endDate &&
+          url == other.url;
 
   @override
   int get hashCode =>
-      id.hashCode ^ name.hashCode ^ typeId.hashCode ^ year.hashCode;
+      id.hashCode ^
+      name.hashCode ^
+      typeId.hashCode ^
+      startDate.hashCode ^
+      endDate.hashCode ^
+      url.hashCode;
 }

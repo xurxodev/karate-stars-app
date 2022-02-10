@@ -5,7 +5,8 @@ import 'package:karate_stars_app/src/events/domain/entities/event.dart';
 class EventMapper implements DataBaseMapper<Event, EventDB> {
   @override
   Event mapToDomain(EventDB modelDB) {
-    return Event(modelDB.id, modelDB.name, modelDB.typeId, modelDB.year);
+    return Event(modelDB.id, modelDB.name, modelDB.typeId, modelDB.startDate,
+        modelDB.endDate, modelDB.url);
   }
 
   @override
@@ -14,7 +15,9 @@ class EventMapper implements DataBaseMapper<Event, EventDB> {
       entity.id,
       entity.name,
       entity.typeId,
-      entity.year,
+      entity.startDate,
+      entity.endDate,
+      entity.url,
       DateTime.now().toIso8601String(),
     );
   }

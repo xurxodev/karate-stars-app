@@ -20,7 +20,10 @@ void expectFirstItem(Event event) {
   expect(event.id, 'W9p4KDNo1Vi');
   expect(event.name, 'European Championships Porec 2021');
   expect(event.typeId, 'FEJ08kkHhqi');
-  expect(event.year, 2021);
+  expect(event.startDate, DateTime.parse('2021-05-19T00:00:00Z'));
+  expect(event.endDate, DateTime.parse('2021-05-23T00:00:00Z'));
+  expect(event.url,
+      'https://www.sportdata.org/wkf/set-online/veranstaltung_info_main.php?active_menu=calendar&vernr=473');
 }
 
 void main() {

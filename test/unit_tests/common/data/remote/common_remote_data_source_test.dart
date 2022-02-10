@@ -38,7 +38,7 @@ void executeRemoteDataSourceTests<T>(
 
       mockApi.expectRequestContainsHeader('accept', 'application/json');
     });
-    test('parse social news properly getting all social news', () async {
+    test('parse properly getting all', () async {
       await mockApi.enqueueMockResponse(fileName: stubResponseFile);
 
       final responseData = await _remoteApiDataSource.getAll();

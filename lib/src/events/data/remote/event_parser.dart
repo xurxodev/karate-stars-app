@@ -6,7 +6,7 @@ class EventParser {
   }
 
   Event _parse(Map<String, dynamic> jsonData) {
-    return Event(
-        jsonData['id'], jsonData['name'], jsonData['typeId'], jsonData['year']);
+    return Event(jsonData['id'], jsonData['name'], jsonData['typeId'],
+       DateTime.parse(jsonData['startDate']), DateTime.parse(jsonData['endDate']), jsonData['url']);
   }
 }
