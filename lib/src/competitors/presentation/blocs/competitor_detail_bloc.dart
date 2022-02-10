@@ -9,6 +9,7 @@ import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/domain/get_competitor_by_id_use_case.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitor_info_state.dart';
 import 'package:karate_stars_app/src/event_types/domain/get_event_types.dart';
+import 'package:karate_stars_app/src/events/domain/events_filter.dart';
 import 'package:karate_stars_app/src/events/domain/get_events.dart';
 
 typedef CompetitorDetailState = DefaultState < CompetitorInfoState
@@ -41,7 +42,7 @@ class CompetitorDetailBloc extends Bloc<CompetitorDetailState> {
           ReadPolicy.cache_first, competitorId);
       final eventTypes =
       await _getEventTypesUseCase.execute(ReadPolicy.cache_first);
-      final events = await _getEventsUseCase.execute(ReadPolicy.cache_first);
+      final events = await _getEventsUseCase.execute(ReadPolicy.cache_first, EventsFilters());
       final categories =
       await _getCategoriesUseCase.execute(ReadPolicy.cache_first);
 

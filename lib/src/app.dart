@@ -7,6 +7,7 @@ import 'package:karate_stars_app/src/common/presentation/states/default_state.da
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_detail_page.dart';
+import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
 import 'package:karate_stars_app/src/home/presentation/pages/home_page.dart';
 import 'package:karate_stars_app/src/search/presentation/page/search_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/blocs/settings_bloc.dart';
@@ -90,7 +91,8 @@ class App extends StatelessWidget {
           CompetitorVideosPage.routeName: (context) =>
               CompetitorVideosPage.create(ModalRoute.of(context)!
                   .settings
-                  .arguments as CompetitorVideosArgs)
+                  .arguments as CompetitorVideosArgs),
+          EventsPage.routeName: (context) => EventsPage.create(),
         });
   }
 }

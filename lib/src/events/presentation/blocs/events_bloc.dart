@@ -7,34 +7,34 @@ import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.da
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/competitors/domain/get_competitors_use_case.dart';
-import 'package:karate_stars_app/src/videos/domain/get_videos_use_case.dart';
-import 'package:karate_stars_app/src/videos/domain/videos_filter.dart';
-import 'package:karate_stars_app/src/videos/presentation/states/videos_filter_state.dart';
-import 'package:karate_stars_app/src/videos/presentation/states/videos_state.dart';
+import 'package:karate_stars_app/src/event_types/domain/get_event_types.dart';
+import 'package:karate_stars_app/src/events/domain/events_filter.dart';
+import 'package:karate_stars_app/src/events/domain/get_events.dart';
+import 'package:karate_stars_app/src/events/presentation/state/events_filter_state.dart';
+import 'package:karate_stars_app/src/events/presentation/state/events_state.dart';
 
-class VideosBloc extends BlocHomeListContent<VideosState> {
-  static const screen_name = 'home_videos';
-  final GetVideosUseCase _getVideosUseCase;
-  final GetCompetitorsUseCase _getCompetitorsUseCase;
+class EventsBloc extends BlocHomeListContent<EventsState> {
+  static const screen_name = 'events';
+  final GetEventsUseCase _getEventsUseCase;
+  final GetEventTypesUseCase _getEventTypesUseCase;
 
-  final defaultCompetitor =
+  final defaultEventType =
       Option(Strings.default_filters_all, Strings.default_filters_all);
   final defaultYear =
       Option(Strings.default_filters_all, Strings.default_filters_all);
 
-  List<Option> competitorsOptions = [];
+  List<Option> eventTypeOptions = [];
   List<Option> yearOptions = [];
 
-  VideosBloc(this._getVideosUseCase, this._getCompetitorsUseCase,
+  EventsBloc(this._getEventsUseCase, this._getEventTypesUseCase,
       AnalyticsService _analyticsService)
       : super(_analyticsService, screen_name) {
-    changeState(VideosState(
+    changeState(EventsState(
         list: DefaultState.loading(),
-        filters: VideosFilterState(
-            competitorOptions: [],
+        filters: EventsFilterState(
+            eventTypeOptions: [],
             yearOptions: [],
-            selectedCompetitor: defaultCompetitor,
+            selectedEventType: defaultEventType,
             selectedYear: defaultYear)));
 
     _loadMetadataAndData(ReadPolicy.cache_first);
@@ -44,17 +44,17 @@ class VideosBloc extends BlocHomeListContent<VideosState> {
     return _loadData(ReadPolicy.network_first);
   }
 
-  void filter({Option? selectedCompetitor, Option? selectedYear}) {
+  void filter({Option? selectedEventType, Option? selectedYear}) {
     final filter =
-        'competitor: ${selectedCompetitor?.name} year: ${selectedYear?.name}}';
-    super.analyticsService.sendEvent(VideosFilterEvent(filter));
+        'eventType: ${selectedEventType?.name} year: ${selectedYear?.name}}';
+    super.analyticsService.sendEvent(EventsFilterEvent(filter));
 
     changeState(state.copyWith(
-        filters: VideosFilterState(
-            competitorOptions: state.filters.competitorOptions,
+        filters: EventsFilterState(
+            eventTypeOptions: state.filters.eventTypeOptions,
             yearOptions: state.filters.yearOptions,
-            selectedCompetitor:
-                selectedCompetitor ?? state.filters.selectedCompetitor,
+            selectedEventType:
+            selectedEventType ?? state.filters.selectedEventType,
             selectedYear: selectedYear ?? state.filters.selectedYear)));
 
     _loadData(ReadPolicy.cache_first);
@@ -71,37 +71,37 @@ class VideosBloc extends BlocHomeListContent<VideosState> {
   }
 
   Future<void> _loadMetadata(ReadPolicy readPolicy) async {
-    competitorsOptions = [
-      defaultCompetitor,
-      ...(await _getCompetitorsUseCase.execute(readPolicy))
-          .map((item) => Option(item.id, item.fullName()))
+    eventTypeOptions = [
+      defaultEventType,
+      ...(await _getEventTypesUseCase.execute(readPolicy))
+          .map((item) => Option(item.id, item.name))
     ];
 
-    final videos = await _getVideosUseCase.execute(readPolicy, VideosFilter());
-    final options = videos.map((video) => Option(
-        video.eventDate.year.toString(), video.eventDate.year.toString()));
-    final finalOptions = options.toSet().toList();
+    final events = await _getEventsUseCase.execute(readPolicy, EventsFilters());
+    final years = events.map((event) => Option(
+        event.startDate.year.toString(), event.startDate.year.toString()));
+    final finalYears = years.toSet().toList();
 
-    yearOptions = [defaultCompetitor, ...finalOptions];
+    yearOptions = [defaultYear, ...finalYears];
   }
 
   Future<void> _loadData(ReadPolicy readPolicy) async {
     try {
-      final videosFilter = VideosFilter(
-          competitorId: state.filters.selectedCompetitor?.id !=
+      final eventsFilter = EventsFilters(
+          eventTypeId: state.filters.selectedEventType?.id !=
                   Strings.default_filters_all
-              ? state.filters.selectedCompetitor?.id
+              ? state.filters.selectedEventType?.id
               : null,
           year: state.filters.selectedYear?.id != Strings.default_filters_all
               ? int.parse(state.filters.selectedYear!.id)
               : null);
 
-      final videos = await _getVideosUseCase.execute(readPolicy, videosFilter);
+      final events = await _getEventsUseCase.execute(readPolicy, eventsFilter);
 
       changeState(state.copyWith(
-          list: DefaultState.loaded(videos),
+          list: DefaultState.loaded(events),
           filters: state.filters.copyWith(
-              competitorOptions: competitorsOptions,
+              eventTypeOptions: eventTypeOptions,
               yearOptions: yearOptions)));
     } on Exception {
       changeState(state.copyWith(

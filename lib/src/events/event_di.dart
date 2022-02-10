@@ -10,6 +10,7 @@ import 'package:karate_stars_app/src/events/data/remote/event_api_data_source.da
 import 'package:karate_stars_app/src/events/domain/boundaries/event_repository.dart';
 import 'package:karate_stars_app/src/events/domain/entities/event.dart';
 import 'package:karate_stars_app/src/events/domain/get_events.dart';
+import 'package:karate_stars_app/src/events/presentation/blocs/events_bloc.dart';
 
 void initAll(Database database, String apiUrl, Credentials apiCredentials) {
   _initDataDI(database, apiUrl, apiCredentials);
@@ -18,6 +19,8 @@ void initAll(Database database, String apiUrl, Credentials apiCredentials) {
 }
 
 void initBlocAndUseCases() {
+  getIt.registerFactory(() => EventsBloc(getIt(), getIt(), getIt()));
+
   getIt.registerLazySingleton(() => GetEventsUseCase(getIt()));
 }
 

@@ -3,8 +3,10 @@ class Strings {
   static const String home_appbar_title_competitors = 'Competitors';
   static const String home_appbar_title_videos = 'Videos';
   static const String home_appbar_title_search = 'Search';
-  static const String home_menu_settings = 'Settings';
+  static const String home_menu_events = 'Events';
   static const String home_menu_rankings = 'Rankings';
+  static const String home_menu_settings = 'Settings';
+
   static const String home_menu_title= 'More';
 
   static const news_filters_title = 'News Filter';
@@ -49,6 +51,12 @@ class Strings {
   static const String search_videos_title = 'Videos';
   static const String search_initial_message = 'Find your favourite karate stars, news and videos';
   static const String search_empty_message = 'There are no results';
+
+
+  static const String events_title = 'Events';
+  static const String events_filters_title = 'Events Filter';
+  static const String events_filters_event_type_label = 'Event Type';
+  static const String events_filters_year_label = 'Year';
 
   static const String default_filters_all = 'All';
   static const String ok = 'OK';
