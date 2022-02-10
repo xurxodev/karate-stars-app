@@ -5,31 +5,32 @@ import 'package:karate_stars_app/src/common/presentation/widgets/platform/platfo
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/settings/presentation/page/settings_page.dart';
 
+class MenuItem {
+  String name;
+  VoidCallback onTap;
+  IconData iconData;
+
+  MenuItem(this.name, this.iconData, this.onTap);
+}
+
 class PlatformMenu extends PlatformWidget<IconButton, PopupMenuButton> {
+  final List<MenuItem> menuItems;
+
+  PlatformMenu({required this.menuItems});
+
   @override
   PopupMenuButton createMaterialWidget(BuildContext context) {
-    return PopupMenuButton<int>(
-      itemBuilder: (context) => [
-        PopupMenuItem(
-          value: 0,
-          child: Row(children: const [
-            Icon(Icons.settings),
-            SizedBox(width: 16),
-            Text(Strings.home_menu_settings)
-          ]),
-          onTap: () => Navigator.pushNamed(context, SettingsPage.routeName),
-        ),
-        PopupMenuItem(
-          value: 0,
-          child: Row(children: const [
-            Icon(Icons.leaderboard_outlined),
-            SizedBox(width: 16),
-            Text(Strings.home_menu_rankings)
-          ]),
-          onTap: () => launchURL(context, Strings.url_rankings),
-        ),
-      ],
-    );
+    return PopupMenuButton(
+        itemBuilder: (context) => menuItems.map((menuItem) {
+              return PopupMenuItem(
+                child: Row(children: [
+                  Icon(menuItem.iconData),
+                  const SizedBox(width: 16),
+                  Text(menuItem.name)
+                ]),
+                onTap: menuItem.onTap,
+              );
+            }).toList());
   }
 
   @override
@@ -38,34 +39,29 @@ class PlatformMenu extends PlatformWidget<IconButton, PopupMenuButton> {
         icon: const Icon(CupertinoIcons.ellipsis_circle),
         onPressed: () {
           final act = CupertinoActionSheet(
-            message: const Text(Strings.home_menu_title),
-            actions: <Widget>[
-              CupertinoActionSheetAction(
-                child: Row(children: [
-                  const SizedBox(width: 16),
-                  const Icon(CupertinoIcons.wrench),
-                  const SizedBox(width: 16),
-                  Text(Strings.home_menu_settings,
-                      style: Theme.of(context).textTheme.subtitle1)
-                ]),
-                onPressed: () {
-                  Navigator.pushNamed(context, SettingsPage.routeName);
-                },
-              ),
-              CupertinoActionSheetAction(
-                child: Row(children: [
-                  const SizedBox(width: 16),
-                  const Icon(Icons.leaderboard_outlined),
-                  const SizedBox(width: 16),
-                  Text(Strings.home_menu_rankings,
-                      style: Theme.of(context).textTheme.subtitle1)
-                ]),
-                onPressed: () => launchURL(context, Strings.url_rankings),
-              )
-            ],
-          );
+              message: const Text(Strings.home_menu_title),
+              actions: menuItems.map((menuItem) {
+                return CupertinoActionSheetAction(
+                  child: Row(children: [
+                    const SizedBox(width: 16),
+                    Icon(menuItem.iconData),
+                    const SizedBox(width: 16),
+                    Text(menuItem.name,
+                        style: Theme.of(context).textTheme.subtitle1)
+                  ]),
+                  onPressed: menuItem.onTap,
+                );
+              }).toList()
+              );
           showCupertinoModalPopup(
               context: context, builder: (BuildContext context) => act);
         });
+  }
+
+  Future<void> _navigateToRankings(BuildContext context) =>
+      launchURL(context, Strings.url_rankings);
+
+  void _navigateToSettings(BuildContext context) {
+    Navigator.pushNamed(context, SettingsPage.routeName);
   }
 }
