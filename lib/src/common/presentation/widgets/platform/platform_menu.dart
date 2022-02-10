@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_widget.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/settings/presentation/page/settings_page.dart';
 
 class MenuItem {
   String name;
@@ -56,12 +54,5 @@ class PlatformMenu extends PlatformWidget<IconButton, PopupMenuButton> {
           showCupertinoModalPopup(
               context: context, builder: (BuildContext context) => act);
         });
-  }
-
-  Future<void> _navigateToRankings(BuildContext context) =>
-      launchURL(context, Strings.url_rankings);
-
-  void _navigateToSettings(BuildContext context) {
-    Navigator.pushNamed(context, SettingsPage.routeName);
   }
 }
