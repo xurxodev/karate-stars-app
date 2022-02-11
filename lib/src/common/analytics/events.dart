@@ -38,8 +38,7 @@ class ShareUrlEvent extends AnalyticsEvent {
 }
 
 class ChangeSettings extends AnalyticsEvent {
-  ChangeSettings(Settings settings, bool value) : super('share') {
-    final name = settings.toString().split('.')[1];
+  ChangeSettings(String name, String value) : super('settings') {
     params[name] = value;
   }
 }
@@ -62,10 +61,4 @@ class RateApp extends AnalyticsEvent {
   RateApp() : super('rate_app') {
     params['method'] = 'from_about';
   }
-}
-
-enum Settings {
-  notifications_competitor,
-  notifications_video,
-  notifications_news
 }

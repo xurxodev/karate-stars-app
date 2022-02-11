@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:karate_stars_app/src/common/analytics/events.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
@@ -34,8 +35,6 @@ class SettingsBloc extends Bloc<SettingsState> {
 
   Future<void> _loadData() async {
     try {
-      // ;
-
       final settings = await _getSettingsUseCase.execute();
 
       final selectedBrightnessOption = brightnessOptions
@@ -43,7 +42,10 @@ class SettingsBloc extends Bloc<SettingsState> {
 
       final settingsStateData = SettingsStateData(
           brightnessOptions: brightnessOptions,
-          selectedBrightnessOption: selectedBrightnessOption);
+          selectedBrightnessOption: selectedBrightnessOption,
+          newsNotification: settings.newsNotification,
+          competitorNotification: settings.competitorNotification,
+          videoNotification: settings.videoNotification, version: settings.version);
 
       changeState(DefaultState.loaded(settingsStateData));
     } on Exception {
@@ -69,18 +71,78 @@ class SettingsBloc extends Bloc<SettingsState> {
   }
 
   void selectBrightness(Option option) {
-    final settingsStateData = SettingsStateData(
-        brightnessOptions: brightnessOptions, selectedBrightnessOption: option);
+    if (state is LoadedState) {
+      final loadedState = state as LoadedState<SettingsStateData>;
+      final settingsStateData = loadedState.data.copyWith(
+          brightnessOptions: brightnessOptions,
+          selectedBrightnessOption: option);
 
-    changeState(DefaultState.loaded(settingsStateData));
+      changeState(DefaultState.loaded(settingsStateData));
 
-    final brightnessMode =
-        BrightnessMode.values.firstWhere((item) => item.name == option.id);
+      _analyticsService.sendEvent(ChangeSettings('brightness', option.name));
 
-    final settings = Settings(brightnessMode);
+      _saveSettings();
+    }
+  }
+
+  void selectNewsNotifications(bool value) {
+    if (state is LoadedState) {
+      final loadedState = state as LoadedState<SettingsStateData>;
+
+      final settingsStateData =
+          loadedState.data.copyWith(newsNotification: value);
+
+      changeState(DefaultState.loaded(settingsStateData));
+
+      _analyticsService
+          .sendEvent(ChangeSettings('Notifications - news', value.toString()));
+
+      _saveSettings();
+    }
+  }
+
+  void selectCompetitorNotifications(bool value) {
+    if (state is LoadedState) {
+      final loadedState = state as LoadedState<SettingsStateData>;
+      final settingsStateData =
+          loadedState.data.copyWith(competitorNotification: value);
+
+      changeState(DefaultState.loaded(settingsStateData));
+
+      _analyticsService.sendEvent(
+          ChangeSettings('Notifications - competitor', value.toString()));
+
+      _saveSettings();
+    }
+  }
+
+  void selectVideosNotifications(bool value) {
+    if (state is LoadedState) {
+      final loadedState = state as LoadedState<SettingsStateData>;
+      final settingsStateData =
+          loadedState.data.copyWith(videoNotification: value);
+
+      changeState(DefaultState.loaded(settingsStateData));
+
+      _analyticsService.sendEvent(
+          ChangeSettings('Notifications - videos', value.toString()));
+
+      _saveSettings();
+    }
+  }
+
+  void _saveSettings() {
+    final loadedState = state as LoadedState<SettingsStateData>;
+    final brightnessMode = BrightnessMode.values.firstWhere(
+        (item) => item.name == loadedState.data.selectedBrightnessOption.id);
+
+    final settings = Settings(
+        brightnessMode,
+        loadedState.data.newsNotification,
+        loadedState.data.competitorNotification,
+        loadedState.data.videoNotification,
+        loadedState.data.version);
 
     _saveSettingsUseCase.execute(settings);
-
-    //Send event to analytics
   }
 }

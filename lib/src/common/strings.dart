@@ -40,10 +40,17 @@ class Strings {
       'An error has occurred loading this video, please retry later';
 
   static const String settings_title = 'Settings';
+  static const String settings_appearance_section = 'Appearance';
   static const String settings_brightness = 'Brightness';
   static const String settings_brightness_system = 'System';
   static const String settings_brightness_light = 'Light';
   static const String settings_brightness_dark = 'Dark';
+  static const String settings_notifications_section = 'Notifications';
+  static const String settings_news_notifications = 'News';
+  static const String settings_competitors_notifications = 'Competitors';
+  static const String settings_videos_notifications = 'Videos';
+  static const String settings_app_section = 'App';
+  static const String settings_app_version = 'Version';
 
   static const String search_app_bar_hint = 'Search ...';
   static const String search_news_title = 'News';

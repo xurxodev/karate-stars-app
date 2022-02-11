@@ -49,7 +49,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           PlatformMenu(menuItems: [
             MenuItem(Strings.home_menu_events, Icons.calendar_today,
-                    () => Navigator.pushNamed(context, EventsPage.routeName)),
+                () => Navigator.pushNamed(context, EventsPage.routeName)),
             MenuItem(Strings.home_menu_rankings, Icons.leaderboard_outlined,
                 () => launchURL(context, Strings.url_rankings)),
             MenuItem(Strings.home_menu_settings, PlatformIcons.settings,

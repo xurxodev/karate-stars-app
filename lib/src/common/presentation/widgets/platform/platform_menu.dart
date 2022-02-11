@@ -19,14 +19,16 @@ class PlatformMenu extends PlatformWidget<IconButton, PopupMenuButton> {
   @override
   PopupMenuButton createMaterialWidget(BuildContext context) {
     return PopupMenuButton(
+        onSelected: (value) => menuItems[value].onTap(),
         itemBuilder: (context) => menuItems.map((menuItem) {
               return PopupMenuItem(
+                value:menuItems.indexOf(menuItem) ,
                 child: Row(children: [
                   Icon(menuItem.iconData),
                   const SizedBox(width: 16),
                   Text(menuItem.name)
                 ]),
-                onTap: menuItem.onTap,
+                //onTap: menuItem.onTap,
               );
             }).toList());
   }
