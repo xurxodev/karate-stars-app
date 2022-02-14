@@ -44,12 +44,12 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
     print(bloc.state);
 
-/*    _subscription = bloc.observableState.listen((event) {
+    _subscription = bloc.observableState.listen((event) {
       if (event is LoadedState) {
         final settingsState = event as LoadedState<SettingsStateData>;
-        _updateSubscriptions(settingsState.data);
+        _updateSubscriptionsToTopics(settingsState.data);
       }
-    });*/
+    });
 
     _initializePushNotificationsListeners();
 
