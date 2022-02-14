@@ -5,6 +5,7 @@ class RoundedCard extends StatelessWidget {
   final BorderRadiusGeometry borderRadius;
   final Widget child;
   final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
   final Color? color;
 
   const RoundedCard(
@@ -12,6 +13,7 @@ class RoundedCard extends StatelessWidget {
       required this.borderRadius,
       required this.child,
       this.margin,
+      this.padding,
       this.color});
 
   @override
@@ -21,6 +23,6 @@ class RoundedCard extends StatelessWidget {
         elevation: elevation,
         margin: margin,
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
-        child: child);
+        child: Padding(padding: padding ?? EdgeInsets.zero, child: child));
   }
 }
