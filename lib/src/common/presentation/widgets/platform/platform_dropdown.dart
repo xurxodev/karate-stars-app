@@ -5,19 +5,23 @@ import 'package:karate_stars_app/src/common/presentation/widgets/platform/platfo
 
 class PlatformDropdown extends PlatformWidget<CupertinoButton, DropdownButton> {
   final List<Option> options;
-  final Option? value;
-  final ValueChanged<Option?>? onChanged;
+  final String value;
+  final ValueChanged<String>? onChanged;
   final String? hint;
 
   PlatformDropdown(
-      {required this.options, this.onChanged, this.value, this.hint});
+      {required this.options, this.onChanged, required this.value, this.hint});
 
   @override
   DropdownButton createMaterialWidget(BuildContext context) {
     return DropdownButton<Option>(
       isExpanded: true,
-      value: value,
-      onChanged: onChanged,
+      value: options.firstWhere((option) => option.id == value),
+      onChanged: (option) {
+        if (onChanged != null && option != null) {
+          onChanged!(option.id);
+        }
+      },
       hint: Text(hint ?? ''),
       items: options.map<DropdownMenuItem<Option>>((Option value) {
         return DropdownMenuItem<Option>(
@@ -30,11 +34,13 @@ class PlatformDropdown extends PlatformWidget<CupertinoButton, DropdownButton> {
 
   @override
   CupertinoButton createCupertinoWidget(BuildContext context) {
+    final selectedOption = options.firstWhere((option) => option.id == value);
+
     return CupertinoButton(
         minSize: 32.0,
         padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
         color: Theme.of(context).colorScheme.secondary,
-        child: Text(value?.name ?? hint ?? '',
+        child: Text(selectedOption.name,
             style: Theme.of(context).textTheme.subtitle1),
         onPressed: () {
           showModalBottomSheet(
@@ -46,13 +52,11 @@ class PlatformDropdown extends PlatformWidget<CupertinoButton, DropdownButton> {
                       itemExtent: 32.0,
                       onSelectedItemChanged: (int index) {
                         if (onChanged != null) {
-                          onChanged!(options[index]);
+                          onChanged!(options[index].id);
                         }
                       },
-                      scrollController: value != null
-                          ? FixedExtentScrollController(
-                              initialItem: options.indexOf(value!))
-                          : null,
+                      scrollController: FixedExtentScrollController(
+                          initialItem: options.indexOf(selectedOption)),
                       children: options.map((Option option) {
                         return Center(
                           child: Text(option.name),

@@ -42,10 +42,11 @@ class SettingsBloc extends Bloc<SettingsState> {
 
       final settingsStateData = SettingsStateData(
           brightnessOptions: brightnessOptions,
-          selectedBrightnessOption: selectedBrightnessOption,
+          selectedBrightnessOption: selectedBrightnessOption.id,
           newsNotification: settings.newsNotification,
           competitorNotification: settings.competitorNotification,
-          videoNotification: settings.videoNotification, version: settings.version);
+          videoNotification: settings.videoNotification,
+          version: settings.version);
 
       changeState(DefaultState.loaded(settingsStateData));
     } on Exception {
@@ -70,16 +71,20 @@ class SettingsBloc extends Bloc<SettingsState> {
     return brightnessOptions;
   }
 
-  void selectBrightness(Option option) {
+  void selectBrightness(String optionId) {
     if (state is LoadedState) {
       final loadedState = state as LoadedState<SettingsStateData>;
       final settingsStateData = loadedState.data.copyWith(
           brightnessOptions: brightnessOptions,
-          selectedBrightnessOption: option);
+          selectedBrightnessOption: optionId);
 
       changeState(DefaultState.loaded(settingsStateData));
 
-      _analyticsService.sendEvent(ChangeSettings('brightness', option.name));
+      final brightnessOption = settingsStateData.brightnessOptions
+          .firstWhere((option) => option.id == optionId);
+
+      _analyticsService
+          .sendEvent(ChangeSettings('brightness', brightnessOption.name));
 
       _saveSettings();
     }
@@ -134,7 +139,7 @@ class SettingsBloc extends Bloc<SettingsState> {
   void _saveSettings() {
     final loadedState = state as LoadedState<SettingsStateData>;
     final brightnessMode = BrightnessMode.values.firstWhere(
-        (item) => item.name == loadedState.data.selectedBrightnessOption.id);
+        (item) => item.name == loadedState.data.selectedBrightnessOption);
 
     final settings = Settings(
         brightnessMode,

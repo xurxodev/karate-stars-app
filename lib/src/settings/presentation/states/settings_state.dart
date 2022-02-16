@@ -5,7 +5,7 @@ typedef SettingsState = DefaultState<SettingsStateData>;
 
 class SettingsStateData {
   final List<Option> brightnessOptions;
-  final Option selectedBrightnessOption;
+  final String selectedBrightnessOption;
   final bool newsNotification;
   final bool competitorNotification;
   final bool videoNotification;
@@ -21,7 +21,7 @@ class SettingsStateData {
 
   SettingsStateData copyWith(
       {List<Option>? brightnessOptions,
-      Option? selectedBrightnessOption,
+      String? selectedBrightnessOption,
       bool? newsNotification,
       bool? competitorNotification,
       bool? videoNotification}) {

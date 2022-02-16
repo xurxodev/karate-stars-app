@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
-import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/filters/SegmentedFilter.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
@@ -76,8 +75,8 @@ class SettingsPage extends StatelessWidget {
           leading: const Icon(CupertinoIcons.device_phone_portrait),
               title: SegmentedOptions(
                 options: stateData.brightnessOptions,
-                onValueChanged: (Option option) {
-                  bloc.selectBrightness(option);
+                onValueChanged: (String value) {
+                  bloc.selectBrightness(value);
                 },
                 value: stateData.selectedBrightnessOption,
               ),

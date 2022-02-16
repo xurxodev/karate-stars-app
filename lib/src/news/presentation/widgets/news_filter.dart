@@ -29,18 +29,19 @@ class NewsFilter extends StatelessWidget {
 
   Widget _buildFilter(
       BuildContext context, NewsFilterState state, NewsBloc bloc) {
+
     return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FilterGroup(
               label: Strings.news_filters_type_label,
-              child: SegmentedFilter(
-                options: state.filterOptions,
-                onValueChanged: (int index) {
-                  bloc.filter(index);
+              child: SegmentedOptions(
+                options: state.typeOptions,
+                onValueChanged: (String id) {
+                  bloc.filter(id);
                 },
-                value: state.selectedIndex,
+                value: state.selectedType,
               ))
         ]);
   }

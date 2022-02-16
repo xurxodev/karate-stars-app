@@ -4,20 +4,20 @@ class VideosFilterState {
   final List<Option> competitorOptions;
   final List<Option> yearOptions;
 
-  final Option? selectedCompetitor;
-  final Option? selectedYear;
+  final String selectedCompetitor;
+  final String selectedYear;
 
   VideosFilterState(
       {required this.competitorOptions,
       required this.yearOptions,
-      this.selectedCompetitor,
-      this.selectedYear});
+      required this.selectedCompetitor,
+      required this.selectedYear});
 
   VideosFilterState copyWith(
       {List<Option>? competitorOptions,
       List<Option>? yearOptions,
-      Option? selectedCompetitor,
-      Option? selectedYear}) {
+      String? selectedCompetitor,
+      String? selectedYear}) {
     return VideosFilterState(
         competitorOptions: competitorOptions ?? this.competitorOptions,
         yearOptions: yearOptions ?? this.yearOptions,

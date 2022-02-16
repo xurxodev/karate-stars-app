@@ -3,6 +3,7 @@ import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_home_list_content.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
+import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/pub_date.dart';
@@ -19,11 +20,17 @@ class NewsBloc extends BlocHomeListContent<NewsState> {
   final GetNewsUseCase _getNewsUseCase;
   final GetVideosUseCase _getVideosUseCase;
 
+  List<Option> typeOptions = [];
+
   NewsBloc(this._getNewsUseCase, this._getVideosUseCase,
       AnalyticsService _analyticsService)
       : super(_analyticsService, screen_name) {
+    final typeOptions = mapNewsTypeToOptions();
+
     changeState(NewsState(
-        listState: DefaultState.loading(), filtersState: NewsFilterState()));
+        listState: DefaultState.loading(),
+        filtersState: NewsFilterState(
+            typeOptions: typeOptions, selectedType: typeOptions[0].id)));
     _loadData(ReadPolicy.cache_first);
   }
 
@@ -31,22 +38,28 @@ class NewsBloc extends BlocHomeListContent<NewsState> {
     _loadData(ReadPolicy.network_first);
   }
 
-  void filter(int selectedIndex) {
-    final NewsType selectedFilter = NewsType.values[selectedIndex];
-
-    final filter = selectedFilter.toString().split('.')[1];
-    super.analyticsService.sendEvent(NewsFilterEvent(filter));
+  void filter(String selectedType) {
+    _sendFilterEvent(selectedType);
 
     changeState(state.copyWith(
-        filtersState: NewsFilterState(selectedIndex: selectedIndex)));
+        filtersState: state.filtersState.copyWith(selectedType: selectedType)));
 
     _loadData(ReadPolicy.cache_first);
   }
 
+  void _sendFilterEvent(String selectedType) {
+    final selectedFilter =
+        NewsType.values.firstWhere((item) => item.name == selectedType);
+
+    final filter = selectedFilter.toString().split('.')[1];
+    super.analyticsService.sendEvent(NewsFilterEvent(filter));
+  }
+
   Future<void> _loadData(ReadPolicy readPolicy) async {
     try {
-      final NewsFilter selectedFilter =
-          NewsFilter(type: NewsType.values[state.filtersState.selectedIndex]);
+      final NewsFilter selectedFilter = NewsFilter(
+          type: NewsType.values.firstWhere(
+              (item) => item.name == state.filtersState.selectedType));
 
       final news = await _getNewsUseCase.execute(readPolicy, selectedFilter);
 
@@ -55,9 +68,10 @@ class NewsBloc extends BlocHomeListContent<NewsState> {
 
       final finalNews = liveVideos.isNotEmpty
           ? [
-              News.liveVideoNews(NewsSummary(
-                  title: 'Live videos',
-                  pubDate: PubDate(DateTime.now())), liveVideos[0].id),
+              News.liveVideoNews(
+                  NewsSummary(
+                      title: 'Live videos', pubDate: PubDate(DateTime.now())),
+                  liveVideos[0].id),
               ...news
             ]
           : news;
@@ -67,5 +81,18 @@ class NewsBloc extends BlocHomeListContent<NewsState> {
       changeState(state.copyWith(
           listState: DefaultState.error(Strings.network_error_message)));
     }
+  }
+
+  List<Option> mapNewsTypeToOptions() {
+    return NewsType.values.map((item) {
+      switch (item) {
+        case NewsType.all:
+          return Option(NewsType.all.name, Strings.default_filters_all);
+        case NewsType.social:
+          return Option(NewsType.social.name, Strings.news_filters_social);
+        case NewsType.current:
+          return Option(NewsType.current.name, Strings.news_filters_current);
+      }
+    }).toList();
   }
 }

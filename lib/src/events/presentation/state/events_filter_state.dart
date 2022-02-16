@@ -4,20 +4,20 @@ class EventsFilterState {
   final List<Option> eventTypeOptions;
   final List<Option> yearOptions;
 
-  final Option? selectedEventType;
-  final Option? selectedYear;
+  final String selectedEventType;
+  final String selectedYear;
 
   EventsFilterState(
       {required this.eventTypeOptions,
       required this.yearOptions,
-      this.selectedEventType,
-      this.selectedYear});
+      required this.selectedEventType,
+      required this.selectedYear});
 
   EventsFilterState copyWith(
       {List<Option>? eventTypeOptions,
       List<Option>? yearOptions,
-      Option? selectedEventType,
-      Option? selectedYear}) {
+      String? selectedEventType,
+      String? selectedYear}) {
     return EventsFilterState(
         eventTypeOptions: eventTypeOptions ?? this.eventTypeOptions,
         yearOptions: yearOptions ?? this.yearOptions,

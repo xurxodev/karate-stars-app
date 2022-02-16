@@ -1,13 +1,14 @@
-import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 
 class NewsFilterState {
-  final Map<int, String> filterOptions = {
-    0: Strings.default_filters_all,
-    1: Strings.news_filters_current,
-    2: Strings.news_filters_social
-  };
+  final List<Option> typeOptions;
+  final String selectedType;
 
-  final int selectedIndex;
+  NewsFilterState({required this.typeOptions, required this.selectedType});
 
-  NewsFilterState({this.selectedIndex = 0});
+  NewsFilterState copyWith({final String? selectedType}) {
+    return NewsFilterState(
+        typeOptions: typeOptions,
+        selectedType: selectedType ?? this.selectedType);
+  }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/filters/FilterGroup.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/filters/SegmentedFilter.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_dropdown.dart';
@@ -37,20 +36,20 @@ class CompetitorFilters extends StatelessWidget {
       children: [
         FilterGroup(
             label: Strings.competitor_filters_type_label,
-            child: SegmentedFilter(
+            child: SegmentedOptions(
               options: state.legendTypeOptions,
-              onValueChanged: (int index) {
-                bloc.filter(selectedLegendTypeIndex: index);
+              onValueChanged: (String id) {
+                bloc.filter(selectedLegendType: id);
               },
               value: state.selectedLegendType,
             )),
         const SizedBox(height: 20),
         FilterGroup(
           label: Strings.competitor_filters_active_label,
-          child: SegmentedFilter(
+          child: SegmentedOptions(
             options: state.activeTypeOptions,
-            onValueChanged: (int index) {
-              bloc.filter(selectedActiveIndex: index);
+            onValueChanged: (String id) {
+              bloc.filter(selectedActiveType: id);
             },
             value: state.selectedActiveType,
           ),
@@ -63,8 +62,8 @@ class CompetitorFilters extends StatelessWidget {
             child: PlatformDropdown(
               options: state.countryOptions,
               value: state.selectedCountry,
-              onChanged: (Option? option) {
-                bloc.filter(selectedCountry: option);
+              onChanged: (String id) {
+                bloc.filter(selectedCountry: id);
               },
             ),
           ),
@@ -77,8 +76,8 @@ class CompetitorFilters extends StatelessWidget {
             child: PlatformDropdown(
               options: state.categoryTypeOptions,
               value: state.selectedCategoryType,
-              onChanged: (Option? option) {
-                bloc.filter(selectedCategoryType: option);
+              onChanged: (String id) {
+                bloc.filter(selectedCategoryType: id);
               },
             ),
           ),
@@ -91,8 +90,8 @@ class CompetitorFilters extends StatelessWidget {
             child: PlatformDropdown(
               options: state.categoryOptions,
               value: state.selectedCategory,
-              onChanged: (Option? option) {
-                bloc.filter(selectedCategory: option);
+              onChanged: (String id) {
+                bloc.filter(selectedCategory: id);
               },
             ),
           ),

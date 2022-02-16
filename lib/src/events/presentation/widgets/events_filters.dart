@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/filters/FilterGroup.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_dropdown.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
@@ -41,8 +40,8 @@ class EventsFilters extends StatelessWidget {
             child: PlatformDropdown(
               options: state.eventTypeOptions,
               value: state.selectedEventType,
-              onChanged: (Option? option) {
-                bloc.filter(selectedEventType: option);
+              onChanged: (String id) {
+                bloc.filter(selectedEventType: id);
               },
             ),
           ),
@@ -55,8 +54,8 @@ class EventsFilters extends StatelessWidget {
             child: PlatformDropdown(
               options: state.yearOptions,
               value: state.selectedYear,
-              onChanged: (Option? option) {
-                bloc.filter(selectedYear: option);
+              onChanged: (String id) {
+                bloc.filter(selectedYear: id);
               },
             ),
           ),

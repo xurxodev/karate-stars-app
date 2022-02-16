@@ -13,7 +13,7 @@ void main() {
       final options = givenAnOptions();
       final selectedOption = options[3];
 
-      await renderWidget(tester, options, selectedOption);
+      await renderWidget(tester, options, selectedOption.id);
 
       expect(find.byType(typeOf<DropdownButton<Option>>()), findsOneWidget);
       expect(find.byType(CupertinoButton), findsNothing);
@@ -24,7 +24,7 @@ void main() {
       final options = givenAnOptions();
       final selectedOption = options[3];
 
-      await renderWidget(tester, options, selectedOption);
+      await renderWidget(tester, options, selectedOption.id);
 
       final dropdown =
           tester.widget(find.byType(typeOf<DropdownButton<Option>>()))
@@ -40,9 +40,9 @@ void main() {
       final selectedOption = options[3];
       final optionToSelect = options[6];
 
-      await renderWidget(tester, options, selectedOption, onChanged: (option) {
-        if (option != selectedOption) {
-          expect(option, optionToSelect);
+      await renderWidget(tester, options, selectedOption.id, onChanged: (option) {
+        if (option != selectedOption.id) {
+          expect(option, optionToSelect.id);
         }
       });
 
@@ -64,7 +64,7 @@ void main() {
       final options = givenAnOptions();
       final selectedOption = options[3];
 
-      await renderWidget(tester, options, selectedOption);
+      await renderWidget(tester, options, selectedOption.id);
 
       expect(find.byType(CupertinoButton), findsOneWidget);
       expect(find.byType(typeOf<DropdownButton<Option>>()), findsNothing);
@@ -75,7 +75,7 @@ void main() {
       final options = givenAnOptions();
       final selectedOption = options[3];
 
-      await renderWidget(tester, options, selectedOption);
+      await renderWidget(tester, options, selectedOption.id);
 
       final button =
           tester.widget(find.byType(CupertinoButton)) as CupertinoButton;
@@ -91,8 +91,8 @@ void main() {
       final selectedOption = options[3];
       final optionToSelect = options[6];
 
-      await renderWidget(tester, options, selectedOption, onChanged: (option) {
-        expect(option, optionToSelect);
+      await renderWidget(tester, options, selectedOption.id, onChanged: (option) {
+        expect(option, optionToSelect.id);
       });
 
       await tester.tap(find.byType(CupertinoButton));
@@ -107,8 +107,8 @@ void main() {
 }
 
 Future<void> renderWidget(
-    WidgetTester tester, List<Option> options, Option selectedOption,
-    {ValueChanged<Option?>? onChanged}) async {
+    WidgetTester tester, List<Option> options, String selectedOption,
+    {ValueChanged<String>? onChanged}) async {
   await tester.pumpWidget(MaterialApp(
       title: 'Flutter Demo',
       home: Scaffold(

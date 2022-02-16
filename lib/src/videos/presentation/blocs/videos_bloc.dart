@@ -18,10 +18,8 @@ class VideosBloc extends BlocHomeListContent<VideosState> {
   final GetVideosUseCase _getVideosUseCase;
   final GetCompetitorsUseCase _getCompetitorsUseCase;
 
-  final defaultCompetitor =
-      Option(Strings.default_filters_all, Strings.default_filters_all);
-  final defaultYear =
-      Option(Strings.default_filters_all, Strings.default_filters_all);
+  final defaultCompetitor = Option.defaultOption();
+  final defaultYear = Option.defaultOption();
 
   List<Option> competitorsOptions = [];
   List<Option> yearOptions = [];
@@ -34,8 +32,8 @@ class VideosBloc extends BlocHomeListContent<VideosState> {
         filters: VideosFilterState(
             competitorOptions: [],
             yearOptions: [],
-            selectedCompetitor: defaultCompetitor,
-            selectedYear: defaultYear)));
+            selectedCompetitor: defaultCompetitor.id,
+            selectedYear: defaultYear.id)));
 
     _loadMetadataAndData(ReadPolicy.cache_first);
   }
@@ -44,20 +42,28 @@ class VideosBloc extends BlocHomeListContent<VideosState> {
     return _loadData(ReadPolicy.network_first);
   }
 
-  void filter({Option? selectedCompetitor, Option? selectedYear}) {
-    final filter =
-        'competitor: ${selectedCompetitor?.name} year: ${selectedYear?.name}}';
-    super.analyticsService.sendEvent(VideosFilterEvent(filter));
+  void filter({String? selectedCompetitor, String? selectedYear}) {
+    final filters = state.filters.copyWith(
+        selectedCompetitor:
+            selectedCompetitor ?? state.filters.selectedCompetitor,
+        selectedYear: selectedYear ?? state.filters.selectedYear);
 
-    changeState(state.copyWith(
-        filters: VideosFilterState(
-            competitorOptions: state.filters.competitorOptions,
-            yearOptions: state.filters.yearOptions,
-            selectedCompetitor:
-                selectedCompetitor ?? state.filters.selectedCompetitor,
-            selectedYear: selectedYear ?? state.filters.selectedYear)));
+    _sendFilterEvent(filters);
+
+    changeState(state.copyWith(filters: filters));
 
     _loadData(ReadPolicy.cache_first);
+  }
+
+  void _sendFilterEvent(VideosFilterState filters) {
+    final competitorFilter = competitorsOptions
+        .firstWhere((option) => option.id == filters.selectedCompetitor);
+    final yearFilter =
+        yearOptions.firstWhere((option) => option.id == filters.selectedYear);
+
+    final filter =
+        'competitor: ${competitorFilter.name} year: ${yearFilter.name}}';
+    super.analyticsService.sendEvent(VideosFilterEvent(filter));
   }
 
   Future<void> _loadMetadataAndData(ReadPolicy readPolicy) async {
@@ -87,14 +93,11 @@ class VideosBloc extends BlocHomeListContent<VideosState> {
 
   Future<void> _loadData(ReadPolicy readPolicy) async {
     try {
+      final year = Option.getIdOrNull(state.filters.selectedYear);
+
       final videosFilter = VideosFilter(
-          competitorId: state.filters.selectedCompetitor?.id !=
-                  Strings.default_filters_all
-              ? state.filters.selectedCompetitor?.id
-              : null,
-          year: state.filters.selectedYear?.id != Strings.default_filters_all
-              ? int.parse(state.filters.selectedYear!.id)
-              : null);
+          competitorId: Option.getIdOrNull(state.filters.selectedCompetitor),
+          year: year != null ? int.parse(year) : null);
 
       final videos = await _getVideosUseCase.execute(readPolicy, videosFilter);
 

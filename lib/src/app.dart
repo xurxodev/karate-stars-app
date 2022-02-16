@@ -76,7 +76,7 @@ class App extends StatelessWidget {
             colorScheme: const ColorScheme.dark()
                 .copyWith(primary: Colors.grey, secondary: Colors.red)),
         themeMode: ThemeMode.values.firstWhere(
-            (element) => element.name == data.selectedBrightnessOption.id),
+            (element) => element.name == data.selectedBrightnessOption),
         initialRoute: HomePage.routeName,
         routes: {
           HomePage.routeName: (context) => HomePage.create(testing),

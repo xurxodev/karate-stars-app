@@ -18,10 +18,8 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
   final GetEventsUseCase _getEventsUseCase;
   final GetEventTypesUseCase _getEventTypesUseCase;
 
-  final defaultEventType =
-      Option(Strings.default_filters_all, Strings.default_filters_all);
-  final defaultYear =
-      Option(Strings.default_filters_all, Strings.default_filters_all);
+  final defaultEventType = Option.defaultOption();
+  final defaultYear = Option.defaultOption();
 
   List<Option> eventTypeOptions = [];
   List<Option> yearOptions = [];
@@ -34,8 +32,8 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
         filters: EventsFilterState(
             eventTypeOptions: [],
             yearOptions: [],
-            selectedEventType: defaultEventType,
-            selectedYear: defaultYear)));
+            selectedEventType: defaultEventType.id,
+            selectedYear: defaultYear.id)));
 
     _loadMetadataAndData(ReadPolicy.cache_first);
   }
@@ -44,20 +42,27 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
     return _loadData(ReadPolicy.network_first);
   }
 
-  void filter({Option? selectedEventType, Option? selectedYear}) {
-    final filter =
-        'eventType: ${selectedEventType?.name} year: ${selectedYear?.name}}';
-    super.analyticsService.sendEvent(EventsFilterEvent(filter));
+  void filter({String? selectedEventType, String? selectedYear}) {
+    final filters = state.filters.copyWith(
+        selectedEventType: selectedEventType ?? state.filters.selectedEventType,
+        selectedYear: selectedYear ?? state.filters.selectedYear);
 
-    changeState(state.copyWith(
-        filters: EventsFilterState(
-            eventTypeOptions: state.filters.eventTypeOptions,
-            yearOptions: state.filters.yearOptions,
-            selectedEventType:
-            selectedEventType ?? state.filters.selectedEventType,
-            selectedYear: selectedYear ?? state.filters.selectedYear)));
+    _sendFilterEvent(filters);
+
+    changeState(state.copyWith(filters: filters));
 
     _loadData(ReadPolicy.cache_first);
+  }
+
+  void _sendFilterEvent(EventsFilterState filters) {
+    final eventTypeFilter = eventTypeOptions
+        .firstWhere((option) => option.id == filters.selectedEventType);
+    final yearFilter =
+        yearOptions.firstWhere((option) => option.id == filters.selectedYear);
+
+    final filter =
+        'eventType: ${eventTypeFilter.name} year: ${yearFilter.name}}';
+    super.analyticsService.sendEvent(EventsFilterEvent(filter));
   }
 
   Future<void> _loadMetadataAndData(ReadPolicy readPolicy) async {
@@ -87,22 +92,18 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
 
   Future<void> _loadData(ReadPolicy readPolicy) async {
     try {
+      final year = Option.getIdOrNull(state.filters.selectedYear);
+
       final eventsFilter = EventsFilters(
-          eventTypeId: state.filters.selectedEventType?.id !=
-                  Strings.default_filters_all
-              ? state.filters.selectedEventType?.id
-              : null,
-          year: state.filters.selectedYear?.id != Strings.default_filters_all
-              ? int.parse(state.filters.selectedYear!.id)
-              : null);
+          eventTypeId: Option.getIdOrNull(state.filters.selectedEventType),
+          year: year != null ? int.parse(year) : null);
 
       final events = await _getEventsUseCase.execute(readPolicy, eventsFilter);
 
       changeState(state.copyWith(
           list: DefaultState.loaded(events),
           filters: state.filters.copyWith(
-              eventTypeOptions: eventTypeOptions,
-              yearOptions: yearOptions)));
+              eventTypeOptions: eventTypeOptions, yearOptions: yearOptions)));
     } on Exception {
       changeState(state.copyWith(
           list: DefaultState.error(Strings.network_error_message)));
