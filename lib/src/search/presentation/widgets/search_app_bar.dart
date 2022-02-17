@@ -14,6 +14,11 @@ class SearchAppBar extends PlatformWidget implements PreferredSizeWidget {
 
   final _controller = TextEditingController();
 
+  final TabController? tabController;
+  final ValueChanged<int>? onTap;
+
+  SearchAppBar({ this.tabController, this.onTap});
+
   @override
   Widget createMaterialWidget(BuildContext context) {
     final SearchBloc bloc = BlocProvider.of<SearchBloc>(context);
@@ -39,6 +44,8 @@ class SearchAppBar extends PlatformWidget implements PreferredSizeWidget {
         ),
       ],
       bottom: TabBar(
+        onTap: onTap,
+        controller: tabController,
         labelColor: Theme.of(context).textTheme.headline6!.color,
         indicatorColor: Theme.of(context).textTheme.headline6!.color,
         tabs: const [
@@ -77,6 +84,7 @@ class SearchAppBar extends PlatformWidget implements PreferredSizeWidget {
         )
       ],
       bottom: TabBar(
+        controller: tabController,
         labelColor: Theme.of(context).textTheme.headline6!.color,
         indicatorColor: Theme.of(context).textTheme.headline6!.color,
         tabs: const [

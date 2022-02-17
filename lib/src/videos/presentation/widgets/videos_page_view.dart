@@ -17,7 +17,10 @@ import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class VideosPageView extends StatefulWidget {
-  const VideosPageView() : super(key: const Key(Keys.videos_page_view));
+  final ScrollController? controller;
+
+  const VideosPageView({this.controller})
+      : super(key: const Key(Keys.videos_page_view));
 
   @override
   _VideosPageViewState createState() => _VideosPageViewState();
@@ -75,6 +78,7 @@ class _VideosPageViewState extends State<VideosPageView> {
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
                 child: AdsListView(
+                  controller: widget.controller,
                   itemCount: state.data.length,
                   adBuilder: (context) =>
                       Ad(adUnitId: AdsHelper.videosNativeAdUnitId),

@@ -34,8 +34,12 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage>
+    with SingleTickerProviderStateMixin {
   late PlayVideoInterstitialAd _playVideoInterstitialAd;
+  final ScrollController _newsScrollController = ScrollController();
+  final ScrollController _competitorsScrollController = ScrollController();
+  final ScrollController _videosScrollController = ScrollController();
 
   @override
   void initState() {
@@ -51,7 +55,7 @@ class _SearchPageState extends State<SearchPage> {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-            appBar: SearchAppBar(),
+            appBar: SearchAppBar(onTap: _scrollUp),
             body: SafeArea(
                 child: StreamBuilder<SearchState>(
               initialData: bloc.state,
@@ -99,6 +103,7 @@ class _SearchPageState extends State<SearchPage> {
       return Container(
           padding: const EdgeInsets.only(top: 8.0),
           child: AdsListView(
+            controller: _newsScrollController,
             itemCount: newsResults.length,
             adBuilder: (context) =>
                 Ad(adUnitId: AdsHelper.searchNewsNativeAdUnitId),
@@ -125,6 +130,7 @@ class _SearchPageState extends State<SearchPage> {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
           child: AdsListView(
+            controller: _competitorsScrollController,
             itemCount: competitorResults.length,
             adBuilder: (context) =>
                 Ad(adUnitId: AdsHelper.searchCompetitorsNativeAdUnitId),
@@ -150,13 +156,12 @@ class _SearchPageState extends State<SearchPage> {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
           child: AdsListView(
+            controller: _videosScrollController,
             adBuilder: (context) =>
                 Ad(adUnitId: AdsHelper.searchVideosNativeAdUnitId),
             itemCount: videoResults.length,
             itemBuilder: (context, index) {
               final video = videoResults[index];
-
-              //final textKey = '${Keys.competitors_item}_$index';
 
               return ItemVideo(
                 video: video,
@@ -171,9 +176,41 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
+  void _scrollUp(index) {
+    switch (index) {
+      case 0:
+        if (_newsScrollController.hasClients) {
+          _newsScrollController.animateTo(
+              _newsScrollController.position.minScrollExtent,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+        }
+        break;
+      case 1:
+        if (_competitorsScrollController.hasClients) {
+          _competitorsScrollController.animateTo(
+              _competitorsScrollController.position.minScrollExtent,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+        }
+        break;
+      case 2:
+        if (_videosScrollController.hasClients) {
+          _videosScrollController.animateTo(
+              _videosScrollController.position.minScrollExtent,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+          break;
+        }
+    }
+  }
+
   @override
   void dispose() {
     _playVideoInterstitialAd.dispose();
+    _newsScrollController.dispose();
+    _competitorsScrollController.dispose();
+    _videosScrollController.dispose();
     super.dispose();
   }
 }

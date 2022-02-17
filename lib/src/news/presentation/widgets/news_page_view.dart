@@ -21,7 +21,10 @@ import 'package:karate_stars_app/src/news/presentation/widgets/item_social_news.
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class NewsPageView extends StatefulWidget {
-  const NewsPageView() : super(key: const Key(Keys.news_page_view));
+  final ScrollController? controller;
+
+  const NewsPageView({this.controller})
+      : super(key: const Key(Keys.news_page_view));
 
   @override
   _NewsPageViewState createState() => _NewsPageViewState();
@@ -75,6 +78,7 @@ class _NewsPageViewState extends State<NewsPageView>
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
                 child: AdsListView(
+                    controller: widget.controller,
                     itemCount: state.data.length,
                     adBuilder: (context) => Ad(
                         adUnitId: AdsHelper.newsNativeAdUnitId,

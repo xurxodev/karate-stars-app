@@ -14,7 +14,9 @@ import 'package:karate_stars_app/src/competitors/presentation/widgets/item_compe
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class CompetitorsPageView extends StatefulWidget {
-  const CompetitorsPageView()
+  final ScrollController? controller;
+
+  const CompetitorsPageView({this.controller})
       : super(key: const Key(Keys.competitors_page_view));
 
   @override
@@ -67,6 +69,7 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 showChildOpacityTransition: false,
                 child: AdsListView(
+                  controller: widget.controller,
                   itemCount: state.data.length,
                   adBuilder: (context) => Ad(
                     adUnitId: AdsHelper.competitorsNativeAdUnitId,

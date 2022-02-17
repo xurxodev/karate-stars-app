@@ -17,12 +17,14 @@ class AdsListView extends StatefulWidget {
   final IndexedWidgetBuilder itemBuilder;
   final Widget Function(BuildContext context) adBuilder;
   final EdgeInsetsGeometry? padding;
+  final ScrollController? controller;
 
   const AdsListView(
       {required this.itemCount,
       required this.itemBuilder,
       required this.adBuilder,
-      this.padding});
+      this.padding,
+      this.controller});
 
   @override
   _AdsListViewState createState() => _AdsListViewState();
@@ -70,6 +72,7 @@ class _AdsListViewState extends State<AdsListView> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+        controller: widget.controller,
         padding: widget.padding,
         itemCount: virtualItems.length,
         itemBuilder: (context, index) {

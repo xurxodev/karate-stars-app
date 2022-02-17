@@ -44,6 +44,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentTab = 0;
   late PageController _pageController;
+  final ScrollController _newsScrollController = ScrollController();
+  final ScrollController _competitorsScrollController = ScrollController();
+  final ScrollController _videosScrollController = ScrollController();
 
   @override
   void initState() {
@@ -58,11 +61,11 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: PageView(
           controller: _pageController,
-          children: const <Widget>[
-            NewsPageView(),
+          children: <Widget>[
+            NewsPageView(controller: _newsScrollController),
             //SearchPageView(),
-            CompetitorsPageView(),
-            VideosPageView(),
+            CompetitorsPageView(controller: _competitorsScrollController),
+            VideosPageView(controller: _videosScrollController),
           ],
           onPageChanged: (int index) {
             setState(() {
@@ -74,6 +77,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: cupertino.CupertinoTabBar(
         currentIndex: _currentTab,
         onTap: (int index) {
+          if (_currentTab == index) {
+            _scrollUp(index);
+          }
+
           setState(() {
             _currentTab = index;
           });
@@ -123,6 +130,35 @@ class _HomePageState extends State<HomePage> {
       return CompetitorsAppBar();
     } else {
       return VideosAppBar();
+    }
+  }
+
+  void _scrollUp(index) {
+    switch (index) {
+      case 0:
+        if (_newsScrollController.hasClients) {
+          _newsScrollController.animateTo(
+              _newsScrollController.position.minScrollExtent,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+        }
+        break;
+      case 1:
+        if (_competitorsScrollController.hasClients) {
+          _competitorsScrollController.animateTo(
+              _competitorsScrollController.position.minScrollExtent,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+        }
+        break;
+      case 2:
+        if (_videosScrollController.hasClients) {
+          _videosScrollController.animateTo(
+              _videosScrollController.position.minScrollExtent,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+          break;
+        }
     }
   }
 }
