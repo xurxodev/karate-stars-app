@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/url.dart'
-    as url_helper;
+as url_helper;
 import 'package:karate_stars_app/src/common/presentation/widgets/facebook_icon.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/instagram_icon.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/twitter_icon.dart';
@@ -21,13 +21,18 @@ class ItemSocialNews extends ItemNews {
   @override
   Widget buildContent(BuildContext context) {
     final linkStyle = TextStyle(
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme
+          .of(context)
+          .colorScheme
+          .secondary,
     );
 
     return Column(children: <Widget>[
       GestureDetector(
-        onTap: () => url_helper.launchURL(context,
-            getNetworkUrl(socialNews.network, '@${socialNews.user.userName}')),
+        onTap: () =>
+            url_helper.launchURL(context,
+                getNetworkUrl(
+                    socialNews.network, '@${socialNews.user.userName}')),
         child: ListTile(
           leading: _avatar(context),
           title: Text(socialNews.user.name,
@@ -35,42 +40,60 @@ class ItemSocialNews extends ItemNews {
           trailing: Text(
             '@${socialNews.user.userName}',
             key: Key('${itemTextKey}_${Keys.news_item_social_username}'),
-            style: Theme.of(context).textTheme.caption,
+            style: Theme
+                .of(context)
+                .textTheme
+                .caption,
           ),
         ),
       ),
-      _mediaWidget(),
+      _mediaWidget(context),
       const SizedBox(height: 16),
-      ListTile(
-          title: ParsedText(
-        key: Key('${itemTextKey}_${Keys.news_item_title}'),
-        text: socialNews.summary.title,
-        style: Theme.of(context).textTheme.subtitle1,
-        parse: <MatchText>[
-          MatchText(
-            type: ParsedType.URL,
-            style: linkStyle,
-            onTap: (url) => url_helper.launchURL(context, url),
-          ),
-          MatchText(
-            pattern: r'(^|\s)#(\w*[a-zA-Z_]+\S*)',
-            style: linkStyle,
-            onTap: (hashtag) => url_helper.launchURL(
-                context, getNetworkUrl(socialNews.network, hashtag)),
-          ),
-          MatchText(
-            pattern: '@[A-Za-z0-9]*',
-            style: linkStyle,
-            onTap: (user) => url_helper.launchURL(
-                context, getNetworkUrl(socialNews.network, user)),
-          ),
-        ],
-      )),
+      GestureDetector(
+          onTap: () {
+            if (socialNews.summary.link != null) {
+              url_helper.launchURL(context, socialNews.summary.link!);
+            }
+          },
+          child: ListTile(
+              title: ParsedText(
+                key: Key('${itemTextKey}_${Keys.news_item_title}'),
+                text: socialNews.summary.title,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .subtitle1,
+                parse: <MatchText>[
+                  MatchText(
+                    type: ParsedType.URL,
+                    style: linkStyle,
+                    onTap: (url) => url_helper.launchURL(context, url),
+                  ),
+                  MatchText(
+                    pattern: r'(^|\s)#(\w*[a-zA-Z_]+\S*)',
+                    style: linkStyle,
+                    onTap: (hashtag) =>
+                        url_helper.launchURL(
+                            context,
+                            getNetworkUrl(socialNews.network, hashtag)),
+                  ),
+                  MatchText(
+                    pattern: '@[A-Za-z0-9]*',
+                    style: linkStyle,
+                    onTap: (user) =>
+                        url_helper.launchURL(
+                            context, getNetworkUrl(socialNews.network, user)),
+                  ),
+                ],
+              ))),
       ListTile(
         leading: getSocialIcon(socialNews.network),
         trailing: Text(
           socialNews.summary.pubDate.antiquity,
-          style: Theme.of(context).textTheme.caption,
+          style: Theme
+              .of(context)
+              .textTheme
+              .caption,
         ),
       )
     ]);
@@ -98,13 +121,19 @@ class ItemSocialNews extends ItemNews {
     return networkUrl[network]!;
   }
 
-  Widget _mediaWidget() {
+  Widget _mediaWidget(BuildContext context) {
     if (socialNews.summary.video != null &&
         socialNews.summary.video!.isNotEmpty) {
       return VideoPlayer(videoUrl: socialNews.summary.video!);
     } else if (socialNews.summary.image != null &&
         socialNews.summary.image!.isNotEmpty) {
-      return CachedNetworkImage(imageUrl: socialNews.summary.image!);
+      return GestureDetector(
+          onTap: () {
+            if (socialNews.summary.link != null) {
+              url_helper.launchURL(context, socialNews.summary.link!);
+            }
+          },
+          child: CachedNetworkImage(imageUrl: socialNews.summary.image!));
     } else {
       return Container();
     }
