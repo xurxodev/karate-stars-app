@@ -39,7 +39,7 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
   }
 
   Future<void> refresh() {
-    return _loadData(ReadPolicy.network_first);
+    return _loadData(ReadPolicy.network_first, false);
   }
 
   void filter({String? selectedEventType, String? selectedYear}) {
@@ -51,7 +51,7 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
 
     changeState(state.copyWith(filters: filters));
 
-    _loadData(ReadPolicy.cache_first);
+    _loadData(ReadPolicy.cache_first, false);
   }
 
   void _sendFilterEvent(EventsFilterState filters) {
@@ -68,7 +68,7 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
   Future<void> _loadMetadataAndData(ReadPolicy readPolicy) async {
     try {
       await _loadMetadata(readPolicy);
-      await _loadData(readPolicy);
+      await _loadData(readPolicy, true);
     } on Exception {
       changeState(state.copyWith(
           list: DefaultState.error(Strings.network_error_message)));
@@ -90,9 +90,14 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
     yearOptions = [defaultYear, ...finalYears];
   }
 
-  Future<void> _loadData(ReadPolicy readPolicy) async {
+  Future<void> _loadData(ReadPolicy readPolicy, bool selectLastYear) async {
     try {
-      final year = Option.getIdOrNull(state.filters.selectedYear);
+      final stateFilters = state.filters.copyWith(
+          eventTypeOptions: eventTypeOptions,
+          yearOptions: yearOptions,
+          selectedYear: selectLastYear ? yearOptions[1].id : null);
+
+      final year = Option.getIdOrNull(stateFilters.selectedYear);
 
       final eventsFilter = EventsFilters(
           eventTypeId: Option.getIdOrNull(state.filters.selectedEventType),
@@ -101,9 +106,7 @@ class EventsBloc extends BlocHomeListContent<EventsState> {
       final events = await _getEventsUseCase.execute(readPolicy, eventsFilter);
 
       changeState(state.copyWith(
-          list: DefaultState.loaded(events),
-          filters: state.filters.copyWith(
-              eventTypeOptions: eventTypeOptions, yearOptions: yearOptions)));
+          list: DefaultState.loaded(events), filters: stateFilters));
     } on Exception {
       changeState(state.copyWith(
           list: DefaultState.error(Strings.network_error_message)));

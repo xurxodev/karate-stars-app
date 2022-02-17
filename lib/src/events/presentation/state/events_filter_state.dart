@@ -24,4 +24,10 @@ class EventsFilterState {
         selectedEventType: selectedEventType ?? this.selectedEventType,
         selectedYear: selectedYear ?? this.selectedYear);
   }
+
+  bool get anyFilter {
+    return eventTypeOptions.isNotEmpty &&
+            selectedEventType != eventTypeOptions[0].id ||
+        yearOptions.isNotEmpty && selectedYear != yearOptions[0].id;
+  }
 }

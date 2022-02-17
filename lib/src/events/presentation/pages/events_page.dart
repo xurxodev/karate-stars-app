@@ -36,16 +36,25 @@ class EventsPage extends StatelessWidget {
                 style: TextStyle(
                     fontSize: Theme.of(context).textTheme.headline6!.fontSize)),
             actions: [
-              FilterAction(
-                tooltip: Strings.videos_filters_title,
-                onPressed: () {
-                  showPlatformDialog(
-                      context: context,
-                      builder: (_) => PlatformAlertDialog(
-                          title: Strings.events_filters_title,
-                          content: EventsFilters(bloc: bloc)));
+              StreamBuilder<EventsState>(
+                initialData: bloc.state,
+                stream: bloc.observableState,
+                builder: (context, snapshot) {
+                  final state = snapshot.data;
+
+                  return FilterAction(
+                    tooltip: Strings.events_filters_title,
+                    applied: state != null && state.filters.anyFilter,
+                    onPressed: () {
+                      showPlatformDialog(
+                          context: context,
+                          builder: (_) => PlatformAlertDialog(
+                              title: Strings.news_filters_title,
+                              content: EventsFilters(bloc: bloc)));
+                    },
+                  );
                 },
-              ),
+              )
             ]),
         body: SafeArea(
             child: StreamBuilder<EventsState>(

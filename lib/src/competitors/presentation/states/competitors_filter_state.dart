@@ -49,4 +49,12 @@ class CompetitorsFilterState {
         selectedCategoryType: selectedCategoryType ?? this.selectedCategoryType,
         selectedCategory: selectedCategory ?? this.selectedCategory);
   }
+
+  bool get anyFilter {
+    return legendTypeOptions.isNotEmpty && selectedLegendType != legendTypeOptions[0].id ||
+        activeTypeOptions.isNotEmpty && selectedActiveType != activeTypeOptions[0].id ||
+        countryOptions.isNotEmpty && selectedCountry != countryOptions[0].id ||
+        categoryOptions.isNotEmpty &&  selectedCategoryType != categoryOptions[0].id ||
+        categoryOptions.isNotEmpty &&  selectedCategory != categoryOptions[0].id;
+  }
 }

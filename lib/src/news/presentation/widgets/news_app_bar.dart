@@ -10,6 +10,7 @@ import 'package:karate_stars_app/src/common/presentation/widgets/platform/platfo
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
+import 'package:karate_stars_app/src/news/presentation/states/news_state.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_filter.dart';
 import 'package:karate_stars_app/src/search/presentation/page/search_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/page/settings_page.dart';
@@ -36,15 +37,24 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 Navigator.pushNamed(context, SearchPage.routeName);
               }),
-          FilterAction(
-            key: const Key(Keys.news_filter_action),
-            tooltip: Strings.news_filters_title,
-            onPressed: () {
-              showPlatformDialog(
-                  context: context,
-                  builder: (_) => PlatformAlertDialog(
-                      title: Strings.news_filters_title,
-                      content: NewsFilter(bloc: bloc)));
+          StreamBuilder<NewsState>(
+            initialData: bloc.state,
+            stream: bloc.observableState,
+            builder: (context, snapshot) {
+              final state = snapshot.data;
+
+              return FilterAction(
+                key: const Key(Keys.news_filter_action),
+                tooltip: Strings.news_filters_title,
+                applied: state != null && state.filtersState.anyFilter,
+                onPressed: () {
+                  showPlatformDialog(
+                      context: context,
+                      builder: (_) => PlatformAlertDialog(
+                          title: Strings.news_filters_title,
+                          content: NewsFilter(bloc: bloc)));
+                },
+              );
             },
           ),
           PlatformMenu(menuItems: [

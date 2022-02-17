@@ -24,4 +24,10 @@ class VideosFilterState {
         selectedCompetitor: selectedCompetitor ?? this.selectedCompetitor,
         selectedYear: selectedYear ?? this.selectedYear);
   }
+
+  bool get anyFilter {
+    return competitorOptions.isNotEmpty &&
+            selectedCompetitor != competitorOptions[0].id ||
+        yearOptions.isNotEmpty && selectedYear != yearOptions[0].id;
+  }
 }

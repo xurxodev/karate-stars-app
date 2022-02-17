@@ -11,4 +11,8 @@ class NewsFilterState {
         typeOptions: typeOptions,
         selectedType: selectedType ?? this.selectedType);
   }
+
+  bool get anyFilter {
+    return typeOptions.isNotEmpty && selectedType != typeOptions[0].id;
+  }
 }
