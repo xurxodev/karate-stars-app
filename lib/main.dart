@@ -11,6 +11,8 @@ import 'package:karate_stars_app/src/app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  //HttpOverrides.global = MyHttpOverrides();
+
   //default filename is .env
   //if (kReleaseMode) {
     await dotenv.load(
@@ -31,3 +33,13 @@ Future<void> main() async {
 
   runApp(App.create(testing: false));
 }
+
+/*// To avoid in Android the error with https images
+  // Only old devices
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}*/

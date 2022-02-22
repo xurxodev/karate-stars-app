@@ -49,7 +49,7 @@ class EventsPage extends StatelessWidget {
                       showPlatformDialog(
                           context: context,
                           builder: (_) => PlatformAlertDialog(
-                              title: Strings.news_filters_title,
+                              title: Strings.events_filters_title,
                               content: EventsFilters(bloc: bloc)));
                     },
                   );

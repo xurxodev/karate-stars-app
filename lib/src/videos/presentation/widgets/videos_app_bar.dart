@@ -38,7 +38,7 @@ class VideosAppBar extends StatelessWidget implements PreferredSizeWidget {
                   showPlatformDialog(
                       context: context,
                       builder: (_) => PlatformAlertDialog(
-                          title: Strings.news_filters_title,
+                          title: Strings.videos_filters_title,
                           content: VideosFilters(bloc: bloc)));
                 },
               );

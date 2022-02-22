@@ -22,7 +22,7 @@ class PlatformMenu extends PlatformWidget<IconButton, PopupMenuButton> {
         onSelected: (value) => menuItems[value].onTap(),
         itemBuilder: (context) => menuItems.map((menuItem) {
               return PopupMenuItem(
-                value:menuItems.indexOf(menuItem) ,
+                value: menuItems.indexOf(menuItem),
                 child: Row(children: [
                   Icon(menuItem.iconData),
                   const SizedBox(width: 16),
@@ -49,10 +49,12 @@ class PlatformMenu extends PlatformWidget<IconButton, PopupMenuButton> {
                     Text(menuItem.name,
                         style: Theme.of(context).textTheme.subtitle1)
                   ]),
-                  onPressed: menuItem.onTap,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    menuItem.onTap();
+                  },
                 );
-              }).toList()
-              );
+              }).toList());
           showCupertinoModalPopup(
               context: context, builder: (BuildContext context) => act);
         });

@@ -38,7 +38,7 @@ class CompetitorsAppBar extends StatelessWidget implements PreferredSizeWidget {
                   showPlatformDialog(
                       context: context,
                       builder: (_) => PlatformAlertDialog(
-                          title: Strings.news_filters_title,
+                          title: Strings.competitor_filters_title,
                           content: CompetitorFilters(bloc: bloc)));
                 },
               );
