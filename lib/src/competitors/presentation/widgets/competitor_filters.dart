@@ -30,7 +30,8 @@ class CompetitorFilters extends StatelessWidget {
 
   Widget _buildFilter(BuildContext context, CompetitorsFilterState state,
       CompetitorsBloc bloc) {
-    return Column(
+    return SingleChildScrollView(
+        child: Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -97,6 +98,6 @@ class CompetitorFilters extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ));
   }
 }
