@@ -34,8 +34,9 @@ class MockApi {
       int httpCode = 200,
       Map<String, String>? headers}) async {
     final content = await _getContentFromFile(fileName: fileName);
+    final finalHeaders = headers ?? {};
 
-    _server.enqueue(body: content, httpCode: httpCode, headers: headers);
+    _server.enqueue(body: content, httpCode: httpCode, headers: finalHeaders);
   }
 
   Future<void> enqueueUnauthorizedResponse(

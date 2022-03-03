@@ -29,7 +29,8 @@ int smallCacheTimeMillis = const Duration(minutes: 10).inMilliseconds;
 
 Future<void> init() async {
   getIt.allowReassignment = true;
-  initNoDataAppDependencies();
+  getIt.registerLazySingleton<AnalyticsService>(
+          () => FirebaseAnalyticsService());
 
   final database = await Database.create();
 
@@ -59,7 +60,8 @@ Future<void> init() async {
 
 void initWithoutDataDependencies() {
   getIt.allowReassignment = true;
-  initNoDataAppDependencies();
+  getIt.registerLazySingleton<AnalyticsService>(
+          () => FakeAnalyticsService());
 
   news_di.initBlocAndUseCases();
   competitors_di.initBlocAndUseCases();
@@ -71,11 +73,6 @@ void initWithoutDataDependencies() {
   event_types_di.initBlocAndUseCases();
   settings_di.initBlocAndUseCases();
   search_di.initBlocAndUseCases();
-}
-
-void initNoDataAppDependencies() {
-  getIt.registerLazySingleton<AnalyticsService>(
-      () => FirebaseAnalyticsService());
 }
 
 Future<void> reset() {
