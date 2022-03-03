@@ -19,8 +19,10 @@ class VideoPlayerBloc extends Bloc<VideoPlayerState> {
     changeState(VideoPlayerState(playList: DefaultState.loading()));
   }
 
-  void init(String videoId) {
-    _loadData(videoId);
+  void init(
+      {required String videoId,
+      ReadPolicy readPolicy = ReadPolicy.cache_first}) {
+    _loadData(videoId, readPolicy);
   }
 
   void next() {
@@ -34,10 +36,10 @@ class VideoPlayerBloc extends Bloc<VideoPlayerState> {
         playList: DefaultState.loaded(videos), currentVideo: currentVideo));
   }
 
-  Future<void> _loadData(String videoId) async {
+  Future<void> _loadData(String videoId, ReadPolicy readPolicy) async {
     try {
-      final videos = await _getPlayListByVideoIdUseCase.execute(
-          ReadPolicy.cache_first, videoId);
+      final videos =
+          await _getPlayListByVideoIdUseCase.execute(readPolicy, videoId);
 
       final currentVideo = videos[0];
       videos.remove(currentVideo);

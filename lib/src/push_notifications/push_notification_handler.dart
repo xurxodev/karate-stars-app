@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/show_local_notifications.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
@@ -78,11 +80,17 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
     if (state.newsNotification) {
       print('subscribe news');
       _firebaseMessaging.subscribeToTopic(_urlTopic);
-      _firebaseMessaging.subscribeToTopic(_debugUrlTopic);
+
+      if (!kReleaseMode) {
+        _firebaseMessaging.subscribeToTopic(_debugUrlTopic);
+      }
     } else {
       print('unsubscribe news');
       _firebaseMessaging.unsubscribeFromTopic(_urlTopic);
-      _firebaseMessaging.unsubscribeFromTopic(_debugUrlTopic);
+
+      if (!kReleaseMode) {
+        _firebaseMessaging.unsubscribeFromTopic(_debugUrlTopic);
+      }
     }
 
     if (state.competitorNotification) {
@@ -92,7 +100,10 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
     } else {
       print('unsubscribe competitors');
       _firebaseMessaging.unsubscribeFromTopic(_competitorTopic);
-      _firebaseMessaging.unsubscribeFromTopic(_debugCompetitorTopic);
+
+      if (!kReleaseMode) {
+        _firebaseMessaging.unsubscribeFromTopic(_debugCompetitorTopic);
+      }
     }
 
     if (state.videoNotification) {
@@ -143,11 +154,14 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
       launchURL(context, message.data['url']);
     } else if (message.data.containsKey('competitorId')) {
       Navigator.pushNamed(context, CompetitorDetailPage.routeName,
-          arguments:
-              CompetitorDetailArgs(competitorId: message.data['competitorId']));
+          arguments: CompetitorDetailArgs(
+              competitorId: message.data['competitorId'],
+              readPolicy: ReadPolicy.network_first));
     } else if (message.data.containsKey('videoId')) {
       Navigator.pushNamed(context, VideoPlayerPage.routeName,
-          arguments: message.data['videoId']);
+          arguments: VideoPlayerPageArgs(
+              videoId: message.data['videoId'],
+              readPolicy: ReadPolicy.network_first));
     }
   }
 
@@ -168,7 +182,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
   @override
   void dispose() {
-    if (_subscription != null){
+    if (_subscription != null) {
       _subscription?.cancel();
       _subscription = null;
     }

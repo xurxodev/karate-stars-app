@@ -3,6 +3,7 @@ import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
+import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
@@ -14,15 +15,23 @@ import 'package:karate_stars_app/src/videos/presentation/states/VideoPlayerState
 import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/youtube/youtube_video_player.dart';
 
-class VideoPlayerPage extends StatefulWidget {
+class VideoPlayerPageArgs {
   final String videoId;
+  final ReadPolicy readPolicy;
 
-  const VideoPlayerPage({required this.videoId});
+  VideoPlayerPageArgs(
+      {required this.videoId, this.readPolicy = ReadPolicy.cache_first});
+}
 
-  static Widget create(String videoId) {
+class VideoPlayerPage extends StatefulWidget {
+  final VideoPlayerPageArgs args;
+
+  const VideoPlayerPage({required this.args});
+
+  static Widget create(VideoPlayerPageArgs args) {
     return BlocProvider(
         bloc: app_di.getIt<VideoPlayerBloc>(),
-        child: VideoPlayerPage(videoId: videoId));
+        child: VideoPlayerPage(args: args));
   }
 
   static const routeName = '/video';
@@ -39,10 +48,8 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
 
   @override
   Widget build(BuildContext context) {
-    final String videoId = ModalRoute.of(context)!.settings.arguments as String;
-
     final VideoPlayerBloc bloc = BlocProvider.of<VideoPlayerBloc>(context);
-    bloc.init(videoId);
+    bloc.init(videoId: widget.args.videoId, readPolicy: widget.args.readPolicy);
 
     return StreamBuilder<VideoPlayerState>(
       initialData: bloc.state,
@@ -115,7 +122,7 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
                             return ItemVideo(
                               video: video,
                               onTap: () async {
-                                bloc.init(video.id);
+                                bloc.init(videoId: video.id);
                               },
                             ); //, itemTextKey: textKey);
                           },

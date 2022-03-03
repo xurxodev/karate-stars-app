@@ -82,10 +82,12 @@ class App extends StatelessWidget {
           HomePage.routeName: (context) => HomePage.create(testing),
           SettingsPage.routeName: (context) {
             print('route');
-            return SettingsPage();},
+            return SettingsPage();
+          },
           SearchPage.routeName: (context) => SearchPage.create(),
           VideoPlayerPage.routeName: (context) => VideoPlayerPage.create(
-              ModalRoute.of(context)!.settings.arguments as String),
+              ModalRoute.of(context)!.settings.arguments
+                  as VideoPlayerPageArgs),
           CompetitorDetailPage.routeName: (context) =>
               CompetitorDetailPage.create(ModalRoute.of(context)!
                   .settings

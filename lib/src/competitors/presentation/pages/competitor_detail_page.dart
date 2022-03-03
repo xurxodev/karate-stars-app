@@ -3,6 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
+import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
 import 'package:karate_stars_app/src/common/presentation/icons/custom_icons.dart';
@@ -20,8 +21,12 @@ import 'package:karate_stars_app/src/videos/presentation/pages/competitor_videos
 class CompetitorDetailArgs {
   final String competitorId;
   final String? imageUrl;
+  final ReadPolicy readPolicy;
 
-  CompetitorDetailArgs({required this.competitorId, this.imageUrl});
+  CompetitorDetailArgs(
+      {required this.competitorId,
+      this.imageUrl,
+      this.readPolicy = ReadPolicy.cache_first});
 }
 
 class CompetitorDetailPage extends StatelessWidget {
@@ -41,7 +46,7 @@ class CompetitorDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final CompetitorDetailBloc bloc =
         BlocProvider.of<CompetitorDetailBloc>(context);
-    bloc.init(args.competitorId);
+    bloc.init(competitorId: args.competitorId, readPolicy: args.readPolicy);
 
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -185,7 +190,12 @@ class CompetitorDetailPage extends StatelessWidget {
         ),
         Expanded(
             child: Column(
-          children: [..._renderAchievementGroups(context, competitor), Ad(adUnitId: AdsHelper.competitorNativeAdUnitId,) ],
+          children: [
+            ..._renderAchievementGroups(context, competitor),
+            Ad(
+              adUnitId: AdsHelper.competitorNativeAdUnitId,
+            )
+          ],
         ))
       ]),
     );
