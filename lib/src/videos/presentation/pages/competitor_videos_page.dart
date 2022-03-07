@@ -126,8 +126,9 @@ class _CompetitorVideosPageState extends State<CompetitorVideosPage> {
           width: double.infinity,
           color: Theme.of(context).cardColor,
           padding: const EdgeInsets.all(16.0),
-          child:Text(competitorVideos.name,
-            style: Theme.of(context).textTheme.headline6),),
+          child: Text(competitorVideos.name,
+              style: Theme.of(context).textTheme.headline6),
+        ),
         Expanded(
             child: Column(
           children: [..._renderVideos(context, competitorVideos)],
@@ -149,12 +150,14 @@ class _CompetitorVideosPageState extends State<CompetitorVideosPage> {
       BuildContext context, CompetitorVideos competitorVideos) {
     return competitorVideos.videos.map((video) {
       return ItemVideo(
-        color: Theme.of(context).brightness == Brightness.light? Colors.blueGrey[50]:Colors.grey[600],
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.blueGrey[50]
+            : Colors.grey[600],
         video: video,
         onTap: () async {
           _playVideoInterstitialAd.show();
-          Navigator.pushNamed(context, VideoPlayerPage.routeName,
-              arguments: video.id);
+          VideoPlayerPage.navigate(context,
+              arguments: VideoPlayerPageArgs(videoId: video.id));
         },
       );
     }).toList();

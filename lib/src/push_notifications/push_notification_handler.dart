@@ -158,7 +158,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
               competitorId: message.data['competitorId'],
               readPolicy: ReadPolicy.network_first));
     } else if (message.data.containsKey('videoId')) {
-      Navigator.pushNamed(context, VideoPlayerPage.routeName,
+      VideoPlayerPage.navigate(context,
           arguments: VideoPlayerPageArgs(
               videoId: message.data['videoId'],
               readPolicy: ReadPolicy.network_first));

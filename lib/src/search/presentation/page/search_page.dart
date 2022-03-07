@@ -36,15 +36,14 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage>
     with SingleTickerProviderStateMixin {
-  late PlayVideoInterstitialAd _playVideoInterstitialAd;
   final ScrollController _newsScrollController = ScrollController();
   final ScrollController _competitorsScrollController = ScrollController();
   final ScrollController _videosScrollController = ScrollController();
+  late PlayVideoInterstitialAd _playVideoInterstitialAd;
 
   @override
   void initState() {
     super.initState();
-
     _playVideoInterstitialAd = PlayVideoInterstitialAd();
   }
 
@@ -167,8 +166,9 @@ class _SearchPageState extends State<SearchPage>
                 video: video,
                 onTap: () async {
                   _playVideoInterstitialAd.show();
-                  Navigator.pushNamed(context, VideoPlayerPage.routeName,
-                      arguments: video.id);
+                  VideoPlayerPage.navigate(context,
+                      arguments:
+                          VideoPlayerPageArgs(videoId: video.id));
                 },
               );
             },
@@ -207,10 +207,10 @@ class _SearchPageState extends State<SearchPage>
 
   @override
   void dispose() {
-    _playVideoInterstitialAd.dispose();
     _newsScrollController.dispose();
     _competitorsScrollController.dispose();
     _videosScrollController.dispose();
+    _playVideoInterstitialAd.dispose();
     super.dispose();
   }
 }

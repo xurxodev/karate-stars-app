@@ -20,13 +20,20 @@ class VideoPlayerPageArgs {
   final ReadPolicy readPolicy;
 
   VideoPlayerPageArgs(
-      {required this.videoId, this.readPolicy = ReadPolicy.cache_first});
+      {required this.videoId,
+      this.readPolicy = ReadPolicy.cache_first});
 }
 
 class VideoPlayerPage extends StatefulWidget {
   final VideoPlayerPageArgs args;
 
   const VideoPlayerPage({required this.args});
+
+  static void navigate(BuildContext context,
+      {required VideoPlayerPageArgs arguments}) {
+    Navigator.pushNamed(context, VideoPlayerPage.routeName,
+        arguments: arguments);
+  }
 
   static Widget create(VideoPlayerPageArgs args) {
     return BlocProvider(
@@ -41,6 +48,7 @@ class VideoPlayerPage extends StatefulWidget {
 }
 
 class _VideoPlayerPage extends State<VideoPlayerPage> {
+
   @override
   void initState() {
     super.initState();
@@ -134,5 +142,10 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
             onEnded: (data) {
               bloc.next();
             });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

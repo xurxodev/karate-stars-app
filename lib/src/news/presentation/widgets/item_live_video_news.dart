@@ -7,15 +7,15 @@ import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page
 class ItemLiveVideoNews extends ItemNews {
   final LiveVideoNews liveVideoNews;
 
-  const ItemLiveVideoNews({required this.liveVideoNews})
-      : super();
+  const ItemLiveVideoNews({required this.liveVideoNews}) : super();
 
   @override
   Widget buildContent(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, VideoPlayerPage.routeName,
-            arguments: liveVideoNews.firstVideoId);
+        VideoPlayerPage.navigate(context,
+            arguments: VideoPlayerPageArgs(
+                videoId: liveVideoNews.firstVideoId));
       },
       child: ListTile(
         title: Text(liveVideoNews.summary.title),

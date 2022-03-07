@@ -32,7 +32,6 @@ class _VideosPageViewState extends State<VideosPageView> {
   @override
   void initState() {
     super.initState();
-
     _playVideoInterstitialAd = PlayVideoInterstitialAd();
   }
 
@@ -91,8 +90,9 @@ class _VideosPageViewState extends State<VideosPageView> {
                       video: video,
                       onTap: () async {
                         _playVideoInterstitialAd.show();
-                        Navigator.pushNamed(context, VideoPlayerPage.routeName,
-                            arguments: video.id);
+                        VideoPlayerPage.navigate(context,
+                            arguments: VideoPlayerPageArgs(
+                                videoId: video.id));
                       },
                     ); //, itemTextKey: textKey);
                   },
@@ -108,7 +108,7 @@ class _VideosPageViewState extends State<VideosPageView> {
 
   @override
   void dispose() {
-    _playVideoInterstitialAd.dispose();
     super.dispose();
+    _playVideoInterstitialAd.dispose();
   }
 }
