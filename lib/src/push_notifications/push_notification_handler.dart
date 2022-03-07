@@ -87,29 +87,29 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
     } else {
       print('unsubscribe news');
       _firebaseMessaging.unsubscribeFromTopic(_urlTopic);
-
-      if (!kReleaseMode) {
-        _firebaseMessaging.unsubscribeFromTopic(_debugUrlTopic);
-      }
+      _firebaseMessaging.unsubscribeFromTopic(_debugUrlTopic);
     }
 
     if (state.competitorNotification) {
       print('subscribe competitors');
       _firebaseMessaging.subscribeToTopic(_competitorTopic);
-      _firebaseMessaging.subscribeToTopic(_debugCompetitorTopic);
+
+      if (!kReleaseMode) {
+        _firebaseMessaging.subscribeToTopic(_debugCompetitorTopic);
+      }
     } else {
       print('unsubscribe competitors');
       _firebaseMessaging.unsubscribeFromTopic(_competitorTopic);
-
-      if (!kReleaseMode) {
-        _firebaseMessaging.unsubscribeFromTopic(_debugCompetitorTopic);
-      }
+      _firebaseMessaging.unsubscribeFromTopic(_debugCompetitorTopic);
     }
 
     if (state.videoNotification) {
       print('subscribe videos');
       _firebaseMessaging.subscribeToTopic(_videoTopic);
-      _firebaseMessaging.subscribeToTopic(_debugVideoTopic);
+
+      if (!kReleaseMode) {
+        _firebaseMessaging.subscribeToTopic(_debugVideoTopic);
+      }
     } else {
       print('unsubscribe videos');
       _firebaseMessaging.unsubscribeFromTopic(_videoTopic);
