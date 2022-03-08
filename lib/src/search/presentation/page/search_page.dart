@@ -26,6 +26,10 @@ import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart
 class SearchPage extends StatefulWidget {
   static const routeName = '/search';
 
+  static void navigate(BuildContext context) {
+    Navigator.pushNamed(context, routeName);
+  }
+
   static Widget create() {
     return BlocProvider(bloc: app_di.getIt<SearchBloc>(), child: SearchPage());
   }

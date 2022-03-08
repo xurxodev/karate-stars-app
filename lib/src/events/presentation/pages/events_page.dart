@@ -25,6 +25,10 @@ class EventsPage extends StatelessWidget {
 
   static const routeName = '/events';
 
+  static void navigate(BuildContext context) {
+    Navigator.pushNamed(context, routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     final EventsBloc bloc = BlocProvider.of<EventsBloc>(context);

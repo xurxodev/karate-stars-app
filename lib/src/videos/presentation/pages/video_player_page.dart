@@ -20,19 +20,18 @@ class VideoPlayerPageArgs {
   final ReadPolicy readPolicy;
 
   VideoPlayerPageArgs(
-      {required this.videoId,
-      this.readPolicy = ReadPolicy.cache_first});
+      {required this.videoId, this.readPolicy = ReadPolicy.cache_first});
 }
 
 class VideoPlayerPage extends StatefulWidget {
   final VideoPlayerPageArgs args;
+  static const routeName = '/video';
 
   const VideoPlayerPage({required this.args});
 
   static void navigate(BuildContext context,
       {required VideoPlayerPageArgs arguments}) {
-    Navigator.pushNamed(context, VideoPlayerPage.routeName,
-        arguments: arguments);
+    Navigator.pushNamed(context, routeName, arguments: arguments);
   }
 
   static Widget create(VideoPlayerPageArgs args) {
@@ -41,14 +40,11 @@ class VideoPlayerPage extends StatefulWidget {
         child: VideoPlayerPage(args: args));
   }
 
-  static const routeName = '/video';
-
   @override
   State<VideoPlayerPage> createState() => _VideoPlayerPage();
 }
 
 class _VideoPlayerPage extends State<VideoPlayerPage> {
-
   @override
   void initState() {
     super.initState();

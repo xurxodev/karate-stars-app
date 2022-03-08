@@ -21,16 +21,21 @@ class CompetitorVideosArgs {
 
 class CompetitorVideosPage extends StatefulWidget {
   final CompetitorVideosArgs args;
+  static const routeName = '/competitor-videos';
 
   const CompetitorVideosPage({required this.args});
+
+  static void navigate(BuildContext context,
+      {required CompetitorVideosArgs arguments}) {
+    Navigator.pushNamed(context, routeName,
+        arguments: arguments);
+  }
 
   static Widget create(CompetitorVideosArgs args) {
     return BlocProvider(
         bloc: app_di.getIt<CompetitorVideosBloc>(),
         child: CompetitorVideosPage(args: args));
   }
-
-  static const routeName = '/competitor-videos';
 
   @override
   State<CompetitorVideosPage> createState() => _CompetitorVideosPageState();

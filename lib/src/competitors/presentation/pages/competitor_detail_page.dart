@@ -31,16 +31,21 @@ class CompetitorDetailArgs {
 
 class CompetitorDetailPage extends StatelessWidget {
   final CompetitorDetailArgs args;
+  static const routeName = '/competitor';
 
   const CompetitorDetailPage({required this.args});
+
+  static void navigate(BuildContext context,
+      {required CompetitorDetailArgs arguments}) {
+    Navigator.pushNamed(context, routeName,
+        arguments: arguments);
+  }
 
   static Widget create(CompetitorDetailArgs args) {
     return BlocProvider(
         bloc: app_di.getIt<CompetitorDetailBloc>(),
         child: CompetitorDetailPage(args: args));
   }
-
-  static const routeName = '/competitor';
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +147,7 @@ class CompetitorDetailPage extends StatelessWidget {
           child: const Icon(Icons.video_library),
           foregroundColor: Colors.red,
           onTap: () {
-            Navigator.pushNamed(context, CompetitorVideosPage.routeName,
+            CompetitorVideosPage.navigate(context,
                 arguments: CompetitorVideosArgs(
                     competitor.identifier, competitor.mainImage));
           },

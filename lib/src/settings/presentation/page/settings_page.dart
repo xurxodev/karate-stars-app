@@ -13,6 +13,10 @@ import 'package:settings_ui/settings_ui.dart';
 class SettingsPage extends StatelessWidget {
   static const routeName = '/settings';
 
+  static void navigate(BuildContext context) {
+    Navigator.pushNamed(context, routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<SettingsBloc>(context);

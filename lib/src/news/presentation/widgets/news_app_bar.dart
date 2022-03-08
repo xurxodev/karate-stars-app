@@ -35,7 +35,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
           IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                Navigator.pushNamed(context, SearchPage.routeName);
+                SearchPage.navigate(context);
               }),
           StreamBuilder<NewsState>(
             initialData: bloc.state,
@@ -59,11 +59,11 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           PlatformMenu(menuItems: [
             MenuItem(Strings.home_menu_events, Icons.calendar_today,
-                () => Navigator.pushNamed(context, EventsPage.routeName)),
+                () => EventsPage.navigate(context)),
             MenuItem(Strings.home_menu_rankings, Icons.leaderboard_outlined,
                 () => launchURL(context, Strings.url_rankings)),
             MenuItem(Strings.home_menu_settings, PlatformIcons.settings,
-                () => Navigator.pushNamed(context, SettingsPage.routeName)),
+                () => SettingsPage.navigate(context)),
           ]),
         ]);
   }

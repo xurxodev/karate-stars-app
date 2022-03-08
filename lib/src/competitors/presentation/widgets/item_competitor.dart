@@ -22,7 +22,7 @@ class ItemCompetitor extends StatelessWidget {
       borderRadius: const BorderRadius.all(radius),
       child: GestureDetector(
           onTap: () async {
-            Navigator.pushNamed(context, CompetitorDetailPage.routeName,
+            CompetitorDetailPage.navigate(context,
                 arguments: CompetitorDetailArgs(
                     competitorId: competitor.id, imageUrl: competitor.image));
           },

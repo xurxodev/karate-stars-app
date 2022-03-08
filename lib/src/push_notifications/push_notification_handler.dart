@@ -153,7 +153,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
     if (message.data.containsKey('url')) {
       launchURL(context, message.data['url']);
     } else if (message.data.containsKey('competitorId')) {
-      Navigator.pushNamed(context, CompetitorDetailPage.routeName,
+      CompetitorDetailPage.navigate(context,
           arguments: CompetitorDetailArgs(
               competitorId: message.data['competitorId'],
               readPolicy: ReadPolicy.network_first));
