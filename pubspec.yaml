@@ -1,7 +1,7 @@
 name: karate_stars_app
 description: Official Karate Stars App written in Flutter for Android and iOS.
 
-version: 2.5.0+36
+version: 2.5.0+37
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
