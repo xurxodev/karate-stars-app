@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:video_player/video_player.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoPlayer extends StatefulWidget {
   final String videoUrl;
@@ -52,9 +53,18 @@ class _VideoPlayerState extends State<VideoPlayer> {
   Widget build(BuildContext context) {
     return _chewieController != null &&
             _chewieController!.videoPlayerController.value.isInitialized
-        ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: Chewie(controller: _chewieController!))
+        ? VisibilityDetector(
+            key: const Key('video-visible-detector'),
+            onVisibilityChanged: (visibilityInfo) {
+              final visiblePercentage = visibilityInfo.visibleFraction * 100;
+
+              if (visiblePercentage == 0) {
+                _chewieController?.pause();
+              }
+            },
+            child: AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: Chewie(controller: _chewieController!)))
         : Progress();
   }
 

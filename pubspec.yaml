@@ -33,6 +33,7 @@ dependencies:
   share: ^2.0.4
   shared_preferences: ^2.0.13
   video_player: ^2.2.19
+  visibility_detector: ^0.2.2
   youtube_player_flutter: ^8.0.0
 dev_dependencies:
   build_runner: ^2.1.7
