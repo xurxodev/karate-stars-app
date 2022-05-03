@@ -44,7 +44,7 @@ class VideoPlayerBloc extends Bloc<VideoPlayerState> {
       final currentVideo = videos[0];
       videos.remove(currentVideo);
 
-      _analyticsService.sendScreenName('screen_name/${currentVideo.id}');
+      _analyticsService.sendScreenName('$screen_name/${currentVideo.id}');
 
       changeState(VideoPlayerState(
           playList: DefaultState.loaded(videos), currentVideo: currentVideo));
