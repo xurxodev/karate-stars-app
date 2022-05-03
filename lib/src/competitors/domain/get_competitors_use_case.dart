@@ -33,7 +33,7 @@ class GetCompetitorsUseCase {
           (competitorsFilter?.categoryId == null ||
               competitor.categoryId == competitorsFilter?.categoryId) &&
           (competitorsFilter?.searchTerm == null ||
-              competitor.fullName().toLowerCase().contains(competitorsFilter!.searchTerm!));
+              competitor.fullName().toLowerCase().contains(competitorsFilter!.searchTerm!.toLowerCase()));
     }).toList();
 
     filteredCompetitors.sort((a, b) => a.lastName.compareTo(b.lastName));
