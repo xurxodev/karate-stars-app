@@ -43,7 +43,7 @@ dev_dependencies:
     sdk: flutter
   hive_generator: ^1.1.2
   mock_web_server: ^5.0.0-nullsafety.1
-  mocktail: ^0.2.0
+  mocktail: ^0.3.0
   test: any
 flutter:
   uses-material-design: true
