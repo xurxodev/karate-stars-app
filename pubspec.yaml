@@ -19,7 +19,7 @@ dependencies:
   flutter_inappwebview: ^5.4.3+4
   flutter_parsed_text: ^2.2.1
   flutter_secure_storage: ^5.0.2
-  flutter_speed_dial: ^5.0.0+1
+  flutter_speed_dial: ^6.0.0
   get_it: ^7.2.0
   google_mobile_ads: ^1.1.0
   hive: ^2.0.6
@@ -28,7 +28,7 @@ dependencies:
   line_icons: ^2.0.1
   liquid_pull_to_refresh: ^3.0.1
   overlay_support: ^1.2.1
-  package_info_plus: ^1.4.0
+  package_info_plus: ^1.4.2
   settings_ui: ^2.0.2
   share: ^2.0.4
   shared_preferences: ^2.0.13
