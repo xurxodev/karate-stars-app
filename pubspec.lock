@@ -360,7 +360,7 @@ packages:
       name: flutter_inappwebview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.3+4"
+    version: "5.4.3+7"
   flutter_parsed_text:
     dependency: "direct main"
     description:
@@ -802,7 +802,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.13"
+    version: "2.0.14"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -1045,7 +1045,7 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.4.0"
+    version: "2.4.1"
   video_player_android:
     dependency: transitive
     description:

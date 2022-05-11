@@ -16,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
-  flutter_inappwebview: ^5.4.3+4
+  flutter_inappwebview: ^5.4.3+7
   flutter_parsed_text: ^2.2.1
   flutter_secure_storage: ^5.0.2
   flutter_speed_dial: ^6.0.0
@@ -31,8 +31,8 @@ dependencies:
   package_info_plus: ^1.4.2
   settings_ui: ^2.0.2
   share: ^2.0.4
-  shared_preferences: ^2.0.13
-  video_player: ^2.4.0
+  shared_preferences: ^2.0.14
+  video_player: ^2.4.1
   visibility_detector: ^0.2.2
   youtube_player_flutter: ^8.0.0
 dev_dependencies:
