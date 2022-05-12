@@ -6,7 +6,7 @@ import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/actions/FilterAction.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_icons.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_menu.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_single_menu.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
 import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
@@ -57,12 +57,12 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
               );
             },
           ),
-          PlatformMenu(menuItems: [
-            MenuItem(Strings.home_menu_events, Icons.calendar_today,
+          PlatformSingleMenu(menuItems: [
+            SingleMenuItem(Strings.home_menu_events, Icons.calendar_today,
                 () => EventsPage.navigate(context)),
-            MenuItem(Strings.home_menu_rankings, Icons.leaderboard_outlined,
+            SingleMenuItem(Strings.home_menu_rankings, Icons.leaderboard_outlined,
                 () => launchURL(context, Strings.url_rankings)),
-            MenuItem(Strings.home_menu_settings, PlatformIcons.settings,
+            SingleMenuItem(Strings.home_menu_settings, PlatformIcons.settings,
                 () => SettingsPage.navigate(context)),
           ]),
         ]);

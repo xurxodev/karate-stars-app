@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_widget.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 
-class MenuItem {
+class SingleMenuItem {
   String name;
   VoidCallback onTap;
   IconData iconData;
 
-  MenuItem(this.name, this.iconData, this.onTap);
+  SingleMenuItem(this.name, this.iconData, this.onTap);
 }
 
-class PlatformMenu extends PlatformWidget<IconButton, PopupMenuButton> {
-  final List<MenuItem> menuItems;
+class PlatformSingleMenu extends PlatformWidget<IconButton, PopupMenuButton> {
+  final List<SingleMenuItem> menuItems;
 
-  PlatformMenu({required this.menuItems});
+  PlatformSingleMenu({required this.menuItems});
 
   @override
   PopupMenuButton createMaterialWidget(BuildContext context) {
