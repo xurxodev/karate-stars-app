@@ -33,6 +33,10 @@ class SettingsBloc extends Bloc<SettingsState> {
     _analyticsService.sendEvent(RateApp());
   }
 
+  void shareApp(String url) {
+    _analyticsService.sendEvent(ShareApp(url));
+  }
+
   void visitScreen() {
     _analyticsService.sendScreenName('$screen_name');
   }
@@ -154,6 +158,7 @@ class SettingsBloc extends Bloc<SettingsState> {
 
     _saveSettingsUseCase.execute(settings);
   }
+
 
 
 }

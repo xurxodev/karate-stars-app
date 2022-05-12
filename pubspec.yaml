@@ -31,7 +31,7 @@ dependencies:
   overlay_support: ^1.2.1
   package_info_plus: ^1.4.2
   settings_ui: ^2.0.2
-  share: ^2.0.4
+  share_plus: ^4.0.4
   shared_preferences: ^2.0.14
   video_player: ^2.4.1
   visibility_detector: ^0.2.2

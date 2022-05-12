@@ -8,4 +8,7 @@ class PlatformIcons {
 
   static IconData settings =
       Platform.isAndroid ? Icons.settings : CupertinoIcons.wrench;
+
+  static IconData share =
+      Platform.isAndroid ? Icons.share : CupertinoIcons.share;
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_review/app_review.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +8,12 @@ import 'package:karate_stars_app/src/common/presentation/states/default_state.da
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/filters/SegmentedFilter.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_icons.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/settings/presentation/blocs/settings_bloc.dart';
 import 'package:karate_stars_app/src/settings/presentation/states/settings_state.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsPage extends StatelessWidget {
   static const routeName = '/settings';
@@ -59,26 +63,27 @@ class SettingsPage extends StatelessWidget {
 
   Widget _renderSettings(
       BuildContext context, SettingsStateData stateData, SettingsBloc bloc) {
-
     return SettingsList(
-      lightTheme: const SettingsThemeData(titleTextColor:  Color.fromRGBO(109, 109, 114, 1)),
-      darkTheme:const SettingsThemeData(titleTextColor: CupertinoColors.systemGrey),
+      lightTheme: const SettingsThemeData(
+          titleTextColor: Color.fromRGBO(109, 109, 114, 1)),
+      darkTheme:
+          const SettingsThemeData(titleTextColor: CupertinoColors.systemGrey),
       sections: [
         SettingsSection(
-          title:  Text(Strings.settings_app_section.toUpperCase()),
+          title: Text(Strings.settings_app_section.toUpperCase()),
           tiles: [
             SettingsTile(
               leading: const Icon(CupertinoIcons.app),
               title: const Text(Strings.settings_app_version),
               value: Text(stateData.version),
             ),
-           SettingsTile.navigation(
+            SettingsTile.navigation(
               leading: const Icon(CupertinoIcons.heart_fill),
               title: const Text(Strings.settings_app_rate),
               onPressed: (BuildContext context) async {
                 final available = await AppReview.isRequestReviewAvailable;
 
-                if (available){
+                if (available) {
                   bloc.requestReview();
                   AppReview.requestReview.then((value) {
                     print(value);
@@ -86,13 +91,30 @@ class SettingsPage extends StatelessWidget {
                 }
               },
             ),
+            SettingsTile.navigation(
+              leading: Icon(PlatformIcons.share),
+              title: const Text(Strings.settings_app_share),
+              onPressed: (BuildContext context) async {
+                final box = context.findRenderObject() as RenderBox?;
+
+                final url = Platform.isAndroid
+                    ? 'https://play.google.com/store/apps/details?id=com.xurxodev.karatestars'
+                    : 'https://apps.apple.com/app/karate-stars/id1611034977';
+
+                bloc.shareApp(url);
+
+                await Share.share(url,
+                    sharePositionOrigin:
+                        box!.localToGlobal(Offset.zero) & box.size);
+              },
+            ),
           ],
         ),
         SettingsSection(
-          title:  Text(Strings.settings_appearance_section.toUpperCase()),
+          title: Text(Strings.settings_appearance_section.toUpperCase()),
           tiles: [
             SettingsTile(
-          leading: const Icon(CupertinoIcons.device_phone_portrait),
+              leading: const Icon(CupertinoIcons.device_phone_portrait),
               title: SegmentedOptions(
                 options: stateData.brightnessOptions,
                 onValueChanged: (String value) {
@@ -104,7 +126,7 @@ class SettingsPage extends StatelessWidget {
           ],
         ),
         SettingsSection(
-          title:  Text(Strings.settings_notifications_section.toUpperCase()),
+          title: Text(Strings.settings_notifications_section.toUpperCase()),
           tiles: [
             SettingsTile.switchTile(
               title: const Text(Strings.settings_news_notifications),
@@ -135,7 +157,6 @@ class SettingsPage extends StatelessWidget {
             ),
           ],
         ),
-
       ],
     );
   }
