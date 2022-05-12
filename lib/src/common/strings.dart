@@ -51,6 +51,7 @@ class Strings {
   static const String settings_videos_notifications = 'Videos';
   static const String settings_app_section = 'App';
   static const String settings_app_version = 'Version';
+  static const String settings_app_rate = 'Rate app';
 
   static const String search_app_bar_hint = 'Search ...';
   static const String search_news_title = 'News';

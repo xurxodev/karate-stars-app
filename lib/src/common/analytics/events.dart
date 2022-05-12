@@ -30,13 +30,6 @@ class NewsFilterEvent extends AnalyticsEvent {
   }
 }
 
-class ShareUrlEvent extends AnalyticsEvent {
-  ShareUrlEvent(String url) : super('share') {
-    params['content_type'] = 'url';
-    params['item_id'] = url;
-  }
-}
-
 class ChangeSettings extends AnalyticsEvent {
   ChangeSettings(String name, String value) : super('settings') {
     params[name] = value;
@@ -50,15 +43,8 @@ class ShareApp extends AnalyticsEvent {
   }
 }
 
-class SendEmail extends AnalyticsEvent {
-  SendEmail(String email) : super('email') {
-    params['method'] = 'email';
-    params['destination'] = email;
-  }
-}
-
 class RateApp extends AnalyticsEvent {
   RateApp() : super('rate_app') {
-    params['method'] = 'from_about';
+    params['method'] = 'from_settings';
   }
 }

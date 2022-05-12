@@ -29,6 +29,10 @@ class SettingsBloc extends Bloc<SettingsState> {
     _loadData();
   }
 
+  void requestReview() {
+    _analyticsService.sendEvent(RateApp());
+  }
+
   void visitScreen() {
     _analyticsService.sendScreenName('$screen_name');
   }
@@ -150,4 +154,6 @@ class SettingsBloc extends Bloc<SettingsState> {
 
     _saveSettingsUseCase.execute(settings);
   }
+
+
 }

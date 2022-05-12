@@ -1,3 +1,4 @@
+import 'package:app_review/app_review.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
@@ -67,8 +68,23 @@ class SettingsPage extends StatelessWidget {
           title:  Text(Strings.settings_app_section.toUpperCase()),
           tiles: [
             SettingsTile(
+              leading: const Icon(CupertinoIcons.app),
               title: const Text(Strings.settings_app_version),
               value: Text(stateData.version),
+            ),
+           SettingsTile.navigation(
+              leading: const Icon(CupertinoIcons.heart_fill),
+              title: const Text(Strings.settings_app_rate),
+              onPressed: (BuildContext context) async {
+                final available = await AppReview.isRequestReviewAvailable;
+
+                if (available){
+                  bloc.requestReview();
+                  AppReview.requestReview.then((value) {
+                    print(value);
+                  });
+                }
+              },
             ),
           ],
         ),
