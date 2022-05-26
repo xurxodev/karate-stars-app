@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:karate_stars_app/src/rate_app/presentation/utils.dart';
 
 Future<void> launchURL(BuildContext context, String url) async {
+
+
   final browser = ChromeSafariBrowser();
 
   await browser.open(
@@ -12,6 +15,8 @@ Future<void> launchURL(BuildContext context, String url) async {
               barCollapsingEnabled: true,
               preferredControlTintColor:
                   Theme.of(context).colorScheme.secondary)));
+
+  increaseAppRateConversionCount();
 }
 
 String createTwitterURL(String text) {

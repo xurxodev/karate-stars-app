@@ -1,3 +1,4 @@
+import 'package:app_review/app_review.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
@@ -68,6 +69,19 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
             final errorState = state as ErrorState;
             return Center(child: NotificationMessage(errorState.message));
           } else {
+            Future.delayed(const Duration(milliseconds: 100), () async {
+              if (state.requestRateApp == true){
+
+                final available = await AppReview.isRequestReviewAvailable;
+
+                if (available) {
+                  print('Request review');
+                  AppReview.requestReview.then((value) {
+                    print('Review ok ' + value.toString());
+                  });
+                }
+              }
+            });
             return _renderPlayList(context, state, bloc);
           }
         } else {

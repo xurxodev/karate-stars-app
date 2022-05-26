@@ -6,7 +6,7 @@ import 'package:karate_stars_app/src/common/presentation/states/default_state.da
 import 'package:karate_stars_app/src/common/presentation/widgets/CircleImage.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
-import 'package:karate_stars_app/src/competitors/presentation/states/competitor_info_state.dart';
+import 'package:karate_stars_app/src/competitors/presentation/states/competitor_detail_state.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/competitor_videos_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/states/competitor_videos_state.dart';

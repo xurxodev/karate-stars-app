@@ -23,7 +23,7 @@ void initAll(Database database, String apiUrl, Credentials apiCredentials) {
 
 void initBlocAndUseCases() {
   getIt.registerFactory(() => VideosBloc(getIt(), getIt(), getIt()));
-  getIt.registerFactory(() => VideoPlayerBloc(getIt(), getIt()));
+  getIt.registerFactory(() => VideoPlayerBloc(getIt(), getIt(), getIt()));
   getIt.registerFactory(() => CompetitorVideosBloc(getIt(), getIt(), getIt()));
 
   getIt.registerLazySingleton(() => GetVideosUseCase(getIt(), getIt()));

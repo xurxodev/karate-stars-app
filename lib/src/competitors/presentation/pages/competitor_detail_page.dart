@@ -1,3 +1,4 @@
+import 'package:app_review/app_review.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
@@ -15,8 +16,9 @@ import 'package:karate_stars_app/src/common/presentation/widgets/medals.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitor_detail_bloc.dart';
-import 'package:karate_stars_app/src/competitors/presentation/states/competitor_info_state.dart';
+import 'package:karate_stars_app/src/competitors/presentation/states/competitor_detail_state.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/competitor_videos_page.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class CompetitorDetailArgs {
   final String competitorId;
@@ -37,8 +39,7 @@ class CompetitorDetailPage extends StatelessWidget {
 
   static void navigate(BuildContext context,
       {required CompetitorDetailArgs arguments}) {
-    Navigator.pushNamed(context, routeName,
-        arguments: arguments);
+    Navigator.pushNamed(context, routeName, arguments: arguments);
   }
 
   static Widget create(CompetitorDetailArgs args) {
@@ -65,13 +66,27 @@ class CompetitorDetailPage extends StatelessWidget {
             final state = snapshot.data;
 
             if (state != null) {
+              Future.delayed(const Duration(milliseconds: 100), () async {
+                if (state.requestRateApp == true){
+
+                  final available = await AppReview.isRequestReviewAvailable;
+
+                  if (available) {
+                    print('Request review');
+                    AppReview.requestReview.then((value) {
+                      print('Review ok ' + value.toString());
+                    });
+                  }
+                }
+              });
+
               const radius = Radius.circular(60.0);
               return CustomScrollViewWithFab(
                   expandedHeight: 400,
                   floatingPosition: const FloatingPosition(right: 20.0),
                   floatingWidget: SpeedDial(
                       icon: Icons.navigate_next_sharp,
-                      children: getActions(context, state)),
+                      children: getActions(context, state.competitor)),
                   slivers: <Widget>[
                     SliverAppBar(
                       leading: Container(
@@ -88,7 +103,7 @@ class CompetitorDetailPage extends StatelessWidget {
                       floating: true,
                       elevation: 5.0,
                       flexibleSpace: Visibility(
-                        visible: getImage(state).isNotEmpty,
+                        visible: getImage(state.competitor).isNotEmpty,
                         child: CircleImage(
                             heroTag: args.competitorId,
                             borderRadius: const BorderRadius.only(
@@ -98,14 +113,14 @@ class CompetitorDetailPage extends StatelessWidget {
                             height: 400,
                             fit: BoxFit.cover,
                             elevation: 15.0,
-                            imageUrl: getImage(state)),
+                            imageUrl: getImage(state.competitor)),
                       ),
                       expandedHeight: 400,
                       collapsedHeight: 100,
                     ),
                     SliverFillRemaining(
                         hasScrollBody: false,
-                        child: _renderHeaderContent(context, state)),
+                        child: _renderHeaderContent(context, state.competitor, bloc)),
                   ]);
             } else {
               return const Text('No Data');
@@ -158,8 +173,8 @@ class CompetitorDetailPage extends StatelessWidget {
     }
   }
 
-  Widget _renderHeaderContent(
-      BuildContext context, DefaultState<CompetitorInfoState> state) {
+  Widget _renderHeaderContent(BuildContext context,
+      DefaultState<CompetitorInfoState> state, CompetitorDetailBloc bloc) {
     if (state is LoadingState) {
       return Progress();
     } else if (state is ErrorState) {
@@ -167,12 +182,12 @@ class CompetitorDetailPage extends StatelessWidget {
       return Center(child: NotificationMessage(errorState.message));
     } else {
       final competitor = (state as LoadedState<CompetitorInfoState>).data;
-      return _renderCompetitorInfo(context, competitor);
+      return _renderCompetitorInfo(context, competitor, bloc);
     }
   }
 
-  Widget _renderCompetitorInfo(
-      BuildContext context, CompetitorInfoState competitor) {
+  Widget _renderCompetitorInfo(BuildContext context,
+      CompetitorInfoState competitor, CompetitorDetailBloc bloc) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -197,9 +212,19 @@ class CompetitorDetailPage extends StatelessWidget {
             child: Column(
           children: [
             ..._renderAchievementGroups(context, competitor),
-            Ad(
-              adUnitId: AdsHelper.competitorNativeAdUnitId,
-            )
+            VisibilityDetector(
+                key: const Key('ad-competitor-visible-detector'),
+                onVisibilityChanged: (visibilityInfo) {
+                  final visiblePercentage =
+                      visibilityInfo.visibleFraction * 100;
+
+                  if (visiblePercentage > 0) {
+                    bloc.onEnd();
+                  }
+                },
+                child: Ad(
+                  adUnitId: AdsHelper.competitorNativeAdUnitId,
+                ))
           ],
         ))
       ]),

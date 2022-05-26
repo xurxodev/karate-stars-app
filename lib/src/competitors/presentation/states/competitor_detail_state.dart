@@ -1,4 +1,21 @@
+import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
+
+class CompetitorDetailState {
+  final DefaultState<CompetitorInfoState> competitor;
+  final bool? requestRateApp;
+
+  CompetitorDetailState(
+      {required this.competitor, this.requestRateApp});
+
+  CompetitorDetailState copyWith(
+      {DefaultState<CompetitorInfoState>? competitor,
+        bool? requestRateApp}) {
+    return CompetitorDetailState(
+        competitor: competitor ?? this.competitor,
+        requestRateApp: requestRateApp ?? this.requestRateApp);
+  }
+}
 
 class AchievementState {
   final String event;
