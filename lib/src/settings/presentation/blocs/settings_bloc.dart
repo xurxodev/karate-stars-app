@@ -30,7 +30,7 @@ class SettingsBloc extends Bloc<SettingsState> {
   }
 
   void requestReview() {
-    _analyticsService.sendEvent(RateApp());
+    _analyticsService.sendEvent(RateApp(RateAppFrom.fromSettings));
   }
 
   void shareApp(String url) {

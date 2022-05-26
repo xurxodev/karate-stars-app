@@ -81,14 +81,9 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(CupertinoIcons.heart_fill),
               title: const Text(Strings.settings_app_rate),
               onPressed: (BuildContext context) async {
-                final available = await AppReview.isRequestReviewAvailable;
+                AppReview.storeListing;
+                bloc.requestReview();
 
-                if (available) {
-                  bloc.requestReview();
-                  AppReview.requestReview.then((value) {
-                    print(value);
-                  });
-                }
               },
             ),
             SettingsTile.navigation(

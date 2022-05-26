@@ -43,8 +43,16 @@ class ShareApp extends AnalyticsEvent {
   }
 }
 
+enum RateAppFrom{ fromSettings,fromAlgorithm }
+
 class RateApp extends AnalyticsEvent {
-  RateApp() : super('rate_app') {
-    params['method'] = 'from_settings';
+  RateApp(RateAppFrom from) : super('rate_app') {
+
+    if (from == RateAppFrom.fromAlgorithm){
+      params['method'] = 'from_algorithm';
+    } else {
+      params['method'] = 'from_settings';
+    }
+
   }
 }
