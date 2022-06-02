@@ -7,7 +7,12 @@ class Strings {
   static const String home_menu_rankings = 'Rankings';
   static const String home_menu_settings = 'Settings';
 
-  static const String home_menu_title= 'More';
+  static const String home_menu_title = 'More';
+
+  static const String home_see_all = 'See All';
+
+  static const String home_last_videos_item_title = 'Last Videos';
+  static const String top_news = 'Top News';
 
   static const news_filters_title = 'News Filter';
   static const String news_filters_current = 'News';
@@ -58,9 +63,9 @@ class Strings {
   static const String search_news_title = 'News';
   static const String search_competitor_title = 'Competitors';
   static const String search_videos_title = 'Videos';
-  static const String search_initial_message = 'Find your favourite karate stars, news and videos';
+  static const String search_initial_message =
+      'Find your favourite karate stars, news and videos';
   static const String search_empty_message = 'There are no results';
-
 
   static const String events_title = 'Events';
   static const String events_filters_title = 'Events Filter';
@@ -73,6 +78,6 @@ class Strings {
   static const String network_error_message =
       'An error connection has ocurred, please try later!!';
 
-
-  static const String url_rankings = 'https://setopen.sportdata.org/wkfranking/ranking_main.php';
+  static const String url_rankings =
+      'https://setopen.sportdata.org/wkfranking/ranking_main.php';
 }

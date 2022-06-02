@@ -118,8 +118,8 @@ class _SearchPageState extends State<SearchPage>
               if (news is SocialNews) {
                 return ItemSocialNews(news, itemTextKey: textKey);
               } else {
-                return ItemCurrentNews(news as CurrentNews,
-                    itemTextKey: textKey);
+                return ItemCurrentNews(currentNews : news  as CurrentNews,
+                    itemTextKey: textKey, type: CurrentNewsType.big,);
               }
             },
           ));

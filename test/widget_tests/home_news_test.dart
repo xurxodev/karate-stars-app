@@ -99,34 +99,6 @@ void main() {
           }
         });
       });
-
-      testWidgets('should filter by current news', (WidgetTester tester) async {
-        final newsList = await givenThereAreNewsAndInitHome(tester);
-
-        await home.news.filterByCurrentNews();
-        final currentNewsList = newsList.whereType<CurrentNews>().toList();
-
-        await Future.forEach(currentNewsList, (newsItem) async {
-          if (newsItem is CurrentNews) {
-            await home.news.expectSocialBadgeIsVisible(
-                currentNewsList.indexOf(newsItem), false);
-          }
-        });
-      });
-
-      testWidgets('should filter by social news', (WidgetTester tester) async {
-        final newsList = await givenThereAreNewsAndInitHome(tester);
-
-        await home.news.filterBySocialNews();
-        final socialNewsList = newsList.whereType<SocialNews>().toList();
-
-        await Future.forEach(socialNewsList, (newsItem) async {
-          if (newsItem is SocialNews) {
-            await home.news.expectSocialBadgeIsVisible(
-                socialNewsList.indexOf(newsItem), true);
-          }
-        });
-      });
     });
   });
 }

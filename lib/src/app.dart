@@ -8,7 +8,8 @@ import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_detail_page.dart';
 import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
-import 'package:karate_stars_app/src/home/presentation/pages/home_page.dart';
+import 'package:karate_stars_app/src/main_page.dart';
+import 'package:karate_stars_app/src/news/presentation/page/current_news_page.dart';
 import 'package:karate_stars_app/src/search/presentation/page/search_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/blocs/settings_bloc.dart';
 import 'package:karate_stars_app/src/settings/presentation/page/settings_page.dart';
@@ -77,9 +78,9 @@ class App extends StatelessWidget {
                 .copyWith(primary: Colors.grey, secondary: Colors.red)),
         themeMode: ThemeMode.values.firstWhere(
             (element) => element.name == data.selectedBrightnessOption),
-        initialRoute: HomePage.routeName,
+        initialRoute: MainPage.routeName,
         routes: {
-          HomePage.routeName: (context) => HomePage.create(testing),
+          MainPage.routeName: (context) => MainPage.create(testing),
           SettingsPage.routeName: (context) {
             print('route');
             return SettingsPage();
@@ -97,6 +98,7 @@ class App extends StatelessWidget {
                   .settings
                   .arguments as CompetitorVideosArgs),
           EventsPage.routeName: (context) => EventsPage.create(),
+          CurrentNewsPage.routeName: (context) => CurrentNewsPage.create()
         });
   }
 }

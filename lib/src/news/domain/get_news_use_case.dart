@@ -21,7 +21,7 @@ class GetNewsUseCase {
     news.sort(
         (a, b) => b.summary.pubDate.date.compareTo(a.summary.pubDate.date));
 
-    return news;
+    return news.take(newsFilter.count ?? news.length).toList();
   }
 
   Future<List<News>> getSocialNews(

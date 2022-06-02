@@ -20,51 +20,14 @@ void main() {
         home.expectTitle(Strings.home_appbar_title_default);
       });
 
-      testWidgets('should show filter button', (WidgetTester tester) async {
-        final home = HomePageObject(tester);
-        await home.open();
-
-        expect(find.byIcon(Icons.filter_list), findsOneWidget);
-      });
       testWidgets('should has news page view visible by default',
           (WidgetTester tester) async {
         final home = HomePageObject(tester);
         await home.open();
 
-        home.expectVisibleTabContent(Keys.news_page_view);
+        home.expectVisibleTabContent(Keys.home_page_view);
       });
     });
-
-/*
-    group('to navigate to search', () {
-      testWidgets('should have correct title', (WidgetTester tester) async {
-        final home = HomePageObject(tester);
-        await home.open();
-
-        await home.tapOnTab(Keys.home_search_tab);
-
-        home.expectTitle(Strings.home_appbar_title_search);
-      });
-
-      testWidgets('should not show filter button', (WidgetTester tester) async {
-        final home = HomePageObject(tester);
-        await home.open();
-
-        await home.tapOnTab(Keys.home_search_tab);
-
-        expect(find.byIcon(Icons.filter_list), findsNothing);
-      });
-      testWidgets('should has search page view visible',
-          (WidgetTester tester) async {
-        final home = HomePageObject(tester);
-        await home.open();
-
-        await home.tapOnTab(Keys.home_search_tab);
-
-        home.expectVisibleTabContent(Keys.search_page_view);
-      });
-    });
-*/
 
     group('to navigate to competitors', () {
       testWidgets('should have correct title', (WidgetTester tester) async {

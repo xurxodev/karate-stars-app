@@ -5,7 +5,8 @@ import 'package:flutter_parsed_text/flutter_parsed_text.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
+import 'package:karate_stars_app/src/home/presentation/widgets/home_page_view.dart';
+import 'package:karate_stars_app/src/news/presentation/page/current_news_page.dart';
 
 class HomeNewsPageObject {
   final WidgetTester _tester;
@@ -14,7 +15,7 @@ class HomeNewsPageObject {
 
   void expectNotificationMessage(String message) {
     final notificationMessageFinder = find.descendant(
-        of: find.byType(NewsPageView), matching: find.text(message));
+        of: find.byType(HomePageView), matching: find.text(message));
 
     expect(notificationMessageFinder, findsOneWidget);
   }

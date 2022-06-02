@@ -6,27 +6,27 @@ import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dar
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_app_bar.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_page_view.dart';
-import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
+import 'package:karate_stars_app/src/home/presentation/blocs/home_bloc.dart';
+import 'package:karate_stars_app/src/home/presentation/widgets/home_page_view.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_app_bar.dart';
-import 'package:karate_stars_app/src/news/presentation/widgets/news_page_view.dart';
 import 'package:karate_stars_app/src/push_notifications/push_notification_handler.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_app_bar.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/videos_page_view.dart';
 
-class HomePage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   static const routeName = '/';
   static const id = 'home_page';
 
-  const HomePage() : super(key: const Key(id));
+  const MainPage() : super(key: const Key(id));
 
   static Widget create(bool testing) {
     final providersAndHome = BlocProvider(
-        bloc: app_di.getIt<NewsBloc>(),
+        bloc: app_di.getIt<HomeBloc>(),
         child: BlocProvider(
             bloc: app_di.getIt<CompetitorsBloc>(),
             child: BlocProvider(
-                bloc: app_di.getIt<VideosBloc>(), child: const HomePage())));
+                bloc: app_di.getIt<VideosBloc>(), child: const MainPage())));
 
     return !testing
         ? PushNotificationsHandler(child: providersAndHome)
@@ -34,14 +34,14 @@ class HomePage extends StatefulWidget {
   }
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _MainPageState createState() => _MainPageState();
 
-  static _HomePageState? of(BuildContext context) {
+  static _MainPageState? of(BuildContext context) {
     return context.findAncestorStateOfType();
   }
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
   int _currentTab = 0;
   late PageController _pageController;
   final ScrollController _newsScrollController = ScrollController();
@@ -62,7 +62,9 @@ class _HomePageState extends State<HomePage> {
         child: PageView(
           controller: _pageController,
           children: <Widget>[
-            NewsPageView(controller: _newsScrollController),
+            HomePageView(controller: _newsScrollController, onTapShowAllVideos: (){
+              _pageController.jumpToPage(2);
+            },),
             //SearchPageView(),
             CompetitorsPageView(controller: _competitorsScrollController),
             VideosPageView(controller: _videosScrollController),

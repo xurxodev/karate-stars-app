@@ -43,7 +43,7 @@ void givenThatNewsDataThrowNetworkException() {
 List<News> givenThereAreNews() {
   final List<News> allNews = [];
 
-  allNews.addAll(allCurrentNews());
+  //allNews.addAll(allCurrentNews());
   allNews.addAll(allSocialNews());
 
   allNews
@@ -51,8 +51,10 @@ List<News> givenThereAreNews() {
 
   final mockCurrentNewsRepository = MockCurrentNewsRepository();
 
+/*  when(() => mockCurrentNewsRepository.getAll(ReadPolicy.cache_first))
+      .thenAnswer((_) => Future.value(allCurrentNews()));*/
   when(() => mockCurrentNewsRepository.getAll(ReadPolicy.cache_first))
-      .thenAnswer((_) => Future.value(allCurrentNews()));
+      .thenAnswer((_) => Future.value([]));
 
   app_di.getIt.registerLazySingleton<CurrentNewsRepository>(
       () => mockCurrentNewsRepository);

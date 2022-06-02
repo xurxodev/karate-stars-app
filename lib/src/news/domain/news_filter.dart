@@ -9,6 +9,7 @@ extension NewsTypeExtension on NewsType {
 class NewsFilter{
   final NewsType? type;
   final String? searchTerm;
+  final int? count;
 
-  NewsFilter({this.type, this.searchTerm});
+  NewsFilter({this.type, this.searchTerm, this.count});
 }

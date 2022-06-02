@@ -30,7 +30,7 @@ class HomePageObject {
   }
 
   void expectVisibleTabContent(String tabKey) {
-    expectIsVisible(Keys.news_page_view, tabKey == Keys.news_page_view);
+    expectIsVisible(Keys.home_page_view, tabKey == Keys.home_page_view);
     expectIsVisible(
         Keys.competitors_page_view, tabKey == Keys.competitors_page_view);
     expectIsVisible(Keys.videos_page_view, tabKey == Keys.videos_page_view);

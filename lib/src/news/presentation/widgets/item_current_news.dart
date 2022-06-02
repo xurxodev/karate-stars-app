@@ -6,43 +6,83 @@ import 'package:karate_stars_app/src/common/presentation/functions/url.dart'
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/item_news.dart';
 
+enum CurrentNewsType { big, small }
+
 class ItemCurrentNews extends ItemNews {
   final CurrentNews currentNews;
   final String itemTextKey;
+  final CurrentNewsType type;
 
-  ItemCurrentNews(this.currentNews, {required this.itemTextKey})
+  ItemCurrentNews(
+      {required this.currentNews,
+      required this.type,
+      required this.itemTextKey})
       : super(key: Key(itemTextKey));
 
   @override
   Widget buildContent(BuildContext context) {
     return GestureDetector(
         onTap: () => url_helper.launchURL(context, currentNews.summary.link!),
-        child: Column(children: <Widget>[
-          ListTile(
-            leading: _avatar(),
-            title: Text(currentNews.source.name,
-                key: Key('${itemTextKey}_${Keys.news_item_source}')),
-          ),
-          _image(),
-          const SizedBox(height: 16),
-          ListTile(
-              title: Text(
-            currentNews.summary.title,
-            key: Key('${itemTextKey}_${Keys.news_item_title}'),
-          )),
-          ListTile(
-            trailing: Text(
-              currentNews.summary.pubDate.antiquity,
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ),
-        ]));
+        child: type == CurrentNewsType.big ? _big(context) : _small(context));
+  }
+
+  Widget _small(BuildContext context) {
+    return Column(children: <Widget>[
+      ListTile(
+        title: Text(
+          currentNews.summary.title,
+          key: Key('${itemTextKey}_${Keys.news_item_title}'),
+        ),
+        trailing: SizedBox(
+          width: 100,
+          child: _image(),
+        ),
+      ),
+      _bottom(context)
+    ]);
+  }
+
+  Widget _big(BuildContext context) {
+    return Column(children: <Widget>[
+      _image(),
+      const SizedBox(height: 16),
+      ListTile(
+          title: Text(
+        currentNews.summary.title,
+        key: Key('${itemTextKey}_${Keys.news_item_title}'),
+      )),
+      _bottom(context)
+    ]);
+  }
+
+  Widget _bottom(BuildContext context) {
+    return ListTile(
+      leading: _avatar(),
+      title: Text(currentNews.source.name,
+          style: Theme.of(context).textTheme.caption,
+          key: Key('${itemTextKey}_${Keys.news_item_source}')),
+      trailing: Text(
+        currentNews.summary.pubDate.antiquity,
+        style: Theme.of(context).textTheme.caption,
+      ),
+    );
   }
 
   Widget _image() {
     if (currentNews.summary.image != null &&
         currentNews.summary.image!.isNotEmpty) {
-      return CachedNetworkImage(imageUrl: currentNews.summary.image!);
+      final radiusValue = type == CurrentNewsType.big ? 20.0 : 0.0;
+
+      return ClipRRect(
+        child:
+        Container(
+            width: double.infinity,
+            child: CachedNetworkImage(imageUrl: currentNews.summary.image!,
+            fit: BoxFit.contain)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(radiusValue),
+            topRight: Radius.circular(radiusValue)),
+      );
     } else {
       return Container();
     }
@@ -51,6 +91,7 @@ class ItemCurrentNews extends ItemNews {
   Widget _avatar() {
     if (currentNews.source.image.isNotEmpty) {
       return CircleAvatar(
+          radius: 15,
           backgroundImage:
               CachedNetworkImageProvider(currentNews.source.image));
     } else {

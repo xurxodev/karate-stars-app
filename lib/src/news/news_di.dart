@@ -15,7 +15,7 @@ import 'package:karate_stars_app/src/news/domain/boundaries/social_news_reposito
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
 import 'package:karate_stars_app/src/news/domain/get_news_use_case.dart';
-import 'package:karate_stars_app/src/news/presentation/blocs/news_bloc.dart';
+import 'package:karate_stars_app/src/news/presentation/blocs/current_news_bloc.dart';
 
 import 'data/local/models/current_news_db.dart';
 
@@ -28,15 +28,13 @@ void initAll(Database database, String apiUrl, Credentials apiCredentials) {
 }
 
 void initBlocAndUseCases() {
-  getIt.registerFactory(() => NewsBloc(getIt(), getIt(), getIt()));
+  getIt.registerFactory(() => CurrentNewsBloc(getIt(), getIt()));
 
   getIt.registerLazySingleton(() => GetNewsUseCase(getIt(), getIt()));
 }
 
 void _initCurrentNewsDataDI(
     Database database, String apiUrl, Credentials apiCredentials) {
-
-
   getIt.registerLazySingleton<ReadableDataSource<CurrentNews>>(
       () => CurrentNewsApiDataSource(apiUrl, apiCredentials, getIt()));
 
@@ -52,7 +50,6 @@ void _initCurrentNewsDataDI(
 
 void _initSocialNewsDataDI(
     Database database, String apiUrl, Credentials apiCredentials) {
-
   getIt.registerLazySingleton<ReadableDataSource<SocialNews>>(
       () => SocialNewsApiDataSource(apiUrl, apiCredentials, getIt()));
 

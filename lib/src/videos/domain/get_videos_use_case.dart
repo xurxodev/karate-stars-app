@@ -47,6 +47,8 @@ class GetVideosUseCase {
 
     filteredVideos.sort((a, b) => b.eventDate.compareTo(a.eventDate));
 
-    return filteredVideos;
+    return filteredVideos
+        .take(videosFilter.count ?? filteredVideos.length)
+        .toList();
   }
 }
