@@ -6,7 +6,6 @@ import 'package:karate_stars_app/src/news/domain/boundaries/social_news_reposito
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../common/mothers/current_news_mother.dart';
 import '../../common/mothers/social_news_mother.dart';
 import 'mocks.dart';
 

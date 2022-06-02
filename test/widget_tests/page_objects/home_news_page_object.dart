@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/home/presentation/widgets/home_page_view.dart';
-import 'package:karate_stars_app/src/news/presentation/page/current_news_page.dart';
 
 class HomeNewsPageObject {
   final WidgetTester _tester;
