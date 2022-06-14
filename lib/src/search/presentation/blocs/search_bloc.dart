@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:collection/collection.dart';
 import 'package:karate_stars_app/src/common/analytics/events.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc.dart';
@@ -74,13 +75,13 @@ class SearchBloc extends Bloc<SearchState> {
 
       final competitorResults = competitors.map((competitor) {
         final country = countries
-            .firstWhere((country) => country.id == competitor.countryId);
+            .firstWhereOrNull((country) => country.id == competitor.countryId);
 
         return CompetitorItemState(
             competitor.id,
             '${competitor.firstName} ${competitor.lastName}',
             competitor.mainImage,
-            country.image);
+            country?.image ?? '');
       }).toList();
 
       final videosResults = await _getVideosUseCase.execute(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:karate_stars_app/src/categories/domain/entities/category.dart';
 import 'package:karate_stars_app/src/categories/domain/get_categories.dart';
 import 'package:karate_stars_app/src/category_types/domain/entities/category_type.dart';
@@ -197,14 +198,14 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
 
   List<CompetitorItemState> _mapCompetitors(List<Competitor> competitors) {
     final competitorItems = competitors.map((competitor) {
-      final country =
-          countries.firstWhere((country) => country.id == competitor.countryId);
+      final country = countries
+          .firstWhereOrNull((country) => country.id == competitor.countryId);
 
       return CompetitorItemState(
           competitor.id,
           '${competitor.firstName} ${competitor.lastName}',
           competitor.mainImage,
-          country.image);
+          country?.image ?? '');
     }).toList();
     return competitorItems;
   }
