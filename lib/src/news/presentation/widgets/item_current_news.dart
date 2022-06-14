@@ -59,7 +59,10 @@ class ItemCurrentNews extends ItemNews {
     return ListTile(
       leading: _avatar(),
       title: Text(currentNews.source.name,
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context)
+              .textTheme
+              .caption
+              ?.copyWith(color: Colors.black),
           key: Key('${itemTextKey}_${Keys.news_item_source}')),
       trailing: Text(
         currentNews.summary.pubDate.antiquity,
@@ -74,11 +77,10 @@ class ItemCurrentNews extends ItemNews {
       final radiusValue = type == CurrentNewsType.big ? 20.0 : 0.0;
 
       return ClipRRect(
-        child:
-        Container(
+        child: Container(
             width: double.infinity,
-            child: CachedNetworkImage(imageUrl: currentNews.summary.image!,
-            fit: BoxFit.contain)),
+            child: CachedNetworkImage(
+                imageUrl: currentNews.summary.image!, fit: BoxFit.contain)),
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(radiusValue),
             topRight: Radius.circular(radiusValue)),
@@ -91,7 +93,7 @@ class ItemCurrentNews extends ItemNews {
   Widget _avatar() {
     if (currentNews.source.image.isNotEmpty) {
       return CircleAvatar(
-          radius: 15,
+          radius: 18,
           backgroundImage:
               CachedNetworkImageProvider(currentNews.source.image));
     } else {
