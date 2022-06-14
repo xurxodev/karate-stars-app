@@ -80,7 +80,7 @@ class ItemCurrentNews extends ItemNews {
         child: Container(
             width: double.infinity,
             child: CachedNetworkImage(
-                imageUrl: currentNews.summary.image!, fit: BoxFit.contain)),
+                imageUrl: currentNews.summary.image!, fit: BoxFit.fitWidth)),
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(radiusValue),
             topRight: Radius.circular(radiusValue)),
