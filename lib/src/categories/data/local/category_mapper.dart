@@ -7,7 +7,7 @@ class CategoryMapper
     implements DataBaseMapper<category_entity.Category, CategoryDB> {
   @override
   category_entity.Category mapToDomain(CategoryDB modelDB) {
-    return category_entity.Category(modelDB.id, modelDB.name, modelDB.typeId);
+    return category_entity.Category(modelDB.id, modelDB.name, modelDB.typeId, modelDB.main);
   }
 
   @override
@@ -17,6 +17,7 @@ class CategoryMapper
       entity.name,
       entity.typeId,
       DateTime.now().toIso8601String(),
+        entity.main
     );
   }
 }

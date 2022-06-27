@@ -3,7 +3,7 @@ import 'package:karate_stars_app/src/common/data/local/cache_data_source.dart';
 
 part 'category_db.g.dart';
 
-@HiveType(typeId:4)
+@HiveType(typeId: 4)
 class CategoryDB implements ModelDB {
   @HiveField(0)
   final String id;
@@ -18,5 +18,8 @@ class CategoryDB implements ModelDB {
   @HiveField(3)
   final String lastUpdate;
 
-  CategoryDB(this.id, this.name, this.typeId, this.lastUpdate);
+  @HiveField(4, defaultValue: true)
+  final bool main;
+
+  CategoryDB(this.id, this.name, this.typeId, this.lastUpdate, this.main);
 }

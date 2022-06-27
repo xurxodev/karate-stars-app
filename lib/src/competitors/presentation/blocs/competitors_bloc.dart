@@ -138,7 +138,7 @@ class CompetitorsBloc extends BlocHomeListContent<CompetitorsState> {
     categoryTypes = await _getCategoryTypesUseCase.execute(readPolicy);
 
     categories = (await _getCategoriesUseCase.execute(readPolicy))
-        .where((element) => !element.name.toLowerCase().contains('team'))
+        .where((element) => element.main && !element.name.toLowerCase().contains('team'))
         .toList();
   }
 
