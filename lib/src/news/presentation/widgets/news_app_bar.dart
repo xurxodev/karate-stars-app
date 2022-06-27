@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
-import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_icons.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_single_menu.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
+import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_page.dart';
 import 'package:karate_stars_app/src/search/presentation/page/search_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/page/settings_page.dart';
 
@@ -32,7 +32,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
             SingleMenuItem(Strings.home_menu_events, Icons.calendar_today,
                 () => EventsPage.navigate(context)),
             SingleMenuItem(Strings.home_menu_rankings, Icons.leaderboard_outlined,
-                () => launchURL(context, Strings.url_rankings)),
+                () => RankingsPage.navigate(context)),
             SingleMenuItem(Strings.home_menu_settings, PlatformIcons.settings,
                 () => SettingsPage.navigate(context)),
           ]),

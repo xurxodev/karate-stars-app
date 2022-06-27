@@ -11,6 +11,7 @@ import 'package:karate_stars_app/src/news/data/local/models/current_news_db.dart
 import 'package:karate_stars_app/src/news/data/local/models/current_news_source_db.dart';
 import 'package:karate_stars_app/src/news/data/local/models/social_news_db.dart';
 import 'package:karate_stars_app/src/news/data/local/models/social_user_db.dart';
+import 'package:karate_stars_app/src/rankings/data/local/ranking_db.dart';
 import 'package:karate_stars_app/src/videos/data/local/models/video_db.dart';
 import 'package:karate_stars_app/src/videos/data/local/models/video_link_db.dart';
 
@@ -25,6 +26,7 @@ class Database {
   late final Box<EventTypeDB> eventTypesBox;
   late final Box<EventDB> eventsBox;
   late final Box<VideoDB> videosBox;
+  late final Box<RankingDB> rankingsBox;
 
   Database._create(
       this.currentNewsBox,
@@ -35,7 +37,8 @@ class Database {
       this.countriesBox,
       this.eventTypesBox,
       this.eventsBox,
-      this.videosBox);
+      this.videosBox,
+      this.rankingsBox);
 
   /// Create an instance of ObjectBox to use throughout the app.
   static Future<Database> create() async {
@@ -55,6 +58,7 @@ class Database {
     Hive.registerAdapter<EventDB>(EventDBAdapter());
     Hive.registerAdapter<VideoDB>(VideoDBAdapter());
     Hive.registerAdapter<VideoLinkDB>(VideoLinkDBAdapter());
+    Hive.registerAdapter<RankingDB>(RankingDBAdapter());
 
     final currentNewsBox = await Hive.openBox<CurrentNewsDB>('CurrentNews');
     final socialNewsBox = await Hive.openBox<SocialNewsDB>('SocialNews');
@@ -66,6 +70,7 @@ class Database {
     final eventTypesBox = await Hive.openBox<EventTypeDB>('EventTypes');
     final eventsBox = await Hive.openBox<EventDB>('Events');
     final videosBox = await Hive.openBox<VideoDB>('Videos');
+    final rankingsBox = await Hive.openBox<RankingDB>('Rankings');
 
     return Database._create(
         currentNewsBox,
@@ -76,6 +81,7 @@ class Database {
         countriesBox,
         eventTypesBox,
         eventsBox,
-        videosBox);
+        videosBox,
+        rankingsBox);
   }
 }

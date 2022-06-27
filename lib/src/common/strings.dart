@@ -44,6 +44,10 @@ class Strings {
   static const String video_player_error =
       'An error has occurred loading this video, please retry later';
 
+
+  static const String rankings_empty_message =
+      'There are no rankings';
+
   static const String settings_title = 'Settings';
   static const String settings_appearance_section = 'Appearance';
   static const String settings_brightness = 'Brightness';
@@ -72,12 +76,11 @@ class Strings {
   static const String events_filters_event_type_label = 'Event Type';
   static const String events_filters_year_label = 'Year';
 
+  static const String rankings_title = 'Rankings';
+
   static const String default_filters_all = 'All';
   static const String ok = 'OK';
 
   static const String network_error_message =
       'An error connection has ocurred, please try later!!';
-
-  static const String url_rankings =
-      'https://setopen.sportdata.org/wkfranking/ranking_main.php';
 }
