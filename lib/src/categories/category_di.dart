@@ -7,6 +7,7 @@ import 'package:karate_stars_app/src/categories/data/remote/category_api_data_so
 import 'package:karate_stars_app/src/categories/domain/boundaries/category_repository.dart';
 import 'package:karate_stars_app/src/categories/domain/entities/category.dart';
 import 'package:karate_stars_app/src/categories/domain/get_categories.dart';
+import 'package:karate_stars_app/src/categories/domain/get_categories_by_ids.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/local/database.dart';
@@ -19,6 +20,8 @@ void initAll(Database database, String apiUrl, Credentials apiCredentials) {
 
 void initBlocAndUseCases() {
   getIt.registerLazySingleton(() => GetCategoriesUseCase(getIt()));
+
+  getIt.registerLazySingleton(() => GetCategoriesByIdsUseCase(getIt()));
 }
 
 void _initDataDI(Database database, String apiUrl, Credentials apiCredentials) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/RoundedCard.dart';
 import 'package:karate_stars_app/src/rankings/domain/entities/ranking.dart';
+import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_categories_page.dart';
 
 class ItemRanking extends StatelessWidget {
   final Ranking ranking;
@@ -21,11 +22,14 @@ class ItemRanking extends StatelessWidget {
             onTap: () {
               if (ranking.apiUrl == null) {
                 launchURL(context, ranking.webUrl);
+              } else {
+                final args = RankingCategoriesArgs(rankingId: ranking.id);
+                RankingCategoriesPage.navigate(context, arguments: args);
               }
             },
             child: ListTile(
               leading: CircleAvatar(
-                 backgroundColor: Colors.transparent,
+                  backgroundColor: Colors.transparent,
                   backgroundImage: CachedNetworkImageProvider(ranking.image)),
               title: Text(ranking.name),
               trailing: const Icon(CupertinoIcons.chevron_forward),

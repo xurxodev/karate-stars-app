@@ -10,6 +10,7 @@ import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_d
 import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
 import 'package:karate_stars_app/src/main_page.dart';
 import 'package:karate_stars_app/src/news/presentation/page/current_news_page.dart';
+import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_categories_page.dart';
 import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_page.dart';
 import 'package:karate_stars_app/src/search/presentation/page/search_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/blocs/settings_bloc.dart';
@@ -101,6 +102,10 @@ class App extends StatelessWidget {
           EventsPage.routeName: (context) => EventsPage.create(),
           CurrentNewsPage.routeName: (context) => CurrentNewsPage.create(),
           RankingsPage.routeName: (context) => RankingsPage.create(),
+          RankingCategoriesPage.routeName: (context) =>
+              RankingCategoriesPage.create(ModalRoute.of(context)!
+                  .settings
+                  .arguments as RankingCategoriesArgs),
         });
   }
 }

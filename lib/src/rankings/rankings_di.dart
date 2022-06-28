@@ -9,8 +9,10 @@ import 'package:karate_stars_app/src/rankings/data/ranking_cached_repository.dar
 import 'package:karate_stars_app/src/rankings/data/remote/ranking_api_data_source.dart';
 import 'package:karate_stars_app/src/rankings/domain/boundaries/ranking_repository.dart';
 import 'package:karate_stars_app/src/rankings/domain/entities/ranking.dart';
+import 'package:karate_stars_app/src/rankings/domain/get_ranking_by_id.dart';
 import 'package:karate_stars_app/src/rankings/domain/get_rankings.dart';
 import 'package:karate_stars_app/src/rankings/presentation/blocs/rankings_bloc.dart';
+import 'package:karate_stars_app/src/rankings/presentation/blocs/rankings_categories_bloc.dart';
 
 void initAll(Database database, String apiUrl, Credentials apiCredentials) {
   _initDataDI(database, apiUrl, apiCredentials);
@@ -20,8 +22,10 @@ void initAll(Database database, String apiUrl, Credentials apiCredentials) {
 
 void initBlocAndUseCases() {
   getIt.registerFactory(() => RankingsBloc(getIt(), getIt()));
+  getIt.registerFactory(() => RankingCategoriesBloc(getIt(), getIt(), getIt()));
 
   getIt.registerLazySingleton(() => GetRankingsUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetRankingByIdUseCase(getIt()));
 }
 
 void _initDataDI(Database database, String apiUrl, Credentials apiCredentials) {
