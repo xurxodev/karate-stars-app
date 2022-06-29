@@ -38,9 +38,9 @@ class ItemRankingEntry extends StatelessWidget {
                   backgroundImage: CachedNetworkImageProvider(
                     rankingEntry.photo,
                   )),
-              title: Flexible(
-                  child: Text(rankingEntry.name,
-                      style: Theme.of(context).textTheme.bodyText1)),
+              title:  Text(rankingEntry.name,
+                      overflow: TextOverflow.clip,
+                      style: Theme.of(context).textTheme.bodyText1),
               subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -54,8 +54,7 @@ class ItemRankingEntry extends StatelessWidget {
                         const SizedBox(
                           width: 8,
                         ),
-                        Flexible(
-                            child: Text(rankingEntry.country,
+                        Flexible( child:Text(rankingEntry.country,
                                 style: Theme.of(context).textTheme.caption)),
                       ],
                     ),
