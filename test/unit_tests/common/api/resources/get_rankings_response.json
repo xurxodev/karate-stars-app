@@ -1,0 +1,23 @@
+[
+  {
+    "id": "vnsabLUirBx",
+    "apiUrl": "http://setopen.sportdata.org/wkfranking/ranking_main_xml.php",
+    "categories": [
+      "X4CZx1DLFPc",
+      "TmnEeLzo5ZC"
+    ],
+    "categoryParameter": "ranking_category_id",
+    "image": "https://storage.googleapis.com/karatestars-1261.appspot.com/feeds/l1oxUWoZhdL.png",
+    "name": "WKF Ranking",
+    "webUrl": "https://setopen.sportdata.org/wkfranking/ranking_main.php"
+  },
+  {
+    "id": "K6MwDuZ5r1X",
+    "apiUrl": null,
+    "categories": [],
+    "categoryParameter": null,
+    "image": "https://www.european-games.org/wp-content/uploads/2016/09/eg-logo-bola.png",
+    "name": "European Games 2023 Standings",
+    "webUrl": "http://setopen.sportdata.org/wkfranking/standing_egpoland2023.php"
+  }
+]
