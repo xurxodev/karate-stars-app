@@ -36,6 +36,7 @@ class EventsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: false,
+            titleSpacing: 0,
             title: Text(Strings.events_title,
                 style: TextStyle(
                     fontSize: Theme.of(context).textTheme.headline6!.fontSize)),

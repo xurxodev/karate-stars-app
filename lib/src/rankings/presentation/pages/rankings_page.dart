@@ -10,7 +10,7 @@ import 'package:karate_stars_app/src/common/presentation/widgets/notification_me
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/rankings/domain/entities/ranking.dart';
 import 'package:karate_stars_app/src/rankings/presentation/blocs/rankings_bloc.dart';
-import 'package:karate_stars_app/src/rankings/presentation/state/events_state.dart';
+import 'package:karate_stars_app/src/rankings/presentation/state/rankings_state.dart';
 import 'package:karate_stars_app/src/rankings/presentation/widgets/item_ranking.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
@@ -33,6 +33,7 @@ class RankingsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: false,
+            titleSpacing: 0,
             title: Text(Strings.rankings_title,
                 style: TextStyle(
                     fontSize:

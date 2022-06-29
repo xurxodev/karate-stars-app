@@ -49,6 +49,8 @@ class Strings {
       'There are no rankings';
   static const String rankings_categories_empty_message =
       'There are no categories in ranking';
+  static const String rankings_entries_empty_message =
+      'There are no entries in ranking';
 
   static const String settings_title = 'Settings';
   static const String settings_appearance_section = 'Appearance';

@@ -12,6 +12,7 @@ import 'package:karate_stars_app/src/news/data/local/models/current_news_source_
 import 'package:karate_stars_app/src/news/data/local/models/social_news_db.dart';
 import 'package:karate_stars_app/src/news/data/local/models/social_user_db.dart';
 import 'package:karate_stars_app/src/rankings/data/local/ranking_db.dart';
+import 'package:karate_stars_app/src/rankings/data/local/ranking_entry_db.dart';
 import 'package:karate_stars_app/src/videos/data/local/models/video_db.dart';
 import 'package:karate_stars_app/src/videos/data/local/models/video_link_db.dart';
 
@@ -27,6 +28,7 @@ class Database {
   late final Box<EventDB> eventsBox;
   late final Box<VideoDB> videosBox;
   late final Box<RankingDB> rankingsBox;
+  late final Box<RankingEntryDB> rankingEntriesBox;
 
   Database._create(
       this.currentNewsBox,
@@ -38,7 +40,8 @@ class Database {
       this.eventTypesBox,
       this.eventsBox,
       this.videosBox,
-      this.rankingsBox);
+      this.rankingsBox,
+      this.rankingEntriesBox);
 
   /// Create an instance of ObjectBox to use throughout the app.
   static Future<Database> create() async {
@@ -59,6 +62,7 @@ class Database {
     Hive.registerAdapter<VideoDB>(VideoDBAdapter());
     Hive.registerAdapter<VideoLinkDB>(VideoLinkDBAdapter());
     Hive.registerAdapter<RankingDB>(RankingDBAdapter());
+    Hive.registerAdapter<RankingEntryDB>(RankingEntryDBAdapter());
 
     final currentNewsBox = await Hive.openBox<CurrentNewsDB>('CurrentNews');
     final socialNewsBox = await Hive.openBox<SocialNewsDB>('SocialNews');
@@ -71,6 +75,8 @@ class Database {
     final eventsBox = await Hive.openBox<EventDB>('Events');
     final videosBox = await Hive.openBox<VideoDB>('Videos');
     final rankingsBox = await Hive.openBox<RankingDB>('Rankings');
+    final rankingEntriesBox =
+        await Hive.openBox<RankingEntryDB>('RankingEntries');
 
     return Database._create(
         currentNewsBox,
@@ -82,6 +88,7 @@ class Database {
         eventTypesBox,
         eventsBox,
         videosBox,
-        rankingsBox);
+        rankingsBox,
+        rankingEntriesBox);
   }
 }

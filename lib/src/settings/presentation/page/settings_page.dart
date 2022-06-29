@@ -31,6 +31,7 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: false,
+            titleSpacing: 0,
             title: Text(Strings.settings_title,
                 style: TextStyle(
                     fontSize:

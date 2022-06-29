@@ -48,48 +48,68 @@ class RankingCategoriesPage extends StatelessWidget {
 
     bloc.init(rankingId: args.rankingId, readPolicy: args.readPolicy);
 
-    return StreamBuilder<RankingCategoriesState>(
-      initialData: bloc.state,
-      stream: bloc.observableState,
-      builder: (context, snapshot) {
-        final state = snapshot.data;
+    return Scaffold(
+        appBar: _appBar(context, bloc),
+        body: SafeArea(
+            child: StreamBuilder<RankingCategoriesState>(
+                initialData: bloc.state,
+                stream: bloc.observableState,
+                builder: (context, snapshot) {
+                  final state = snapshot.data;
 
-        if (state != null) {
-          if (state.content is LoadingState) {
-            return Progress();
-          } else if (state.content is ErrorState) {
-            final listState = state.content as ErrorState;
-            return Center(child: NotificationMessage(listState.message));
-          } else {
-            final content =
-                state.content as LoadedState<RankingCategoriesContent>;
+                  if (state != null) {
+                    if (state.content is LoadingState) {
+                      return Progress();
+                    } else if (state.content is ErrorState) {
+                      final listState = state.content as ErrorState;
+                      return Center(
+                          child: NotificationMessage(listState.message));
+                    } else {
+                      final content = state.content
+                          as LoadedState<RankingCategoriesContent>;
 
-            return Scaffold(
-                appBar: AppBar(
-                    centerTitle: false,
-                    title: Row(
-                      children: [
-                        CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: CachedNetworkImageProvider(
-                                content.data.ranking.image)),
-                        const SizedBox(width: 16.0),
-                        Text(content.data.ranking.name,
-                            style: TextStyle(
-                                fontSize: Theme.of(context)
-                                    .textTheme
-                                    .headline6!
-                                    .fontSize))
-                      ],
-                    )),
-                body:
-                    SafeArea(child: _renderList(context, content.data, bloc)));
-          }
-        } else {
-          return const Text('No Data');
-        }
-      },
-    );
+                      return _renderList(context, content.data, bloc);
+                    }
+                  } else {
+                    return const Text('No Data');
+                  }
+                })));
+  }
+
+  AppBar _appBar(BuildContext context, RankingCategoriesBloc bloc) {
+    final titleContent = (RankingCategoriesContent content) {
+      return Row(
+        children: [
+          CircleAvatar(
+              backgroundColor: Colors.transparent,
+              backgroundImage:
+                  CachedNetworkImageProvider(content.ranking.image)),
+          const SizedBox(width: 16.0),
+          Text(content.ranking.name,
+              style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.headline6!.fontSize))
+        ],
+      );
+    };
+
+    return AppBar(
+        centerTitle: false,
+        titleSpacing: 0,
+        title: StreamBuilder<RankingCategoriesState>(
+            initialData: bloc.state,
+            stream: bloc.observableState,
+            builder: (context, snapshot) {
+              final state = snapshot.data;
+
+              if (state != null && state.content is LoadedState) {
+                final content =
+                    state.content as LoadedState<RankingCategoriesContent>;
+
+                return titleContent(content.data);
+              } else {
+                return Container();
+              }
+            }));
   }
 
   Widget _renderList(BuildContext context, RankingCategoriesContent content,
@@ -113,6 +133,7 @@ class RankingCategoriesPage extends StatelessWidget {
                 final category = content.categories[index];
 
                 return ItemRankingCategory(
+                    rankingId: content.ranking.id,
                     category: category); //, itemTextKey: textKey);
               },
             ),

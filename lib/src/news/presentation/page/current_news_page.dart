@@ -40,6 +40,7 @@ class CurrentNewsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             centerTitle: false,
+            titleSpacing: 0,
             title: Text(Strings.top_news,
                 style: TextStyle(
                     fontSize:

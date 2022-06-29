@@ -10,8 +10,8 @@ class MedalIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 24.0,
-      height: 24.0,
+      width: 32.0,
+      height: 32.0,
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
@@ -19,8 +19,10 @@ class MedalIcon extends StatelessWidget {
       child: Center(
           child: Text(
         text,
-        style:
-            Theme.of(context).textTheme.caption!.copyWith(color: Colors.black),
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge!
+            .copyWith(color: Colors.black),
       )),
     );
   }

@@ -6,7 +6,7 @@ import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.da
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/rankings/domain/get_rankings.dart';
-import 'package:karate_stars_app/src/rankings/presentation/state/events_state.dart';
+import 'package:karate_stars_app/src/rankings/presentation/state/rankings_state.dart';
 
 class RankingsBloc extends Bloc<RankingsState> {
   static const screen_name = 'rankings';

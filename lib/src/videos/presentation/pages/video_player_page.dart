@@ -104,6 +104,7 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
               return Scaffold(
                   appBar: AppBar(
                       centerTitle: false,
+                      titleSpacing: 0,
                       title: Text(
                         Strings.video_player_appbar_title,
                         style: TextStyle(
