@@ -102,7 +102,7 @@ class EventsPage extends StatelessWidget {
                 child: AdsListView(
                   itemCount: state.data.length,
                   adBuilder: (context) =>
-                      Ad(adUnitId: AdsHelper.videosNativeAdUnitId),
+                      Ad(adUnitId: AdsHelper.eventsNativeAdUnitId),
                   itemBuilder: (context, index) {
                     final event = state.data[index];
 

@@ -148,7 +148,7 @@ class RankingEntriesPage extends StatelessWidget {
             child: AdsListView(
               itemCount: content.entries.length,
               adBuilder: (context) =>
-                  Ad(adUnitId: AdsHelper.videosNativeAdUnitId),
+                  Ad(adUnitId: AdsHelper.rankingEntriesNativeAdUnitId),
               itemBuilder: (context, index) {
                 final entry = content.entries[index];
 

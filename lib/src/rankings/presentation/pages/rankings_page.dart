@@ -77,7 +77,7 @@ class RankingsPage extends StatelessWidget {
             child: AdsListView(
               itemCount: state.data.length,
               adBuilder: (context) =>
-                  Ad(adUnitId: AdsHelper.videosNativeAdUnitId),
+                  Ad(adUnitId: AdsHelper.rankingsNativeAdUnitId),
               itemBuilder: (context, index) {
                 final ranking = state.data[index];
 

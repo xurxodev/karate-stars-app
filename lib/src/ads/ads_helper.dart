@@ -17,6 +17,9 @@ const searchNewsAdUnitId = 'searchNewsAdUnitId';
 const searchCompetitorsAdUnitId = 'searchCompetitorsAdUnitId';
 const searchVideosAdUnitId = 'searchVideosAdUnitId';
 const playVideoAdUnitId= 'playVideoAdUnitId';
+const eventsAdUnitId = 'eventsAdUnitId';
+const rankingsAdUnitId = 'rankingsAdUnitId';
+const rankingEntriesAdUnitId = 'rankingEntriesAdUnitId';
 
 const testingAndroidNativeAdId = 'ca-app-pub-3940256099942544/2247696110';
 const testingIOSNativeAdId = 'ca-app-pub-3940256099942544/3986624511';
@@ -34,7 +37,10 @@ const unitIds = {
       searchNewsAdUnitId: testingAndroidNativeAdId,
       searchCompetitorsAdUnitId: testingAndroidNativeAdId,
       searchVideosAdUnitId: testingAndroidNativeAdId,
-      playVideoAdUnitId:testingAndroidInterstitialAdId
+      playVideoAdUnitId:testingAndroidInterstitialAdId,
+      eventsAdUnitId:testingAndroidInterstitialAdId,
+      rankingsAdUnitId:testingAndroidInterstitialAdId,
+      rankingEntriesAdUnitId:testingAndroidInterstitialAdId,
     },
     iosPlatform: {
       newsAdUnitId: testingIOSNativeAdId,
@@ -45,7 +51,10 @@ const unitIds = {
       searchNewsAdUnitId: testingIOSNativeAdId,
       searchCompetitorsAdUnitId: testingIOSNativeAdId,
       searchVideosAdUnitId: testingIOSNativeAdId,
-      playVideoAdUnitId:testingIOSInterstitialAdId
+      playVideoAdUnitId:testingIOSInterstitialAdId,
+      eventsAdUnitId:testingIOSInterstitialAdId,
+      rankingsAdUnitId:testingIOSInterstitialAdId,
+      rankingEntriesAdUnitId:testingIOSInterstitialAdId,
     }
   },
   releaseMode: {
@@ -58,7 +67,10 @@ const unitIds = {
       searchNewsAdUnitId: 'ca-app-pub-3409991930157804/7741834667',
       searchCompetitorsAdUnitId: 'ca-app-pub-3409991930157804/1083081063',
       searchVideosAdUnitId: 'ca-app-pub-3409991930157804/7088719230',
-      playVideoAdUnitId:'ca-app-pub-3409991930157804/6428822808'
+      playVideoAdUnitId:'ca-app-pub-3409991930157804/6428822808',
+      eventsAdUnitId:'ca-app-pub-3409991930157804~5528717571',
+      rankingsAdUnitId:'ca-app-pub-3409991930157804~5528717571',
+      rankingEntriesAdUnitId:'ca-app-pub-3409991930157804~5528717571',
     },
     iosPlatform: {
       newsAdUnitId: 'ca-app-pub-3409991930157804/3193404938',
@@ -69,7 +81,10 @@ const unitIds = {
       searchNewsAdUnitId: 'ca-app-pub-3409991930157804/8401800904',
       searchCompetitorsAdUnitId: 'ca-app-pub-3409991930157804/4185733035',
       searchVideosAdUnitId: 'ca-app-pub-3409991930157804/9709328934',
-      playVideoAdUnitId:'ca-app-pub-3409991930157804/1176496126'
+      playVideoAdUnitId:'ca-app-pub-3409991930157804/1176496126',
+      eventsAdUnitId:'ca-app-pub-3409991930157804~2787986929',
+      rankingsAdUnitId:'ca-app-pub-3409991930157804~2787986929',
+      rankingEntriesAdUnitId:'ca-app-pub-3409991930157804~2787986929',
     }
   },
 };
@@ -112,5 +127,17 @@ mixin AdsHelper {
 
   static String get playVideoInterstitialAdId {
     return unitIds[mode]![platform]![playVideoAdUnitId]!;
+  }
+
+  static String get eventsNativeAdUnitId {
+    return unitIds[mode]![platform]![eventsAdUnitId]!;
+  }
+
+  static String get rankingsNativeAdUnitId {
+    return unitIds[mode]![platform]![rankingsAdUnitId]!;
+  }
+
+  static String get rankingEntriesNativeAdUnitId {
+    return unitIds[mode]![platform]![rankingEntriesAdUnitId]!;
   }
 }
