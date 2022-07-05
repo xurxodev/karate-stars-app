@@ -35,13 +35,13 @@ class CacheablePartialDataSource<Entity extends Identifiable,
 
   Future<void> invalidate(List<Entity> entities) async {
     final entityIds = entities.map((entity) => entity.id).toList();
-    final modelKeys = _box.values
-        .where((modelDB) => entityIds.contains(modelDB.id))
-        .map((modelDB) => modelDB.key);
+    final modelsToMaintain = _box.values
+        .where((modelDB) => !entityIds.contains(modelDB.id)).toList();
 
-    _box.deleteAll(modelKeys);
+    _box.clear();
+
+    _box.addAll(modelsToMaintain);
   }
-
 
   bool _areDirty(List<ModelDB> models) {
     return models.any((model) => _isDirty(model));

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "A",
+    "name": "TestEntity 1",
+    "relatedId1": "1",
+    "relatedId2": "2"
+  },
+  {
+    "id": "B",
+    "name": "TestEntity 2",
+    "relatedId1": "1",
+    "relatedId2": "2"
+  },
+  {
+    "id": "C",
+    "name": "TestEntity 3",
+    "relatedId1": "3",
+    "relatedId2": "4"
+  },
+  {
+    "id": "D",
+    "name": "TestEntity 4",
+    "relatedId1": "3",
+    "relatedId2": "4"
+  }
+]
