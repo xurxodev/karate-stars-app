@@ -19,6 +19,7 @@ const searchVideosAdUnitId = 'searchVideosAdUnitId';
 const playVideoAdUnitId= 'playVideoAdUnitId';
 const eventsAdUnitId = 'eventsAdUnitId';
 const rankingsAdUnitId = 'rankingsAdUnitId';
+const rankingCategoriesAdUnitId = 'rankingCategoriesAdUnitId';
 const rankingEntriesAdUnitId = 'rankingEntriesAdUnitId';
 
 const testingAndroidNativeAdId = 'ca-app-pub-3940256099942544/2247696110';
@@ -38,9 +39,10 @@ const unitIds = {
       searchCompetitorsAdUnitId: testingAndroidNativeAdId,
       searchVideosAdUnitId: testingAndroidNativeAdId,
       playVideoAdUnitId:testingAndroidInterstitialAdId,
-      eventsAdUnitId:testingAndroidInterstitialAdId,
-      rankingsAdUnitId:testingAndroidInterstitialAdId,
-      rankingEntriesAdUnitId:testingAndroidInterstitialAdId,
+      eventsAdUnitId:testingAndroidNativeAdId,
+      rankingsAdUnitId:testingAndroidNativeAdId,
+      rankingCategoriesAdUnitId: testingAndroidNativeAdId,
+      rankingEntriesAdUnitId:testingAndroidNativeAdId,
     },
     iosPlatform: {
       newsAdUnitId: testingIOSNativeAdId,
@@ -52,9 +54,10 @@ const unitIds = {
       searchCompetitorsAdUnitId: testingIOSNativeAdId,
       searchVideosAdUnitId: testingIOSNativeAdId,
       playVideoAdUnitId:testingIOSInterstitialAdId,
-      eventsAdUnitId:testingIOSInterstitialAdId,
-      rankingsAdUnitId:testingIOSInterstitialAdId,
-      rankingEntriesAdUnitId:testingIOSInterstitialAdId,
+      eventsAdUnitId:testingIOSNativeAdId,
+      rankingsAdUnitId:testingIOSNativeAdId,
+      rankingCategoriesAdUnitId: testingIOSNativeAdId,
+      rankingEntriesAdUnitId:testingIOSNativeAdId,
     }
   },
   releaseMode: {
@@ -70,6 +73,7 @@ const unitIds = {
       playVideoAdUnitId:'ca-app-pub-3409991930157804/6428822808',
       eventsAdUnitId:'ca-app-pub-3409991930157804~5528717571',
       rankingsAdUnitId:'ca-app-pub-3409991930157804~5528717571',
+      rankingCategoriesAdUnitId: 'ca-app-pub-3409991930157804~5528717571',
       rankingEntriesAdUnitId:'ca-app-pub-3409991930157804~5528717571',
     },
     iosPlatform: {
@@ -84,6 +88,7 @@ const unitIds = {
       playVideoAdUnitId:'ca-app-pub-3409991930157804/1176496126',
       eventsAdUnitId:'ca-app-pub-3409991930157804~2787986929',
       rankingsAdUnitId:'ca-app-pub-3409991930157804~2787986929',
+      rankingCategoriesAdUnitId: 'ca-app-pub-3409991930157804~2787986929',
       rankingEntriesAdUnitId:'ca-app-pub-3409991930157804~2787986929',
     }
   },
@@ -135,6 +140,10 @@ mixin AdsHelper {
 
   static String get rankingsNativeAdUnitId {
     return unitIds[mode]![platform]![rankingsAdUnitId]!;
+  }
+
+  static String get rankingCategoriesNativeAdUnitId {
+    return unitIds[mode]![platform]![rankingCategoriesAdUnitId]!;
   }
 
   static String get rankingEntriesNativeAdUnitId {
