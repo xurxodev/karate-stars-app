@@ -7,6 +7,6 @@ class CategoryParser {
 
   Category _parseCountry(Map<String, dynamic> jsonData) {
     return Category(jsonData['id'], jsonData['name'], jsonData['typeId'],
-        jsonData['main'] ?? true);
+        jsonData['main'] ?? true, jsonData['paraKarate'] ?? false);
   }
 }

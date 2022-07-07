@@ -21,5 +21,8 @@ class CategoryDB implements ModelDB {
   @HiveField(4, defaultValue: true)
   final bool main;
 
-  CategoryDB(this.id, this.name, this.typeId, this.lastUpdate, this.main);
+  @HiveField(5, defaultValue: false)
+  final bool paraKarate;
+
+  CategoryDB(this.id, this.name, this.typeId, this.lastUpdate, this.main, this.paraKarate);
 }

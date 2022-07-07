@@ -52,6 +52,13 @@ class Strings {
   static const String rankings_entries_empty_message =
       'There are no entries in ranking';
 
+
+  static const String rankings_categories_senior_title = 'Senior';
+  static const String rankings_categories_u21_title = 'Under 21';
+  static const String rankings_categories_junior_title = 'Junior';
+  static const String rankings_categories_cadet_title = 'Cadet';
+  static const String rankings_categories_para_karate_title = 'Para Karate';
+
   static const String settings_title = 'Settings';
   static const String settings_appearance_section = 'Appearance';
   static const String settings_brightness = 'Brightness';

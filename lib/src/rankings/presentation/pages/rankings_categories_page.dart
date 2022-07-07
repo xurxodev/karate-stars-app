@@ -132,9 +132,15 @@ class RankingCategoriesPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final category = content.categories[index];
 
-                return ItemRankingCategory(
-                    rankingId: content.ranking.id,
-                    category: category); //, itemTextKey: textKey);
+                if (category is RankingCategoryParentState){
+                  return ListTile(title: Text( category.name, style: Theme.of(context).textTheme.headline6,));
+                } else {
+                  return ItemRankingCategory(
+                      rankingId: content.ranking.id,
+                      category: category as RankingCategoryLeafState);
+                }
+
+      //, itemTextKey: textKey);
               },
             ),
             onRefresh: () => bloc.refresh()),
