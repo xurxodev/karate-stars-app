@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/categories/domain/entities/category.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/RoundedCard.dart';
 import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_entries_page.dart';
 import 'package:karate_stars_app/src/rankings/presentation/state/ranking_categories_state.dart';

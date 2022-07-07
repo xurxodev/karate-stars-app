@@ -2,21 +2,29 @@
   {
     "id": "KqVrbhbJ72W",
     "name": "Male Kata",
-    "typeId": "qWPs4i1e78g"
+    "typeId": "qWPs4i1e78g",
+    "main": true,
+    "paraKarate": false
   },
   {
     "id": "uAwCwvaoUgg",
     "name": "Female Kata",
-    "typeId": "qWPs4i1e78g"
+    "typeId": "qWPs4i1e78g",
+    "main": true,
+    "paraKarate": false
   },
   {
     "id": "QihGhQpPpiI",
     "name": "Male Team Kumite",
-    "typeId": "Gps5nVcCdjV"
+    "typeId": "Gps5nVcCdjV",
+    "main": true,
+    "paraKarate": false
   },
   {
     "id": "kY6eNgWEXbw",
     "name": "Female Team Kumite",
-    "typeId": "Gps5nVcCdjV"
+    "typeId": "Gps5nVcCdjV",
+    "main": true,
+    "paraKarate": false
   }
 ]

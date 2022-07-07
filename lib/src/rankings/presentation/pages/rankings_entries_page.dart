@@ -9,6 +9,7 @@ import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dar
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/search_app_bar.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/rankings/presentation/blocs/rankings_entries_bloc.dart';
 import 'package:karate_stars_app/src/rankings/presentation/state/ranking_entries_state.dart';
@@ -26,7 +27,7 @@ class RankingEntriesArgs {
       this.readPolicy = ReadPolicy.cache_first});
 }
 
-class RankingEntriesPage extends StatelessWidget {
+class RankingEntriesPage extends StatefulWidget {
   final RankingEntriesArgs args;
 
   const RankingEntriesPage(this.args);
@@ -45,17 +46,32 @@ class RankingEntriesPage extends StatelessWidget {
   static const routeName = '/ranking-entries';
 
   @override
+  State<RankingEntriesPage> createState() => _RankingEntriesPageState();
+}
+
+class _RankingEntriesPageState extends State<RankingEntriesPage> {
+  bool searching = false;
+
+  @override
   Widget build(BuildContext context) {
     final RankingEntriesBloc bloc =
         BlocProvider.of<RankingEntriesBloc>(context);
 
     bloc.init(
-        rankingId: args.rankingId,
-        categoryId: args.categoryId,
-        readPolicy: args.readPolicy);
+        rankingId: widget.args.rankingId,
+        categoryId: widget.args.categoryId,
+        readPolicy: widget.args.readPolicy);
 
     return Scaffold(
-        appBar: _appBar(context, bloc),
+        appBar: searching
+            ? SearchAppBar(onChanged: (query) {
+                bloc.search(query);
+              }, onCancel: () {
+                setState(() {
+                  searching = false;
+                });
+              })
+            : _appBar(context, bloc),
         body: SafeArea(
             child: StreamBuilder<RankingEntriesState>(
                 initialData: bloc.state,
@@ -126,9 +142,19 @@ class RankingEntriesPage extends StatelessWidget {
             }
           }),
       actions: [
+        IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              setState(() {
+                searching = true;
+              });
+            }),
         Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset('assets/images/logo.png',width: 24,))
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: 24,
+            ))
       ],
     );
   }

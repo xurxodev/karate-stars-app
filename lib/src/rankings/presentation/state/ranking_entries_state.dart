@@ -8,16 +8,20 @@ class RankingEntriesContent {
   final Category category;
   final List<RankingEntry> entries;
 
-  RankingEntriesContent({required this.ranking,required this.category, required this.entries});
+  RankingEntriesContent(
+      {required this.ranking, required this.category, required this.entries});
 }
 
 class RankingEntriesState {
+  final String searchTerm;
   final DefaultState<RankingEntriesContent> content;
 
-  RankingEntriesState({required this.content});
+  RankingEntriesState({required this.content, required this.searchTerm});
 
   RankingEntriesState copyWith(
-      {DefaultState<RankingEntriesContent>? content}) {
-    return RankingEntriesState(content: content ?? this.content);
+      {DefaultState<RankingEntriesContent>? content, String? searchTerm}) {
+    return RankingEntriesState(
+        content: content ?? this.content,
+        searchTerm: searchTerm ?? this.searchTerm);
   }
 }

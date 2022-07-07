@@ -1,4 +1,3 @@
-import 'package:karate_stars_app/src/categories/domain/entities/category.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/rankings/domain/entities/ranking.dart';
 
@@ -25,12 +24,15 @@ class RankingCategoriesContent {
 }
 
 class RankingCategoriesState {
+  final String searchTerm;
   final DefaultState<RankingCategoriesContent> content;
 
-  RankingCategoriesState({required this.content});
+  RankingCategoriesState({required this.content , required this.searchTerm});
 
   RankingCategoriesState copyWith(
-      {DefaultState<RankingCategoriesContent>? content}) {
-    return RankingCategoriesState(content: content ?? this.content);
+      {DefaultState<RankingCategoriesContent>? content,
+        String? searchTerm}) {
+    return RankingCategoriesState(content: content ?? this.content,
+        searchTerm: searchTerm ?? this.searchTerm);
   }
 }

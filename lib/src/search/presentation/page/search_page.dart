@@ -18,7 +18,7 @@ import 'package:karate_stars_app/src/news/presentation/widgets/item_current_news
 import 'package:karate_stars_app/src/news/presentation/widgets/item_social_news.dart';
 import 'package:karate_stars_app/src/search/presentation/blocs/search_bloc.dart';
 import 'package:karate_stars_app/src/search/presentation/states/search_state.dart';
-import 'package:karate_stars_app/src/search/presentation/widgets/search_app_bar.dart';
+import 'package:karate_stars_app/src/search/presentation/widgets/search_page_search_app_bar.dart';
 import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/widgets/item_video.dart';
@@ -58,7 +58,7 @@ class _SearchPageState extends State<SearchPage>
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-            appBar: SearchAppBar(onTap: _scrollUp),
+            appBar: SearchPageSearchAppBar(onTap: _scrollUp),
             body: SafeArea(
                 child: StreamBuilder<SearchState>(
               initialData: bloc.state,

@@ -9,6 +9,7 @@ import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dar
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/search_app_bar.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/rankings/presentation/blocs/rankings_categories_bloc.dart';
 import 'package:karate_stars_app/src/rankings/presentation/state/ranking_categories_state.dart';
@@ -23,7 +24,7 @@ class RankingCategoriesArgs {
       {required this.rankingId, this.readPolicy = ReadPolicy.cache_first});
 }
 
-class RankingCategoriesPage extends StatelessWidget {
+class RankingCategoriesPage extends StatefulWidget {
   final RankingCategoriesArgs args;
 
   const RankingCategoriesPage(this.args);
@@ -42,14 +43,30 @@ class RankingCategoriesPage extends StatelessWidget {
   static const routeName = '/ranking-categories';
 
   @override
+  State<RankingCategoriesPage> createState() => _RankingCategoriesPageState();
+}
+
+class _RankingCategoriesPageState extends State<RankingCategoriesPage> {
+  bool searching = false;
+
+  @override
   Widget build(BuildContext context) {
     final RankingCategoriesBloc bloc =
         BlocProvider.of<RankingCategoriesBloc>(context);
 
-    bloc.init(rankingId: args.rankingId, readPolicy: args.readPolicy);
+    bloc.init(
+        rankingId: widget.args.rankingId, readPolicy: widget.args.readPolicy);
 
     return Scaffold(
-        appBar: _appBar(context, bloc),
+        appBar: searching
+            ? SearchAppBar(onChanged: (query) {
+                bloc.search(query);
+              }, onCancel: () {
+                setState(() {
+                  searching = false;
+                });
+              })
+            : _appBar(context, bloc),
         body: SafeArea(
             child: StreamBuilder<RankingCategoriesState>(
                 initialData: bloc.state,
@@ -93,23 +110,33 @@ class RankingCategoriesPage extends StatelessWidget {
     };
 
     return AppBar(
-        centerTitle: false,
-        titleSpacing: 0,
-        title: StreamBuilder<RankingCategoriesState>(
-            initialData: bloc.state,
-            stream: bloc.observableState,
-            builder: (context, snapshot) {
-              final state = snapshot.data;
+      centerTitle: false,
+      titleSpacing: 0,
+      title: StreamBuilder<RankingCategoriesState>(
+          initialData: bloc.state,
+          stream: bloc.observableState,
+          builder: (context, snapshot) {
+            final state = snapshot.data;
 
-              if (state != null && state.content is LoadedState) {
-                final content =
-                    state.content as LoadedState<RankingCategoriesContent>;
+            if (state != null && state.content is LoadedState) {
+              final content =
+                  state.content as LoadedState<RankingCategoriesContent>;
 
-                return titleContent(content.data);
-              } else {
-                return Container();
-              }
-            }));
+              return titleContent(content.data);
+            } else {
+              return Container();
+            }
+          }),
+      actions: [
+        IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              setState(() {
+                searching = true;
+              });
+            }),
+      ],
+    );
   }
 
   Widget _renderList(BuildContext context, RankingCategoriesContent content,
@@ -132,15 +159,19 @@ class RankingCategoriesPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final category = content.categories[index];
 
-                if (category is RankingCategoryParentState){
-                  return ListTile(title: Text( category.name, style: Theme.of(context).textTheme.headline6,));
+                if (category is RankingCategoryParentState) {
+                  return ListTile(
+                      title: Text(
+                    category.name,
+                    style: Theme.of(context).textTheme.headline6,
+                  ));
                 } else {
                   return ItemRankingCategory(
                       rankingId: content.ranking.id,
                       category: category as RankingCategoryLeafState);
                 }
 
-      //, itemTextKey: textKey);
+                //, itemTextKey: textKey);
               },
             ),
             onRefresh: () => bloc.refresh()),

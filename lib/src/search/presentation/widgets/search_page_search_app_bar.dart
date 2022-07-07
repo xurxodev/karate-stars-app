@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/search/presentation/blocs/search_bloc.dart'
 
 const double _kTabHeight = 46.0;
 
-class SearchAppBar extends PlatformWidget implements PreferredSizeWidget {
+class SearchPageSearchAppBar extends PlatformWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize =
       const Size.fromHeight(kToolbarHeight + _kTabHeight);
@@ -17,7 +17,7 @@ class SearchAppBar extends PlatformWidget implements PreferredSizeWidget {
   final TabController? tabController;
   final ValueChanged<int>? onTap;
 
-  SearchAppBar({ this.tabController, this.onTap});
+  SearchPageSearchAppBar({ this.tabController, this.onTap});
 
   @override
   Widget createMaterialWidget(BuildContext context) {

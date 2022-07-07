@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:karate_stars_app/src/common/analytics/events.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
-import 'package:karate_stars_app/src/common/presentation/blocs/bloc.dart';
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc_searchable.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
 import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
@@ -17,7 +17,7 @@ import 'package:karate_stars_app/src/search/presentation/states/search_state.dar
 import 'package:karate_stars_app/src/videos/domain/get_videos_use_case.dart';
 import 'package:karate_stars_app/src/videos/domain/videos_filter.dart';
 
-class SearchBloc extends Bloc<SearchState> {
+class SearchBloc extends BlocSearchable<SearchState> {
   static const screen_name = 'search';
 
   final GetNewsUseCase _getNewsUseCase;
@@ -30,8 +30,6 @@ class SearchBloc extends Bloc<SearchState> {
   final AnalyticsService _analyticsService;
 
   List<Option> brightnessOptions = [];
-
-  Timer? _debounce;
 
   SearchBloc(
       this._getNewsUseCase,
@@ -51,15 +49,7 @@ class SearchBloc extends Bloc<SearchState> {
     search('');
   }
 
-  Future<void> search(String searchTerm) async {
-    if (_debounce?.isActive ?? false) {
-      _debounce!.cancel();
-    }
-    _debounce = Timer(const Duration(milliseconds: 400), () {
-      executeSearch(searchTerm);
-    });
-  }
-
+  @override
   Future<void> executeSearch(String searchTerm) async {
     try {
       _sendSearchToAnalytics(searchTerm);
