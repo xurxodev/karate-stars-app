@@ -69,6 +69,7 @@ class Strings {
   static const String settings_news_notifications = 'News';
   static const String settings_competitors_notifications = 'Competitors';
   static const String settings_videos_notifications = 'Videos';
+  static const String settings_rankings_notifications = 'Rankings';
   static const String settings_app_section = 'App';
   static const String settings_app_version = 'Version';
   static const String settings_app_rate = 'Rate app';

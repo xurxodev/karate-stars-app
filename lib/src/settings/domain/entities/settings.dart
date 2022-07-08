@@ -11,8 +11,14 @@ class Settings {
   final bool newsNotification;
   final bool competitorNotification;
   final bool videoNotification;
+  final bool rankingNotification;
   final String version;
 
-  Settings(this.brightnessMode, this.newsNotification,
-      this.competitorNotification, this.videoNotification, this.version);
+  Settings(
+      this.brightnessMode,
+      this.newsNotification,
+      this.competitorNotification,
+      this.videoNotification,
+      this.rankingNotification,
+      this.version);
 }

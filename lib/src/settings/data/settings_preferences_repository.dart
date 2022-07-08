@@ -7,6 +7,7 @@ const _brightnessPreference = 'brightness';
 const _newsNotificationsPreference = 'newsNotifications';
 const _competitorNotificationsPreference = 'competitorNotifications';
 const _videosNotificationsPreference = 'videosNotifications';
+const _rankingNotificationsPreference = 'rankingNotifications';
 
 class SettingsPreferencesRepository implements SettingsRepository {
   @override
@@ -25,13 +26,16 @@ class SettingsPreferencesRepository implements SettingsRepository {
     final videosNotifications =
         prefs.getBool(_videosNotificationsPreference) ?? true;
 
+    final rankingNotifications =
+        prefs.getBool(_rankingNotificationsPreference) ?? true;
+
     final brightnessMode = BrightnessMode.values
         .firstWhere((item) => item.name == brightnessValue);
 
     final packageInfo = await PackageInfo.fromPlatform();
 
     return Settings(brightnessMode, newsNotifications, competitorsNotifications,
-        videosNotifications, packageInfo.version);
+        videosNotifications, rankingNotifications, packageInfo.version);
   }
 
   @override
@@ -43,5 +47,6 @@ class SettingsPreferencesRepository implements SettingsRepository {
     prefs.setBool(
         _competitorNotificationsPreference, settings.competitorNotification);
     prefs.setBool(_videosNotificationsPreference, settings.videoNotification);
+    prefs.setBool(_rankingNotificationsPreference, settings.rankingNotification);
   }
 }

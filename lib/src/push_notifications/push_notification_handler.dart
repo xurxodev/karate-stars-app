@@ -3,12 +3,15 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/show_local_notifications.dart';
 import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_detail_page.dart';
+import 'package:karate_stars_app/src/rankings/domain/get_ranking_by_id.dart';
+import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_categories_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/blocs/settings_bloc.dart';
 import 'package:karate_stars_app/src/settings/presentation/states/settings_state.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
@@ -30,9 +33,11 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   static const String _urlTopic = 'url_notification';
   static const String _competitorTopic = 'competitor_notification';
   static const String _videoTopic = 'video_notification';
+  static const String _rankingTopic = 'ranking_notification';
   static const String _debugUrlTopic = 'debug_url_notification';
   static const String _debugCompetitorTopic = 'debug_competitor_notification';
   static const String _debugVideoTopic = 'debug_video_notification';
+  static const String _debugRankingTopic = 'debug_ranking_notification';
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
@@ -115,6 +120,19 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
       _firebaseMessaging.unsubscribeFromTopic(_videoTopic);
       _firebaseMessaging.unsubscribeFromTopic(_debugVideoTopic);
     }
+
+    if (state.rankingNotification) {
+      print('subscribe rankings');
+      _firebaseMessaging.subscribeToTopic(_rankingTopic);
+
+      if (!kReleaseMode) {
+        _firebaseMessaging.subscribeToTopic(_debugRankingTopic);
+      }
+    } else {
+      print('unsubscribe rankings');
+      _firebaseMessaging.unsubscribeFromTopic(_rankingTopic);
+      _firebaseMessaging.unsubscribeFromTopic(_debugRankingTopic);
+    }
   }
 
   Future<void> _onMessageHandler(RemoteMessage message) async {
@@ -162,6 +180,19 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
           arguments: VideoPlayerPageArgs(
               videoId: message.data['videoId'],
               readPolicy: ReadPolicy.network_first));
+    } else if (message.data.containsKey('rankingId')) {
+      final getRankingByIdUseCase = app_di.getIt<GetRankingByIdUseCase>();
+
+      final ranking = await getRankingByIdUseCase.execute(
+          ReadPolicy.network_first, message.data['rankingId']);
+
+      if (ranking.apiUrl == null) {
+        launchURL(context, ranking.webUrl);
+      } else {
+        final args = RankingCategoriesArgs(
+            rankingId: ranking.id, readPolicy: ReadPolicy.network_first);
+        RankingCategoriesPage.navigate(context, arguments: args);
+      }
     }
   }
 

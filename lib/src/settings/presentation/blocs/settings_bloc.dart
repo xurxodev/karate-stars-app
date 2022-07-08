@@ -54,6 +54,7 @@ class SettingsBloc extends Bloc<SettingsState> {
           newsNotification: settings.newsNotification,
           competitorNotification: settings.competitorNotification,
           videoNotification: settings.videoNotification,
+          rankingNotification: settings.rankingNotification,
           version: settings.version);
 
       changeState(DefaultState.loaded(settingsStateData));
@@ -144,6 +145,21 @@ class SettingsBloc extends Bloc<SettingsState> {
     }
   }
 
+  void selectRankingNotifications(bool value) {
+    if (state is LoadedState) {
+      final loadedState = state as LoadedState<SettingsStateData>;
+      final settingsStateData =
+      loadedState.data.copyWith(rankingNotification: value);
+
+      changeState(DefaultState.loaded(settingsStateData));
+
+      _analyticsService.sendEvent(
+          ChangeSettings('Notifications - ranking', value.toString()));
+
+      _saveSettings();
+    }
+  }
+
   void _saveSettings() {
     final loadedState = state as LoadedState<SettingsStateData>;
     final brightnessMode = BrightnessMode.values.firstWhere(
@@ -154,6 +170,7 @@ class SettingsBloc extends Bloc<SettingsState> {
         loadedState.data.newsNotification,
         loadedState.data.competitorNotification,
         loadedState.data.videoNotification,
+        loadedState.data.rankingNotification,
         loadedState.data.version);
 
     _saveSettingsUseCase.execute(settings);

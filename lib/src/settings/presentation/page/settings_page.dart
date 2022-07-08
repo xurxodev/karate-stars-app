@@ -151,6 +151,15 @@ class SettingsPage extends StatelessWidget {
                 bloc.selectVideosNotifications(value);
               },
             ),
+            SettingsTile.switchTile(
+              title: const Text(Strings.settings_rankings_notifications),
+              leading: const Icon(Icons.leaderboard_outlined),
+              activeSwitchColor: Colors.red,
+              initialValue: stateData.rankingNotification,
+              onToggle: (bool value) {
+                bloc.selectRankingNotifications(value);
+              },
+            ),
           ],
         ),
       ],
