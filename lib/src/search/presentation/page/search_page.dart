@@ -6,6 +6,7 @@ import 'package:karate_stars_app/src/ads/ads_listview.dart';
 import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
@@ -67,20 +68,7 @@ class _SearchPageState extends State<SearchPage>
                 final state = snapshot.data;
 
                 if (state != null) {
-                  if (state is InitialState) {
-                    return const NotificationMessage(
-                        Strings.search_initial_message);
-                  } else if (state is SearchingState) {
-                    return Progress();
-                  } else if (state is SearchErrorState) {
-                    final errorState = state;
-                    return Center(
-                      child: NotificationMessage(errorState.message),
-                    );
-                  } else {
-                    return _renderResults(context,
-                        (state as ResultsState<SearchStateData>).data, bloc);
-                  }
+                  return _renderResults(context, state, bloc);
                 } else {
                   return const Text('No Data');
                 }
@@ -89,94 +77,130 @@ class _SearchPageState extends State<SearchPage>
   }
 
   Widget _renderResults(
-      BuildContext context, SearchStateData stateData, SearchBloc bloc) {
+      BuildContext context, SearchState stateData, SearchBloc bloc) {
     return TabBarView(
       children: [
-        _newsResults(stateData.newsResults),
-        _competitorResults(stateData.competitorResults),
-        _videoResults(stateData.videosResults),
+        _newsResults(stateData.news),
+        _competitorResults(stateData.competitors),
+        _videoResults(stateData.videos),
       ],
     );
   }
 
-  Widget _newsResults(List<News> newsResults) {
-    if (newsResults.isEmpty) {
-      return const NotificationMessage(Strings.search_empty_message);
+  Widget _newsResults(DefaultState<List<News>> newsResults) {
+    if (newsResults is LoadingState) {
+      return Progress();
+    } else if (newsResults is ErrorState) {
+      final errorState = newsResults as ErrorState;
+      return Center(
+        child: NotificationMessage(errorState.message),
+      );
     } else {
-      return Container(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: AdsListView(
-            controller: _newsScrollController,
-            itemCount: newsResults.length,
-            adBuilder: (context) =>
-                Ad(adUnitId: AdsHelper.searchNewsNativeAdUnitId),
-            itemBuilder: (context, index) {
-              final News news = newsResults[index];
+      final news = (newsResults as LoadedState<List<News>>).data;
 
-              final textKey = '${Keys.news_item}_$index';
+      if (news.isEmpty) {
+        return const NotificationMessage(Strings.search_empty_message);
+      } else {
+        return Container(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: AdsListView(
+              controller: _newsScrollController,
+              itemCount: news.length,
+              adBuilder: (context) =>
+                  Ad(adUnitId: AdsHelper.searchNewsNativeAdUnitId),
+              itemBuilder: (context, index) {
+                final News newsItem = news[index];
 
-              if (news is SocialNews) {
-                return ItemSocialNews(news, itemTextKey: textKey);
-              } else {
-                return ItemCurrentNews(currentNews : news  as CurrentNews,
-                    itemTextKey: textKey, type: CurrentNewsType.big,);
-              }
-            },
-          ));
+                final textKey = '${Keys.news_item}_$index';
+
+                if (newsItem is SocialNews) {
+                  return ItemSocialNews(newsItem, itemTextKey: textKey);
+                } else {
+                  return ItemCurrentNews(
+                    currentNews: newsItem as CurrentNews,
+                    itemTextKey: textKey,
+                    type: CurrentNewsType.big,
+                  );
+                }
+              },
+            ));
+      }
     }
   }
 
-  Widget _competitorResults(List<CompetitorItemState> competitorResults) {
-    if (competitorResults.isEmpty) {
-      return const NotificationMessage(Strings.search_empty_message);
+  Widget _competitorResults(
+      DefaultState<List<CompetitorItemState>> competitorResults) {
+    if (competitorResults is LoadingState) {
+      return Progress();
+    } else if (competitorResults is ErrorState) {
+      final errorState = competitorResults as ErrorState;
+      return Center(
+        child: NotificationMessage(errorState.message),
+      );
     } else {
-      return Container(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          child: AdsListView(
-            controller: _competitorsScrollController,
-            itemCount: competitorResults.length,
-            adBuilder: (context) =>
-                Ad(adUnitId: AdsHelper.searchCompetitorsNativeAdUnitId),
-            itemBuilder: (context, index) {
-              final competitor = competitorResults[index];
+      final competitors =
+          (competitorResults as LoadedState<List<CompetitorItemState>>).data;
+      if (competitors.isEmpty) {
+        return const NotificationMessage(Strings.search_empty_message);
+      } else {
+        return Container(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+            child: AdsListView(
+              controller: _competitorsScrollController,
+              itemCount: competitors.length,
+              adBuilder: (context) =>
+                  Ad(adUnitId: AdsHelper.searchCompetitorsNativeAdUnitId),
+              itemBuilder: (context, index) {
+                final competitor = competitors[index];
 
-              final textKey = '${Keys.competitors_item}_$index';
+                final textKey = '${Keys.competitors_item}_$index';
 
-              return ItemCompetitor(
-                competitor,
-                itemTextKey: textKey,
-                margin: const EdgeInsets.symmetric(vertical: 4.0),
-              );
-            },
-          ));
+                return ItemCompetitor(
+                  competitor,
+                  itemTextKey: textKey,
+                  margin: const EdgeInsets.symmetric(vertical: 4.0),
+                );
+              },
+            ));
+      }
     }
   }
 
-  Widget _videoResults(List<Video> videoResults) {
-    if (videoResults.isEmpty) {
-      return const NotificationMessage(Strings.search_empty_message);
+  Widget _videoResults(DefaultState<List<Video>> videoResults) {
+    if (videoResults is LoadingState) {
+      return Progress();
+    } else if (videoResults is ErrorState) {
+      final errorState = videoResults as ErrorState;
+      return Center(
+        child: NotificationMessage(errorState.message),
+      );
     } else {
-      return Container(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-          child: AdsListView(
-            controller: _videosScrollController,
-            adBuilder: (context) =>
-                Ad(adUnitId: AdsHelper.searchVideosNativeAdUnitId),
-            itemCount: videoResults.length,
-            itemBuilder: (context, index) {
-              final video = videoResults[index];
+      final videos = (videoResults as LoadedState<List<Video>>).data;
 
-              return ItemVideo(
-                video: video,
-                onTap: () async {
-                  _playVideoInterstitialAd.show();
-                  VideoPlayerPage.navigate(context,
-                      arguments:
-                          VideoPlayerPageArgs(videoId: video.id));
-                },
-              );
-            },
-          ));
+      if (videos.isEmpty) {
+        return const NotificationMessage(Strings.search_empty_message);
+      } else {
+        return Container(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+            child: AdsListView(
+              controller: _videosScrollController,
+              adBuilder: (context) =>
+                  Ad(adUnitId: AdsHelper.searchVideosNativeAdUnitId),
+              itemCount: videos.length,
+              itemBuilder: (context, index) {
+                final video = videos[index];
+
+                return ItemVideo(
+                  video: video,
+                  onTap: () async {
+                    _playVideoInterstitialAd.show();
+                    VideoPlayerPage.navigate(context,
+                        arguments: VideoPlayerPageArgs(videoId: video.id));
+                  },
+                );
+              },
+            ));
+      }
     }
   }
 

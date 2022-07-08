@@ -4,6 +4,7 @@ import 'package:karate_stars_app/src/common/analytics/events.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_searchable.dart';
 import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.dart';
+import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/domain/competitors_filter.dart';
@@ -37,7 +38,10 @@ class SearchBloc extends BlocSearchable<SearchState> {
       this._getVideosUseCase,
       this._getCountriesUseCase,
       this._analyticsService) {
-    changeState(SearchState.searching());
+    changeState(SearchState(
+        news: DefaultState.loading(),
+        competitors: DefaultState.loading(),
+        videos: DefaultState.loading()));
 
     _analyticsService.sendScreenName('$screen_name');
 
@@ -51,12 +55,27 @@ class SearchBloc extends BlocSearchable<SearchState> {
 
   @override
   Future<void> executeSearch(String searchTerm) async {
-    try {
       _sendSearchToAnalytics(searchTerm);
 
+      executeNewsSearch(searchTerm);
+      executeCompetitorsSearch(searchTerm);
+      executeVideosSearch(searchTerm);
+  }
+
+  Future<void> executeNewsSearch(String searchTerm) async {
+    try {
       final newsResults = await _getNewsUseCase.execute(ReadPolicy.cache_first,
           NewsFilter(type: NewsType.all, searchTerm: searchTerm));
 
+      changeState(state.copyWith(news: DefaultState.loaded(newsResults)));
+    } on Exception {
+      changeState(state.copyWith(
+          news: DefaultState.error(Strings.network_error_message)));
+    }
+  }
+
+  Future<void> executeCompetitorsSearch(String searchTerm) async {
+    try {
       final competitors = await _getCompetitorsUseCase.execute(
           ReadPolicy.cache_first,
           competitorsFilter: CompetitorsFilter(searchTerm: searchTerm));
@@ -72,17 +91,22 @@ class SearchBloc extends BlocSearchable<SearchState> {
             country?.image ?? '');
       }).toList();
 
+      changeState(
+          state.copyWith(competitors: DefaultState.loaded(competitorResults)));
+    } on Exception {
+      changeState(state.copyWith(
+          competitors: DefaultState.error(Strings.network_error_message)));
+    }
+  }
+
+  Future<void> executeVideosSearch(String searchTerm) async {
+    try {
       final videosResults = await _getVideosUseCase.execute(
           ReadPolicy.cache_first, VideosFilter(searchTerm: searchTerm));
 
-      final searchStateData = SearchStateData(
-          newsResults: newsResults,
-          competitorResults: competitorResults,
-          videosResults: videosResults);
-
-      changeState(SearchState.results(searchStateData));
+      changeState(state.copyWith(videos: DefaultState.loaded(videosResults)));
     } on Exception {
-      changeState(SearchState.error(Strings.network_error_message));
+      changeState(state.copyWith(videos: DefaultState.error(Strings.network_error_message)));
     }
   }
 
