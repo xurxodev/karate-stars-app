@@ -8,7 +8,7 @@ import 'mocks.dart';
 void givenThereAreSettings() {
   final mockSettingsRepository = MockSettingsRepository();
   when(() => mockSettingsRepository.get()).thenAnswer((_) =>
-      Future.value(Settings(BrightnessMode.system, true, true, true, '1.0')));
+      Future.value(Settings(BrightnessMode.system, true, true, true, true, '1.0')));
   app_di.getIt
       .registerLazySingleton<SettingsRepository>(() => mockSettingsRepository);
 }
