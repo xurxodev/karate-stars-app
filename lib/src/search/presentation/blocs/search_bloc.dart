@@ -54,8 +54,6 @@ class SearchBloc extends BlocSearchable<SearchState> {
     try {
       _sendSearchToAnalytics(searchTerm);
 
-      changeState(SearchState.searching());
-
       final newsResults = await _getNewsUseCase.execute(ReadPolicy.cache_first,
           NewsFilter(type: NewsType.all, searchTerm: searchTerm));
 

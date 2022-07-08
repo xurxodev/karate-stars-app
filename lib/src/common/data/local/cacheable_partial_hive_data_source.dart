@@ -38,7 +38,7 @@ class CacheablePartialDataSource<Entity extends Identifiable,
     final modelsToMaintain = _box.values
         .where((modelDB) => !entityIds.contains(modelDB.id)).toList();
 
-    _box.clear();
+    await _box.clear();
 
     _box.addAll(modelsToMaintain);
   }
