@@ -1,10 +1,10 @@
 import 'package:karate_stars_app/src/rankings/domain/entities/rankingEntry.dart';
 
-abstract class Parser<Entity>{
+abstract class Parser<Entity> {
   List<Entity> parse(List<dynamic> json);
 }
 
-class RankingEntryParser implements Parser<RankingEntry>{
+class RankingEntryParser implements Parser<RankingEntry> {
   @override
   List<RankingEntry> parse(List<dynamic> json) {
     return json.map((jsonItem) => _parse(jsonItem)).toList();
@@ -12,7 +12,7 @@ class RankingEntryParser implements Parser<RankingEntry>{
 
   RankingEntry _parse(Map<String, dynamic> jsonData) {
     return RankingEntry(
-        jsonData['id'],
+        '${jsonData['rankingId']}-${jsonData['categoryId']}-${jsonData['wkfId']}',
         jsonData['rankingId'],
         jsonData['rank'],
         jsonData['country'],

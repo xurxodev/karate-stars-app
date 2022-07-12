@@ -40,7 +40,7 @@ class CacheablePartialDataSource<Entity extends Identifiable,
 
     await _box.clear();
 
-    _box.addAll(modelsToMaintain);
+    await _box.addAll(modelsToMaintain);
   }
 
   bool _areDirty(List<ModelDB> models) {
