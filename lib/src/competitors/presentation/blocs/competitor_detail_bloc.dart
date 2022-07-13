@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:collection';
 import 'package:collection/collection.dart';
 import 'package:karate_stars_app/src/categories/domain/get_categories.dart';
 import 'package:karate_stars_app/src/common/analytics/events.dart';
