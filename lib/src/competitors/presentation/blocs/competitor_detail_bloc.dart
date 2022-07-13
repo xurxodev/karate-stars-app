@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'package:collection/collection.dart';
 import 'package:karate_stars_app/src/categories/domain/get_categories.dart';
 import 'package:karate_stars_app/src/common/analytics/events.dart';
@@ -63,20 +64,24 @@ class CompetitorDetailBloc extends Bloc<CompetitorDetailState> {
             .name;
       });
 
-      final finalAchievements =
-          achievementsByEventType.map((key, achievements) {
-        final mappedAchievements = achievements.map((achievement) {
+      final eventTypeNames = achievementsByEventType.keys.toList();
+      eventTypeNames.sort((a,b) => a.compareTo(b));
+
+      final finalAchievements = Map.fromIterable(eventTypeNames, key: (key) => key as String, value: (key) {
+        final mappedAchievements =
+        achievementsByEventType[key]!.map((achievement) {
           final event =
-              events.firstWhere((event) => event.id == achievement.eventId);
+          events.firstWhere((event) => event.id == achievement.eventId);
+
           final category = categories
               .firstWhere((category) => category.id == achievement.categoryId);
 
-          return AchievementState(
-              event.name, category.name, achievement.position);
+          return AchievementState(event.name, category.name, achievement.position);
         }).toList();
 
-        return MapEntry(key, mappedAchievements);
+        return mappedAchievements;
       });
+
 
       final competitorInfo = CompetitorInfoState(
           competitor.id,
