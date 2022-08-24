@@ -155,7 +155,7 @@ class _RankingCategoriesPageState extends State<RankingCategoriesPage> {
             child: AdsListView(
               itemCount: content.categories.length,
               adBuilder: (context) =>
-                  Ad(adUnitId: AdsHelper.videosNativeAdUnitId),
+                  Ad(adUnitId: AdsHelper.rankingCategoriesNativeAdUnitId),
               itemBuilder: (context, index) {
                 final category = content.categories[index];
 
