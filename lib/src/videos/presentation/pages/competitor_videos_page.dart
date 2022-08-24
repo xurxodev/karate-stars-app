@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/ads/ad.dart';
+import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
@@ -27,8 +29,7 @@ class CompetitorVideosPage extends StatefulWidget {
 
   static void navigate(BuildContext context,
       {required CompetitorVideosArgs arguments}) {
-    Navigator.pushNamed(context, routeName,
-        arguments: arguments);
+    Navigator.pushNamed(context, routeName, arguments: arguments);
   }
 
   static Widget create(CompetitorVideosArgs args) {
@@ -137,7 +138,7 @@ class _CompetitorVideosPageState extends State<CompetitorVideosPage> {
         Expanded(
             child: Column(
           children: [..._renderVideos(context, competitorVideos)],
-        ))
+        )),
       ]),
     );
   }
@@ -153,7 +154,7 @@ class _CompetitorVideosPageState extends State<CompetitorVideosPage> {
 
   List<Widget> _renderVideos(
       BuildContext context, CompetitorVideos competitorVideos) {
-    return competitorVideos.videos.map((video) {
+    final items = competitorVideos.videos.map((video) {
       return ItemVideo(
         color: Theme.of(context).brightness == Brightness.light
             ? Colors.blueGrey[50]
@@ -166,6 +167,23 @@ class _CompetitorVideosPageState extends State<CompetitorVideosPage> {
         },
       );
     }).toList();
+
+    if (items.length > 8) {
+      return [
+        ...items.getRange(0, 7),
+        Ad(
+          adUnitId: AdsHelper.videosNativeAdUnitId,
+        ),
+        ...items.getRange(7, items.length),
+      ];
+    } else {
+      return [
+        ...items,
+        Ad(
+          adUnitId: AdsHelper.videosNativeAdUnitId,
+        )
+      ];
+    }
   }
 
   String getTitle(DefaultState<CompetitorInfoState> state) {
