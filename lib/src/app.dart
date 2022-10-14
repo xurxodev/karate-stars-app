@@ -10,6 +10,8 @@ import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_d
 import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
 import 'package:karate_stars_app/src/main_page.dart';
 import 'package:karate_stars_app/src/news/presentation/page/current_news_page.dart';
+import 'package:karate_stars_app/src/purchases/presentation/page/purchases_example_page.dart';
+import 'package:karate_stars_app/src/purchases/presentation/page/purchases_page.dart';
 import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_categories_page.dart';
 import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_entries_page.dart';
 import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_page.dart';
@@ -84,10 +86,8 @@ class App extends StatelessWidget {
         initialRoute: MainPage.routeName,
         routes: {
           MainPage.routeName: (context) => MainPage.create(testing),
-          SettingsPage.routeName: (context) {
-            print('route');
-            return SettingsPage();
-          },
+          PurchasesExamplePage.routeName: (context) => PurchasesPage.create(),
+          SettingsPage.routeName: (context) => SettingsPage(),
           SearchPage.routeName: (context) => SearchPage.create(),
           VideoPlayerPage.routeName: (context) => VideoPlayerPage.create(
               ModalRoute.of(context)!.settings.arguments

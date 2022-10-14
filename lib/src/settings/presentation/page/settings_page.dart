@@ -10,6 +10,8 @@ import 'package:karate_stars_app/src/common/presentation/widgets/filters/Segment
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_icons.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/purchases/presentation/page/purchases_example_page.dart';
+import 'package:karate_stars_app/src/purchases/presentation/page/purchases_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/blocs/settings_bloc.dart';
 import 'package:karate_stars_app/src/settings/presentation/states/settings_state.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -70,6 +72,21 @@ class SettingsPage extends StatelessWidget {
       darkTheme:
           const SettingsThemeData(titleTextColor: CupertinoColors.systemGrey),
       sections: [
+        SettingsSection(
+          title: const Text('Karate Stars Pro'),
+          tiles: [
+            SettingsTile.navigation(
+              leading: const Icon(Icons.shopping_cart),
+              title: const Text('Yearly'),
+              onPressed: (BuildContext context) async {
+                //PurchasesExamplePage.navigate(context);
+                PurchasesPage.navigate(context);
+
+              },
+            ),
+
+          ],
+        ),
         SettingsSection(
           title: Text(Strings.settings_app_section.toUpperCase()),
           tiles: [

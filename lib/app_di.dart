@@ -23,6 +23,7 @@ import 'package:karate_stars_app/src/rate_app/rate_app_di.dart' as rate_app_di;
 import 'package:karate_stars_app/src/search/search_di.dart' as search_di;
 import 'package:karate_stars_app/src/settings/settings_di.dart' as settings_di;
 import 'package:karate_stars_app/src/videos/videos_di.dart' as videos_di;
+import 'package:karate_stars_app/src/purchases/purchases_di.dart' as purchases_di;
 
 final getIt = GetIt.instance;
 
@@ -62,6 +63,7 @@ Future<void> init() async {
   search_di.initAll(apiBaseAddress, apiCredentials);
   rate_app_di.initAll(apiCredentials);
   rankings_di.initAll(database, apiBaseAddress, apiCredentials);
+  purchases_di.initAll(apiBaseAddress, apiCredentials);
 }
 
 void initWithoutDataDependencies() {

@@ -44,14 +44,11 @@ class Strings {
   static const String video_player_error =
       'An error has occurred loading this video, please retry later';
 
-
-  static const String rankings_empty_message =
-      'There are no rankings';
+  static const String rankings_empty_message = 'There are no rankings';
   static const String rankings_categories_empty_message =
       'There are no categories in ranking';
   static const String rankings_entries_empty_message =
       'There are no entries in ranking';
-
 
   static const String rankings_categories_senior_title = 'Senior';
   static const String rankings_categories_u21_title = 'Under 21';
@@ -95,4 +92,12 @@ class Strings {
 
   static const String network_error_message =
       'An error connection has ocurred, please try later!!';
+
+
+  static const String purchase_loading_is_store_available =
+      'Verifying store availability ...';
+  static const String purchase_loading_products =
+      'Loading Products ...';
+  static const String purchase_store_store_is_not_available =
+      'The store is not available';
 }
