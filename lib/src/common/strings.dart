@@ -11,6 +11,9 @@ class Strings {
 
   static const String home_see_all = 'See All';
 
+  static const String home_appbar_premium_action = 'Pro';
+  static const String home_appbar_non_premium_action = 'Try Pro';
+
   static const String home_last_videos_item_title = 'Last Videos';
   static const String top_news = 'Top News';
 
@@ -44,14 +47,11 @@ class Strings {
   static const String video_player_error =
       'An error has occurred loading this video, please retry later';
 
-
-  static const String rankings_empty_message =
-      'There are no rankings';
+  static const String rankings_empty_message = 'There are no rankings';
   static const String rankings_categories_empty_message =
       'There are no categories in ranking';
   static const String rankings_entries_empty_message =
       'There are no entries in ranking';
-
 
   static const String rankings_categories_senior_title = 'Senior';
   static const String rankings_categories_u21_title = 'Under 21';
@@ -95,4 +95,7 @@ class Strings {
 
   static const String network_error_message =
       'An error connection has ocurred, please try later!!';
+
+  static const String purchase_restore_error =
+      'An error has occurred restoring purchase';
 }

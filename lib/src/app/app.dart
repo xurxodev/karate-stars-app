@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/app/app_bloc.dart';
+import 'package:karate_stars_app/src/app/app_state.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/default_stream_builder.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/custom_colors.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
@@ -8,8 +11,9 @@ import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_detail_page.dart';
 import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
-import 'package:karate_stars_app/src/main_page.dart';
+import 'package:karate_stars_app/src/main/main_page.dart';
 import 'package:karate_stars_app/src/news/presentation/page/current_news_page.dart';
+import 'package:karate_stars_app/src/purchases/presentation/page/purchases_page.dart';
 import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_categories_page.dart';
 import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_entries_page.dart';
 import 'package:karate_stars_app/src/rankings/presentation/pages/rankings_page.dart';
@@ -33,37 +37,26 @@ class App extends StatelessWidget {
 
   static Widget create({required bool testing}) {
     return BlocProvider(
-        bloc: app_di.getIt<SettingsBloc>(),
-        child: OverlaySupport.global(child: App(testing: testing)));
+        bloc: app_di.getIt<AppBloc>(),
+        child: BlocProvider(
+            bloc: app_di.getIt<SettingsBloc>(),
+            child: OverlaySupport.global(child: App(testing: testing))));
   }
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<SettingsBloc>(context);
+    final settingsBloc = BlocProvider.of<SettingsBloc>(context);
 
-    return StreamBuilder<SettingsState>(
-      initialData: bloc.state,
-      stream: bloc.observableState,
-      builder: (context, snapshot) {
-        final state = snapshot.data;
+    return DefaultStateStreamBuilder<SettingsStateData>(
+        initialData: settingsBloc.state,
+        stream: settingsBloc.observableState,
+        builder: (context, snapshot) {
+          final settingsState =
+              (snapshot.data as LoadedState<SettingsStateData>).data;
 
-        if (state != null) {
-          if (state is LoadingState) {
-            return Progress();
-          } else if (state is ErrorState) {
-            final listState = state as ErrorState;
-            return Center(
-              child: NotificationMessage(listState.message),
-            );
-          } else {
-            return _renderApp(
-                context, (state as LoadedState<SettingsStateData>).data, bloc);
-          }
-        } else {
-          return const Text('No Data');
-        }
-      },
-    );
+          return _renderApp(
+              context, settingsState, settingsBloc);
+        });
   }
 
   Widget _renderApp(
@@ -84,10 +77,8 @@ class App extends StatelessWidget {
         initialRoute: MainPage.routeName,
         routes: {
           MainPage.routeName: (context) => MainPage.create(testing),
-          SettingsPage.routeName: (context) {
-            print('route');
-            return SettingsPage();
-          },
+          PurchasesPage.routeName: (context) => PurchasesPage.create(),
+          SettingsPage.routeName: (context) => SettingsPage(),
           SearchPage.routeName: (context) => SearchPage.create(),
           VideoPlayerPage.routeName: (context) => VideoPlayerPage.create(
               ModalRoute.of(context)!.settings.arguments

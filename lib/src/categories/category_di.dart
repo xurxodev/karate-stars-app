@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:karate_stars_app/app_di.dart';
+import 'package:karate_stars_app/src/global_di.dart';
 import 'package:karate_stars_app/src/categories/data/category_cached_repository.dart';
 import 'package:karate_stars_app/src/categories/data/local/category_db.dart';
 import 'package:karate_stars_app/src/categories/data/local/category_hive_data_source.dart';

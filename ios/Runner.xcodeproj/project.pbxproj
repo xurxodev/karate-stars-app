@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		1543ECAC28F9840A003C13CC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1543ECAB28F9840A003C13CC /* StoreKit.framework */; };
 		15867961274D048D00EF4403 /* ListTileNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15867960274D048D00EF4403 /* ListTileNativeAdView.xib */; };
 		15867963274D04D600EF4403 /* ListTileNativeAdFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15867962274D04D600EF4403 /* ListTileNativeAdFactory.swift */; };
 		15ACD8BD24408C2000685ABB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15ACD8BC24408C2000685ABB /* GoogleService-Info.plist */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		1543ECAB28F9840A003C13CC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		155D2DAD274565AB004F1B9E /* RunnerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerDebug.entitlements; sourceTree = "<group>"; };
 		155D2DAE274565B1004F1B9E /* RunnerRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerRelease.entitlements; sourceTree = "<group>"; };
 		15867960274D048D00EF4403 /* ListTileNativeAdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTileNativeAdView.xib; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				955ADC8B6C2748B0C9B83AFB /* Pods_Runner.framework in Frameworks */,
+				1543ECAC28F9840A003C13CC /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +135,7 @@
 		FC333CF8F2040C042FDD3B90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1543ECAB28F9840A003C13CC /* StoreKit.framework */,
 				2A330E9E3E45872327ADBCDA /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
@@ -454,10 +458,7 @@
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -594,10 +595,7 @@
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -627,10 +625,7 @@
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",

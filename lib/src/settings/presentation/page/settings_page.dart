@@ -3,13 +3,17 @@ import 'dart:io';
 import 'package:app_review/app_review.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/app/app_bloc.dart';
+import 'package:karate_stars_app/src/app/app_state.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/default_stream_builder.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/filters/SegmentedFilter.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_icons.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/purchases/presentation/page/purchases_page.dart';
 import 'package:karate_stars_app/src/settings/presentation/blocs/settings_bloc.dart';
 import 'package:karate_stars_app/src/settings/presentation/states/settings_state.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -24,9 +28,10 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<SettingsBloc>(context);
+    final settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    final appBloc = BlocProvider.of<AppBloc>(context);
 
-    bloc.visitScreen();
+    settingsBloc.visitScreen();
 
     return Scaffold(
         appBar: AppBar(
@@ -36,40 +41,56 @@ class SettingsPage extends StatelessWidget {
                 style: TextStyle(
                     fontSize:
                         Theme.of(context).textTheme.headline6!.fontSize))),
-        body: SafeArea(
-            child: StreamBuilder<SettingsState>(
-          initialData: bloc.state,
-          stream: bloc.observableState,
-          builder: (context, snapshot) {
-            final state = snapshot.data;
-
-            if (state != null) {
-              if (state is LoadingState) {
-                return Progress();
-              } else if (state is ErrorState) {
-                final listState = state as ErrorState;
-                return Center(
-                  child: NotificationMessage(listState.message),
-                );
-              } else {
-                return _renderSettings(context,
-                    (state as LoadedState<SettingsStateData>).data, bloc);
-              }
-            } else {
-              return const Text('No Data');
-            }
-          },
-        )));
+        body: SafeArea(child: renderContent(appBloc, settingsBloc)));
   }
 
-  Widget _renderSettings(
-      BuildContext context, SettingsStateData stateData, SettingsBloc bloc) {
+  DefaultStateStreamBuilder<SettingsStateData> renderContent(
+      AppBloc appBloc, SettingsBloc settingsBloc) {
+    return DefaultStateStreamBuilder<SettingsStateData>(
+        initialData: settingsBloc.state,
+        stream: settingsBloc.observableState,
+        builder: (context, snapshot) {
+          final settingsState =
+              (snapshot.data as LoadedState<SettingsStateData>).data;
+
+          return DefaultStateStreamBuilder<AppStateData>(
+              initialData: appBloc.state,
+              stream: appBloc.observableState,
+              builder: (context, snapshot) {
+                final isPremium =
+                    (snapshot.data as LoadedState<AppStateData>).data.isPremium;
+
+                return _renderSettings(
+                    context, isPremium, settingsState, settingsBloc);
+              });
+        });
+  }
+
+  Widget _renderSettings(BuildContext context, bool isPremium,
+      SettingsStateData stateData, SettingsBloc bloc) {
     return SettingsList(
       lightTheme: const SettingsThemeData(
           titleTextColor: Color.fromRGBO(109, 109, 114, 1)),
       darkTheme:
           const SettingsThemeData(titleTextColor: CupertinoColors.systemGrey),
       sections: [
+        SettingsSection(
+          title: const Text('Karate Stars Pro'),
+          tiles: [
+            SettingsTile.navigation(
+              leading: const Icon(Icons.shopping_cart),
+              title: const Text('Yearly'),
+              onPressed: (BuildContext context) async {
+                //PurchasesExamplePage.navigate(context);
+                PurchasesPage.navigate(context);
+              },
+              trailing: isPremium
+                  ? const Icon(CupertinoIcons.check_mark_circled_solid,
+                      color: Colors.green)
+                  : Container(),
+            ),
+          ],
+        ),
         SettingsSection(
           title: Text(Strings.settings_app_section.toUpperCase()),
           tiles: [
@@ -84,7 +105,6 @@ class SettingsPage extends StatelessWidget {
               onPressed: (BuildContext context) async {
                 AppReview.storeListing;
                 bloc.requestReview();
-
               },
             ),
             SettingsTile.navigation(

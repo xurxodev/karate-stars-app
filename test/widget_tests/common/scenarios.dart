@@ -1,4 +1,4 @@
-import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 
 import 'scenarios_category.dart';

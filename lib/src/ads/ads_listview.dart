@@ -1,4 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:karate_stars_app/src/app/app_bloc.dart';
+import 'package:karate_stars_app/src/app/app_state.dart';
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 
 typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
 
@@ -34,11 +40,35 @@ class _AdsListViewState extends State<AdsListView> {
   static const _itemsPerAd = 8;
 
   List<Item> virtualItems = [];
+  bool isPremium = false;
+
+  late StreamSubscription<AppState> _appStateSubscription;
 
   @override
   void initState() {
     super.initState();
-    _generateVirtualItems();
+
+    Future.delayed(Duration.zero, () {
+      final appBloc = BlocProvider.of<AppBloc>(context);
+
+      generateByPremium(appBloc.state);
+
+      _appStateSubscription = appBloc.observableState.listen((state) {
+        generateByPremium(state);
+      });
+    });
+  }
+
+  void generateByPremium(DefaultState<AppStateData> state) {
+    if (state is LoadedState<AppStateData>) {
+      final isPremium = state.data.isPremium;
+
+      setState(() {
+        this.isPremium = isPremium;
+      });
+
+      _generateVirtualItems();
+    }
   }
 
   @override
@@ -56,11 +86,13 @@ class _AdsListViewState extends State<AdsListView> {
       return item;
     }).toList();
 
-    if (items.length <= _itemsPerAd) {
-      items.insert(items.length, AdItem());
-    } else {
-      for (int i = _itemsPerAd; i <= items.length; i += _itemsPerAd) {
-        items.insert(i, AdItem());
+    if (!isPremium) {
+      if (items.length <= _itemsPerAd) {
+        items.insert(items.length, AdItem());
+      } else {
+        for (int i = _itemsPerAd; i <= items.length; i += _itemsPerAd) {
+          items.insert(i, AdItem());
+        }
       }
     }
 
@@ -83,5 +115,11 @@ class _AdsListViewState extends State<AdsListView> {
             return widget.itemBuilder(context, item.originalIndex);
           }
         });
+  }
+
+  @override
+  void dispose() {
+    _appStateSubscription.cancel();
+    super.dispose();
   }
 }

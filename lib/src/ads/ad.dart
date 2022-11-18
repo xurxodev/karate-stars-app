@@ -1,6 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:karate_stars_app/src/app/app_bloc.dart';
+import 'package:karate_stars_app/src/app/app_state.dart';
+import 'package:karate_stars_app/src/app/app_state.dart' as my_app;
+import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/RoundedCard.dart';
 
 typedef IndexedWidgetBuilder = Widget Function(BuildContext context, int index);
@@ -17,33 +24,55 @@ class Ad extends StatefulWidget {
 }
 
 class _AdState extends State<Ad> {
-  late NativeAd _ad;
+  NativeAd? _ad;
   bool _isAdLoaded = false;
+
+  late StreamSubscription<my_app.AppState> _appStateSubscription;
 
   @override
   void initState() {
     super.initState();
 
-    _ad = NativeAd(
-      adUnitId: widget.adUnitId,
-      factoryId: 'listTile',
-      request: const AdRequest(),
-      listener: NativeAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          // Releases an ad resource when it fails to load
-          ad.dispose();
+    Future.delayed(Duration.zero, () {
+      final appBloc = BlocProvider.of<AppBloc>(context);
 
-          print('Ad load failed (code=${error.code} message=${error.message})');
-        },
-      ),
-    );
+      loadByPremium(appBloc.state);
 
-    _ad.load();
+      _appStateSubscription = appBloc.observableState.listen((state) {
+        loadByPremium(state);
+      });
+    });
+  }
+
+  void loadByPremium(DefaultState<my_app.AppStateData> state) {
+    if (state is LoadedState<AppStateData>) {
+
+      if (!state.data.isPremium) {
+        _ad = NativeAd(
+          adUnitId: widget.adUnitId,
+          factoryId: 'listTile',
+          request: const AdRequest(),
+          listener: NativeAdListener(
+            onAdLoaded: (_) {
+              setState(() {
+                _isAdLoaded = true;
+              });
+            },
+            onAdFailedToLoad: (ad, error) {
+              // Releases an ad resource when it fails to load
+              ad.dispose();
+
+              print(
+                  'Ad load failed (code=${error.code} message=${error.message})');
+            },
+          ),
+        );
+
+        _ad?.load();
+      }
+    } else {
+      _ad = null;
+    }
   }
 
   @override
@@ -58,7 +87,7 @@ class _AdState extends State<Ad> {
             child: Container(
               height: 75,
               padding: const EdgeInsets.all(8),
-              child: AdWidget(ad: _ad),
+              child: _ad != null? AdWidget(ad: _ad!): Container(),
               alignment: Alignment.center,
             ))
         : Container();
@@ -67,6 +96,7 @@ class _AdState extends State<Ad> {
   @override
   void dispose() {
     super.dispose();
-    _ad.dispose();
+    _ad?.dispose();
+    _appStateSubscription.cancel();
   }
 }

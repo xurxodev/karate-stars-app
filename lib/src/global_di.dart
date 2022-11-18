@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:karate_stars_app/src/app/app_di.dart' as app_di;
 import 'package:karate_stars_app/src/categories/category_di.dart'
     as category_di;
 import 'package:karate_stars_app/src/category_types/category_types_di.dart'
@@ -18,6 +19,7 @@ import 'package:karate_stars_app/src/event_types/event_types_di.dart'
 import 'package:karate_stars_app/src/events/event_di.dart' as event_di;
 import 'package:karate_stars_app/src/home/home_di.dart' as home_di;
 import 'package:karate_stars_app/src/news/news_di.dart' as news_di;
+import 'package:karate_stars_app/src/purchases/purchases_di.dart' as purchases_di;
 import 'package:karate_stars_app/src/rankings/rankings_di.dart' as rankings_di;
 import 'package:karate_stars_app/src/rate_app/rate_app_di.dart' as rate_app_di;
 import 'package:karate_stars_app/src/search/search_di.dart' as search_di;
@@ -49,6 +51,7 @@ Future<void> init() async {
 
   getIt.registerLazySingleton<ApiTokenStorage>(() => ApiTokenSecureStorage());
 
+  app_di.initAll();
   home_di.initAll();
   news_di.initAll(database, apiBaseAddress, apiCredentials);
   competitors_di.initAll(database, apiBaseAddress, apiCredentials);
@@ -62,6 +65,7 @@ Future<void> init() async {
   search_di.initAll(apiBaseAddress, apiCredentials);
   rate_app_di.initAll(apiCredentials);
   rankings_di.initAll(database, apiBaseAddress, apiCredentials);
+  purchases_di.initAll(apiBaseAddress, apiCredentials);
 }
 
 void initWithoutDataDependencies() {
@@ -69,6 +73,7 @@ void initWithoutDataDependencies() {
   getIt.registerLazySingleton<AnalyticsService>(
           () => FakeAnalyticsService());
 
+  app_di.initBlocAndUseCases();
   home_di.initBlocAndUseCases();
   news_di.initBlocAndUseCases();
   competitors_di.initBlocAndUseCases();

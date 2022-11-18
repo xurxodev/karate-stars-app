@@ -1,4 +1,4 @@
-import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/category_types/domain/boundaries/category_type_repository.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:mocktail/mocktail.dart';

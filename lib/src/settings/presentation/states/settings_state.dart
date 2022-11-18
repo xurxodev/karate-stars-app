@@ -12,8 +12,8 @@ class SettingsStateData {
   final bool rankingNotification;
   final String version;
 
-  SettingsStateData(
-      {required this.brightnessOptions,
+  SettingsStateData({
+      required this.brightnessOptions,
       required this.selectedBrightnessOption,
       required this.newsNotification,
       required this.competitorNotification,
@@ -21,13 +21,14 @@ class SettingsStateData {
       required this.rankingNotification,
       required this.version});
 
-  SettingsStateData copyWith(
-      {List<Option>? brightnessOptions,
-      String? selectedBrightnessOption,
-      bool? newsNotification,
-      bool? competitorNotification,
-      bool? videoNotification,
-      bool? rankingNotification}) {
+  SettingsStateData copyWith({
+    List<Option>? brightnessOptions,
+    String? selectedBrightnessOption,
+    bool? newsNotification,
+    bool? competitorNotification,
+    bool? videoNotification,
+    bool? rankingNotification,
+  }) {
     return SettingsStateData(
         brightnessOptions: brightnessOptions ?? this.brightnessOptions,
         selectedBrightnessOption:

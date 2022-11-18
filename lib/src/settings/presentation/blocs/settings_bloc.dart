@@ -5,6 +5,7 @@ import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.da
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/purchases/domain/usecases/is_premium.dart';
 import 'package:karate_stars_app/src/settings/domain/entities/settings.dart';
 import 'package:karate_stars_app/src/settings/domain/get_settings_use_case.dart';
 import 'package:karate_stars_app/src/settings/domain/save_settings_use_case.dart';
@@ -21,7 +22,8 @@ class SettingsBloc extends Bloc<SettingsState> {
   List<Option> brightnessOptions = [];
 
   SettingsBloc(this._getSettingsUseCase, this._saveSettingsUseCase,
-      this._analyticsService) {
+
+       this._analyticsService) {
     changeState(DefaultState.loading());
 
     brightnessOptions = mapBrightnessModeToOptions();
@@ -149,7 +151,7 @@ class SettingsBloc extends Bloc<SettingsState> {
     if (state is LoadedState) {
       final loadedState = state as LoadedState<SettingsStateData>;
       final settingsStateData =
-      loadedState.data.copyWith(rankingNotification: value);
+          loadedState.data.copyWith(rankingNotification: value);
 
       changeState(DefaultState.loaded(settingsStateData));
 
@@ -175,7 +177,4 @@ class SettingsBloc extends Bloc<SettingsState> {
 
     _saveSettingsUseCase.execute(settings);
   }
-
-
-
 }

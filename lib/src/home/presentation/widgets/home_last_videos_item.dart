@@ -23,7 +23,10 @@ class _ItemHomeLastVideoState extends State<ItemHomeLastVideo> {
   @override
   void initState() {
     super.initState();
-    _playVideoInterstitialAd = PlayVideoInterstitialAd();
+
+    Future.delayed(Duration.zero, () {
+      _playVideoInterstitialAd = PlayVideoInterstitialAd(context);
+    });
   }
 
   @override

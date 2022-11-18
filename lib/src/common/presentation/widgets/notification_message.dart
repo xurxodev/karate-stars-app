@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/common/keys.dart';
 
+@Deprecated('Use Message widget instead')
 class NotificationMessage extends StatelessWidget {
   final String text;
 

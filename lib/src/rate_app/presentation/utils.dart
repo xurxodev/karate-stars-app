@@ -1,4 +1,4 @@
-import 'package:karate_stars_app/app_di.dart' as app_di;
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/rate_app/domain/usecases/get_rate_app_use_case.dart';
 import 'package:karate_stars_app/src/rate_app/domain/usecases/save_rate_app_use_case.dart';
 import 'package:package_info_plus/package_info_plus.dart';
