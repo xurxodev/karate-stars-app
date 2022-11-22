@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
@@ -8,9 +7,10 @@ import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/search_app_bar.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/rankings/presentation/blocs/rankings_entries_bloc.dart';
 import 'package:karate_stars_app/src/rankings/presentation/state/ranking_entries_state.dart';
 import 'package:karate_stars_app/src/rankings/presentation/widgets/item_ranking_entry.dart';
@@ -84,8 +84,10 @@ class _RankingEntriesPageState extends State<RankingEntriesPage> {
                       return Progress();
                     } else if (state.content is ErrorState) {
                       final listState = state.content as ErrorState;
-                      return Center(
-                          child: NotificationMessage(listState.message));
+                      return Message(
+                        text: listState.message,
+                        type: MessageType.error,
+                      );
                     } else {
                       final content =
                           state.content as LoadedState<RankingEntriesContent>;
@@ -162,7 +164,10 @@ class _RankingEntriesPageState extends State<RankingEntriesPage> {
   Widget _renderList(BuildContext context, RankingEntriesContent content,
       RankingEntriesBloc bloc) {
     if (content.entries.isEmpty) {
-      return const NotificationMessage(Strings.rankings_entries_empty_message);
+      return const Message(
+        text: Strings.rankings_entries_empty_message,
+        type: MessageType.info,
+      );
     } else {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),

@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:karate_stars_app/src/global_di.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/local/database.dart';
@@ -11,6 +10,7 @@ import 'package:karate_stars_app/src/events/domain/boundaries/event_repository.d
 import 'package:karate_stars_app/src/events/domain/entities/event.dart';
 import 'package:karate_stars_app/src/events/domain/get_events.dart';
 import 'package:karate_stars_app/src/events/presentation/blocs/events_bloc.dart';
+import 'package:karate_stars_app/src/global_di.dart';
 
 void initAll(Database database, String apiUrl, Credentials apiCredentials) {
   _initDataDI(database, apiUrl, apiCredentials);

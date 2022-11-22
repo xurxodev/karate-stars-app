@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dar
 import 'package:karate_stars_app/src/common/presentation/functions/calculate_item_news_margin.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/home/presentation/blocs/home_bloc.dart';
 import 'package:karate_stars_app/src/home/presentation/states/home_state.dart';
@@ -49,8 +49,9 @@ class _HomePageViewState extends State<HomePageView>
             return Progress();
           } else if (state.listState is ErrorState) {
             final listState = state.listState as ErrorState;
-            return Center(
-              child: NotificationMessage(listState.message),
+            return Message(
+              text: listState.message,
+              type: MessageType.error,
             );
           } else {
             return _renderNews(
@@ -66,7 +67,10 @@ class _HomePageViewState extends State<HomePageView>
   Widget _renderNews(
       BuildContext context, LoadedState<List<HomeItem>> state, HomeBloc bloc) {
     if (state.data.isEmpty) {
-      return const NotificationMessage(Strings.news_empty_message);
+      return const Message(
+        text: Strings.news_empty_message,
+        type: MessageType.error,
+      );
     } else {
       return Container(
           padding: const EdgeInsets.only(top: 8.0),
@@ -104,8 +108,11 @@ class _HomePageViewState extends State<HomePageView>
                         return ItemSocialNews(homeItem.content,
                             itemTextKey: textKey);
                       } else {
-                        return ItemCurrentNews( currentNews: homeItem.content as CurrentNews,
-                            itemTextKey: textKey, type: CurrentNewsType.big,);
+                        return ItemCurrentNews(
+                          currentNews: homeItem.content as CurrentNews,
+                          itemTextKey: textKey,
+                          type: CurrentNewsType.big,
+                        );
                       }
                     }),
                 onRefresh: () async {

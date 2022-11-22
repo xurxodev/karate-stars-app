@@ -7,7 +7,7 @@ import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/videos_bloc.dart';
@@ -53,7 +53,10 @@ class _VideosPageViewState extends State<VideosPageView> {
             return Progress();
           } else if (state.list is ErrorState) {
             final listState = state.list as ErrorState;
-            return Center(child: NotificationMessage(listState.message));
+            return Message(
+              text: listState.message,
+              type: MessageType.error,
+            );
           } else {
             return _renderList(
                 context, state.list as LoadedState<List<Video>>, bloc);
@@ -69,7 +72,10 @@ class _VideosPageViewState extends State<VideosPageView> {
       BuildContext context, LoadedState<List<Video>> state, VideosBloc bloc) {
     print('videos' + state.data.length.toString());
     if (state.data.isEmpty) {
-      return const NotificationMessage(Strings.videos_empty_message);
+      return const Message(
+        text: Strings.videos_empty_message,
+        type: MessageType.error,
+      );
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
@@ -94,8 +100,7 @@ class _VideosPageViewState extends State<VideosPageView> {
                       onTap: () async {
                         _playVideoInterstitialAd.show();
                         VideoPlayerPage.navigate(context,
-                            arguments: VideoPlayerPageArgs(
-                                videoId: video.id));
+                            arguments: VideoPlayerPageArgs(videoId: video.id));
                       },
                     ); //, itemTextKey: textKey);
                   },

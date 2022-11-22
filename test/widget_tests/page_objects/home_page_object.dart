@@ -12,12 +12,12 @@ class HomePageObject {
 
   Future open() async {
     await _tester.pumpWidget(App.create(testing: true));
-    await _tester.pumpAndSettle();
+    await _tester.pumpAndSettle(const Duration(seconds:15));
   }
 
   void expectTitle(String expectedTitle) {
     final titleFinder =
-        find.descendant(of: find.byType(AppBar), matching: find.byType(Text));
+        find.descendant(of: find.byType(AppBar), matching: find.text(expectedTitle));
 
     final title = _tester.widget<Text>(titleFinder).data;
 

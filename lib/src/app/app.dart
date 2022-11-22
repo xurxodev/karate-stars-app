@@ -1,16 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/app/app_bloc.dart';
-import 'package:karate_stars_app/src/app/app_state.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/default_stream_builder.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/custom_colors.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/default_stream_builder.dart';
 import 'package:karate_stars_app/src/competitors/presentation/pages/competitor_detail_page.dart';
 import 'package:karate_stars_app/src/events/presentation/pages/events_page.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/main/main_page.dart';
 import 'package:karate_stars_app/src/news/presentation/page/current_news_page.dart';
 import 'package:karate_stars_app/src/purchases/presentation/page/purchases_page.dart';

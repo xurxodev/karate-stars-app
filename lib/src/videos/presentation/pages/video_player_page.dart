@@ -1,6 +1,5 @@
 import 'package:app_review/app_review.dart';
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
@@ -8,8 +7,9 @@ import 'package:karate_stars_app/src/common/domain/read_policy.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/videos/domain/entities/video.dart';
 import 'package:karate_stars_app/src/videos/presentation/blocs/video_player_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/states/VideoPlayerState.dart';
@@ -67,11 +67,13 @@ class _VideoPlayerPage extends State<VideoPlayerPage> {
             return Progress();
           } else if (state.playList is ErrorState) {
             final errorState = state as ErrorState;
-            return Center(child: NotificationMessage(errorState.message));
+            return Message(
+              text: errorState.message,
+              type: MessageType.error,
+            );
           } else {
             Future.delayed(const Duration(milliseconds: 100), () async {
-              if (state.requestRateApp == true){
-
+              if (state.requestRateApp == true) {
                 final available = await AppReview.isRequestReviewAvailable;
 
                 if (available) {

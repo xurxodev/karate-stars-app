@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/interstitial_ad.dart';
@@ -7,8 +6,9 @@ import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dar
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/CircleImage.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitor_detail_state.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/videos/presentation/blocs/competitor_videos_bloc.dart';
 import 'package:karate_stars_app/src/videos/presentation/pages/video_player_page.dart';
 import 'package:karate_stars_app/src/videos/presentation/states/competitor_videos_state.dart';
@@ -118,7 +118,10 @@ class _CompetitorVideosPageState extends State<CompetitorVideosPage> {
       return Progress();
     } else if (state is ErrorState) {
       final errorState = state as ErrorState;
-      return Center(child: NotificationMessage(errorState.message));
+      return Message(
+        text: errorState.message,
+        type: MessageType.error,
+      );
     } else {
       final competitor = (state as LoadedState<CompetitorVideos>).data;
       return _renderCompetitorVideos(context, competitor);

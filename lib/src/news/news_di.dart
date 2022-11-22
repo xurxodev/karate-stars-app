@@ -1,8 +1,8 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:karate_stars_app/src/global_di.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/local/database.dart';
+import 'package:karate_stars_app/src/global_di.dart';
 import 'package:karate_stars_app/src/news/data/local/data_sources/current_news_hive_data_source.dart';
 import 'package:karate_stars_app/src/news/data/local/data_sources/social_news_hive_data_source.dart';
 import 'package:karate_stars_app/src/news/data/local/models/social_news_db.dart';

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart' as cupertino;
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_app_bar.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/competitors_page_view.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/home/presentation/blocs/home_bloc.dart';
 import 'package:karate_stars_app/src/home/presentation/widgets/home_page_view.dart';
 import 'package:karate_stars_app/src/news/presentation/widgets/news_app_bar.dart';

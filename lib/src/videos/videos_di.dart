@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
-import 'package:karate_stars_app/src/global_di.dart';
 import 'package:karate_stars_app/src/common/auth/credentials.dart';
 import 'package:karate_stars_app/src/common/data/data_sources_contracts.dart';
 import 'package:karate_stars_app/src/common/data/local/database.dart';
+import 'package:karate_stars_app/src/global_di.dart';
 import 'package:karate_stars_app/src/videos/data/local/models/video_db.dart';
 import 'package:karate_stars_app/src/videos/data/local/video_hive_data_source.dart';
 import 'package:karate_stars_app/src/videos/data/remote/video_api_data_source.dart';

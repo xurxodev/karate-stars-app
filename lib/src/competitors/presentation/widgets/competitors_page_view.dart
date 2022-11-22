@@ -6,7 +6,7 @@ import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitors_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitors_state.dart';
@@ -41,7 +41,10 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
             return Progress();
           } else if (state.list is ErrorState) {
             final listState = state.list as ErrorState;
-            return Center(child: NotificationMessage(listState.message));
+            return Message(
+              text: listState.message,
+              type: MessageType.error,
+            );
           } else {
             return _renderList(context,
                 state.list as LoadedState<List<CompetitorItemState>>, bloc);
@@ -57,7 +60,10 @@ class _CompetitorsPageViewState extends State<CompetitorsPageView>
   Widget _renderList(BuildContext context,
       LoadedState<List<CompetitorItemState>> state, CompetitorsBloc bloc) {
     if (state.data.isEmpty) {
-      return const NotificationMessage(Strings.competitor_empty_message);
+      return const Message(
+        text: Strings.competitor_empty_message,
+        type: MessageType.error,
+      );
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),

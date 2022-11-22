@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
@@ -8,10 +7,11 @@ import 'package:karate_stars_app/src/common/keys.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitors_state.dart';
 import 'package:karate_stars_app/src/competitors/presentation/widgets/item_competitor.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/news/domain/entities/current.dart';
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 import 'package:karate_stars_app/src/news/domain/entities/social.dart';
@@ -95,14 +95,18 @@ class _SearchPageState extends State<SearchPage>
       return Progress();
     } else if (newsResults is ErrorState) {
       final errorState = newsResults as ErrorState;
-      return Center(
-        child: NotificationMessage(errorState.message),
+      return Message(
+        text: errorState.message,
+        type: MessageType.error,
       );
     } else {
       final news = (newsResults as LoadedState<List<News>>).data;
 
       if (news.isEmpty) {
-        return const NotificationMessage(Strings.search_empty_message);
+        return const Message(
+          text: Strings.search_empty_message,
+          type: MessageType.info,
+        );
       } else {
         return Container(
             padding: const EdgeInsets.only(top: 8.0),
@@ -137,14 +141,18 @@ class _SearchPageState extends State<SearchPage>
       return Progress();
     } else if (competitorResults is ErrorState) {
       final errorState = competitorResults as ErrorState;
-      return Center(
-        child: NotificationMessage(errorState.message),
+      return Message(
+        text: errorState.message,
+        type: MessageType.info,
       );
     } else {
       final competitors =
           (competitorResults as LoadedState<List<CompetitorItemState>>).data;
       if (competitors.isEmpty) {
-        return const NotificationMessage(Strings.search_empty_message);
+        return const Message(
+          text: Strings.search_empty_message,
+          type: MessageType.info,
+        );
       } else {
         return Container(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
@@ -174,14 +182,18 @@ class _SearchPageState extends State<SearchPage>
       return Progress();
     } else if (videoResults is ErrorState) {
       final errorState = videoResults as ErrorState;
-      return Center(
-        child: NotificationMessage(errorState.message),
+      return Message(
+        text: errorState.message,
+        type: MessageType.info,
       );
     } else {
       final videos = (videoResults as LoadedState<List<Video>>).data;
 
       if (videos.isEmpty) {
-        return const NotificationMessage(Strings.search_empty_message);
+        return const Message(
+          text: Strings.search_empty_message,
+          type: MessageType.info,
+        );
       } else {
         return Container(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),

@@ -87,6 +87,7 @@ void initWithoutDataDependencies() {
   search_di.initBlocAndUseCases();
   rate_app_di.initUseCases();
   rankings_di.initBlocAndUseCases();
+  purchases_di.initBlocAndUseCases();
 }
 
 Future<void> reset() {

@@ -1,6 +1,7 @@
 import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/news/domain/entities/news.dart';
 
+import 'scenarios_app.dart';
 import 'scenarios_category.dart';
 import 'scenarios_category_types.dart';
 import 'scenarios_competitors.dart';
@@ -13,6 +14,7 @@ Future<void> givenThereAreNoData() async {
   await app_di.reset();
   app_di.initWithoutDataDependencies();
 
+  givenIsPremium();
   givenThereAreSettings();
   givenThereAreNoNews();
   givenThereAreNoCompetitors();
@@ -26,6 +28,7 @@ Future<void> givenThereAreOnlyNewsAndThrowNetworkException() async {
   await app_di.reset();
   app_di.initWithoutDataDependencies();
 
+  givenIsPremium();
   givenThereAreSettings();
   givenThatNewsDataThrowNetworkException();
   givenThereAreNoCompetitors();
@@ -39,6 +42,7 @@ Future<List<News>> givenThereAreOnlyNews() async {
   await app_di.reset();
   app_di.initWithoutDataDependencies();
 
+  givenIsPremium();
   givenThereAreSettings();
   givenThereAreNoCompetitors();
   givenThereAreNoCountries();

@@ -1,7 +1,6 @@
 import 'package:app_review/app_review.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/common/domain/read_policy.dart';
@@ -13,10 +12,11 @@ import 'package:karate_stars_app/src/common/presentation/widgets/CircleImage.dar
 import 'package:karate_stars_app/src/common/presentation/widgets/CustomScrollViewWithFab.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/medals.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/competitors/domain/entities/competitor.dart';
 import 'package:karate_stars_app/src/competitors/presentation/blocs/competitor_detail_bloc.dart';
 import 'package:karate_stars_app/src/competitors/presentation/states/competitor_detail_state.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/videos/presentation/pages/competitor_videos_page.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -67,8 +67,7 @@ class CompetitorDetailPage extends StatelessWidget {
 
             if (state != null) {
               Future.delayed(const Duration(milliseconds: 100), () async {
-                if (state.requestRateApp == true){
-
+                if (state.requestRateApp == true) {
                   final available = await AppReview.isRequestReviewAvailable;
 
                   if (available) {
@@ -120,7 +119,8 @@ class CompetitorDetailPage extends StatelessWidget {
                     ),
                     SliverFillRemaining(
                         hasScrollBody: false,
-                        child: _renderHeaderContent(context, state.competitor, bloc)),
+                        child: _renderHeaderContent(
+                            context, state.competitor, bloc)),
                   ]);
             } else {
               return const Text('No Data');
@@ -179,7 +179,10 @@ class CompetitorDetailPage extends StatelessWidget {
       return Progress();
     } else if (state is ErrorState) {
       final errorState = state as ErrorState;
-      return Center(child: NotificationMessage(errorState.message));
+      return Message(
+        text: errorState.message,
+        type: MessageType.error,
+      );
     } else {
       final competitor = (state as LoadedState<CompetitorInfoState>).data;
       return _renderCompetitorInfo(context, competitor, bloc);

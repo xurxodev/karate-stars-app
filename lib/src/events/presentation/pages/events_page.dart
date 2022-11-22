@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
@@ -8,7 +7,7 @@ import 'package:karate_stars_app/src/common/presentation/functions/showPlatformD
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/actions/FilterAction.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/platform/platform_alert_dialog.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/events/domain/entities/event.dart';
@@ -16,6 +15,7 @@ import 'package:karate_stars_app/src/events/presentation/blocs/events_bloc.dart'
 import 'package:karate_stars_app/src/events/presentation/state/events_state.dart';
 import 'package:karate_stars_app/src/events/presentation/widgets/events_filters.dart';
 import 'package:karate_stars_app/src/events/presentation/widgets/item_event.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class EventsPage extends StatelessWidget {
@@ -73,7 +73,10 @@ class EventsPage extends StatelessWidget {
                 return Progress();
               } else if (state.list is ErrorState) {
                 final listState = state.list as ErrorState;
-                return Center(child: NotificationMessage(listState.message));
+                return Message(
+                  text: listState.message,
+                  type: MessageType.info,
+                );
               } else {
                 return _renderList(
                     context, state.list as LoadedState<List<Event>>, bloc);
@@ -89,7 +92,10 @@ class EventsPage extends StatelessWidget {
       BuildContext context, LoadedState<List<Event>> state, EventsBloc bloc) {
     print('videos' + state.data.length.toString());
     if (state.data.isEmpty) {
-      return const NotificationMessage(Strings.videos_empty_message);
+      return const Message(
+        text: Strings.videos_empty_message,
+        type: MessageType.error,
+      );
     } else {
       return Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),

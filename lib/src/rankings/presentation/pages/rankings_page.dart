@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/ads/ad.dart';
 import 'package:karate_stars_app/src/ads/ads_helper.dart';
 import 'package:karate_stars_app/src/ads/ads_listview.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/Progress.dart';
-import 'package:karate_stars_app/src/common/presentation/widgets/notification_message.dart';
+import 'package:karate_stars_app/src/common/presentation/widgets/message.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
+import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/rankings/domain/entities/ranking.dart';
 import 'package:karate_stars_app/src/rankings/presentation/blocs/rankings_bloc.dart';
 import 'package:karate_stars_app/src/rankings/presentation/state/rankings_state.dart';
@@ -50,7 +50,10 @@ class RankingsPage extends StatelessWidget {
                 return Progress();
               } else if (state.list is ErrorState) {
                 final listState = state.list as ErrorState;
-                return Center(child: NotificationMessage(listState.message));
+                return Message(
+                  text: listState.message,
+                  type: MessageType.error,
+                );
               } else {
                 return _renderList(
                     context, state.list as LoadedState<List<Ranking>>, bloc);
@@ -65,7 +68,10 @@ class RankingsPage extends StatelessWidget {
   Widget _renderList(BuildContext context, LoadedState<List<Ranking>> state,
       RankingsBloc bloc) {
     if (state.data.isEmpty) {
-      return const NotificationMessage(Strings.rankings_empty_message);
+      return const Message(
+        text: Strings.rankings_empty_message,
+        type: MessageType.info,
+      );
     } else {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),

@@ -86,7 +86,7 @@ class _PurchasesPageState extends State<PurchasesPage> {
                   color: Theme.of(context).brightness == Brightness.light
                       ? Colors.blueGrey[50]
                       : Colors.grey[600],
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   elevation: 0.0,
                   borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                   child: GestureDetector(

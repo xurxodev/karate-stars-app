@@ -27,7 +27,7 @@ class _AdState extends State<Ad> {
   NativeAd? _ad;
   bool _isAdLoaded = false;
 
-  late StreamSubscription<my_app.AppState> _appStateSubscription;
+  StreamSubscription<my_app.AppState>? _appStateSubscription;
 
   @override
   void initState() {
@@ -97,6 +97,6 @@ class _AdState extends State<Ad> {
   void dispose() {
     super.dispose();
     _ad?.dispose();
-    _appStateSubscription.cancel();
+    _appStateSubscription?.cancel();
   }
 }

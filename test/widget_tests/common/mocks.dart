@@ -4,6 +4,7 @@ import 'package:karate_stars_app/src/competitors/domain/boundaries/competitor_re
 import 'package:karate_stars_app/src/countries/domain/boundaries/country_repository.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/current_news_repository.dart';
 import 'package:karate_stars_app/src/news/domain/boundaries/social_news_repository.dart';
+import 'package:karate_stars_app/src/purchases/domain/repositories/purchases_repository.dart';
 import 'package:karate_stars_app/src/settings/domain/boundaries/settings_repository.dart';
 import 'package:karate_stars_app/src/videos/domain/boundaries/video_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -24,3 +25,5 @@ class MockCategoryRepository extends Mock implements CategoryRepository {}
 class MockVideoRepository extends Mock implements VideoRepository {}
 
 class MockSettingsRepository extends Mock implements SettingsRepository {}
+
+class MockPurchasesRepository extends Mock implements PurchaseRepository {}

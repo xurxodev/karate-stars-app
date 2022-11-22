@@ -33,7 +33,7 @@ class PurchaseRevenueCatRepository implements PurchaseRepository {
               price: package.storeProduct.price,
               currencyCode: package.storeProduct.currencyCode))
           .toList();
-    } on Exception catch (e) {
+    } on Exception {
       throw Exception('An error has occurred retrieving the products');
     }
   }
@@ -44,7 +44,7 @@ class PurchaseRevenueCatRepository implements PurchaseRepository {
       final customerInfo = await Purchases.restorePurchases();
 
       _validateIsPremium(customerInfo);
-    } on Exception catch (e) {
+    } on Exception {
       throw Exception(
           'An error has occurred restoring purchases');
     }

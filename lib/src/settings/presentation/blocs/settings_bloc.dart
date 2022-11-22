@@ -5,7 +5,6 @@ import 'package:karate_stars_app/src/common/presentation/boundaries/analytics.da
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/states/option.dart';
 import 'package:karate_stars_app/src/common/strings.dart';
-import 'package:karate_stars_app/src/purchases/domain/usecases/is_premium.dart';
 import 'package:karate_stars_app/src/settings/domain/entities/settings.dart';
 import 'package:karate_stars_app/src/settings/domain/get_settings_use_case.dart';
 import 'package:karate_stars_app/src/settings/domain/save_settings_use_case.dart';
