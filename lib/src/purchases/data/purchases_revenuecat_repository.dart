@@ -45,8 +45,7 @@ class PurchaseRevenueCatRepository implements PurchaseRepository {
 
       _validateIsPremium(customerInfo);
     } on Exception {
-      throw Exception(
-          'An error has occurred restoring purchases');
+      throw Exception('An error has occurred restoring purchases');
     }
   }
 
@@ -66,36 +65,43 @@ class PurchaseRevenueCatRepository implements PurchaseRepository {
   }
 
   Future<void> _init() async {
-    // Enable debug logs before calling `configure`.
-    await Purchases.setDebugLogsEnabled(true);
+    try {
 
-    PurchasesConfiguration configuration;
+      // Enable debug logs before calling `configure`.
+      await Purchases.setDebugLogsEnabled(true);
 
-    if (Platform.isAndroid) {
-      configuration = PurchasesConfiguration('goog_dqziGYeZiwLVbJhBKBorKLyLcTM')
-        ..appUserID = null
-        ..observerMode = false;
-    } else {
-      configuration = PurchasesConfiguration('appl_zpfUfxfSCJyGECkjzdRHftlvYbb')
-        ..appUserID = null
-        ..observerMode = false;
+      PurchasesConfiguration configuration;
+
+      if (Platform.isAndroid) {
+        configuration =
+            PurchasesConfiguration('goog_dqziGYeZiwLVbJhBKBorKLyLcTM')
+              ..appUserID = null
+              ..observerMode = false;
+      } else {
+        configuration =
+            PurchasesConfiguration('appl_zpfUfxfSCJyGECkjzdRHftlvYbb')
+              ..appUserID = null
+              ..observerMode = false;
+      }
+      await Purchases.configure(configuration);
+
+      Purchases.addCustomerInfoUpdateListener((customerInfo) async {
+        final customerInfo = await Purchases.getCustomerInfo();
+
+        _validateIsPremium(customerInfo);
+      });
+    } on Exception {
+      print('An error has occurred configuring the purchases module');
     }
-    await Purchases.configure(configuration);
-
-    Purchases.addCustomerInfoUpdateListener((customerInfo) async {
-      final customerInfo = await Purchases.getCustomerInfo();
-
-      _validateIsPremium(customerInfo);
-    });
   }
 
-  void _validateIsPremium(CustomerInfo customerInfo)  {
+  void _validateIsPremium(CustomerInfo customerInfo) {
     final isPremium = customerInfo.entitlements.all[entitlementID] != null &&
         customerInfo.entitlements.all[entitlementID]!.isActive;
 
-    if (isPremium){
+    if (isPremium) {
       _enablePremiumFeatures();
-    } else{
+    } else {
       _disablePremiumFeatures();
     }
   }

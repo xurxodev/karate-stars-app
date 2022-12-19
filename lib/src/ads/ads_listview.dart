@@ -68,6 +68,8 @@ class _AdsListViewState extends State<AdsListView> {
       });
 
       _generateVirtualItems();
+    } else {
+      _generateVirtualItems();
     }
   }
 

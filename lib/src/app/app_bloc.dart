@@ -7,10 +7,12 @@ class AppBloc extends Bloc<AppState> {
   final IsPremiumUseCase _isPremiumUseCase;
 
   AppBloc(this._isPremiumUseCase) {
-    changeState(DefaultState.loading());
+    changeState(DefaultState.loaded(AppStateData(isPremium: false)));
 
     _isPremiumUseCase.execute().listen((isPremium) {
-        changeState(DefaultState.loaded(AppStateData(isPremium: isPremium)));
+      changeState(DefaultState.loaded(AppStateData(isPremium: isPremium)));
+    },onError: (error) {
+      changeState(DefaultState.loaded(AppStateData(isPremium: false)));
     });
   }
 }
