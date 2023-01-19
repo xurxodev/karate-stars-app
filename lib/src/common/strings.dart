@@ -98,4 +98,6 @@ class Strings {
 
   static const String purchase_restore_error =
       'An error has occurred restoring purchase';
+  static const String purchase_terms_privacy_policy =
+      'Terms & Privacy Policy';
 }

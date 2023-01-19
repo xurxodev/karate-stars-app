@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:karate_stars_app/src/app/app_bloc.dart';
 import 'package:karate_stars_app/src/app/app_state.dart';
 import 'package:karate_stars_app/src/common/presentation/blocs/bloc_provider.dart';
+import 'package:karate_stars_app/src/common/presentation/functions/url.dart';
 import 'package:karate_stars_app/src/common/presentation/states/default_state.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/RoundedCard.dart';
 import 'package:karate_stars_app/src/common/presentation/widgets/default_stream_builder.dart';
+import 'package:karate_stars_app/src/common/strings.dart';
 import 'package:karate_stars_app/src/global_di.dart' as app_di;
 import 'package:karate_stars_app/src/purchases/domain/product.dart';
 import 'package:karate_stars_app/src/purchases/presentation/blocs/purchases_bloc.dart';
@@ -37,12 +39,12 @@ class _PurchasesPageState extends State<PurchasesPage> {
         title: const Text('Karate Stars Pro'),
       ),
       backgroundColor: Theme.of(context).cardColor,
-      body: _buildResults(appBloc, purchasesBloc),
+      body: _buildResults(context, appBloc, purchasesBloc),
     );
   }
 
   DefaultStateStreamBuilder<PurchasesStateData> _buildResults(
-      AppBloc appBloc, PurchasesBloc purchasesBloc) {
+  BuildContext context, AppBloc appBloc, PurchasesBloc purchasesBloc) {
     return DefaultStateStreamBuilder<PurchasesStateData>(
         initialData: purchasesBloc.state,
         stream: purchasesBloc.observableState,
@@ -57,14 +59,14 @@ class _PurchasesPageState extends State<PurchasesPage> {
                 final isPremium =
                     (snapshot.data as LoadedState<AppStateData>).data.isPremium;
 
-                return _buildProductList(
-                    isPremium, purchasesState.products, purchasesBloc);
+                return  _buildProductList(
+                    context, isPremium, purchasesState.products, purchasesBloc);
               });
         });
   }
 
   Card _buildProductList(
-      bool isPremium, List<Product> products, PurchasesBloc bloc) {
+      BuildContext context, bool isPremium, List<Product> products, PurchasesBloc bloc) {
     final content = isPremium
         ? [
             RoundedCard(
@@ -123,7 +125,14 @@ class _PurchasesPageState extends State<PurchasesPage> {
                   const Divider()
                 ] +
                 content +
-                _buildRestoreButton(isPremium, bloc)));
+                _buildRestoreButton(isPremium, bloc)+
+                 [ Padding(padding:const EdgeInsets.all(32.0) ,child:  InkWell(
+                     child:  const Text(Strings.purchase_terms_privacy_policy),
+                     onTap: () => launchURL(context, 'https://karatestarsapp.com/terms-and-privacy-policy.html')
+                 ))
+                  ]
+
+        ));
   }
 
   List<Widget> _buildRestoreButton(bool isPremium, PurchasesBloc bloc) {
